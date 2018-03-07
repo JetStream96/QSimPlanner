@@ -72,8 +72,7 @@ EFGH
                 new Waypoint("WPT2", 0.0, 2.0), "STAR", -1.0,
                 new Waypoint("EFGH18", 0.0, 3.0));
 
-            var provider = new PmdgProvider(route, manager);
-            var text = provider.GetExportText();
+            var text = PmdgProvider.GetExportText(route, manager);
 
             Assert.IsTrue(expected.EqualsIgnoreNewlineStyle(text));
         }

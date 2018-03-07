@@ -60,7 +60,6 @@ namespace QSP.RouteFinding.FileExport
         private Status Export(string nameBase, ExportCommand c, int i)
         {
             var fileName = GetFileFullPath(nameBase, c, i);
-            var provider = ProviderFactory.GetProvider(c.ProviderType, route, airports);
 
             try
             {
@@ -70,7 +69,7 @@ namespace QSP.RouteFinding.FileExport
                     ? GenerateFileName(nameBase + i.ToString().PadLeft(2, '0'), c)
                     : fileName;
 
-                File.WriteAllText(newName, provider.GetExportText());
+                File.WriteAllText(newName, Types.GetExportText(c.ProviderType, route, airports));
                 return new Status(newName, true, "", false);
             }
             catch (Exception ex)

@@ -208,6 +208,7 @@
     <Compile Include="RouteFinding\Airports\IRwyDataExtension.cs" />
     <Compile Include="RouteFinding\Airports\RunwaySelect.cs" />
     <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeCollection.cs" />
+    <Compile Include="RouteFinding\FileExport\Providers\Ifly737Provider.cs" />
     <Compile Include="RouteFinding\Finder\DestInfo.cs" />
     <Compile Include="RouteFinding\Finder\OrigInfo.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Parser\ProcedureParser.cs" />
@@ -227,11 +228,9 @@
     <Compile Include="RouteFinding\Data\WptSearchOption.cs" />
     <Compile Include="RouteFinding\FileExport\ExportCommand.cs" />
     <Compile Include="RouteFinding\FileExport\FileExporter.cs" />
-    <Compile Include="RouteFinding\FileExport\IExportProvider.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\Fs9Provider.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\FsxProvider.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\PmdgProvider.cs" />
-    <Compile Include="RouteFinding\FileExport\Providers\ProviderFactory.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\Types.cs" />
     <Compile Include="RouteFinding\FixTypes.cs" />
     <Compile Include="RouteFinding\RandomRoutes\FinderFactory.cs" />

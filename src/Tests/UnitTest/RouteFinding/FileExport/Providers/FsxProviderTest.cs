@@ -25,8 +25,7 @@ namespace UnitTest.RouteFinding.FileExport.Providers
                 new Waypoint("WPT", 0.0, 1.0), "B", -1.0,
                 new Waypoint("EFGH18", 0.0, 3.0));
 
-            var provider = new FsxProvider(route, manager);
-            var text = provider.GetExportText();
+            var text = FsxProvider.GetExportText(route, manager);
 
             // AssertFlightPlan
             var doc = XDocument.Parse(text);

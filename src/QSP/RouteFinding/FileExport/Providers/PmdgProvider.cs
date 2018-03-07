@@ -4,17 +4,8 @@ using System.Text;
 
 namespace QSP.RouteFinding.FileExport.Providers
 {
-    public class PmdgProvider : IExportProvider
+    public static class PmdgProvider
     {
-        private Route route;
-        private AirportManager airports;
-
-        public PmdgProvider(Route route, AirportManager airports)
-        {
-            this.route = route;
-            this.airports = airports;
-        }
-
         private static string PmdgLatLonFormat(double lat, double lon)
         {
             string s = null;
@@ -44,7 +35,7 @@ namespace QSP.RouteFinding.FileExport.Providers
         /// Returns a string represents the PMDG .rte file. 
         /// SIDs, STARs are not included.
         /// </summary>
-        public string GetExportText()
+        public static string GetExportText(Route route, AirportManager airports)
         {
             int numWpts = route.Count;
 
@@ -53,8 +44,8 @@ namespace QSP.RouteFinding.FileExport.Providers
             string icaoDest = route.LastWaypoint.ID.Substring(0, 4);
 
             var result = new StringBuilder();
-            AppendOrigAirportPart(numWpts, icaoOrig, result);
-            
+            AppendOrigAirportPart(numWpts, icaoOrig, result, airports);
+
             var node = route.First.Next;
 
             while (node != route.Last)
@@ -74,15 +65,13 @@ namespace QSP.RouteFinding.FileExport.Providers
                 node = node.Next;
             }
 
-            AppendDestAirportPart(icaoDest, result);
+            AppendDestAirportPart(icaoDest, result, airports);
             return result.ToString();
         }
 
         // Appends the ORIG airport part onto the StringBuilder.
-        private void AppendOrigAirportPart(
-            int numWpts,
-            string icao,
-            StringBuilder result)
+        private static void AppendOrigAirportPart(int numWpts, string icao,
+            StringBuilder result, AirportManager airports)
         {
             var ad = airports[icao];
 
@@ -98,9 +87,8 @@ namespace QSP.RouteFinding.FileExport.Providers
         }
 
         // Appends the DEST airport part onto the StringBuilder.        
-        private void AppendDestAirportPart(
-            string icao,
-            StringBuilder result)
+        private static void AppendDestAirportPart(string icao,
+            StringBuilder result, AirportManager airports)
         {
             var ad = airports[icao];
 

@@ -36,8 +36,7 @@ waypoint.2=EFGH, A, N0* 0.00', E0* 0.00', +000000.00,
                new Waypoint("WPT", 0.0, 1.0), "B", -1.0,
                new Waypoint("EFGH18"));
 
-            var provider = new Fs9Provider(route, manager);
-            var text = provider.GetExportText();
+            var text = Fs9Provider.GetExportText(route, manager);
 
             Assert.IsTrue(expected.EqualsIgnoreNewlineStyle(text));
         }

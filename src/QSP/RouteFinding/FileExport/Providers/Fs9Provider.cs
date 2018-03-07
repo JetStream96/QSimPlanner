@@ -10,21 +10,16 @@ using static QSP.AviationTools.Coordinates.FormatDegreeMinute;
 
 namespace QSP.RouteFinding.FileExport.Providers
 {
-    public class Fs9Provider : IExportProvider
+    public static class Fs9Provider
     {
-        private Route route;
-        private AirportManager airports;
-
-        public Fs9Provider(Route route, AirportManager airports)
+        /// <summary>
+        /// Returns the text of the file to export.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
+        public static string GetExportText(Route route, AirportManager airports)
         {
             if (route.Count < 2) throw new ArgumentException();
 
-            this.route = route;
-            this.airports = airports;
-        }
-
-        public string GetExportText()
-        {
             var orig = route.FirstWaypoint;
             var origId = orig.ID;
             var origIcao = origId.Substring(0, 4);
