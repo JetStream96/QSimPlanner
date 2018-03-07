@@ -41,7 +41,7 @@ namespace InstallerBuilder
 
             DeleteRedundantFiles(Version);
         }
-        
+
         private static void CompileErrorReport()
         {
             var errorReporterFolder = Path.Combine(OutputFolder, "tmperr");
@@ -83,7 +83,7 @@ namespace InstallerBuilder
             var gen = new LicenseTextGenerator(RepositoryRoot);
             File.WriteAllText(Path.Combine(folder, "LICENSE.txt"), gen.Generate());
         }
-        
+
         private static string GetVersion(string folder)
         {
             var file = Path.Combine(folder, "QSimPlanner.exe");
@@ -127,10 +127,12 @@ namespace InstallerBuilder
 
         private static void CopyDirectory(string source, string target)
         {
-            var info = new ProcessStartInfo();
-            info.UseShellExecute = false;
-            info.FileName = @"C:\WINDOWS\system32\xcopy.exe";
-            info.Arguments = $"\"{source}\" \"{target}\" /E /I";
+            var info = new ProcessStartInfo
+            {
+                UseShellExecute = false,
+                FileName = @"C:\WINDOWS\system32\xcopy.exe",
+                Arguments = $"\"{source}\" \"{target}\" /E /I"
+            };
             var process = Process.Start(info);
             process.WaitForExit();
         }

@@ -11,7 +11,6 @@ namespace QSP.LibraryExtension
         /// <param name="subKeyName">E.g. @"SOFTWARE\Microsoft\Windows NT\CurrentVersion"</param>
         /// <param name="valueName">E.g. "RegisteredOrganization"</param>
         /// <param name="view">E.g. RegistryView.Registry64 </param>
-        /// <returns></returns>
         public static string GetRegistry(
             RegistryHive hKey, string subKeyName, string valueName, RegistryView view)
         {

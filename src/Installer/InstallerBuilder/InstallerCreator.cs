@@ -26,12 +26,13 @@ namespace InstallerBuilder
             var result = Path.GetFullPath(ResultsFolderPath());
             var iss = Path.GetFullPath(issPath);
 
-            var info = new ProcessStartInfo();
-
-            info.UseShellExecute = false;
-            info.WorkingDirectory = GetInnoSetupPath();
-            info.FileName = Path.Combine(GetInnoSetupPath(), "iscc.exe");
-            info.Arguments = $"/O\"{result}\" \"{iss}\"";
+            var info = new ProcessStartInfo
+            {
+                UseShellExecute = false,
+                WorkingDirectory = GetInnoSetupPath(),
+                FileName = Path.Combine(GetInnoSetupPath(), "iscc.exe"),
+                Arguments = $"/O\"{result}\" \"{iss}\""
+            };
 
             var process = Process.Start(info);
             process.WaitForExit();
