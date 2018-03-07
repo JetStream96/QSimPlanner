@@ -59,8 +59,11 @@ namespace QSP.UI.Forms.Options
             SetDefaultState();
             SetControlsAsInOptions();
             FormClosing += CurrentFormClosing;
-
-#if (!DEBUG)
+            
+#if (DEBUG)
+            updateBtn.Enabled = false;
+            updateBtn.Text = "Update disabled in debug mode.";
+#else
             PerformAutoUpdate();
 #endif
         }

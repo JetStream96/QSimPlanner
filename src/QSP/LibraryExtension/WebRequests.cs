@@ -5,6 +5,7 @@ using System.Net.Cache;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using QSP.Utilities;
 
 namespace QSP.LibraryExtension
 {
@@ -97,6 +98,23 @@ namespace QSP.LibraryExtension
             {
                 return await wc.DownloadStringTaskAsync(uri);
             }
+        }
+
+        /// <summary>
+        /// Basically always use this to avoid errors due to .Net using old
+        /// security protocols by default.
+        /// </summary>
+        public static void SetSecuityProtocol()
+        {
+            try
+            {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            }
+            catch (System.Exception e)
+            {
+                LoggerInstance.Log(e);
+            }            
         }
     }
 }

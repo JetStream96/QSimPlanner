@@ -76,6 +76,7 @@ namespace QSP
 
                 CefDependency.InstallIfNeeded();
                 ShowLicenseIfNeeded();
+                LibraryExtension.WebRequests.SetSecuityProtocol();
                 var mainFrm = new QspForm();
                 mainFrm.Init();
                 Application.Run(mainFrm);
