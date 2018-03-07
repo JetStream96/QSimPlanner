@@ -1,5 +1,6 @@
 ﻿using QSP.AviationTools.Coordinates;
 using QSP.MathTools.Vectors;
+using QSP.RouteFinding.Data.Interfaces;
 using System;
 using static System.Math;
 
@@ -73,6 +74,14 @@ namespace QSP.MathTools
 
             // This is orthogonal to v and points to the right direction.
             return v3.Cross(v).Normalize();
+        }
+
+        /// <summary>
+        /// Calculates the true heading of the given vector, at the given coordinate.
+        /// </summary>
+        public static double TrueHeading(Vector3D v, ICoordinate c)
+        {
+            // TODO: Implement this.
         }
     }
 }

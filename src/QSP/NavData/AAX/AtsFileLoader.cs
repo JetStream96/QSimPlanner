@@ -57,10 +57,10 @@ namespace QSP.NavData.AAX
                         else if (words[0] == "S")
                         {
                             // This line is waypoint
-                            Waypoint firstWpt = new Waypoint(
+                            var firstWpt = new Waypoint(
                                 words[1], double.Parse(words[2]), double.Parse(words[3]));
 
-                            Waypoint secondWpt = new Waypoint(
+                            var secondWpt = new Waypoint(
                                 words[4], double.Parse(words[5]), double.Parse(words[6]));
 
                             int index1 = wptList.FindByWaypoint(firstWpt);

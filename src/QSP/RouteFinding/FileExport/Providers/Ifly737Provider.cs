@@ -43,7 +43,7 @@ namespace QSP.RouteFinding.FileExport.Providers
                     string.Format("{0} {1}", wpt.Lat, wpt.Lon),
                     "0",
                     "0",
-                    "Put heading here"); //TODO:
+                    "Put heading here"); //TODO: calculate true heading towards next wpt
                 return string.Join(",", words) +
                        ",0,0,1,-1,0.000,0,-1000,-1000,-1,-1,-1,0,0,000.00000,0,0,,-1000,-1,-1,-1000,0,-1000,-1,-1,-1000,0,-1000,-1,-1,-1000,0,-1000,-1,-1,-1000,0,-1000,-1000,0";
             });
