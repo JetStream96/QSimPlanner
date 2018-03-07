@@ -43,6 +43,10 @@ namespace QSP.Utilities
             Process.Start(info).WaitForExit();
         }
 
+        /// <summary>
+        /// Check if VC++ dedistributable is already installed, and starts the installer 
+        /// of VC++ redistributable. Then waits for the installation to finish.
+        /// </summary>
         public static void InstallIfNeeded()
         {
             if (!VCppAlreadyInstalled()) InstallVCpp();

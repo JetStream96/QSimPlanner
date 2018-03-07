@@ -74,6 +74,7 @@ namespace QSP
                 MoveNavData();
 #endif
 
+                CefDependency.InstallIfNeeded();
                 ShowLicenseIfNeeded();
                 var mainFrm = new QspForm();
                 mainFrm.Init();
