@@ -1,5 +1,6 @@
 ﻿using CommonLibrary.LibraryExtension;
 using CommonLibrary.LibraryExtension.Sets;
+using static CommonLibrary.LibraryExtension.Types;
 
 namespace QSP.RouteFinding
 {
@@ -12,7 +13,7 @@ namespace QSP.RouteFinding
         // The fix types with coordinates can be analyzed with FixTypeAnalyzer in this solution.
         //
         public static readonly IReadOnlySet<string> FixTypesWithCoords =
-            new[] { "IF", "DF", "TF", "FD", "CF", "AF", "FA", "HA", "FM", "FC", "RF", "HM", "HF" }
+            List("IF", "DF", "TF", "FD", "CF", "AF", "FA", "HA", "FM", "FC", "RF", "HM", "HF")
             .ToReadOnlySet();
 
         /// <summary>

@@ -13,13 +13,12 @@ namespace QSP.RouteFinding.FileExport.Providers
         public static string GetExportText(Route route, AirportManager airports)
         {
             if (route.Count < 2) throw new ArgumentException();
-            var linesPart1 = new[]
-            {
+            var linesPart1 = List(
                 route.FirstWaypoint.ID.Substring(0, 4),
                 route.FirstWaypoint.ID.Substring(4),
-                route.LastWaypoint.ID.Substring(0,4)
-            }.Concat(Repeat("", 7))
-             .Concat(new[] { "-1", "", "", "", "", "0" });
+                route.LastWaypoint.ID.Substring(0, 4)
+            ).Concat(Repeat("", 7))
+             .Concat(List("-1", "", "", "", "", "0"));
 
             var node = route.First.Next;
             var part2 = List(("DIRECT", node.Value.Waypoint));

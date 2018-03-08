@@ -254,7 +254,7 @@ namespace QSP.UI.Views
             this.importBtn.TabIndex = 2;
             this.importBtn.Text = "Import";
             this.importBtn.UseVisualStyleBackColor = false;
-            this.importBtn.Click += new System.EventHandler(this.importBtn_Click);
+            this.importBtn.Click += new System.EventHandler(this.ImportBtnClick);
             // 
             // downloadAllBtn
             // 
@@ -291,7 +291,7 @@ namespace QSP.UI.Views
             this.saveBtn.TabIndex = 1;
             this.saveBtn.Text = "Save";
             this.saveBtn.UseVisualStyleBackColor = false;
-            this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
+            this.saveBtn.Click += new System.EventHandler(this.SaveBtnClick);
             // 
             // tableLayoutPanel3
             // 

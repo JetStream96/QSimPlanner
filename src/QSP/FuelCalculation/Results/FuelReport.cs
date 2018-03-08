@@ -5,6 +5,7 @@ using static QSP.AviationTools.Constants;
 using static QSP.LibraryExtension.TimeFormat;
 using static QSP.MathTools.Numbers;
 using static QSP.Utilities.Units.Conversions;
+using static CommonLibrary.LibraryExtension.Types;
 
 namespace QSP.FuelCalculation.Results
 {
@@ -91,25 +92,16 @@ namespace QSP.FuelCalculation.Results
 
         public string ToString(WeightUnit unit)
         {
-            var valuesKg = new[]
-            {
-                FuelToDest, FuelCont, FuelHold, FuelExtra, FuelToAltn,
-                FuelFinalRsv, TakeoffFuel, FuelApu, FuelTaxi, TotalFuel
-            };
+            var valuesKg = List(FuelToDest, FuelCont, FuelHold, FuelExtra, FuelToAltn,
+                FuelFinalRsv, TakeoffFuel, FuelApu, FuelTaxi, TotalFuel);
 
-            var names = new[]
-            {
-                "TRIP", "CONTINGENCY", "HOLD", "EXTRA", "ALTERNATE",
-                "FINAL RSV", "AT T/O", "APU", "TAXI", "TOTAL"
-            };
+            var names = List("TRIP", "CONTINGENCY", "HOLD", "EXTRA", "ALTERNATE",
+                "FINAL RSV", "AT T/O", "APU", "TAXI", "TOTAL");
 
-            var times = new[]
-            {
-                TimeToDest, TimeCont, TimeHold, TimeExtra, TimeToAltn,
-                TimeFinalRsv, TimeTakeoff, TimeApu, TimeTaxi, TimeTotal
-            };
+            var times = List(TimeToDest, TimeCont, TimeHold, TimeExtra, TimeToAltn,
+                TimeFinalRsv, TimeTakeoff, TimeApu, TimeTaxi, TimeTotal);
 
-            var linebreakCount = new[]{1, 1, 1, 1, 1, 2, 2, 1, 2, 1};
+            var linebreakCount = List(1, 1, 1, 1, 1, 2, 2, 1, 2, 1);
 
             var ratio = unit == WeightUnit.KG ? 1.0 : KgLbRatio;
             var value = valuesKg.Select(x => (x * ratio).ToString("F0"));

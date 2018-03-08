@@ -82,6 +82,7 @@ namespace QSP.MathTools
         public static double TrueHeading(Vector3D v, ICoordinate c)
         {
             // TODO: Implement this.
+            throw new NotImplementedException();
         }
     }
 }

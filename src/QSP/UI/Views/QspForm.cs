@@ -324,13 +324,11 @@ namespace QSP.UI.Views
 
         private void InitMiscInfoMenu()
         {
-            Func<IEnumerable<string>> altnGetter = () => fuelMenu.AltnPresenter.Alternates;
-
             miscInfoPresenter = new MiscInfoPresenter(
                 miscInfoMenu, AirportList, windTableLocator, true,
                 () => fuelMenu.OrigIcao,
                 () => fuelMenu.DestIcao,
-                altnGetter);
+                () => fuelMenu.AltnPresenter.Alternates);
 
             miscInfoMenu.Init(miscInfoPresenter);
         }

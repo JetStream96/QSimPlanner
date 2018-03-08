@@ -30,7 +30,7 @@ namespace QSP.NavData.AAX
             }
         }
 
-      // Reads the ATS.txt into the given WaypointList.
+        // Reads the ATS.txt into the given WaypointList.
         // If the waypoints on a line is not found in wptList, it's added.
         // This method continues to read if an parsing error is encountered on a line.
         //
@@ -45,48 +45,47 @@ namespace QSP.NavData.AAX
                 var lineNum = index + 1;
                 var words = line.Split(',').Select(s => s.Trim()).ToList();
 
-                if (words.Count > 0)
+                if (words.Count == 0) return;
+
+                try
                 {
-                    try
+                    if (words[0] == "A")
                     {
-                        if (words[0] == "A")
-                        {
-                            // This line is an airway identifier
-                            currentAirway = words[1];
-                        }
-                        else if (words[0] == "S")
-                        {
-                            // This line is waypoint
-                            var firstWpt = new Waypoint(
-                                words[1], double.Parse(words[2]), double.Parse(words[3]));
-
-                            var secondWpt = new Waypoint(
-                                words[4], double.Parse(words[5]), double.Parse(words[6]));
-
-                            int index1 = wptList.FindByWaypoint(firstWpt);
-                            int index2 = wptList.FindByWaypoint(secondWpt);
-
-                            // words[7] and words[8] are headings between two waypoints. 
-                            // Will be skipped.
-
-                            double dis = double.Parse(words[9]);
-
-                            // Add second waypoint as required
-                            if (index2 <= 0) index2 = wptList.AddWaypoint(secondWpt);
-
-                            // Add first waypoint as required
-                            if (index1 < 0) index1 = wptList.AddWaypoint(firstWpt);
-
-                            // Add the connection.
-                            var neighbor = new Neighbor(currentAirway, dis);
-
-                            wptList.AddNeighbor(index1, index2, neighbor);
-                        }
+                        // This line is an airway identifier
+                        currentAirway = words[1];
                     }
-                    catch
+                    else if (words[0] == "S")
                     {
-                        errors.Add(new ReadFileError(lineNum, line));
+                        // This line is waypoint
+                        var firstWpt = new Waypoint(
+                            words[1], double.Parse(words[2]), double.Parse(words[3]));
+
+                        var secondWpt = new Waypoint(
+                            words[4], double.Parse(words[5]), double.Parse(words[6]));
+
+                        int index1 = wptList.FindByWaypoint(firstWpt);
+                        int index2 = wptList.FindByWaypoint(secondWpt);
+
+                        // words[7] and words[8] are headings between two waypoints. 
+                        // Will be skipped.
+
+                        double dis = double.Parse(words[9]);
+
+                        // Add second waypoint as required
+                        if (index2 <= 0) index2 = wptList.AddWaypoint(secondWpt);
+
+                        // Add first waypoint as required
+                        if (index1 < 0) index1 = wptList.AddWaypoint(firstWpt);
+
+                        // Add the connection.
+                        var neighbor = new Neighbor(currentAirway, dis);
+
+                        wptList.AddNeighbor(index1, index2, neighbor);
                     }
+                }
+                catch
+                {
+                    errors.Add(new ReadFileError(lineNum, line));
                 }
             });
 

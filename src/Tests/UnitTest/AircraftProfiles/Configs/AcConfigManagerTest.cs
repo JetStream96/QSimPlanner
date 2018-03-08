@@ -5,6 +5,7 @@ using QSP.Utilities.Units;
 using System.Linq;
 using TOTable = QSP.TOPerfCalculation.PerfTable;
 using LdgTable = QSP.LandingPerfCalculation.PerfTable;
+using static CommonLibrary.LibraryExtension.Types;
 
 namespace UnitTest.AircraftProfiles.Configs
 {
@@ -115,8 +116,7 @@ namespace UnitTest.AircraftProfiles.Configs
             var ldgFile = new QSP.LandingPerfCalculation.Entry("Boeing 777-300ER", "");
             var ldgTable = new LdgTable(null, ldgFile);
 
-            Assert.IsNull(manager.Validate(
-                new[] { fuelTable }, new[] { toTable }, new[] { ldgTable }));
+            Assert.IsNull(manager.Validate(List(fuelTable), List(toTable), List(ldgTable)));
         }
 
         [Test]

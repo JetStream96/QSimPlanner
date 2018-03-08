@@ -169,8 +169,10 @@ namespace QSP.RouteFinding.Finder
         {
             findRouteData.Init(regionPara.StartPtIndex);
 
-            var unvisited = new MinHeap<int, double>();
-            unvisited.Add(regionPara.StartPtIndex, 0.0);
+            var unvisited = new MinHeap<int, double>
+            {
+                { regionPara.StartPtIndex, 0.0 }
+            };
 
             while (unvisited.Count > 0)
             {

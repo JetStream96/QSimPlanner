@@ -19,6 +19,7 @@ using static QSP.RouteFinding.Tracks.AirwayNetwork;
 using static QSP.RouteFinding.Tracks.Common.Helpers;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
 using static QSP.Utilities.LoggerInstance;
+using static CommonLibrary.LibraryExtension.Types;
 
 namespace QSP.UI.Views
 {
@@ -108,16 +109,16 @@ namespace QSP.UI.Views
         }
 
         private Button DownloadBtn(TrackType t) =>
-            new[] { BtnNatsDn, BtnPacotsDn, BtnAusotsDn }[(int)t];
+            List(BtnNatsDn, BtnPacotsDn, BtnAusotsDn)[(int)t];
 
         private Button ViewBtn(TrackType t) =>
-            new[] { viewNatsBtn, viewPacotsBtn, viewAusotsBtn }[(int)t];
+            List(viewNatsBtn, viewPacotsBtn, viewAusotsBtn)[(int)t];
 
         private ComboBox EnabledCBox(TrackType t) =>
-            new[] { CBoxNatsEnabled, CBoxPacotsEnabled, CBoxAusotsEnabled }[(int)t];
+            List(CBoxNatsEnabled, CBoxPacotsEnabled, CBoxAusotsEnabled)[(int)t];
 
         private PictureBox PicBox(TrackType t) =>
-            new[] { PicBoxNats, PicBoxPacots, PicBoxAusots }[(int)t];
+            List(PicBoxNats, PicBoxPacots, PicBoxAusots)[(int)t];
 
         private void ViewTracks(TrackType t)
         {
@@ -126,7 +127,7 @@ namespace QSP.UI.Views
                 .TrimEmptyLines();
         }
 
-        private Image[] statusImages = new[]
+        private Image[] statusImages =
         {
             Properties.Resources.GreenLight,
             Properties.Resources.YellowLight,
@@ -211,7 +212,7 @@ namespace QSP.UI.Views
             var loadedTypes = TrackTypes.Where(t => airwayNetwork.TracksLoaded(t)).ToList();
             var maxSeverity = loadedTypes.Select(t => MaxSeverity(records, t)).ToList();
 
-            if (maxSeverity.All(s => s == Severity.Advisory) && 
+            if (maxSeverity.All(s => s == Severity.Advisory) &&
                 loadedTypes.Count == TrackTypes.Count)
             {
                 statusLbl.Image = Properties.Resources.GreenLight;
@@ -320,7 +321,7 @@ namespace QSP.UI.Views
             return $"track files (*{ext})|*{ext}|All files (*.*)|*.*";
         }
 
-        private void saveBtn_Click(object sender, EventArgs e)
+        private void SaveBtnClick(object sender, EventArgs e)
         {
             var msg = TrackTypes
                 .Select(t => airwayNetwork.GetTrackMessage(t))
@@ -357,7 +358,7 @@ namespace QSP.UI.Views
             }
         }
 
-        private void importBtn_Click(object sender, EventArgs e)
+        private void ImportBtnClick(object sender, EventArgs e)
         {
             var openFileDialog = new OpenFileDialog();
 

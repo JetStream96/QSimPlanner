@@ -175,45 +175,45 @@ namespace UnitTest.TOPerfCalculation.Boeing
         }
 
         private SlopeCorrTable _slopeCorrDry = new SlopeCorrTable(
-            new double[] { 4200, 4600 },
-            new double[] { -2.0, -1.5 },
-            new double[][]
+            new[] { 4200.0, 4600 },
+            new[] { -2.0, -1.5 },
+            new[]
             {
-                new double[]{4370,4330},
-                new double[]{4810,4760}
+                new[]{4370.0, 4330},
+                new[]{4810.0, 4760}
             });
 
         public SlopeCorrTable SlopeCorrDry => _slopeCorrDry;
 
         private SlopeCorrTable _slopeCorrWet = new SlopeCorrTable(
-            new double[] { 4200, 4600 },
-            new double[] { -2.0, -1.5 },
-            new double[][]
+            new[] { 4200.0, 4600 },
+            new[] { -2.0, -1.5 },
+            new[]
             {
-                new double[]{4380,4330},
-                new double[]{4820,4760}
+                new[]{4380.0, 4330},
+                new[]{4820.0, 4760}
             });
 
         public SlopeCorrTable SlopeCorrWet => _slopeCorrWet;
 
         private SlopeCorrTable _windCorrDry = new SlopeCorrTable(
-            new double[] { 4200, 4600 },
-            new double[] { -15.0, -10.0 },
-            new double[][]
+            new[] { 4200.0, 4600 },
+            new[] { -15.0, -10.0 },
+            new[]
             {
-                new double[]{ 3120, 3480},
-                new double[]{ 3460, 3840}
+                new[]{ 3120.0, 3480},
+                new[]{ 3460.0, 3840}
             });
 
         public SlopeCorrTable WindCorrDry => _windCorrDry;
 
         private SlopeCorrTable _windCorrWet = new SlopeCorrTable(
-            new double[] { 4200, 4600 },
-            new double[] { -15.0, -10.0 },
-            new double[][]
+            new[] { 4200.0, 4600 },
+            new[] { -15.0, -10.0 },
+            new[]
             {
-                new double[]{ 3030, 3420 },
-                new double[]{ 3370, 3780 }
+                new[]{ 3030.0, 3420 },
+                new[]{ 3370.0, 3780 }
             });
 
         public SlopeCorrTable WindCorrWet => _windCorrWet;
