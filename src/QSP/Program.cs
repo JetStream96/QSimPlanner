@@ -4,7 +4,6 @@ using QSP.Common.Options;
 using QSP.LibraryExtension;
 using QSP.LibraryExtension.XmlSerialization;
 using QSP.Properties;
-using QSP.UI.Forms;
 using QSP.UI.Util;
 using QSP.UI.Views;
 using QSP.Updates;

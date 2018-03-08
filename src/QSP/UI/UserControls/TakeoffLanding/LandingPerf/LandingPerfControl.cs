@@ -14,7 +14,6 @@ using System.Linq;
 using System.Windows.Forms;
 using QSP.UI.Models.TakeoffLanding;
 using QSP.UI.Util;
-using QSP.Metar;
 
 namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
 {

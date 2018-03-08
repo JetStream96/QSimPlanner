@@ -1,5 +1,4 @@
-﻿using QSP.MathTools;
-using static System.Math;
+﻿using static System.Math;
 using static QSP.AviationTools.ConversionTools;
 
 namespace QSP.AviationTools

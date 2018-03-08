@@ -10,7 +10,7 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
 {
     public static class ConnectionRouteInterpreter
     {
-        private static readonly char[] Delimeters = new char[] { ' ', '\n', '\r', '\t' };
+        private static readonly char[] Delimeters = { ' ', '\n', '\r', '\t' };
 
         public static ConnectionRoutes Convert(
             IReadOnlyList<string> mainRoute,

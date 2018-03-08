@@ -1,5 +1,4 @@
-﻿using System.Net;
-using static QSP.LibraryExtension.WebRequests;
+﻿using static QSP.LibraryExtension.WebRequests;
 
 namespace QSP.Metar
 {

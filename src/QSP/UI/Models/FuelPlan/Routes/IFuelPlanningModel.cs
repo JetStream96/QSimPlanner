@@ -2,7 +2,6 @@
 using QSP.Common.Options;
 using QSP.FuelCalculation.FuelData;
 using QSP.LibraryExtension;
-using QSP.Metar;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.Tracks;

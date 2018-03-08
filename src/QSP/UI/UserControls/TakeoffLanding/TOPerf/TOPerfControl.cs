@@ -2,7 +2,6 @@
 using QSP.AircraftProfiles.Configs;
 using QSP.AviationTools;
 using QSP.MathTools;
-using QSP.Metar;
 using QSP.RouteFinding.Airports;
 using QSP.TOPerfCalculation;
 using QSP.UI.Models.TakeoffLanding;

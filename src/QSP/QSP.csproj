@@ -133,6 +133,7 @@
     <Compile Include="AircraftProfiles\Configs\DeletedDefaultAc.cs" />
     <Compile Include="AircraftProfiles\ProfileCollection.cs" />
     <Compile Include="AviationTools\Constants.cs" />
+    <Compile Include="AviationTools\Coordinates\FormatDegMinNoSymbol.cs" />
     <Compile Include="AviationTools\Coordinates\FormatDegreeMinuteSecond.cs" />
     <Compile Include="AviationTools\Coordinates\Formatter.cs" />
     <Compile Include="AviationTools\Coordinates\FormatDecimal.cs" />

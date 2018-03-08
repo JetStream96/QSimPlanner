@@ -4,7 +4,6 @@ using System.IO;
 using System.Xml.Linq;
 using static QSP.Utilities.ExceptionHelpers;
 using static QSP.Utilities.LoggerInstance;
-using static CommonLibrary.LibraryExtension.Strings;
 
 namespace QSP.Updates
 {

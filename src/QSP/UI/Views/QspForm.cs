@@ -2,7 +2,6 @@
 using QSP.AircraftProfiles;
 using QSP.Common.Options;
 using QSP.LibraryExtension;
-using QSP.Metar;
 using QSP.NavData;
 using QSP.NavData.AAX;
 using QSP.RouteFinding.Airports;
@@ -26,7 +25,6 @@ using QSP.UI.Util.ScrollBar;
 using QSP.UI.Views.FuelPlan;
 using QSP.UI.Views.MiscInfo;
 using QSP.Updates;
-using QSP.Utilities;
 using QSP.WindAloft;
 using System;
 using System.Collections.Generic;

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using static QSP.LibraryExtension.WebRequests;
 
 namespace UnitTest.LibraryExtension
 {
