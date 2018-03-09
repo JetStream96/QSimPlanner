@@ -6,6 +6,12 @@ using static System.Math;
 
 namespace QSP.MathTools
 {
+    /// <summary>
+    /// Unit vectors are used in this class to specify positions on the sphere.
+    /// The conversion between this kind of unit vector and 
+    /// lat/lon is specified by method ToVector3D and ToLatLon in
+    /// QSP.MathTools.Vectors.Vector3DExtension.
+    /// </summary>
     public static class EarthGeometry
     {
         private static readonly Vector3D NorthPole = new LatLon(90.0, 0.0).ToVector3D();
@@ -13,8 +19,9 @@ namespace QSP.MathTools
         private static readonly Vector3D Lat0Lon0 = new LatLon(0.0, 0.0).ToVector3D();
 
         /// <summary>
-        /// Given different v1 and v2, which are both unit vectors on 
-        /// sphere, we can get a great circle path from v1 to v2 (choose the
+        /// Given different v1 and v2, which are unit vectors representing two unique
+        /// points on the sphere.
+        /// We can get a great circle path from v1 to v2 (choose the
         /// shortest great circle path). We walk the path by angle alpha from 
         /// v1 towards v2. This returns the point we end up with, which is
         /// an unit vector.
@@ -47,14 +54,12 @@ namespace QSP.MathTools
         }
         
         /// <summary>
-        /// Given v and v2, both are unit vectors on the sphere. This method 
-        /// returns the vector such that:
+        /// Given v and v2, which are unit vectors representing two unique
+        /// points on the sphere. This method returns the vector such that:
         /// (1) Tangent to the great circle route (the shorter one) from 
         ///     v to v2.
         /// (2) Normal to v.
         /// (3) Is unit vector.
-        /// 
-        /// It's required that v != v2. 
         /// 
         /// If v == -v2, the chosen path is the one that goes through the 
         /// north pole, if none of v and v2 is north pole.
