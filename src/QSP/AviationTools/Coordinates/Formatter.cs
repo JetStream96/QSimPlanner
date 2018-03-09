@@ -1,4 +1,7 @@
-﻿namespace QSP.AviationTools.Coordinates
+﻿using System;
+using static CommonLibrary.LibraryExtension.Types;
+
+namespace QSP.AviationTools.Coordinates
 {
     public static class Formatter
     {
@@ -11,15 +14,16 @@
         /// </summary>
         public static string TryTransformCoordinate(string item)
         {
-            var coord = Format7Letter.Parse(item);
+            var parsers = List<Func<string, LatLon>>(
+                Format7Letter.Parse, FormatDegMinNoSymbol.Parse);
 
-            if (coord == null)
+            foreach (var p in parsers)
             {
-                coord = FormatDegMinNoSymbol.Parse(item);
-                if (coord == null) return item;
+                var coord = p(item);
+                if (coord != null) return (coord.To5LetterFormat() ?? coord.ToDecimalFormat());
             }
 
-            return coord.To5LetterFormat() ?? coord.ToDecimalFormat();
+            return item;
         }
     }
 }
