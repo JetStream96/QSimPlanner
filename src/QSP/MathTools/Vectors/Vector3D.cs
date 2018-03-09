@@ -103,6 +103,12 @@ namespace QSP.MathTools.Vectors
                 Z == other.Z;
         }
 
+        public bool Equals(Vector3D other, double delta)
+        {
+            return other != null &&
+                (this - other).R <= delta;
+        }
+
         public override int GetHashCode()
         {
             return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();

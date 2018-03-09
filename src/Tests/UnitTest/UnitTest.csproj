@@ -102,9 +102,13 @@
     <Compile Include="LibraryExtension\LinkedListsTest.cs" />
     <Compile Include="LibraryExtension\ListsTest.cs" />
     <Compile Include="LibraryExtension\WebRequestsTest.cs" />
+    <Compile Include="MathTools\EarthGeometryTest.cs" />
     <Compile Include="MathTools\ModuloTest.cs" />
     <Compile Include="MathTools\Tables\Readers\TableReader1DTest.cs" />
     <Compile Include="MathTools\Tables\TableUtilTest.cs" />
+    <Compile Include="MathTools\Vectors\Vector2DTest.cs" />
+    <Compile Include="MathTools\Vectors\Vector3DExtensionTest.cs" />
+    <Compile Include="MathTools\Vectors\Vector3DTest.cs" />
     <Compile Include="NavData\AAX\AirportDataLoaderTest.cs" />
     <Compile Include="NavData\AAX\AtsFileLoaderTest.cs" />
     <Compile Include="NavData\AAX\CountryCodeGeneratorTest.cs" />

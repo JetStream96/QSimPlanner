@@ -30,6 +30,7 @@ namespace QSP.MathTools
         /// the north pole, if none of v1, v2 is north pole. Otherwise, 
         /// the point with lat:0, lon:0.
         /// </summary>
+        /// <exception cref="Exception"></exception>
         public static Vector3D GetV(Vector3D v1, Vector3D v2, double alpha)
         {
             double t = v1.Dot(v2);
@@ -52,7 +53,7 @@ namespace QSP.MathTools
 
             return v1 * a.X + v2 * a.Y;
         }
-        
+
         /// <summary>
         /// Given v and v2, which are unit vectors representing two unique
         /// points on the sphere. This method returns the vector such that:
@@ -83,11 +84,47 @@ namespace QSP.MathTools
 
         /// <summary>
         /// Calculates the true heading of the given vector, at the given coordinate.
+        /// Return value is larger than 0 and smaller or equal to 360. Note: If v is
+        /// orthogonal to the earth surface, the return value may be any number 
+        /// in that range.
         /// </summary>
+        /// <exception cref="ArgumentException"></exception>
         public static double TrueHeading(Vector3D v, ICoordinate c)
         {
-            // TODO: Implement this.
-            throw new NotImplementedException();
+            if (v.R == 0) throw new ArgumentException("Length of v cannot be 0.");
+
+            if (c.Lat >= 90.0) return 180;
+            if (c.Lat <= -90.0) return 360;
+
+            // Normal vector to tangent plane of earth at c
+            var normal = c.ToVector3D();
+
+            // Projection of v onto the tangent plane
+            var projection = ProjectOnPlane(v, normal);
+
+            if (projection.R == 0) return 360;
+
+            // vector that points towards north on the tangent plane
+            var north = ProjectOnPlane(new Vector3D(1, 0, 0), normal).Normalize();
+
+            // Calculate angle
+            var northComponent = ProjectOnUnitVec(projection, north);
+            var eastComponent = projection - northComponent;
+            var x = northComponent.Dot(projection);
+            var y = eastComponent.Dot(projection);
+            var heading = Angles.ToDegree(Atan2(y, x));
+            return heading == 0.0 ? 360.0 : heading;
+
+            Vector3D ProjectOnPlane(Vector3D p, Vector3D unitNormalVec)
+            {
+                return p - p.Dot(unitNormalVec) * unitNormalVec;
+            }
+
+            Vector3D ProjectOnUnitVec(Vector3D p, Vector3D unitVec)
+            {
+                return p.Dot(unitVec) * unitVec;
+            }
+
         }
     }
 }
