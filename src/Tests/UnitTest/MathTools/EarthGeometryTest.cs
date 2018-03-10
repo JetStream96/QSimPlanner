@@ -36,5 +36,11 @@ namespace UnitTest.MathTools
             Assert.IsTrue(IsZero(TrueHeading(v0, p2)));
             Assert.IsTrue(IsZero(TrueHeading(v1, p3)));
         }
+
+        [Test]
+        public void TureHeadingCoordinateTest()
+        {
+            Assert.AreEqual(90, TrueHeading(new LatLon(0, 20), new LatLon(0, 60)), 1e-7);
+        }
     }
 }

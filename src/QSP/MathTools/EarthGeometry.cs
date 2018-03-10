@@ -83,6 +83,17 @@ namespace QSP.MathTools
         }
 
         /// <summary>
+        /// Calculates the great circle path from x to y, and returns heading departing x.
+        /// x and y should be unique.
+        /// </summary>
+        /// <exception cref="ArgumentException"></exception>
+        public static double TrueHeading(ICoordinate x, ICoordinate y)
+        {
+            if (x.LatLonEquals(y)) throw new ArgumentException();
+            return TrueHeading(GetW(x.ToVector3D(), y.ToVector3D()), x);
+        }
+
+        /// <summary>
         /// Calculates the true heading of the given vector, at the given coordinate.
         /// Return value is larger than 0 and smaller or equal to 360. Note: If v is
         /// orthogonal to the earth surface, the return value may be any number 

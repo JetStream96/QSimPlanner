@@ -13,13 +13,15 @@ namespace UnitTest.RouteFinding
 {
     public static class Common
     {
-        // Format: 
-        // Waypoint1, AirwayToNext, Distance,
-        // Waypoint2, AirwayToNext, Distance,
-        // ...
-        // WaypointN
-        //
-        // Use a negative distance for automatic calculation
+        /// <summary>
+        /// Format: 
+        /// Waypoint1, AirwayToNext, Distance,
+        /// Waypoint2, AirwayToNext, Distance,
+        /// ...
+        /// WaypointN
+        ///
+        /// Use a negative distance for automatic calculation
+        /// </summary>
         public static Route GetRoute(params object[] para)
         {
             if (para.Length % 3 != 1)
