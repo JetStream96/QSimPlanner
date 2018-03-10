@@ -105,26 +105,21 @@ namespace QSP.MathTools
             if (projection.R == 0) return 360;
 
             // vector that points towards north on the tangent plane
-            var north = ProjectOnPlane(new Vector3D(1, 0, 0), normal).Normalize();
+            var north = ProjectOnPlane(new Vector3D(0, 0, 1), normal).Normalize();
+
+            var east = (-normal).Cross(new Vector3D(0, 0, 1)).Normalize();
 
             // Calculate angle
-            var northComponent = ProjectOnUnitVec(projection, north);
-            var eastComponent = projection - northComponent;
-            var x = northComponent.Dot(projection);
-            var y = eastComponent.Dot(projection);
+            var x = north.Dot(projection);
+            var y = east.Dot(projection);
             var heading = Angles.ToDegree(Atan2(y, x));
-            return heading == 0.0 ? 360.0 : heading;
+            var headingDeg = heading.Mod(360);
+            return headingDeg == 0.0 ? 360.0 : headingDeg;
 
             Vector3D ProjectOnPlane(Vector3D p, Vector3D unitNormalVec)
             {
                 return p - p.Dot(unitNormalVec) * unitNormalVec;
             }
-
-            Vector3D ProjectOnUnitVec(Vector3D p, Vector3D unitVec)
-            {
-                return p.Dot(unitVec) * unitVec;
-            }
-
         }
     }
 }
