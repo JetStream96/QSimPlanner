@@ -56,26 +56,22 @@ namespace UnitTest.RouteFinding.FileExport.Providers
 
             var ver = main.Element("AppVersion");
 
-            Assert.IsTrue(
-                ver.Element("AppVersionMajor").Value == "10" &&
-                ver.Element("AppVersionBuild").Value == "61637");
+            Assert.AreEqual(ver.Element("AppVersionMajor").Value, "10");
+            Assert.AreEqual(ver.Element("AppVersionBuild").Value, "61637");
 
             var wpts = main.Elements("ATCWaypoint").ToList();
             Assert.IsTrue(wpts.Count >= 2);
-            Assert.IsTrue(wpts.All(w =>
-            w.Attribute("id").Value == GetIdent(w)));
+            Assert.IsTrue(wpts.All(w => w.Attribute("id").Value == GetIdent(w)));
 
-            Assert.IsTrue(
-                wpts[0].Element("ATCWaypointType").Value == "Airport" &&
-                wpts[0].Element("WorldPosition").Value == origLatLonAlt &&
-                GetIdent(wpts[0]) == abcd.Icao);
+            Assert.AreEqual(wpts[0].Element("ATCWaypointType").Value, "Airport");
+            Assert.AreEqual(wpts[0].Element("WorldPosition").Value, origLatLonAlt);
+            Assert.AreEqual(GetIdent(wpts[0]), abcd.Icao);
 
             var wpt = route.First.Next.Value.Waypoint;
 
-            Assert.IsTrue(
-                wpts[1].Element("ATCWaypointType").Value == "Intersection" &&
-                wpts[1].Element("WorldPosition").Value == LatLonAlt(wpt, 0.0) &&
-                GetIdent(wpts[1]) == wpt.ID);
+            Assert.AreEqual(wpts[1].Element("ATCWaypointType").Value, "Intersection");
+            Assert.AreEqual(wpts[1].Element("WorldPosition").Value, LatLonAlt(wpt, 0.0));
+            Assert.AreEqual(GetIdent(wpts[1]), wpt.ID);
 
             Assert.IsTrue(
                 wpts[2].Element("ATCWaypointType").Value == "Airport" &&
@@ -108,8 +104,8 @@ namespace UnitTest.RouteFinding.FileExport.Providers
         [Test]
         public void LatLonAltTest()
         {
-            Assert.IsTrue("N25° 4' 23.28\",E121° 12' 58.26\",+000106.99"
-                == LatLonAlt(new LatLon(25.073133333, 121.216183333), 106.99));
+            Assert.AreEqual("N25° 4' 23.28\",E121° 12' 58.26\",+000106.99",
+                LatLonAlt(new LatLon(25.073133333, 121.216183333), 106.99));
         }
     }
 }
