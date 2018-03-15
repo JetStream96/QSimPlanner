@@ -290,7 +290,8 @@ namespace QSP.UI.Views.MiscInfo
 
         private void ShowMapBrowser(double lat, double lon)
         {
-            var html = InteractiveMap.GetHtml(lat, lon, browser.Width, browser.Height);
+            var html = InteractiveMap.GetHtml(lat, lon);
+            if (html == null) return;
             browser.LoadHtml(html, "http://rendering/");
         }
 
