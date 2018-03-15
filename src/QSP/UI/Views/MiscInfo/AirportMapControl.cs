@@ -1,5 +1,4 @@
-﻿using CefSharp;
-using CefSharp.WinForms;
+﻿using Gecko;
 using QSP.GoogleMap;
 using QSP.MathTools;
 using QSP.RouteFinding.Airports;
@@ -20,7 +19,7 @@ namespace QSP.UI.Views.MiscInfo
     {
         private AirportMapPresenter presenter;
         private PictureBox picBox;
-        private ChromiumWebBrowser browser;
+        private GeckoWebBrowser browser;
 
         public bool BrowserEnabled
         {
@@ -223,16 +222,17 @@ namespace QSP.UI.Views.MiscInfo
 
         private void EnableBrowser()
         {
-            if (!Cef.IsInitialized)
+            if (!Xpcom.IsInitialized)
             {
-                Cef.Initialize(new CefSettings());
+                Xpcom.Initialize("Firefox");
             }
 
-            var wb = new ChromiumWebBrowser("http://rendering/");
+            var wb = new GeckoWebBrowser();
 
             wb.Location = Point.Empty;
             wb.Size = MapSize;
-
+            wb.Navigate("http://rendering/");
+            
             tableLayoutPanel2.Controls.Add(wb, 0, 1);
             browser = wb;
         }

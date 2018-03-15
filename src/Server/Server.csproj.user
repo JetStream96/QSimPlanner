@@ -9,7 +9,7 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <ProjectView>ProjectFiles</ProjectView>
-    <NameOfLastUsedPublishProfile>qsimplanner - Web Deploy</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>FolderProfile</NameOfLastUsedPublishProfile>
     <LastActiveSolutionConfig>Debug|x86</LastActiveSolutionConfig>
   </PropertyGroup>
   <ProjectExtensions>

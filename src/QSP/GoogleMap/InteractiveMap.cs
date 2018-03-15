@@ -23,7 +23,7 @@
         </head>
 
         <body>
-        <div id=""googleMap"" style=""width:500px;height:380px;""></div>
+        <div id=""googleMap"" style=""position: absolute; top: 0; right: 0; bottom: 0; left: 0;""></div>
 
         </body>
         </html>";
@@ -40,11 +40,7 @@
             int windowHeight)
         {
 
-            return originalHtml
-                   .Replace("51.508742,-0.120850", $"{lat},{lon}")
-                   .Replace("width:500px;height:380px",
-                            $"width:{windowWidth -10}" +
-                            $"px;height:{windowHeight - 20}px");
+            return originalHtml.Replace("51.508742,-0.120850", $"{lat},{lon}");
         }
     }
 }

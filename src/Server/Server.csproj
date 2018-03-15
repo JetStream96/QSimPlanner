@@ -83,6 +83,7 @@
     <Content Include="App_Data\config_debug.xml" />
     <Content Include="updates\info.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="packages.config" />
     <Content Include="Default.cshtml" />

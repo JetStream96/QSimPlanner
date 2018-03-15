@@ -1,5 +1,4 @@
-﻿using CefSharp;
-using CefSharp.WinForms;
+﻿using Gecko;
 using QSP.GoogleMap;
 using QSP.RouteFinding.Routes;
 using QSP.UI.Views.Factories;
@@ -74,12 +73,12 @@ namespace QSP.UI.Util
         {
             using (var frm = FormFactory.GetForm(size))
             {
-                if (!Cef.IsInitialized)
+                if (!Xpcom.IsInitialized)
                 {
-                    Cef.Initialize(new CefSettings());
+                    Xpcom.Initialize("Firefox");
                 }
 
-                using (var wb = new ChromiumWebBrowser(Path.GetFullPath(tmpFilePath)))
+                using (var wb = new GeckoWebBrowser())
                 {
                     frm.ShowIcon = false;
                     frm.FormBorderStyle = FormBorderStyle.FixedToolWindow;
@@ -87,6 +86,7 @@ namespace QSP.UI.Util
                     frm.Controls.Add(wb);
 
                     wb.Dock = DockStyle.Fill;
+                    wb.Navigate(Path.GetFullPath(tmpFilePath));
 
                     frm.FormBorderStyle = FormBorderStyle.Sizable;
                     frm.ShowDialog();
