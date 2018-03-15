@@ -482,7 +482,6 @@
     <Compile Include="Updates\Utilities.cs" />
     <Compile Include="AviationTools\Airac\AiracPeriod.cs" />
     <Compile Include="LibraryExtension\Registries.cs" />
-    <Compile Include="Utilities\CefDependency.cs" />
     <Compile Include="Utilities\SimulatorPath.cs" />
     <Compile Include="Utilities\TimeIt.cs" />
     <Compile Include="Utilities\Units\Conversions.cs" />
@@ -865,9 +864,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="PerformanceData\TO\Default\7878_TO.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="vcredist_x86.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="app.config" />

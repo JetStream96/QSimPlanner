@@ -73,9 +73,8 @@ namespace QSP
                 MoveNavData();
 #endif
 
-                CefDependency.InstallIfNeeded();
                 ShowLicenseIfNeeded();
-                LibraryExtension.WebRequests.SetSecuityProtocol();
+                WebRequests.SetSecuityProtocol();
                 var mainFrm = new QspForm();
                 mainFrm.Init();
                 Application.Run(mainFrm);
