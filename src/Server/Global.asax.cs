@@ -1,4 +1,5 @@
-﻿using QSP.RouteFinding.Tracks.Nats;
+﻿using QSP.LibraryExtension;
+using QSP.RouteFinding.Tracks.Nats;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -250,6 +251,7 @@ namespace Server
         {
             // Fires when the application is started
             Shared.Logger.Log("Application started.");
+            WebRequests.SetSecuityProtocol();
 
             Action saveNatsWithLock = () =>
             {
