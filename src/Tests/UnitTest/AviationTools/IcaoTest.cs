@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using static CommonLibrary.AviationTools.Icao;
+using static QSP.AviationTools.Icao;
 
-namespace CommonLibraryTest.AviationTools
+namespace UnitTest.AviationTools
 {
     [TestFixture]
     public class IcaoTest

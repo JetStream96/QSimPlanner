@@ -1,4 +1,4 @@
-using CommonLibrary.LibraryExtension;
+using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Tracks;
@@ -19,7 +19,7 @@ using static QSP.RouteFinding.Tracks.AirwayNetwork;
 using static QSP.RouteFinding.Tracks.Common.Helpers;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
 using static QSP.Utilities.LoggerInstance;
-using static CommonLibrary.LibraryExtension.Types;
+using static QSP.LibraryExtension.Types;
 
 namespace QSP.UI.Views
 {

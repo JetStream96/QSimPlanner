@@ -2,7 +2,7 @@
 using System.Linq;
 using QSP.FuelCalculation.FuelData;
 using QSP.LibraryExtension;
-using static CommonLibrary.LibraryExtension.Types;
+using static QSP.LibraryExtension.Types;
 using TOTable = QSP.TOPerfCalculation.PerfTable;
 using LdgTable = QSP.LandingPerfCalculation.PerfTable;
 

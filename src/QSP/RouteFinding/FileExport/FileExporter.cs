@@ -1,7 +1,6 @@
 ﻿using QSP.Common;
 using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
-using QSP.RouteFinding.FileExport.Providers;
 using QSP.RouteFinding.Routes;
 using QSP.Utilities;
 using System;
@@ -69,7 +68,8 @@ namespace QSP.RouteFinding.FileExport
                     ? GenerateFileName(nameBase + i.ToString().PadLeft(2, '0'), c)
                     : fileName;
 
-                File.WriteAllText(newName, Types.GetExportText(c.ProviderType, route, airports));
+                File.WriteAllText(newName, 
+                    Providers.Types.GetExportText(c.ProviderType, route, airports));
                 return new Status(newName, true, "", false);
             }
             catch (Exception ex)

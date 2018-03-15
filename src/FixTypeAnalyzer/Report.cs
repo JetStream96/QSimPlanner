@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CommonLibrary.LibraryExtension;
-using CommonLibrary.LibraryExtension.Sets;
+using QSP.LibraryExtension;
+using QSP.LibraryExtension.Sets;
 
 namespace FixTypeAnalyzer
 {

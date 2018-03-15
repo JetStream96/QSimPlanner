@@ -88,6 +88,7 @@
     <Compile Include="AviationTools\Coordinates\FormatDegreeMinuteSecondTest.cs" />
     <Compile Include="AviationTools\Coordinates\FormatDegreeMinuteTest.cs" />
     <Compile Include="AviationTools\Coordinates\FormatterTest.cs" />
+    <Compile Include="AviationTools\IcaoTest.cs" />
     <Compile Include="AviationTools\RwyIdentConversionTest.cs" />
     <Compile Include="AviationTools\SpeedConversionTest.cs" />
     <Compile Include="Common\Constants.cs" />
@@ -99,8 +100,15 @@
     <Compile Include="FuelCalculation\Calculations\NodeMarkerTest.cs" />
     <Compile Include="FuelCalculation\FuelData\FuelDataItemTest.cs" />
     <Compile Include="LibraryExtension\EnglishTest.cs" />
+    <Compile Include="LibraryExtension\IEnumerablesTest.cs" />
     <Compile Include="LibraryExtension\LinkedListsTest.cs" />
     <Compile Include="LibraryExtension\ListsTest.cs" />
+    <Compile Include="LibraryExtension\LockedObjTest.cs" />
+    <Compile Include="LibraryExtension\Sets\ReadOnlySetTest.cs" />
+    <Compile Include="LibraryExtension\StringsTest.cs" />
+    <Compile Include="LibraryExtension\Tasks\TaskQueueTest.cs" />
+    <Compile Include="LibraryExtension\Tasks\UtilTest.cs" />
+    <Compile Include="LibraryExtension\TypesTest.cs" />
     <Compile Include="LibraryExtension\WebRequestsTest.cs" />
     <Compile Include="MathTools\AnglesTest.cs" />
     <Compile Include="MathTools\EarthGeometryTest.cs" />
@@ -220,10 +228,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CommonLibrary\CommonLibrary.csproj">
-      <Project>{56c3bd11-e518-4454-8f74-94156b04ebad}</Project>
-      <Name>CommonLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\QSP\QSP.csproj">
       <Project>{182ca73b-6911-4d37-ba34-c86232fe37f1}</Project>
       <Name>QSP</Name>

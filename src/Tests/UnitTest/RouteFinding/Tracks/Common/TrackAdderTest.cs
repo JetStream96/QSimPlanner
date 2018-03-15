@@ -8,7 +8,7 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Tracks.Interaction;
 using System.Linq;
 using QSP.RouteFinding.Data.Interfaces;
-using static CommonLibrary.LibraryExtension.Types;
+using static QSP.LibraryExtension.Types;
 
 namespace UnitTest.RouteFinding.Tracks.Common
 {

@@ -3,7 +3,7 @@ using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
-using static CommonLibrary.LibraryExtension.Types;
+using static QSP.LibraryExtension.Types;
 
 namespace UnitTest.RouteFinding.TerminalProcedures.Sid
 {

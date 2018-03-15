@@ -3,7 +3,7 @@ using QSP.LandingPerfCalculation.Boeing;
 using QSP.LandingPerfCalculation.Boeing.PerfData;
 using System.Linq;
 using System.Xml.Linq;
-using static CommonLibrary.LibraryExtension.IEnumerables;
+using static QSP.LibraryExtension.IEnumerables;
 
 namespace UnitTest.LandingPerfCalculation.Boeing
 {

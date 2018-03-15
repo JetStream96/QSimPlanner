@@ -1,5 +1,4 @@
-﻿using CommonLibrary.LibraryExtension;
-using CommonLibrary.LibraryExtension.Tasks;
+﻿using QSP.LibraryExtension;
 using QSP.AviationTools;
 using QSP.Metar;
 using System;
@@ -35,8 +34,9 @@ namespace QSP.RouteFinding.Airports
         public static async Task<(bool success, string rwy)> SelectRwyBasedOnWind(
           IEnumerable<IRwyData> rwys, string icao)
         {
-            var (timedout, metarDownloadResult) = await Util.RunAsyncWithTimeout(
-                () => MetarDownloader.DownloadMetar(icao), 1000);
+            var (timedout, metarDownloadResult) = 
+                await LibraryExtension.Tasks.Util.RunAsyncWithTimeout(
+                    () => MetarDownloader.DownloadMetar(icao), 1000);
 
             if (timedout) return (false, null);
             var (downloaded, metar) = metarDownloadResult;

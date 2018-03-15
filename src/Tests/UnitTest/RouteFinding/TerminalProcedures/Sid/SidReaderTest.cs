@@ -1,11 +1,11 @@
-﻿using CommonLibrary.LibraryExtension;
+﻿using QSP.LibraryExtension;
 using NUnit.Framework;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using System.Collections.Generic;
 using System.Linq;
-using static CommonLibrary.LibraryExtension.Types;
+using static QSP.LibraryExtension.Types;
 
 namespace UnitTest.RouteFinding.TerminalProcedures.Sid
 {

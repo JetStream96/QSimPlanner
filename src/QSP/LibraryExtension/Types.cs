@@ -1,7 +1,7 @@
-﻿using CommonLibrary.LibraryExtension.Sets;
+﻿using QSP.LibraryExtension.Sets;
 using System.Collections.Generic;
 
-namespace CommonLibrary.LibraryExtension
+namespace QSP.LibraryExtension
 {
     /// <summary>
     /// A more concise way to instantiate frequently used data structures.

@@ -1,9 +1,9 @@
 ﻿using NUnit.Framework;
-using CommonLibrary;
+using QSP.LibraryExtension;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace CommonLibraryTest.LibraryExtension
+namespace UnitTest.LibraryExtension
 {
     [TestFixture]
     public class LockedObjTest

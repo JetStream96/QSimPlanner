@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using static CommonLibrary.LibraryExtension.Types;
+using static QSP.LibraryExtension.Types;
 
 namespace QSP.WindAloft
 {

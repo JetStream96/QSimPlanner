@@ -1,5 +1,5 @@
 ﻿using System;
-using static CommonLibrary.LibraryExtension.Types;
+using static QSP.LibraryExtension.Types;
 
 namespace QSP.AviationTools.Coordinates
 {

@@ -5,7 +5,7 @@ using QSP.FuelCalculation.Calculations;
 using QSP.FuelCalculation.Results.Nodes;
 using System.Collections.Generic;
 using System.Linq;
-using static CommonLibrary.LibraryExtension.IEnumerables;
+using static QSP.LibraryExtension.IEnumerables;
 using static QSP.FuelCalculation.Calculations.NodeMarker;
 
 namespace UnitTest.FuelCalculation.Calculations

@@ -112,10 +112,6 @@
     <Compile Include="Shared.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
-      <Project>{56c3bd11-e518-4454-8f74-94156b04ebad}</Project>
-      <Name>CommonLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="..\QSP\QSP.csproj">
       <Project>{182ca73b-6911-4d37-ba34-c86232fe37f1}</Project>
       <Name>QSP</Name>

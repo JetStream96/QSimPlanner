@@ -1,5 +1,4 @@
-﻿using CommonLibrary.LibraryExtension;
-using QSP.LibraryExtension;
+﻿using QSP.LibraryExtension;
 using QSP.MathTools.Tables;
 using QSP.MathTools.Tables.Readers;
 using System.Collections.Generic;

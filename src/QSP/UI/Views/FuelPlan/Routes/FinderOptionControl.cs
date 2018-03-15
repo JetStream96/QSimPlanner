@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using static CommonLibrary.AviationTools.Icao;
+using static QSP.AviationTools.Icao;
 
 namespace QSP.UI.Views.FuelPlan.Routes
 {

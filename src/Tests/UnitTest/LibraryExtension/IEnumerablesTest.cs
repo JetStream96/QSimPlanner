@@ -1,9 +1,9 @@
 ﻿using NUnit.Framework;
-using CommonLibrary.LibraryExtension;
+using QSP.LibraryExtension;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CommonLibraryTest.LibraryExtension
+namespace UnitTest.LibraryExtension
 {
     [TestFixture]
     public class IEnumerablesTest

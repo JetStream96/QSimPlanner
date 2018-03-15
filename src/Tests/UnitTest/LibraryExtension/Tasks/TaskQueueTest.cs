@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using CommonLibrary.LibraryExtension.Tasks;
+using QSP.LibraryExtension.Tasks;
 
-namespace CommonLibraryTest.LibraryExtension.Tasks
+namespace UnitTest.LibraryExtension.Tasks
 {
     [TestFixture]
     public class TaskQueueTest

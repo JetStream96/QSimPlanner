@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CommonLibrary
+namespace QSP.LibraryExtension
 {
     public class LockedObj<T>
     {

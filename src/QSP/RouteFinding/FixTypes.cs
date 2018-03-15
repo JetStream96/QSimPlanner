@@ -1,6 +1,6 @@
-﻿using CommonLibrary.LibraryExtension;
-using CommonLibrary.LibraryExtension.Sets;
-using static CommonLibrary.LibraryExtension.Types;
+﻿using QSP.LibraryExtension;
+using QSP.LibraryExtension.Sets;
+using static QSP.LibraryExtension.Types;
 
 namespace QSP.RouteFinding
 {

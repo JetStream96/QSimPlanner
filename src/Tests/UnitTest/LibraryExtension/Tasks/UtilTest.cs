@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using static CommonLibrary.LibraryExtension.Tasks.Util;
+using static QSP.LibraryExtension.Tasks.Util;
 
-namespace CommonLibraryTest.LibraryExtension.Tasks
+namespace UnitTest.LibraryExtension.Tasks
 {
     [TestFixture]
     public class UtilTest

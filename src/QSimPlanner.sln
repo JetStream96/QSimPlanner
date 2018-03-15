@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2020
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QSP", "QSP\QSP.csproj", "{182CA73B-6911-4D37-BA34-C86232FE37F1}"
 EndProject
@@ -20,10 +20,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FixTypeAnalyzer", "FixTypeAnalyzer\FixTypeAnalyzer.csproj", "{21E4CE4D-BEAE-40DF-B66C-DA3618345432}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorReport", "ErrorReport\ErrorReport.csproj", "{85F5736F-35DD-459A-A0A7-30D3FA8BBE5D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonLibrary", "CommonLibrary\CommonLibrary.csproj", "{56C3BD11-E518-4454-8F74-94156B04EBAD}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonLibraryTest", "CommonLibraryTest\CommonLibraryTest.csproj", "{F0B66E83-95A6-49C4-B2EE-0CD6E03F9451}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{623B608B-3455-4042-8955-D7D2643D9E6D}"
 EndProject
@@ -65,14 +61,6 @@ Global
 		{85F5736F-35DD-459A-A0A7-30D3FA8BBE5D}.Debug|x86.Build.0 = Debug|x86
 		{85F5736F-35DD-459A-A0A7-30D3FA8BBE5D}.Release|x86.ActiveCfg = Release|x86
 		{85F5736F-35DD-459A-A0A7-30D3FA8BBE5D}.Release|x86.Build.0 = Release|x86
-		{56C3BD11-E518-4454-8F74-94156B04EBAD}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{56C3BD11-E518-4454-8F74-94156B04EBAD}.Debug|x86.Build.0 = Debug|Any CPU
-		{56C3BD11-E518-4454-8F74-94156B04EBAD}.Release|x86.ActiveCfg = Release|x86
-		{56C3BD11-E518-4454-8F74-94156B04EBAD}.Release|x86.Build.0 = Release|x86
-		{F0B66E83-95A6-49C4-B2EE-0CD6E03F9451}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F0B66E83-95A6-49C4-B2EE-0CD6E03F9451}.Debug|x86.Build.0 = Debug|Any CPU
-		{F0B66E83-95A6-49C4-B2EE-0CD6E03F9451}.Release|x86.ActiveCfg = Release|x86
-		{F0B66E83-95A6-49C4-B2EE-0CD6E03F9451}.Release|x86.Build.0 = Release|x86
 		{623B608B-3455-4042-8955-D7D2643D9E6D}.Debug|x86.ActiveCfg = Debug|x86
 		{623B608B-3455-4042-8955-D7D2643D9E6D}.Debug|x86.Build.0 = Debug|x86
 		{623B608B-3455-4042-8955-D7D2643D9E6D}.Release|x86.ActiveCfg = Release|x86

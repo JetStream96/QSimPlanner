@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using static CommonLibrary.LibraryExtension.IEnumerables;
+using static QSP.LibraryExtension.IEnumerables;
 
-namespace CommonLibrary.LibraryExtension
+namespace QSP.LibraryExtension
 {
     public static class Strings
     {

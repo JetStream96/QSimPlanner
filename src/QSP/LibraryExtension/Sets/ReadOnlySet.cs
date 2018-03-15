@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace CommonLibrary.LibraryExtension.Sets
+namespace QSP.LibraryExtension.Sets
 {
     public class ReadOnlySet<T> : IReadOnlySet<T>
     {

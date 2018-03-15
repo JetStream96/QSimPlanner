@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CommonLibrary.Attributes
+namespace QSP.Attributes
 {
     /// <summary>
     /// Indicates that the method cannot throw exception.

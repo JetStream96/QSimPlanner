@@ -1,8 +1,8 @@
-﻿using CommonLibrary.LibraryExtension.Sets;
+﻿using QSP.LibraryExtension.Sets;
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace CommonLibraryTest.LibraryExtension.Sets
+namespace UnitTest.LibraryExtension.Sets
 {
     [TestFixture]
     public class ReadOnlySetTest

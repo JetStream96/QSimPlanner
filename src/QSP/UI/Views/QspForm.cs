@@ -1,5 +1,4 @@
-﻿using CommonLibrary.LibraryExtension;
-using QSP.AircraftProfiles;
+﻿using QSP.AircraftProfiles;
 using QSP.Common.Options;
 using QSP.LibraryExtension;
 using QSP.NavData;

@@ -5,7 +5,7 @@ using QSP.Utilities.Units;
 using System.Linq;
 using TOTable = QSP.TOPerfCalculation.PerfTable;
 using LdgTable = QSP.LandingPerfCalculation.PerfTable;
-using static CommonLibrary.LibraryExtension.Types;
+using static QSP.LibraryExtension.Types;
 
 namespace UnitTest.AircraftProfiles.Configs
 {

@@ -1,4 +1,4 @@
-﻿using CommonLibrary.Attributes;
+﻿using QSP.Attributes;
 using QSP.RouteFinding.Finder;
 using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Routes;

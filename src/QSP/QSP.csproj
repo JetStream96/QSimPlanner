@@ -136,6 +136,7 @@
     <Compile Include="AircraftProfiles\Configs\ConfigLoader.cs" />
     <Compile Include="AircraftProfiles\Configs\DeletedDefaultAc.cs" />
     <Compile Include="AircraftProfiles\ProfileCollection.cs" />
+    <Compile Include="Attributes\Exceptions.cs" />
     <Compile Include="AviationTools\Constants.cs" />
     <Compile Include="AviationTools\Coordinates\FormatDegMinNoSymbol.cs" />
     <Compile Include="AviationTools\Coordinates\FormatDegreeMinuteSecond.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="AviationTools\Coordinates\LatLon.cs" />
     <Compile Include="AviationTools\Coordinates\FormatDegreeMinute.cs" />
     <Compile Include="AviationTools\Heading\HeadingCalculation.cs" />
+    <Compile Include="AviationTools\Icao.cs" />
     <Compile Include="AviationTools\RwyIdentConversion.cs" />
     <Compile Include="AviationTools\SpeedConversion.cs" />
     <Compile Include="Common\Options\AppOptions.cs" />
@@ -210,12 +212,22 @@
     <Compile Include="LibraryExtension\English.cs" />
     <Compile Include="LibraryExtension\Enums.cs" />
     <Compile Include="LibraryExtension\FileNameGenerator.cs" />
+    <Compile Include="LibraryExtension\IEnumerables.cs" />
     <Compile Include="LibraryExtension\IOMethods.cs" />
     <Compile Include="LibraryExtension\IReadOnlyBiDictionary.cs" />
     <Compile Include="LibraryExtension\IReadOnlyLists.cs" />
     <Compile Include="LibraryExtension\LinkedLists.cs" />
     <Compile Include="LibraryExtension\Locator.cs" />
+    <Compile Include="LibraryExtension\LockedObj.cs" />
+    <Compile Include="LibraryExtension\Sets\IReadOnlySet.cs" />
+    <Compile Include="LibraryExtension\Sets\ReadOnlySet.cs" />
+    <Compile Include="LibraryExtension\Strings.cs" />
+    <Compile Include="LibraryExtension\Tasks\SyncTaskQueue.cs" />
+    <Compile Include="LibraryExtension\Tasks\TaskQueue.cs" />
+    <Compile Include="LibraryExtension\Tasks\Util.cs" />
+    <Compile Include="LibraryExtension\Types.cs" />
     <Compile Include="LibraryExtension\WebRequests.cs" />
+    <Compile Include="LibraryExtension\Xmls.cs" />
     <Compile Include="LibraryExtension\XmlSerialization\Interfaces.cs" />
     <Compile Include="LibraryExtension\XmlSerialization\SerializationHelper.cs" />
     <Compile Include="MathTools\EarthGeometry.cs" />
@@ -1118,12 +1130,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
-      <Project>{56c3bd11-e518-4454-8f74-94156b04ebad}</Project>
-      <Name>CommonLibrary</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CommonLibrary.LibraryExtension.Sets
+namespace QSP.LibraryExtension.Sets
 {
     public interface IReadOnlySet<T> : IEnumerable<T>
     {

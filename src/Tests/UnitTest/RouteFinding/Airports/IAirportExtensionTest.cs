@@ -1,7 +1,7 @@
 ﻿using FakeItEasy;
 using NUnit.Framework;
 using QSP.RouteFinding.Airports;
-using static CommonLibrary.LibraryExtension.Types;
+using static QSP.LibraryExtension.Types;
 using static QSP.RouteFinding.Airports.IAirportExtensions;
 
 namespace UnitTest.RouteFinding.Airports

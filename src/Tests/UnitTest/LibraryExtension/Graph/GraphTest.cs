@@ -1,4 +1,4 @@
-﻿using CommonLibrary.LibraryExtension;
+﻿using QSP.LibraryExtension;
 using NUnit.Framework;
 using QSP.LibraryExtension.Graph;
 using System.Linq;

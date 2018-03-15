@@ -1,5 +1,4 @@
-﻿using CommonLibrary.LibraryExtension;
-using QSP.LibraryExtension;
+﻿using QSP.LibraryExtension;
 using QSP.LibraryExtension.JaggedArrays;
 using QSP.LibraryExtension.XmlSerialization;
 using QSP.MathTools.Tables;

@@ -5,7 +5,7 @@ using static QSP.AviationTools.Constants;
 using static QSP.LibraryExtension.TimeFormat;
 using static QSP.MathTools.Numbers;
 using static QSP.Utilities.Units.Conversions;
-using static CommonLibrary.LibraryExtension.Types;
+using static QSP.LibraryExtension.Types;
 
 namespace QSP.FuelCalculation.Results
 {

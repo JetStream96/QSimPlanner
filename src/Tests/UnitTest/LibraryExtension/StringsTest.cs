@@ -1,10 +1,10 @@
-﻿using CommonLibrary.LibraryExtension;
+﻿using QSP.LibraryExtension;
 using NUnit.Framework;
 using System;
 using System.Linq;
-using static CommonLibrary.LibraryExtension.Strings;
+using static QSP.LibraryExtension.Strings;
 
-namespace CommonLibraryTest.LibraryExtension
+namespace UnitTest.LibraryExtension
 {
     [TestFixture]
     public class StringsTest

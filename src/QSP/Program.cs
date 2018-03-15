@@ -1,5 +1,4 @@
-﻿using CommonLibrary.Attributes;
-using CommonLibrary.LibraryExtension;
+﻿using QSP.Attributes;
 using QSP.Common.Options;
 using QSP.LibraryExtension;
 using QSP.LibraryExtension.XmlSerialization;

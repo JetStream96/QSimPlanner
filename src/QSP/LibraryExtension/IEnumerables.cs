@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using CommonLibrary.LibraryExtension.Sets;
+using QSP.LibraryExtension.Sets;
 
-namespace CommonLibrary.LibraryExtension
+namespace QSP.LibraryExtension
 {
     public static class IEnumerables
     {

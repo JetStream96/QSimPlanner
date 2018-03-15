@@ -1,4 +1,4 @@
-﻿using CommonLibrary.Attributes;
+﻿using QSP.Attributes;
 using QSP.UI.Controllers.Units;
 using QSP.UI.Views.FuelPlan;
 using QSP.Utilities.Units;

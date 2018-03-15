@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
 using System.Linq;
-using static CommonLibrary.LibraryExtension.Types;
+using static QSP.LibraryExtension.Types;
 
-namespace CommonLibraryTest.LibraryExtension
+namespace UnitTest.LibraryExtension
 {
     [TestFixture]
     public class TypesTest

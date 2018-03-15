@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CommonLibrary.LibraryExtension.Tasks
+namespace QSP.LibraryExtension.Tasks
 {
     public static class Util
     {

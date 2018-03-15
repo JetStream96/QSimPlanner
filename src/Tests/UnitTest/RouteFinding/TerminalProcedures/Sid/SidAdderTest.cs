@@ -8,7 +8,7 @@ using QSP.RouteFinding.TerminalProcedures.Sid;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static CommonLibrary.LibraryExtension.Types;
+using static QSP.LibraryExtension.Types;
 using static UnitTest.Common.Constants;
 using static UnitTest.RouteFinding.Common;
 

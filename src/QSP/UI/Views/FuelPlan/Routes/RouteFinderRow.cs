@@ -7,7 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using static CommonLibrary.LibraryExtension.IEnumerables;
+using static QSP.LibraryExtension.IEnumerables;
 
 namespace QSP.UI.Views.FuelPlan.Routes
 {

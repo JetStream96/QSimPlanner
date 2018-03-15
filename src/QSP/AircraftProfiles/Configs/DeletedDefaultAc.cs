@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using CommonLibrary.LibraryExtension;
+using QSP.LibraryExtension;
 using QSP.Utilities;
 
 namespace QSP.AircraftProfiles.Configs

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CommonLibrary.LibraryExtension.Tasks
+namespace QSP.LibraryExtension.Tasks
 {
     // Two things to be proved:
     // 1. No two tasks are executed at the same time:

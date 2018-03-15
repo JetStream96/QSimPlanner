@@ -1,4 +1,4 @@
-using CommonLibrary.LibraryExtension;
+using QSP.LibraryExtension;
 
 namespace QSP.RouteFinding.Airports
 {

@@ -3,7 +3,7 @@ using NUnit.Framework;
 using QSP.AircraftProfiles.Configs;
 using System.IO;
 using System.Linq;
-using static CommonLibrary.LibraryExtension.IEnumerables;
+using static QSP.LibraryExtension.IEnumerables;
 
 namespace IntegrationTest.QSP.AircraftProfiles.Configs
 {

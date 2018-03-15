@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Xml;
 
-namespace CommonLibrary.LibraryExtension
+namespace QSP.LibraryExtension
 {
     public static class Xmls
     {

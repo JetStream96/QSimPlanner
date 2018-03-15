@@ -1,4 +1,4 @@
-﻿namespace CommonLibrary.AviationTools
+﻿namespace QSP.AviationTools
 {
     public static class Icao
     {
