@@ -2,7 +2,7 @@ using System;
 
 namespace QSP.MathTools.Vectors
 {
-    public class Vector2D
+    public class Vector2D : IEquatable<Vector2D>
     {
         public double X { get; }
         public double Y { get; }
@@ -19,9 +19,9 @@ namespace QSP.MathTools.Vectors
             this.Y = Y;
         }
 
-        public double theta => Math.Atan2(Y, X);
+        public double Theta => Math.Atan2(Y, X);
 
-        public double r => Math.Sqrt(X * X + Y * Y);
+        public double R => Math.Sqrt(X * X + Y * Y);
 
         public static Vector2D PolarCoords(double r, double theta)
         {
@@ -48,8 +48,19 @@ namespace QSP.MathTools.Vectors
             return v * c;
         }
 
+        public static Vector2D operator -(Vector2D v)
+        {
+            return new Vector2D(-v.X, -v.Y);
+        }
+
+        /// <summary>
+        /// Returns the scaled vector with length 1.
+        /// </summary>
+        /// <exception cref="InvalidOperationException"></exception>
         public Vector2D Normalize()
         {
+            var r = R;
+            if (r == 0.0) throw new InvalidOperationException();
             return new Vector2D(this) * (1.0 / r);
         }
 
@@ -63,7 +74,12 @@ namespace QSP.MathTools.Vectors
 
         public bool Equals(Vector2D v)
         {
-            return v.X == X && v.Y == Y;
+            return v != null && v.X == X && v.Y == Y;
+        }
+
+        public bool Equals(Vector2D v, double delta)
+        {
+            return v != null && (this - v).R <= delta;
         }
     }
 }

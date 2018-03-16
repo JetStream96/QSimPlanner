@@ -25,9 +25,20 @@ namespace QSP.MathTools.Vectors
         /// <summary>
         /// The angle is larger or equal to 0, 
         /// and smaller or equal to PI.
+        /// Returns 0 if R==0.
         /// </summary>
-        public double Phi => Math.Acos(Z / R);
+        public double Phi
+        {
+            get
+            {
+                var r = R;
+                return r == 0 ? 0.0 : Math.Acos(Z / R);
+            }
+        }
 
+        /// <summary>
+        /// Returns 0 if X==0 and Y==0.
+        /// </summary>
         public double Theta => Math.Atan2(Y, X);
 
         public double R => Math.Sqrt(X * X + Y * Y + Z * Z);
