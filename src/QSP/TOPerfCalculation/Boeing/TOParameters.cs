@@ -9,7 +9,7 @@ namespace QSP.TOPerfCalculation.Boeing
         public double RwyHeading { get; private set; }
         public double RwySlopePercent { get; private set; }
         public double WindHeading { get; private set; }
-        public double WindSpeed { get; private set; }
+        public double WindSpeedKnots { get; private set; }
         public double OatCelsius { get; private set; }
         public double QNH { get; private set; }
         public bool SurfaceWet { get; private set; }
@@ -45,7 +45,7 @@ namespace QSP.TOPerfCalculation.Boeing
             this.RwyHeading = RwyHeading;
             this.RwySlopePercent = RwySlopePercent;
             this.WindHeading = WindHeading;
-            this.WindSpeed = WindSpeed;
+            this.WindSpeedKnots = WindSpeed;
             this.OatCelsius = OatCelsius;
             this.QNH = QNH;
             this.SurfaceWet = SurfaceWet;

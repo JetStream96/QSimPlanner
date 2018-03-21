@@ -48,7 +48,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
 
         private static double ExpectedDistance1(TOParameters para, double wtTon)
         {
-            double headWind = para.WindSpeed *
+            double headWind = para.WindSpeedKnots *
                 Math.Cos(ToRadian(para.WindHeading - para.RwyHeading));
 
             double pressAlt = PressureAltitudeFt(para.RwyElevationFt, para.QNH);
@@ -93,7 +93,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
 
         private static double ExpectedDistance2(TOParameters para)
         {
-            double headWind = para.WindSpeed *
+            double headWind = para.WindSpeedKnots *
                 Math.Cos(ToRadian(para.WindHeading - para.RwyHeading));
 
             double pressAlt = PressureAltitudeFt(para.RwyElevationFt, para.QNH);
@@ -180,7 +180,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
         {
             var table = perfTable.Tables[para.FlapsIndex];
             double pressAlt = PressureAltitudeFt(para.RwyElevationFt, para.QNH);
-            double windSpd = para.WindSpeed *
+            double windSpd = para.WindSpeedKnots *
                 Math.Cos(ToRadian(para.WindHeading - para.RwyHeading));
 
             double slopeCorrectedLength = table.SlopeCorrDry.CorrectedLength(

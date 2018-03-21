@@ -60,7 +60,7 @@ namespace QSP.TOPerfCalculation.Boeing
                 RwyPressureAltFt(), oat, EquivalentWeightKg() / 1000.0);
 
             double slopeCorrLength = windTable.SlopeCorrectedLength(
-                HeadwindComp(), corrLength);
+                HeadwindComp(para), corrLength);
 
             return slopeTable.FieldLengthRequired(para.RwySlopePercent, slopeCorrLength);
         }
@@ -108,7 +108,7 @@ namespace QSP.TOPerfCalculation.Boeing
                 para.RwyLengthMeter, para.RwySlopePercent);
 
             double windCorrLength = windTable.CorrectedLength(
-                slopeCorrLength, HeadwindComp());
+                slopeCorrLength, HeadwindComp(para));
 
             var limitWtTon = weightTable.FieldLimitWeight(RwyPressureAltFt(),
                 windCorrLength,
@@ -246,11 +246,11 @@ namespace QSP.TOPerfCalculation.Boeing
             return result;
         }
 
-        //knots
-        private double HeadwindComp()
+        // knots
+        private static double HeadwindComp(TOParameters p)
         {
-            return para.WindSpeed *
-                Math.Cos(ToRadian(para.RwyHeading - para.WindHeading));
+            return p.WindSpeedKnots *
+                Math.Cos(ToRadian(p.RwyHeading - p.WindHeading));
         }
 
         private double RwyPressureAltFt()

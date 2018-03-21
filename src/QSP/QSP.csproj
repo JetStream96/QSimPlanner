@@ -281,7 +281,9 @@
     <Compile Include="RouteFinding\Tracks\Actions\ActionSequence.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackMessageProvider.cs" />
     <Compile Include="RouteFinding\Tracks\TrackFiles.cs" />
+    <Compile Include="TOPerfCalculation\Airbus\Calculator.cs" />
     <Compile Include="TOPerfCalculation\Airbus\DataClasses\AirbusPerfTable.cs" />
+    <Compile Include="TOPerfCalculation\Airbus\DataClasses\Parameters.cs" />
     <Compile Include="TOPerfCalculation\Airbus\DataClasses\TableDataNode.cs" />
     <Compile Include="TOPerfCalculation\Airbus\Methods.cs" />
     <Compile Include="TOPerfCalculation\FindTable.cs" />
