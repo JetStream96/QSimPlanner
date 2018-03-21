@@ -29,5 +29,13 @@ namespace QSP.LibraryExtension
             if (xs.Length > 0) list.AddRange(xs);
             return list;
         }
+        
+        /// <summary>
+        /// Usage: Arr(1, 2, 3) => [1, 2, 3]
+        /// </summary>
+        public static T[] Arr<T>(T x, params T[] xs)
+        {
+            return List(x, xs).ToArray();
+        }
     }
 }

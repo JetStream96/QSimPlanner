@@ -46,5 +46,15 @@ namespace UnitTest.LibraryExtension
             Assert.AreEqual(1, set.First().Length);
             Assert.AreEqual("A", set.First()[0]);
         }
+
+        [Test]
+        public void ArrTest()
+        {
+            var arr0 = Arr(8, 12, 6);
+            Assert.IsTrue(arr0.SequenceEqual(new[] { 8, 12, 6 }));
+
+            var arr1 = Arr("p");
+            Assert.IsTrue(arr1.SequenceEqual(new[] { "p" }));
+        }
     }
 }

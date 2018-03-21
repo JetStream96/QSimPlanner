@@ -1,12 +1,13 @@
 ﻿using QSP.MathTools.Tables;
 using QSP.MathTools.Tables.Readers;
+using QSP.TOPerfCalculation.Airbus.DataClasses;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using static QSP.Utilities.ExceptionHelpers;
 
-namespace QSP.TOPerfCalculation.Airbus.PerfData
+namespace QSP.TOPerfCalculation.Airbus
 {
     public static class Methods
     {

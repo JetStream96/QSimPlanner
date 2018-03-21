@@ -1,4 +1,9 @@
 ﻿using NUnit.Framework;
+using QSP.MathTools.Tables;
+using QSP.TOPerfCalculation.Airbus;
+using QSP.TOPerfCalculation.Airbus.DataClasses;
+using System.Xml.Linq;
+using static QSP.LibraryExtension.Types;
 
 namespace UnitTest.TOPerfCalculation.Airbus
 {
@@ -75,10 +80,51 @@ namespace UnitTest.TOPerfCalculation.Airbus
 </Root>
 ";
 
+        public static AirbusPerfTable GetTable()
+        {
+            var headwind = new Table1D(Arr(4920.0, 5740), Arr(21.32, 22.96));
+            var tailwind = new Table1D(Arr(4920.0, 5740), Arr(74.62, 80.36));
+            var up = new Table1D(Arr(4920.0, 5740), Arr(524.8, 705.2));
+            var down = new Table1D(Arr(4920.0, 5740), Arr(55.76, 75.44));
+
+            var t0 = new Table2D(Arr(0.0, 2000), Arr(4000.0, 5000), Arr(Arr(139.0, 152), Arr(132.0, 146)));
+            var t1 = new Table2D(Arr(0.0, 2000), Arr(4000.0, 4350), Arr(Arr(132.0, 137), Arr(127.0, 132)));
+
+
+            var tables = List(
+                new TableDataNode() { Table = t0, Flaps = "1+F", IsaOffset = 0 },
+                new TableDataNode() { Table = t1, Flaps = "1+F", IsaOffset = 15 }
+                );
+
+            var wet = new Table1D(Arr(8000.0, 10000), Arr(2.273, 2.273));
+
+            return new AirbusPerfTable()
+            {
+                HeadwindCorrectionTable = headwind,
+                TailwindCorrectionTable = tailwind,
+                UphillCorrectionTable = up,
+                DownHillCorrectionTable = down,
+                Tables = tables,
+                WetCorrectionTable = wet,
+                EngineAICorrection = 0.5556,
+                AllAICorrection = 1.6667,
+                PacksOnCorrection = 4.8889
+            };
+        }
+
         [Test]
         public void LoadPerfTableTest()
         {
-            
+            var (success, t) = Methods.LoadPerfTable(XDocument.Parse(PerfFile).Root);
+            Assert.IsTrue(success);
+            Assert.IsTrue(t.Equals(GetTable(), 1e-8));
+        }
+
+        [Test]
+        public void LoadPerfTableFailTest()
+        {
+            var (success, t) = Methods.LoadPerfTable(new XElement("name", "2"));
+            Assert.IsFalse(success);
         }
     }
 }

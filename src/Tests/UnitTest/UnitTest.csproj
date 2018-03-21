@@ -204,6 +204,7 @@
     <Compile Include="RouteFinding\Tracks\Pacots\Eastbound\InterpreterTest.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\Eastbound\SplitterTest.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\TrackValidPeriodTest.cs" />
+    <Compile Include="TOPerfCalculation\Airbus\MethodsTest.cs" />
     <Compile Include="TOPerfCalculation\Boeing\PerfDataLoaderTest.cs" />
     <Compile Include="TOPerfCalculation\Boeing\PerfData\AlternateThrustTableTest.cs" />
     <Compile Include="TOPerfCalculation\Boeing\PerfData\FieldLimitWtTableTest.cs" />
