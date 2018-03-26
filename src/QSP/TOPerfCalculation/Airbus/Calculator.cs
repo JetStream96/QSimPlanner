@@ -17,7 +17,7 @@ namespace QSP.TOPerfCalculation.Airbus
         public static TOReport TakeOffReport(
             AirbusPerfTable table, Parameters para, double tempIncrement = 1.0)
         {
-
+            throw new NotImplementedException();
         }
 
         public static double TakeOffDistance(AirbusPerfTable table, Parameters para)
@@ -61,10 +61,10 @@ namespace QSP.TOPerfCalculation.Airbus
             var windCorrectedFt = para.RwyLengthMeter * Constants.MeterFtRatio + WindCorrectionFt();
             var slopeCorrectedFt = windCorrectedFt + SlopeCorrectionFt(windCorrectedFt);
             var tables = GetTables();
-
+            throw new NotImplementedException();
         }
 
 
     }
-}
+
 }

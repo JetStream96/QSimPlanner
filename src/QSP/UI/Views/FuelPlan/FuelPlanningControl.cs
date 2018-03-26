@@ -32,6 +32,7 @@ using static QSP.UI.Util.MsgBoxHelper;
 using static QSP.UI.Views.Factories.FormFactory;
 using static QSP.Utilities.LoggerInstance;
 using static QSP.Utilities.Units.Conversions;
+using System.Collections.Generic;
 
 namespace QSP.UI.Views.FuelPlan
 {
@@ -121,9 +122,11 @@ namespace QSP.UI.Views.FuelPlan
 
             if (acListComboBox.Items.Count > 0) acListComboBox.SelectedIndex = 0;
 
+            AltnEnabledCheckBox.Checked = true;
+
             LoadSavedState();
         }
-        
+
         private void SubscribeEventHandlers()
         {
             wtUnitComboBox.SelectedIndexChanged += WtUnitChanged;
@@ -267,6 +270,23 @@ namespace QSP.UI.Views.FuelPlan
             return model.Aircrafts.Find(registrationComboBox.Text);
         }
 
+        // Returns null and shows a dialog if user input is not valid.
+        // Returns empty list if alternates are not enabled.
+        private List<Route> GetExpandedAlternateRoutes()
+        {
+            if (!AltnEnabledCheckBox.Checked) return new List<Route>();
+
+            var altnRoutes = AltnPresenter.Routes;
+
+            if (altnRoutes.Any(r => r == null))
+            {
+                ShowMessage("All alternate routes must be entered.", MessageLevel.Warning);
+                return null;
+            }
+
+            return altnRoutes.Select(r => r.Expanded).ToList();
+        }
+
         private void Calculate(object sender, EventArgs e)
         {
             fuelReportTxtBox.ForeColor = Color.Black;
@@ -285,13 +305,8 @@ namespace QSP.UI.Views.FuelPlan
                 return;
             }
 
-            var altnRoutes = AltnPresenter.Routes;
-
-            if (altnRoutes.Any(r => r == null))
-            {
-                ShowMessage("All alternate routes must be entered.", MessageLevel.Warning);
-                return;
-            }
+            var altnRoutes = GetExpandedAlternateRoutes();
+            if (altnRoutes == null) return;
 
             if (RouteToDest == null)
             {
@@ -323,7 +338,7 @@ namespace QSP.UI.Views.FuelPlan
                     new BasicCrzAltProvider(),
                     windTables,
                     RouteToDest.Expanded,
-                    AltnPresenter.Routes.Select(r => r.Expanded),
+                    altnRoutes,
                     para).Generate();
             }
             catch (Exception ex)
@@ -448,5 +463,10 @@ namespace QSP.UI.Views.FuelPlan
         }
 
         public void ShowMessage(string s, MessageLevel lvl) => ParentForm.ShowMessage(s, lvl);
+
+        private void altnEnabledCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            alternateControl.Enabled = AltnEnabledCheckBox.Checked;
+        }
     }
 }

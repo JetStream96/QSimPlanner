@@ -36,6 +36,7 @@ namespace QSP.UI.UserControls
         private static readonly string apuMin = "ApuMin";
         private static readonly string taxiMin = "TaxiMin";
         private static readonly string finalRsvMin = "FinalRsvMin";
+        private static readonly string altnEnabled = "AltnEnabled";
 
         private FuelPlanningControl control;
 
@@ -76,7 +77,8 @@ namespace QSP.UI.UserControls
                 TryGetWeightKg(c.Extra).Serialize(extraKg),
                 c.ApuTimeTxtBox.Text.Serialize(apuMin),
                 c.TaxiTimeTxtBox.Text.Serialize(taxiMin),
-                c.FinalReserveTxtBox.Text.Serialize(finalRsvMin)
+                c.FinalReserveTxtBox.Text.Serialize(finalRsvMin),
+                c.AltnEnabledCheckBox.Checked.Serialize(altnEnabled)
             });
         }
 
@@ -141,7 +143,8 @@ namespace QSP.UI.UserControls
                 () => c.Extra.SetWeight(r.GetDouble(extraKg)),
                 () => c.ApuTimeTxtBox.Text = r.GetString(apuMin),
                 () => c.TaxiTimeTxtBox.Text = r.GetString(taxiMin),
-                () => c.FinalReserveTxtBox.Text = r.GetString(finalRsvMin)
+                () => c.FinalReserveTxtBox.Text = r.GetString(finalRsvMin),
+                () => c.AltnEnabledCheckBox.Checked=r.GetBool(altnEnabled)
             };
 
             foreach (var a in actions) IgnoreException(a);

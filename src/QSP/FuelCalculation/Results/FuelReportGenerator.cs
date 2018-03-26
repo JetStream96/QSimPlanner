@@ -23,10 +23,13 @@ namespace QSP.FuelCalculation.Results
         private readonly ICrzAltProvider altProvider;
         private readonly IWindTableCollection windTable;
         private readonly Route routeToDest;
-        private readonly IEnumerable<Route> routesToAltn;
+        private readonly IReadOnlyList<Route> routesToAltn;
         private readonly FuelParameters para;
         private readonly double maxAlt;
 
+        /// <summary>
+        /// Note: routesToAltn can be empty. In that case, alternates are not used.
+        /// </summary>
         public FuelReportGenerator(
             AirportManager airportList,
             ICrzAltProvider altProvider,
@@ -40,7 +43,7 @@ namespace QSP.FuelCalculation.Results
             this.altProvider = altProvider;
             this.windTable = windTable;
             this.routeToDest = routeToDest;
-            this.routesToAltn = routesToAltn;
+            this.routesToAltn = routesToAltn.ToList();
             this.para = para;
             this.maxAlt = maxAlt;
         }
@@ -52,14 +55,21 @@ namespace QSP.FuelCalculation.Results
             var p = para;
             var f = p.FuelData;
 
-            // Compute alternate part.
+            // Final reserve
             var finalRsvFuel = f.HoldingFuelFlow(p.Zfw) * p.FinalRsvTime;
-            var altnPlan = routesToAltn
-                .Select(r => GetPlan(finalRsvFuel, r))
-                .Select(d => d.AllNodes[0])
-                .MaxBy(n => n.FuelOnBoard);
-            var fuelToAltn = altnPlan.FuelOnBoard - finalRsvFuel;
-            var timeToAltn = altnPlan.TimeRemaining;
+
+            // Compute alternate part. Alternates are optional under some circumstances.
+            // See https://aviation.stackexchange.com/questions/389/is-an-alternate-airport-always-required-when-flying-internationally
+            var (fuelToAltn, timeToAltn) = (0.0, 0.0);
+            if (routesToAltn.Count > 0)
+            {
+                var altnPlan = routesToAltn
+                               .Select(r => GetPlan(finalRsvFuel, r))
+                               .Select(d => d.AllNodes[0])
+                               .MaxBy(n => n.FuelOnBoard);
+                fuelToAltn = altnPlan.FuelOnBoard - finalRsvFuel;
+                timeToAltn = altnPlan.TimeRemaining;
+            }
 
             // Destination part.
             var fuelHold = f.HoldingFuelFlow * p.HoldingTime;
