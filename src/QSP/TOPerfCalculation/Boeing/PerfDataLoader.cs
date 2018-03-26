@@ -25,10 +25,11 @@ namespace QSP.TOPerfCalculation.Boeing
         /// <summary>
         /// Load an aircraft data from specified Xml file.
         /// </summary>
+        /// <exception cref="Exception"></exception>
         public PerfTable ReadFromXml(string filePath)
         {
             var doc = XDocument.Load(filePath);
-            return new PerfTable(LoadTable(filePath), GetEntry(filePath, doc));
+            return new PerfTable(LoadTable(filePath), TOTableLoader.GetEntry(filePath, doc));
         }
 
         public BoeingPerfTable ReadTable(XElement root)
@@ -37,13 +38,7 @@ namespace QSP.TOPerfCalculation.Boeing
                                        .Select(x => ReadIndividualTable(x))
                                        .ToList());
         }
-
-        public static Entry GetEntry(string path, XDocument doc)
-        {
-            var elem = doc.Root.Element("Parameters");
-            return new Entry(elem.Element("ProfileName").Value, path);
-        }
-
+        
         private BoeingPerfTable LoadTable(string path)
         {
             var root = XDocument.Load(path).Root;

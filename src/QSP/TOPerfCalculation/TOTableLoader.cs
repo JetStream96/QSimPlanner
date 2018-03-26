@@ -1,7 +1,9 @@
-﻿using QSP.TOPerfCalculation.Boeing;
+﻿using QSP.LibraryExtension;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace QSP.TOPerfCalculation
 {
@@ -9,7 +11,7 @@ namespace QSP.TOPerfCalculation
     {
         public const string DefaultFolderPath = @"PerformanceData\TO\Default";
         public const string CustomFolderPath = @"PerformanceData\TO\Custom";
-        
+
         /// <summary>
         /// Load all xml in the landing performance data folder.
         /// Files in wrong format are ignored.
@@ -23,17 +25,37 @@ namespace QSP.TOPerfCalculation
             var files = Directory.GetFiles(CustomFolderPath).Concat(
                 Directory.GetFiles(DefaultFolderPath));
 
-            foreach (var i in files)
+            var attempts = LoadTableAttempts();
+
+            files.ForEach(f =>
             {
-                try
+                attempts.ForEach(tryLoad =>
                 {
-                    var table = new PerfDataLoader().ReadFromXml(i);
-                    tables.Add(table.Entry.ProfileName, table);
-                }
-                catch { }
-            }
+                    try
+                    {
+                        var table = tryLoad(f);
+                        tables.Add(table.Entry.ProfileName, table);
+                    }
+                    catch { }
+                });
+            });
 
             return tables.Select(kv => kv.Value);
+        }
+
+        public static Func<string, PerfTable>[] LoadTableAttempts()
+        {
+            return new Func<string, PerfTable>[]
+            {
+                file => new Boeing.PerfDataLoader().ReadFromXml(file),
+                file => Airbus.Loader.ReadFromXml(file)
+            };
+        }
+
+        public static Entry GetEntry(string path, XDocument doc)
+        {
+            var elem = doc.Root.Element("Parameters");
+            return new Entry(elem.Element("ProfileName").Value, path);
         }
     }
 }

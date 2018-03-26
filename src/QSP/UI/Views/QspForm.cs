@@ -522,12 +522,5 @@ namespace QSP.UI.Views
             ResumeLayout();
             base.OnResizeEnd(e);
         }
-
-        // TODO: Some ideas for future:
-        // (1) Flightaware flight plans
-        // (2) NOAA temp./wind/sigWx charts
-        //     http://aviationweather.gov/webiffdp/page/public?name=iffdp_main
-        //     http://aviationweather.gov/iffdp/sgwx
-        // (3) Charts (FAA, Eurocontrol)
     }
 }

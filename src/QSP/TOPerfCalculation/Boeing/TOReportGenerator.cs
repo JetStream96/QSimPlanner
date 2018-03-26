@@ -36,7 +36,7 @@ namespace QSP.TOPerfCalculation.Boeing
             return new TOReport(mainResult, assumedTemp.ToList());
         }
 
-        private IEnumerable<TOReport.DataRow> AssumedTempResults(double tempIncrement)
+        private IEnumerable<TOReportRow> AssumedTempResults(double tempIncrement)
         {
             var fieldLimitWtTable = para.SurfaceWet ?
                 table.WeightTableWet :
@@ -55,16 +55,16 @@ namespace QSP.TOPerfCalculation.Boeing
             yield break;
         }
 
-        private TOReport.DataRow ValidateResult(double oat, double rwyRequired)
+        private TOReportRow ValidateResult(double oat, double rwyRequired)
         {
             if (rwyRequired > para.RwyLengthMeter) throw new RunwayTooShortException();
             var climbLim = calc.ClimbLimitWeightTon(oat) * 1000.0;
             if (climbLim < para.WeightKg) throw new PoorClimbPerformanceException();
-            return new TOReport.DataRow(oat, rwyRequired, para.RwyLengthMeter - rwyRequired);
+            return new TOReportRow(oat, rwyRequired, para.RwyLengthMeter - rwyRequired);
         }
 
         // Returns null if not valid.
-        private TOReport.DataRow TryValidateResult(double oat, double rwyRequired)
+        private TOReportRow TryValidateResult(double oat, double rwyRequired)
         {
             return ExceptionHelpers.DefaultIfThrows(() => ValidateResult(oat, rwyRequired));
         }

@@ -11,7 +11,8 @@ namespace UnitTest.TOPerfCalculation.Airbus
     public class LoaderTest
     {
         private static readonly string PerfFile = @"
-<Root>
+<Root>  
+  <!-- All lengths and elevations in ft. All weights in 1000 LB.-->
   <Parameters>
     <ProfileName>Airbus A320-200 CFM56</ProfileName>
     

@@ -9,10 +9,10 @@ namespace QSP.TOPerfCalculation
 {
     public class TOReport
     {
-        public DataRow PrimaryResult { get; }
-        public IReadOnlyList<DataRow> AssumedTemp { get; }
+        public TOReportRow PrimaryResult { get; }
+        public IReadOnlyList<TOReportRow> AssumedTemp { get; }
 
-        public TOReport(DataRow PrimaryResult, IReadOnlyList<DataRow> AssumedTemp)
+        public TOReport(TOReportRow PrimaryResult, IReadOnlyList<TOReportRow> AssumedTemp)
         {
             this.PrimaryResult = PrimaryResult;
             this.AssumedTemp = AssumedTemp;
@@ -78,20 +78,6 @@ namespace QSP.TOPerfCalculation
         {
             return Numbers.RoundToInt(unit == LengthUnit.Feet ?
                 lengthMeter * MeterFtRatio : lengthMeter);
-        }
-
-        public class DataRow
-        {
-            public double OatCelsius { get; }
-            public double RwyRequiredMeter { get; }
-            public double RwyRemainingMeter { get; }
-
-            public DataRow(double OatCelsius, double RwyRequiredMeter, double RwyRemainingMeter)
-            {
-                this.OatCelsius = OatCelsius;
-                this.RwyRequiredMeter = RwyRequiredMeter;
-                this.RwyRemainingMeter = RwyRemainingMeter;
-            }
         }
     }
 }

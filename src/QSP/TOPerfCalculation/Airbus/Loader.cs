@@ -12,6 +12,18 @@ namespace QSP.TOPerfCalculation.Airbus
     public static class Loader
     {
         /// <summary>
+        /// Load an aircraft data from specified Xml file.
+        /// </summary>
+        /// /// <exception cref="Exception"></exception>
+        public static PerfTable ReadFromXml(string filePath)
+        {
+            var doc = XDocument.Load(filePath);
+            var (success, table) = LoadPerfTable(doc.Root);
+            if (!success) throw new Exception($"Failed to load {filePath} as AirbusPerfTable.");
+            return new PerfTable(table, TOTableLoader.GetEntry(filePath, doc));
+        }
+
+        /// <summary>
         /// Loads the performance table when given the root node of xml file.
         /// </summary>
         public static (bool success, AirbusPerfTable val) LoadPerfTable(XElement rootNode)
