@@ -43,6 +43,8 @@ namespace QSP.TOPerfCalculation.Airbus
                 tables.Select(x => x.IsaOffset).ToArray(),
                 distances,
                 IsaOffset(p));
+
+            // TODO: Still need corrections for wet, etc.
         }
 
         private static double WindCorrectionFt(AirbusPerfTable t, Parameters p)
