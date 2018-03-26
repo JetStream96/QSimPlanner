@@ -285,7 +285,7 @@
     <Compile Include="TOPerfCalculation\Airbus\DataClasses\AirbusPerfTable.cs" />
     <Compile Include="TOPerfCalculation\Airbus\DataClasses\Parameters.cs" />
     <Compile Include="TOPerfCalculation\Airbus\DataClasses\TableDataNode.cs" />
-    <Compile Include="TOPerfCalculation\Airbus\Methods.cs" />
+    <Compile Include="TOPerfCalculation\Airbus\Loader.cs" />
     <Compile Include="TOPerfCalculation\FindTable.cs" />
     <Compile Include="UI\Models\ButtonColorStyle.cs" />
     <Compile Include="UI\Models\FuelPlan\IRefreshForNavDataChange.cs" />

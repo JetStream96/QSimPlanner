@@ -8,7 +8,7 @@ using static QSP.LibraryExtension.Types;
 namespace UnitTest.TOPerfCalculation.Airbus
 {
     [TestFixture]
-    public class MethodsTest
+    public class LoaderTest
     {
         private static readonly string PerfFile = @"
 <Root>
@@ -115,7 +115,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
         [Test]
         public void LoadPerfTableTest()
         {
-            var (success, t) = Methods.LoadPerfTable(XDocument.Parse(PerfFile).Root);
+            var (success, t) = Loader.LoadPerfTable(XDocument.Parse(PerfFile).Root);
             Assert.IsTrue(success);
             Assert.IsTrue(t.Equals(GetTable(), 1e-8));
         }
@@ -123,7 +123,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
         [Test]
         public void LoadPerfTableFailTest()
         {
-            var (success, t) = Methods.LoadPerfTable(new XElement("name", "2"));
+            var (success, t) = Loader.LoadPerfTable(new XElement("name", "2"));
             Assert.IsFalse(success);
         }
     }

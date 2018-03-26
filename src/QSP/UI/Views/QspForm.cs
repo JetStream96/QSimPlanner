@@ -511,6 +511,18 @@ namespace QSP.UI.Views
             }
         }
 
+        protected override void OnResizeBegin(EventArgs e)
+        {
+            SuspendLayout();
+            base.OnResizeBegin(e);
+        }
+
+        protected override void OnResizeEnd(EventArgs e)
+        {
+            ResumeLayout();
+            base.OnResizeEnd(e);
+        }
+
         // TODO: Some ideas for future:
         // (1) Flightaware flight plans
         // (2) NOAA temp./wind/sigWx charts

@@ -9,7 +9,7 @@ using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.TOPerfCalculation.Airbus
 {
-    public static class Methods
+    public static class Loader
     {
         /// <summary>
         /// Loads the performance table when given the root node of xml file.
