@@ -12,20 +12,40 @@ namespace QSP.TOPerfCalculation.Airbus
 {
     public static class Calculator
     {
-        public static TOReport TakeOffReport(
-            AirbusPerfTable table, Parameters para, double tempIncrement = 1.0)
+        /// <summary>
+        /// Error can be None, NoDataForSelectedFlaps, or RunwayTooShort.
+        /// </summary>
+        public static (Error e, TOReport r) TakeOffReport(
+            AirbusPerfTable t, Parameters p, double tempIncrement = 1.0)
         {
-            throw new NotImplementedException();
+            var (e, d) = TakeOffDistanceMeter(t, p);
+            var primary = new TOReportRow(p.OatCelsius, d, p.RwyLengthMeter - d);
+            if (e != Error.None) return (e, null);
+            if (primary.RwyRemainingMeter < 0) return (Error.RunwayTooShort, null);
+
+            var rows = new List<TOReportRow>();
+            double maxOat = 70;
+
+            for (double oat = p.OatCelsius + tempIncrement; oat <= maxOat; oat += tempIncrement)
+            {
+                (e, d) = TakeOffDistanceMeter(t, p);
+                if (e != Error.None) break;
+                rows.Add(new TOReportRow(p.OatCelsius, d, p.RwyLengthMeter - d));
+            }
+
+            return (Error.None, new TOReport(primary, rows));
         }
 
         public enum Error
         {
             None,
-            NoDataForSelectedFlaps
+            NoDataForSelectedFlaps,
+            RunwayTooShort
         }
 
         /// <summary>
         /// Computes the required takeoff distance.
+        /// Error can be None or NoDataForSelectedFlaps
         /// </summary>
         public static (Error e, double dis) TakeOffDistanceMeter(
             AirbusPerfTable t, Parameters p)
@@ -60,7 +80,7 @@ namespace QSP.TOPerfCalculation.Airbus
             return windCorrectedFt - lengthFt + SlopeCorrectionFt(t, p, windCorrectedFt);
         }
 
-        private static double WindCorrectionFt(double lengthFt, 
+        private static double WindCorrectionFt(double lengthFt,
             AirbusPerfTable t, Parameters p)
         {
             var headwind = p.WindSpeedKnots *

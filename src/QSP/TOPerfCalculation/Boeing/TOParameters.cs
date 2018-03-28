@@ -2,7 +2,7 @@
 
 namespace QSP.TOPerfCalculation.Boeing
 {
-    public class TOParameters
+    public class TOParameters : IHasOat
     {
         public double RwyLengthMeter { get; private set; }
         public double RwyElevationFt { get; private set; }

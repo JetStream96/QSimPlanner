@@ -287,6 +287,7 @@
     <Compile Include="TOPerfCalculation\Airbus\DataClasses\TableDataNode.cs" />
     <Compile Include="TOPerfCalculation\Airbus\Loader.cs" />
     <Compile Include="TOPerfCalculation\FindTable.cs" />
+    <Compile Include="TOPerfCalculation\IHasOat.cs" />
     <Compile Include="TOPerfCalculation\TOReportRow.cs" />
     <Compile Include="UI\Models\ButtonColorStyle.cs" />
     <Compile Include="UI\Models\FuelPlan\IRefreshForNavDataChange.cs" />

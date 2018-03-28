@@ -1,6 +1,6 @@
 ﻿namespace QSP.TOPerfCalculation.Airbus.DataClasses
 {
-    public class Parameters
+    public class Parameters : IHasOat
     {
         public double RwyLengthMeter { get; set; }
         public double RwyElevationFt { get; set; }
