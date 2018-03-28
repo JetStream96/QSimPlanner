@@ -35,7 +35,7 @@ namespace QSP.TOPerfCalculation.Airbus
 
             if (tables.Count == 0) throw new Exception("No data for selected flaps setting.");
             var pressAlt = ConversionTools.PressureAltitudeFt(p.RwyElevationFt, p.QNH);
-            var inverseTables = tables.Select(x => GetInverseTable(x, pressAlt));
+            var inverseTables = tables.Select(x => GetInverseTable(x, pressAlt, t, p));
             var distances = inverseTables.Select(
                 x => x.ValueAt(p.WeightKg * 0.001 * Constants.KgLbRatio)).ToArray();
             if (distances.Length == 1) return distances[0];
@@ -43,8 +43,21 @@ namespace QSP.TOPerfCalculation.Airbus
                 tables.Select(x => x.IsaOffset).ToArray(),
                 distances,
                 IsaOffset(p));
+        }
 
-            // TODO: Still need corrections for wet, etc.
+        private static double BleedAirCorrection1000LB(AirbusPerfTable t, Parameters p)
+        {
+            if (p.PacksOn) return t.PacksOnCorrection;
+            if (p.AntiIce == 2) return t.AllAICorrection;
+            if (p.AntiIce == 1) return t.EngineAICorrection;
+            return 0.0;
+        }
+
+        private static double WetCorrection1000LB(double lengthFt,
+            AirbusPerfTable t, Parameters p)
+        {
+            if (!p.SurfaceWet) return 0.0;
+            return t.WetCorrectionTable.ValueAt(lengthFt);
         }
 
         private static double WindCorrectionFt(AirbusPerfTable t, Parameters p)
@@ -89,12 +102,15 @@ namespace QSP.TOPerfCalculation.Airbus
 
         // The table is for limit weight. This method constructs a table of 
         // takeoff distance. (x: weight 1000 LB, f: runway length ft)
-        private static Table1D GetInverseTable(TableDataNode n, double pressAlt)
+        // Wet runway and bleed air corrections are applied here.
+        private static Table1D GetInverseTable(TableDataNode n, double pressAlt,
+            AirbusPerfTable t, Parameters p)
         {
-            var t = n.Table;
-            var len = t.x;
-            var weight = len.Select(i => t.ValueAt(i, pressAlt));
-            return new Table1D(weight.ToArray(), len);
+            var table = n.Table;
+            var len = table.x.Select(i => 
+                i - WetCorrection1000LB(i, t, p) - BleedAirCorrection1000LB(t,p));
+            var weight = len.Select(i => table.ValueAt(i, pressAlt));
+            return new Table1D(weight.ToArray(), len.ToArray());
         }
     }
 

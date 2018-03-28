@@ -14,7 +14,7 @@
         public double WeightKg { get; set; }
 
         /// <summary>
-        /// 0: Engine only, 1: All AI
+        /// 0: None, 1: Engine only, 2: All AI.
         /// </summary>
         public int AntiIce { get; set; }
 
