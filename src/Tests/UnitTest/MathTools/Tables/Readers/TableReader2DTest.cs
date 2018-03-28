@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using QSP.MathTools.Tables;
 using QSP.MathTools.Tables.Readers;
+using static QSP.LibraryExtension.Types;
 
 namespace UnitTest.MathTools.Tables.Readers
 {
@@ -54,13 +55,13 @@ namespace UnitTest.MathTools.Tables.Readers
             var table = TableReader2D.Read(source);
 
             var expected = new Table2D(
-                new[] { 1500.0, 1600.0, 1800.0 },
-                new[] { -40.0, 10.0, 14.0 },
-                new[] {
-                    new[] {51.2, 47.0, 46.7},
-                    new[] {52.8, 48.5, 48.1},
-                    new[] {55.9, 51.3, 51.0}
-                });
+                Arr(1500.0, 1600.0, 1800.0),
+                Arr(-40.0, 10.0, 14.0),
+                Arr(
+                    Arr(51.2, 47.0, 46.7),
+                    Arr(52.8, 48.5, 48.1),
+                    Arr(55.9, 51.3, 51.0)
+                    ));
 
             Assert.IsTrue(table.Equals(expected, delta));
         }

@@ -1,16 +1,12 @@
-﻿using QSP.TOPerfCalculation.Airbus.DataClasses;
+﻿using QSP.AviationTools;
+using QSP.MathTools;
+using QSP.MathTools.Interpolation;
+using QSP.MathTools.Tables;
+using QSP.TOPerfCalculation.Airbus.DataClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using QSP.TOPerfCalculation.Boeing;
-using QSP.AviationTools;
 using static QSP.MathTools.Angles;
-using static QSP.LibraryExtension.Types;
-using QSP.MathTools;
-using QSP.MathTools.Tables;
-using QSP.MathTools.Interpolation;
 
 namespace QSP.TOPerfCalculation.Airbus
 {
@@ -22,27 +18,39 @@ namespace QSP.TOPerfCalculation.Airbus
             throw new NotImplementedException();
         }
 
+        public enum Error
+        {
+            None,
+            NoDataForSelectedFlaps
+        }
+
         /// <summary>
         /// Computes the required takeoff distance.
         /// </summary>
-        /// <exception cref="Exception"></exception>
-        public static double TakeOffDistance(AirbusPerfTable t, Parameters p)
+        public static (Error e, double dis) TakeOffDistanceMeter(
+            AirbusPerfTable t, Parameters p)
         {
-            var windCorrectedFt = p.RwyLengthMeter * Constants.MeterFtRatio
-                + WindCorrectionFt(t, p);
-            var slopeCorrectedFt = windCorrectedFt + SlopeCorrectionFt(t, p, windCorrectedFt);
             var tables = GetTables(t, p);
 
-            if (tables.Count == 0) throw new Exception("No data for selected flaps setting.");
+            if (tables.Count == 0) return (Error.NoDataForSelectedFlaps, 0.0);
             var pressAlt = ConversionTools.PressureAltitudeFt(p.RwyElevationFt, p.QNH);
             var inverseTables = tables.Select(x => GetInverseTable(x, pressAlt, t, p));
-            var distances = inverseTables.Select(
-                x => x.ValueAt(p.WeightKg * 0.001 * Constants.KgLbRatio)).ToArray();
-            if (distances.Length == 1) return distances[0];
-            return Interpolate1D.Interpolate(
+            var distancesMeter = inverseTables.Select(x =>
+                x.ValueAt(p.WeightKg * 0.001 * Constants.KgLbRatio) * Constants.FtMeterRatio)
+                .ToArray();
+            if (distancesMeter.Length == 1) return (Error.None, distancesMeter[0]);
+            return (Error.None, Interpolate1D.Interpolate(
                 tables.Select(x => x.IsaOffset).ToArray(),
-                distances,
-                IsaOffset(p));
+                distancesMeter,
+                IsaOffset(p)));
+        }
+
+        // Use the length of first argument instead of the one in Parameters.
+        private static double SlopeAndWindCorrectedLengthFt(double lengthFt,
+            AirbusPerfTable t, Parameters p)
+        {
+            var windCorrectedFt = lengthFt + WindCorrectionFt(t, p);
+            return windCorrectedFt + SlopeCorrectionFt(t, p, windCorrectedFt);
         }
 
         private static double BleedAirCorrection1000LB(AirbusPerfTable t, Parameters p)
@@ -100,6 +108,10 @@ namespace QSP.TOPerfCalculation.Airbus
             return ordered.Skip(actualSkip).Take(2).ToList();
         }
 
+        private static double WetAndBleedAirCorrection1000LB(double lengthFt,
+            AirbusPerfTable t, Parameters p) =>
+            WetCorrection1000LB(lengthFt, t, p) + BleedAirCorrection1000LB(t, p);
+
         // The table is for limit weight. This method constructs a table of 
         // takeoff distance. (x: weight 1000 LB, f: runway length ft)
         // Wet runway and bleed air corrections are applied here.
@@ -107,11 +119,10 @@ namespace QSP.TOPerfCalculation.Airbus
             AirbusPerfTable t, Parameters p)
         {
             var table = n.Table;
-            var len = table.x.Select(i => 
-                i - WetCorrection1000LB(i, t, p) - BleedAirCorrection1000LB(t,p));
-            var weight = len.Select(i => table.ValueAt(i, pressAlt));
+            var len = table.y.Select(i => SlopeAndWindCorrectedLengthFt(i, t, p));
+            var weight = len.Select(i =>
+                table.ValueAt(pressAlt, i) - WetAndBleedAirCorrection1000LB(i, t, p));
             return new Table1D(weight.ToArray(), len.ToArray());
         }
     }
-
 }
