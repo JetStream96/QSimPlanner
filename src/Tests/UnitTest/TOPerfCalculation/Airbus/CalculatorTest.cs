@@ -1,9 +1,8 @@
-﻿using System;
-using System.Linq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using QSP.AviationTools;
 using QSP.TOPerfCalculation.Airbus;
 using QSP.TOPerfCalculation.Airbus.DataClasses;
+using System.Linq;
 
 namespace UnitTest.TOPerfCalculation.Airbus
 {
@@ -92,6 +91,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
         {
             var p = GetParameters();
             p.RwyElevationFt = 2000;
+            p.OatCelsius = 15 - 1.98 * 2;
             p.WeightKg = 146_000 * Constants.LbKgRatio;
 
             var t = LoaderTest.GetTable();
@@ -100,13 +100,12 @@ namespace UnitTest.TOPerfCalculation.Airbus
             Assert.AreEqual(5000 * Constants.FtMeterRatio, d, 10);
         }
 
-        // TODO:
         [Test]
         public void UphillCorrection()
         {
             var p = GetParameters();
             p.RwySlopePercent = 1.0;
-            p.WeightKg = (138_000 * 80 + 152_000 * 920) / 1000.0 * Constants.LbKgRatio;
+            p.WeightKg = (139_000 * 80 + 152_000 * 920) / 1000.0 * Constants.LbKgRatio;
 
             var t = LoaderTest.GetTable();
 
@@ -114,30 +113,45 @@ namespace UnitTest.TOPerfCalculation.Airbus
             Assert.AreEqual((4920 + 524.8) * Constants.FtMeterRatio, d, 10);
         }
 
-        // TODO:
         [Test]
         public void DownhillCorrection()
         {
             var p = GetParameters();
             p.RwySlopePercent = -1.0;
-            p.WeightKg = (138_000 * 80 + 152_000 * 920) / 1000.0 * Constants.LbKgRatio;
+            p.WeightKg = (139_000 * 80 + 152_000 * 920) / 1000.0 * Constants.LbKgRatio;
 
             var t = LoaderTest.GetTable();
 
             var (e, d) = Calculator.TakeOffDistanceMeter(t, p);
-            Assert.AreEqual((4920 + 524.8) * Constants.FtMeterRatio, d, 10);
+            Assert.AreEqual((4920 - 55.76) * Constants.FtMeterRatio, d, 10);
         }
 
-        // TODO:
         [Test]
-        public void WindCorrection()
+        public void HeadwindCorrection()
         {
             var p = GetParameters();
+            p.WindSpeedKnots = 10;
+
+            p.WeightKg = (139_000 * 80 + 152_000 * 920) / 1000.0 * Constants.LbKgRatio;
 
             var t = LoaderTest.GetTable();
 
             var (e, d) = Calculator.TakeOffDistanceMeter(t, p);
-            Assert.AreEqual(5000 * Constants.FtMeterRatio, d, 10);
+            Assert.AreEqual((4920 - 10 * 21.32) * Constants.FtMeterRatio, d, 10);
+        }
+
+        [Test]
+        public void TailwindCorrection()
+        {
+            var p = GetParameters();
+            p.WindSpeedKnots = 10;
+            p.WindHeading = 180;
+            p.WeightKg = (139_000 * 80 + 152_000 * 920) / 1000.0 * Constants.LbKgRatio;
+
+            var t = LoaderTest.GetTable();
+
+            var (e, d) = Calculator.TakeOffDistanceMeter(t, p);
+            Assert.AreEqual((4920 + 10 * 74.62) * Constants.FtMeterRatio, d, 10);
         }
 
         [Test]

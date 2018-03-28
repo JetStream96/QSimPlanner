@@ -35,22 +35,50 @@ namespace QSP.TOPerfCalculation.Airbus
             if (tables.Count == 0) return (Error.NoDataForSelectedFlaps, 0.0);
             var pressAlt = ConversionTools.PressureAltitudeFt(p.RwyElevationFt, p.QNH);
             var inverseTables = tables.Select(x => GetInverseTable(x, pressAlt, t, p));
-            var distancesMeter = inverseTables.Select(x =>
-                x.ValueAt(p.WeightKg * 0.001 * Constants.KgLbRatio) * Constants.FtMeterRatio)
+            var distancesFt = inverseTables.Select(x =>
+                x.ValueAt(p.WeightKg * 0.001 * Constants.KgLbRatio))
                 .ToArray();
-            if (distancesMeter.Length == 1) return (Error.None, distancesMeter[0]);
-            return (Error.None, Interpolate1D.Interpolate(
-                tables.Select(x => x.IsaOffset).ToArray(),
-                distancesMeter,
-                IsaOffset(p)));
+
+            var d = (distancesFt.Length == 1) ?
+                distancesFt[0] :
+                Interpolate1D.Interpolate(
+                    tables.Select(x => x.IsaOffset).ToArray(),
+                    distancesFt,
+                    IsaOffset(p));
+
+            // The slope and wind correction is not exactly correct according to
+            // performance xml file comments. However, the table itsel is probably
+            // not that precise anyways.
+            return (Error.None, Constants.FtMeterRatio * (d - SlopeAndWindCorrectionFt(d, t, p)));
         }
 
         // Use the length of first argument instead of the one in Parameters.
-        private static double SlopeAndWindCorrectedLengthFt(double lengthFt,
+        private static double SlopeAndWindCorrectionFt(double lengthFt,
             AirbusPerfTable t, Parameters p)
         {
-            var windCorrectedFt = lengthFt + WindCorrectionFt(t, p);
-            return windCorrectedFt + SlopeCorrectionFt(t, p, windCorrectedFt);
+            var windCorrectedFt = lengthFt + WindCorrectionFt(lengthFt, t, p);
+            return windCorrectedFt - lengthFt + SlopeCorrectionFt(t, p, windCorrectedFt);
+        }
+
+        private static double WindCorrectionFt(double lengthFt, 
+            AirbusPerfTable t, Parameters p)
+        {
+            var headwind = p.WindSpeedKnots *
+               Math.Cos(ToRadian(p.RwyHeading - p.WindHeading));
+
+            return (headwind >= 0 ?
+               t.HeadwindCorrectionTable.ValueAt(lengthFt) :
+               t.TailwindCorrectionTable.ValueAt(lengthFt)) * headwind;
+        }
+
+        private static double SlopeCorrectionFt(AirbusPerfTable t, Parameters p,
+            double windCorrectedLengthFt)
+        {
+            var len = windCorrectedLengthFt;
+            var s = p.RwySlopePercent;
+            return (s >= 0 ?
+                t.UphillCorrectionTable.ValueAt(len) :
+                t.DownHillCorrectionTable.ValueAt(len)) * -s;
         }
 
         private static double BleedAirCorrection1000LB(AirbusPerfTable t, Parameters p)
@@ -66,27 +94,6 @@ namespace QSP.TOPerfCalculation.Airbus
         {
             if (!p.SurfaceWet) return 0.0;
             return t.WetCorrectionTable.ValueAt(lengthFt);
-        }
-
-        private static double WindCorrectionFt(AirbusPerfTable t, Parameters p)
-        {
-            var lenft = p.RwyLengthMeter * Constants.MeterFtRatio;
-            var headwind = p.WindSpeedKnots *
-               Math.Cos(ToRadian(p.RwyHeading - p.WindHeading));
-
-            return (headwind >= 0 ?
-                t.HeadwindCorrectionTable.ValueAt(lenft) :
-                t.TailwindCorrectionTable.ValueAt(lenft)) * headwind;
-        }
-
-        private static double SlopeCorrectionFt(AirbusPerfTable t, Parameters p,
-            double windCorrectedLengthFt)
-        {
-            var len = windCorrectedLengthFt;
-            var s = p.RwySlopePercent;
-            return (s >= 0 ?
-                t.UphillCorrectionTable.ValueAt(len) :
-                t.DownHillCorrectionTable.ValueAt(len)) * s;
         }
 
         private static double IsaOffset(Parameters p) =>
@@ -119,7 +126,7 @@ namespace QSP.TOPerfCalculation.Airbus
             AirbusPerfTable t, Parameters p)
         {
             var table = n.Table;
-            var len = table.y.Select(i => SlopeAndWindCorrectedLengthFt(i, t, p));
+            var len = table.y;
             var weight = len.Select(i =>
                 table.ValueAt(pressAlt, i) - WetAndBleedAirCorrection1000LB(i, t, p));
             return new Table1D(weight.ToArray(), len.ToArray());
