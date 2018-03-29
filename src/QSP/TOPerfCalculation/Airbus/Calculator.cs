@@ -16,7 +16,7 @@ namespace QSP.TOPerfCalculation.Airbus
         /// Error can be None, NoDataForSelectedFlaps, or RunwayTooShort.
         /// </summary>
         public static (Error e, TOReport r) TakeOffReport(
-            AirbusPerfTable t, Parameters p, double tempIncrement = 1.0)
+            AirbusPerfTable t, TOParameters p, double tempIncrement = 1.0)
         {
             var (e, d) = TakeOffDistanceMeter(t, p);
             var primary = new TOReportRow(p.OatCelsius, d, p.RwyLengthMeter - d);
@@ -28,11 +28,7 @@ namespace QSP.TOPerfCalculation.Airbus
 
             for (double oat = p.OatCelsius + tempIncrement; oat <= maxOat; oat += tempIncrement)
             {
-                var q = new Parameters(p)
-                {
-                    OatCelsius = oat
-                };
-
+                var q = p.CloneWithOat(oat);
                 (e, d) = TakeOffDistanceMeter(t, q);
                 if (e != Error.None) break;
                 rows.Add(new TOReportRow(oat, d, q.RwyLengthMeter - d));
@@ -53,7 +49,7 @@ namespace QSP.TOPerfCalculation.Airbus
         /// Error can be None or NoDataForSelectedFlaps
         /// </summary>
         public static (Error e, double dis) TakeOffDistanceMeter(
-            AirbusPerfTable t, Parameters p)
+            AirbusPerfTable t, TOParameters p)
         {
             var tables = GetTables(t, p);
 
@@ -79,14 +75,14 @@ namespace QSP.TOPerfCalculation.Airbus
 
         // Use the length of first argument instead of the one in Parameters.
         private static double SlopeAndWindCorrectionFt(double lengthFt,
-            AirbusPerfTable t, Parameters p)
+            AirbusPerfTable t, TOParameters p)
         {
             var windCorrectedFt = lengthFt + WindCorrectionFt(lengthFt, t, p);
             return windCorrectedFt - lengthFt + SlopeCorrectionFt(t, p, windCorrectedFt);
         }
 
         private static double WindCorrectionFt(double lengthFt,
-            AirbusPerfTable t, Parameters p)
+            AirbusPerfTable t, TOParameters p)
         {
             var headwind = p.WindSpeedKnots *
                Math.Cos(ToRadian(p.RwyHeading - p.WindHeading));
@@ -96,7 +92,7 @@ namespace QSP.TOPerfCalculation.Airbus
                t.TailwindCorrectionTable.ValueAt(lengthFt)) * headwind;
         }
 
-        private static double SlopeCorrectionFt(AirbusPerfTable t, Parameters p,
+        private static double SlopeCorrectionFt(AirbusPerfTable t, TOParameters p,
             double windCorrectedLengthFt)
         {
             var len = windCorrectedLengthFt;
@@ -106,22 +102,22 @@ namespace QSP.TOPerfCalculation.Airbus
                 t.DownHillCorrectionTable.ValueAt(len)) * -s;
         }
 
-        private static double BleedAirCorrection1000LB(AirbusPerfTable t, Parameters p)
+        private static double BleedAirCorrection1000LB(AirbusPerfTable t, TOParameters p)
         {
             if (p.PacksOn) return t.PacksOnCorrection;
-            if (p.AntiIce == 2) return t.AllAICorrection;
-            if (p.AntiIce == 1) return t.EngineAICorrection;
+            if (p.AntiIce == AntiIceOption.EngAndWing) return t.AllAICorrection;
+            if (p.AntiIce == AntiIceOption.Engine) return t.EngineAICorrection;
             return 0.0;
         }
 
         private static double WetCorrection1000LB(double lengthFt,
-            AirbusPerfTable t, Parameters p)
+            AirbusPerfTable t, TOParameters p)
         {
             if (!p.SurfaceWet) return 0.0;
             return t.WetCorrectionTable.ValueAt(lengthFt);
         }
 
-        private static double IsaOffset(Parameters p) =>
+        private static double IsaOffset(TOParameters p) =>
             p.OatCelsius - ConversionTools.IsaTemp(p.RwyElevationFt);
 
         // Returns best matching tables, returning list can have:
@@ -129,10 +125,13 @@ namespace QSP.TOPerfCalculation.Airbus
         // 1 element if only 1 table matches the flaps setting, or
         // 2 elements if more than 1 table match the flaps, these two tables are
         // the ones most suitable for ISA offset interpolation.
-        private static List<TableDataNode> GetTables(AirbusPerfTable t, Parameters p)
+        private static List<TableDataNode> GetTables(AirbusPerfTable t, TOParameters p)
         {
-            var sameFlaps = t.Tables.Where(x => x.Flaps == p.Flaps).ToList();
-            if (sameFlaps.Count <= 1) return sameFlaps;
+            var allFlaps = t.AvailableFlaps().ToList();
+            if (p.FlapsIndex >= allFlaps.Count) return new List<TableDataNode>();
+            var flaps = allFlaps.ElementAt(p.FlapsIndex);
+            var sameFlaps = t.Tables.Where(x => x.Flaps == flaps).ToList();
+            if (sameFlaps.Count == 1) return sameFlaps;
             var ordered = sameFlaps.OrderBy(x => x.IsaOffset).ToList();
             var isaOffset = IsaOffset(p);
             var skip = ordered.Where(x => isaOffset > x.IsaOffset).Count() - 1;
@@ -141,14 +140,14 @@ namespace QSP.TOPerfCalculation.Airbus
         }
 
         private static double WetAndBleedAirCorrection1000LB(double lengthFt,
-            AirbusPerfTable t, Parameters p) =>
+            AirbusPerfTable t, TOParameters p) =>
             WetCorrection1000LB(lengthFt, t, p) + BleedAirCorrection1000LB(t, p);
 
         // The table is for limit weight. This method constructs a table of 
         // takeoff distance. (x: weight 1000 LB, f: runway length ft)
         // Wet runway and bleed air corrections are applied here.
         private static Table1D GetInverseTable(TableDataNode n, double pressAlt,
-            AirbusPerfTable t, Parameters p)
+            AirbusPerfTable t, TOParameters p)
         {
             var table = n.Table;
             var len = table.y;

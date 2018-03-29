@@ -283,9 +283,10 @@
     <Compile Include="RouteFinding\Tracks\TrackFiles.cs" />
     <Compile Include="TOPerfCalculation\Airbus\Calculator.cs" />
     <Compile Include="TOPerfCalculation\Airbus\DataClasses\AirbusPerfTable.cs" />
-    <Compile Include="TOPerfCalculation\Airbus\DataClasses\Parameters.cs" />
+    <Compile Include="TOPerfCalculation\Airbus\DataClasses\Extensions.cs" />
     <Compile Include="TOPerfCalculation\Airbus\DataClasses\TableDataNode.cs" />
     <Compile Include="TOPerfCalculation\Airbus\Loader.cs" />
+    <Compile Include="TOPerfCalculation\Extensions.cs" />
     <Compile Include="TOPerfCalculation\FindTable.cs" />
     <Compile Include="TOPerfCalculation\IHasOat.cs" />
     <Compile Include="TOPerfCalculation\TOReportRow.cs" />
@@ -608,12 +609,12 @@
     <Compile Include="TOPerfCalculation\Boeing\PerfData\BoeingPerfTable.cs" />
     <Compile Include="TOPerfCalculation\Boeing\PerfData\IndividualPerfTable.cs" />
     <Compile Include="TOPerfCalculation\Boeing\PerfData\ClimbLimitWtTable.cs" />
-    <Compile Include="TOPerfCalculation\Boeing\PerfData\Enums.cs" />
+    <Compile Include="TOPerfCalculation\Enums.cs" />
     <Compile Include="TOPerfCalculation\Boeing\PerfData\FieldLimitWtTable.cs" />
     <Compile Include="TOPerfCalculation\Boeing\PerfData\SlopeCorrTable.cs" />
     <Compile Include="TOPerfCalculation\Boeing\PerfData\WindCorrTable.cs" />
     <Compile Include="TOPerfCalculation\Boeing\TOCalculator.cs" />
-    <Compile Include="TOPerfCalculation\Boeing\TOParameters.cs" />
+    <Compile Include="TOPerfCalculation\TOParameters.cs" />
     <Compile Include="TOPerfCalculation\Boeing\TOReportGenerator.cs" />
     <Compile Include="TOPerfCalculation\Entry.cs" />
     <Compile Include="TOPerfCalculation\TOTableLoader.cs" />

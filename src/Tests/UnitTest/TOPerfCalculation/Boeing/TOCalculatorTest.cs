@@ -3,6 +3,7 @@ using QSP.TOPerfCalculation.Boeing;
 using QSP.TOPerfCalculation.Boeing.PerfData;
 using System;
 using System.Xml.Linq;
+using QSP.TOPerfCalculation;
 using static QSP.AviationTools.ConversionTools;
 using static QSP.MathTools.Angles;
 

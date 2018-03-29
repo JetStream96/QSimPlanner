@@ -1,4 +1,4 @@
-namespace QSP.TOPerfCalculation.Boeing.PerfData
+namespace QSP.TOPerfCalculation
 {
     public enum AntiIceOption
     {

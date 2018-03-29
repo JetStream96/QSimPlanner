@@ -1,21 +1,13 @@
 ﻿using System;
 using QSP.Common;
-using QSP.TOPerfCalculation.Boeing;
-using QSP.TOPerfCalculation.Boeing.PerfData;
+using QSP.TOPerfCalculation;
 
 namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
 {
-    public class BoeingParameterValidator
+    public static class BoeingParameterValidator
     {
-        private TOPerfElements elements;
-
-        public BoeingParameterValidator(TOPerfElements elements)
-        {
-            this.elements = elements;
-        }
-
         /// <exception cref="InvalidUserInputException"></exception>
-        public TOParameters Validate()
+        public static TOParameters Validate(TOPerfElements elements)
         {
             double weightKg = 0.0;
             double rwyLengthMeter = 0.0;

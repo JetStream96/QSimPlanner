@@ -1,18 +1,18 @@
 ﻿using NUnit.Framework;
 using QSP.AviationTools;
 using QSP.TOPerfCalculation.Airbus;
-using QSP.TOPerfCalculation.Airbus.DataClasses;
 using System.Linq;
+using QSP.TOPerfCalculation;
 
 namespace UnitTest.TOPerfCalculation.Airbus
 {
     [TestFixture]
     public class CalculatorTest
     {
-        public static Parameters GetParameters() => new Parameters()
+        public static TOParameters GetParameters() => new TOParameters()
         {
             AntiIce = 0,
-            Flaps = "1+F",
+           FlapsIndex=0,
             OatCelsius = 15,
             PacksOn = false,
             QNH = 1013.25,
@@ -30,7 +30,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
         public void NoMatchingFlaps()
         {
             var p = GetParameters();
-            p.Flaps = "2";
+            p.FlapsIndex = 1;
 
             var t = LoaderTest.GetTable();
 
@@ -159,7 +159,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
         {
             var p = GetParameters();
             p.WeightKg -= 555.6 * Constants.LbKgRatio;
-            p.AntiIce = 1;
+            p.AntiIce = AntiIceOption.Engine;
 
             var t = LoaderTest.GetTable();
 
@@ -172,7 +172,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
         {
             var p = GetParameters();
             p.WeightKg -= 1666.7 * Constants.LbKgRatio;
-            p.AntiIce = 2;
+            p.AntiIce = AntiIceOption.EngAndWing;
 
             var t = LoaderTest.GetTable();
 
@@ -207,7 +207,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
         public void TakeOffReportFlapsNotFound()
         {
             var p = GetParameters();
-            p.Flaps = "2";
+            p.FlapsIndex = 1;
             var t = LoaderTest.GetTable();
 
             var (e, r) = Calculator.TakeOffReport(t, p);
