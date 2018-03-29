@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <AC>A320-200 CFM56</AC>
+  <Registration>CC-BAT</Registration>
+  <FuelProfile></FuelProfile>
+  <TOProfile>Airbus A320-200 CFM56</TOProfile>
+  <LdgProfile></LdgProfile>
+  <OewKg>43200</OewKg>
+  <MaxTOWtKg>77000</MaxTOWtKg>
+  <MaxLdgWtKg>66000</MaxLdgWtKg>
+  <WtUnit>0</WtUnit>
+  <MaxZfwKg>62500</MaxZfwKg>
+  <MaxFuelKg>19150</MaxFuelKg>
+  <FuelBias>1</FuelBias>
+</root>

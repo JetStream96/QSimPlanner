@@ -794,6 +794,9 @@
     <Content Include="Libraries\MinMaxHeap.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="PerformanceData\Aircrafts\Default\A320-200 CFM56_CC-BAT.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="PerformanceData\Aircrafts\Default\B747-400F_LX-OCV.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
