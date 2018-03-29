@@ -185,6 +185,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
                 parentControl.ShowWarning("Aircraft too heavy to meet " +
                     "climb performance requirement.");
             }
+            catch(Exception ex)
+            {
+                parentControl.ShowError(ex.Message);
+            }
         }
     }
 }
