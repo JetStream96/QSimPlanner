@@ -192,5 +192,37 @@ namespace UnitTest.TOPerfCalculation.Airbus
             var (e, d) = Calculator.TakeOffDistanceMeter(t, p);
             Assert.AreEqual(5000 * Constants.FtMeterRatio, d, 10);
         }
+
+        [Test]
+        public void TakeOffReportShouldHaveAssumedTemp()
+        {
+            var p = GetParameters();
+            var t = LoaderTest.GetTable();
+
+            var (e, r) = Calculator.TakeOffReport(t, p);
+            Assert.AreEqual(Calculator.Error.None, e);
+        }
+
+        [Test]
+        public void TakeOffReportFlapsNotFound()
+        {
+            var p = GetParameters();
+            p.Flaps = "2";
+            var t = LoaderTest.GetTable();
+
+            var (e, r) = Calculator.TakeOffReport(t, p);
+            Assert.AreEqual(Calculator.Error.NoDataForSelectedFlaps, e);
+        }
+
+        [Test]
+        public void TakeOffReportRunwayTooShort()
+        {
+            var p = GetParameters();
+            p.RwyLengthMeter = 500;
+            var t = LoaderTest.GetTable();
+
+            var (e, r) = Calculator.TakeOffReport(t, p);
+            Assert.AreEqual(Calculator.Error.RunwayTooShort, e);
+        }
     }
 }

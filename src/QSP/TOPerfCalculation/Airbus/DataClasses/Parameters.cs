@@ -20,5 +20,24 @@
 
         public bool PacksOn { get; set; }
         public string Flaps { get; set; }
+
+        public Parameters() { }
+
+        public Parameters(Parameters p)
+        {
+            RwyLengthMeter = p.RwyLengthMeter;
+            RwyElevationFt = p.RwyElevationFt;
+            RwyHeading = p.RwyHeading;
+            RwySlopePercent = p.RwySlopePercent;
+            WindHeading = p.WindHeading;
+            WindSpeedKnots = p.WindSpeedKnots;
+            OatCelsius = p.OatCelsius;
+            QNH = p.QNH;
+            SurfaceWet = p.SurfaceWet;
+            WeightKg = p.WeightKg;
+            AntiIce = p.AntiIce;
+            PacksOn = p.PacksOn;
+            Flaps = p.Flaps;
+        }
     }
 }

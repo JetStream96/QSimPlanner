@@ -24,13 +24,18 @@ namespace QSP.TOPerfCalculation.Airbus
             if (primary.RwyRemainingMeter < 0) return (Error.RunwayTooShort, null);
 
             var rows = new List<TOReportRow>();
-            double maxOat = 70;
+            double maxOat = 67;
 
             for (double oat = p.OatCelsius + tempIncrement; oat <= maxOat; oat += tempIncrement)
             {
-                (e, d) = TakeOffDistanceMeter(t, p);
+                var q = new Parameters(p)
+                {
+                    OatCelsius = oat
+                };
+
+                (e, d) = TakeOffDistanceMeter(t, q);
                 if (e != Error.None) break;
-                rows.Add(new TOReportRow(p.OatCelsius, d, p.RwyLengthMeter - d));
+                rows.Add(new TOReportRow(oat, d, q.RwyLengthMeter - d));
             }
 
             return (Error.None, new TOReport(primary, rows));
