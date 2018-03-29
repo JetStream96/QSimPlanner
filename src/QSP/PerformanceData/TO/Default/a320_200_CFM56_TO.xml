@@ -6,7 +6,9 @@
     <ProfileName>Airbus A320-200 CFM56</ProfileName>
     
     <!-- Here, 1 represents this takeoff performance data format. 
-         This node does not exist for the data format like 737-600. -->
+         This node does not exist for the data format like 737-600. 
+         This can be used to distinguish different data formats.
+         -->
     <Format>1</Format>
   </Parameters>
   

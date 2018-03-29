@@ -1,9 +1,13 @@
 ﻿using QSP.AircraftProfiles.Configs;
+using QSP.LibraryExtension;
 using QSP.TOPerfCalculation;
+using QSP.TOPerfCalculation.Airbus;
 using QSP.TOPerfCalculation.Airbus.DataClasses;
 using QSP.UI.Models.MsgBox;
 using QSP.UI.Util;
+using QSP.Utilities.Units;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
@@ -136,17 +140,43 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
             return true;
         }
 
-        public void Compute(object sender, EventArgs e)
+        // Returns null if failed.
+        private TOParameters TryGetPara()
         {
-            /*
             try
             {
-                var para = BoeingParameterValidator.Validate(elements);
+                return ParameterValidator.Validate(elements);
+            }
+            catch (Exception ex)
+            {
+                parentControl.ShowWarning(ex.Message);
+                return null;
+            }
+        }
+
+        public void Compute(object sender, EventArgs e)
+        {
+            try
+            {
+                var para = TryGetPara();
+                if (para == null) return;
                 var table = (AirbusPerfTable)acPerf.Item;
                 if (!CheckWeight(para)) return;
                 var tempUnit = (TemperatureUnit)elements.TempUnit.SelectedIndex;
                 var tempIncrement = tempUnit == TemperatureUnit.Celsius ? 1.0 : 2.0 / 1.8;
-                var report = Calculator.t new TOReportGenerator(table, para).TakeOffReport(tempIncrement);
+                var (err, report) = Calculator.TakeOffReport(table, para, tempIncrement);
+
+                if (err == Calculator.Error.RunwayTooShort)
+                {
+                    parentControl.ShowWarning("Runway length is insufficient for takeoff.");
+                    return;
+                }
+
+                if (err != Calculator.Error.None)
+                {
+                    parentControl.ShowError("An unexpected error occurred.");
+                    return;
+                }
 
                 var text = report.ToString(tempUnit, (LengthUnit)elements.lengthUnit.SelectedIndex);
 
@@ -156,19 +186,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
                 CalculationCompleted?.Invoke(this, EventArgs.Empty);
                 elements.Result.ForeColor = Color.Black;
             }
-            catch (InvalidUserInputException ex)
+            catch (Exception ex)
             {
                 parentControl.ShowWarning(ex.Message);
             }
-            catch (RunwayTooShortException)
-            {
-                parentControl.ShowWarning("Runway length is insufficient for takeoff.");
-            }
-            catch (PoorClimbPerformanceException)
-            {
-                parentControl.ShowWarning("Aircraft too heavy to meet " +
-                    "climb performance requirement.");
-            }*/
         }
     }
 }

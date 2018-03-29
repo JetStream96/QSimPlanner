@@ -1,6 +1,6 @@
-﻿using QSP.LibraryExtension;
-using QSP.AircraftProfiles.Configs;
+﻿using QSP.AircraftProfiles.Configs;
 using QSP.AviationTools;
+using QSP.LibraryExtension;
 using QSP.MathTools;
 using QSP.RouteFinding.Airports;
 using QSP.TOPerfCalculation;
@@ -204,14 +204,14 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             }
 
             var (ac, perf) = FindTable.Find(tables, aircrafts, regComboBox.Text);
-            if (ac != null && perf!=null)
+            if (ac != null && perf != null)
             {
                 // Set currentTable and controller.
 
                 currentTable = perf;
+
                 controller = FormControllerFactory.GetController(
-                    ControllerType.Boeing, ac.Config, currentTable, elements, this);
-                // TODO: only correct for Boeing. 
+                    ac.Config, currentTable, elements, this);
 
                 Subscribe(controller);
                 controller.Initialize();

@@ -29,7 +29,16 @@ namespace QSP.TOPerfCalculation.Boeing
         public PerfTable ReadFromXml(string filePath)
         {
             var doc = XDocument.Load(filePath);
+            if (!IsBoeingFormat(doc)) throw new Exception();
             return new PerfTable(LoadTable(filePath), TOTableLoader.GetEntry(filePath, doc));
+        }
+
+        public static bool IsBoeingFormat(XDocument doc)
+        {
+            var p = doc.Root.Element("Parameters");
+            if (p == null) return false;
+            var f = p.Element("Format");
+            return f == null;
         }
 
         public BoeingPerfTable ReadTable(XElement root)

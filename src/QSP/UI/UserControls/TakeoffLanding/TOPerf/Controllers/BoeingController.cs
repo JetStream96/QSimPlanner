@@ -157,7 +157,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
         {
             try
             {
-                var para = BoeingParameterValidator.Validate(elements);
+                var para = ParameterValidator.Validate(elements);
                 var table = (BoeingPerfTable)acPerf.Item;
                 if (!CheckWeight(para)) return;
                 var tempUnit = (TemperatureUnit)elements.TempUnit.SelectedIndex;

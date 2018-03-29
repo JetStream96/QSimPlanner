@@ -678,7 +678,7 @@
       <DependentUpon>WeatherInfoControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\UserControls\TakeoffLanding\TOPerf\Controllers\BoeingController.cs" />
-    <Compile Include="UI\UserControls\TakeoffLanding\TOPerf\Controllers\BoeingParameterValidator.cs" />
+    <Compile Include="UI\UserControls\TakeoffLanding\TOPerf\Controllers\ParameterValidator.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\TOPerf\Controllers\FormControllerFactory.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\TOPerf\ControlState.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\TOPerf\TOPerfElements.cs" />

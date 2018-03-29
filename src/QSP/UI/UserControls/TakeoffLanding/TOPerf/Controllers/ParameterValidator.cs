@@ -4,7 +4,7 @@ using QSP.TOPerfCalculation;
 
 namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
 {
-    public static class BoeingParameterValidator
+    public static class ParameterValidator
     {
         /// <exception cref="InvalidUserInputException"></exception>
         public static TOParameters Validate(TOPerfElements elements)
