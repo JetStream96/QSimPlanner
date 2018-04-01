@@ -205,6 +205,8 @@
     <Compile Include="FuelCalculation\Results\Nodes\TocNode.cs" />
     <Compile Include="FuelCalculation\Results\Nodes\TodNode.cs" />
     <Compile Include="LandingPerfCalculation\FindTable.cs" />
+    <Compile Include="LandingPerfCalculation\LandingReport.cs" />
+    <Compile Include="LandingPerfCalculation\ReportRow.cs" />
     <Compile Include="Libraries\FolderSelectDialog\FolderSelectDialog.cs" />
     <Compile Include="Libraries\FolderSelectDialog\Reflector.cs" />
     <Compile Include="LibraryExtension\BiDictionary.cs" />
@@ -694,7 +696,6 @@
     <Compile Include="Common\Exceptions.cs" />
     <Compile Include="AviationTools\Airac\AiracTools.cs" />
     <Compile Include="LibraryExtension\Arrays.cs" />
-    <Compile Include="LandingPerfCalculation\LandingReport.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\LandingParameters.cs" />
     <Compile Include="LibraryExtension\MultiMap.cs" />
     <Compile Include="LibraryExtension\Util.cs" />

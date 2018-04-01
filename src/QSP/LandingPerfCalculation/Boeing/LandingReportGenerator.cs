@@ -1,5 +1,7 @@
 ﻿using QSP.Common;
 using QSP.LandingPerfCalculation.Boeing.PerfData;
+using System.Collections.Generic;
+using System.Linq;
 using static QSP.MathTools.Numbers;
 
 namespace QSP.LandingPerfCalculation.Boeing
@@ -10,8 +12,7 @@ namespace QSP.LandingPerfCalculation.Boeing
         private LandingParameters para;
         private LandingCalculator calc;
 
-        public LandingReportGenerator(BoeingPerfTable perfTable,
-                                      LandingParameters para)
+        public LandingReportGenerator(BoeingPerfTable perfTable, LandingParameters para)
         {
             this.perfTable = perfTable;
             this.para = para;
@@ -21,63 +22,42 @@ namespace QSP.LandingPerfCalculation.Boeing
         /// <exception cref="RunwayTooShortException"></exception>
         public LandingReport GetReport()
         {
-            var report = new LandingReport();
-
-            //compute the user input           
-            ValidateMainResult(report);
-
-            //compute all possible brake settings
-            ValidateOtherResults(report);
-
-            return report;
+            return new LandingReport()
+            {
+                SelectedBrake = GetMainResult(),
+                AllBrakes = GetOtherResults()
+            };
         }
 
-        private void ValidateMainResult(LandingReport report)
+        private ReportRow GetMainResult()
         {
             var brkList = perfTable.BrakesAvailable(para.SurfaceCondition);
             double disReqMeter = calc.DistanceRequiredMeter();
             double disRemainMeter = para.RwyLengthMeter - disReqMeter;
 
-            if (disRemainMeter >= 0)
+            if (disRemainMeter < 0) throw new RunwayTooShortException();
+            return new ReportRow()
             {
-                report.SetSelectedBrakesResult(
-                    brkList[para.BrakeIndex],
-                    RoundToInt(disReqMeter),
-                    RoundToInt(disRemainMeter));
-            }
-            else
-            {
-                throw new RunwayTooShortException();
-            }
+                BrakeSetting = brkList[para.BrakeIndex],
+                RequiredDistanceMeter = RoundToInt(disReqMeter),
+                RemainDistanceMeter = RoundToInt(disRemainMeter)
+            };
         }
 
-        private void ValidateOtherResults(LandingReport report)
+        private List<ReportRow> GetOtherResults()
         {
-            var brkList = perfTable.BrakesAvailable(para.SurfaceCondition);
-
-            for (int i = 0; i < brkList.Length; i++)
+            var brakes = perfTable.BrakesAvailable(para.SurfaceCondition);
+            return brakes.Select((b, i) =>
             {
-                if (i == para.BrakeIndex)
+                double disReq = RoundToInt(calc.DistanceRequiredMeter(i));
+                double disRemain = para.RwyLengthMeter - disReq;
+                return new ReportRow()
                 {
-                    report.AddOtherResult();
-                }
-                else
-                {
-                    double disReq = RoundToInt(calc.DistanceRequiredMeter(i));
-                    double disRemain = para.RwyLengthMeter - disReq;
-
-                    if (disRemain >= 0.0)
-                    {
-                        report.AddOtherResult(brkList[i],
-                                              RoundToInt(disReq),
-                                              RoundToInt(disRemain));
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-            }
+                    BrakeSetting = b,
+                    RequiredDistanceMeter = RoundToInt(disReq),
+                    RemainDistanceMeter = RoundToInt(disRemain)
+                };
+            }).Where(r => r.RemainDistanceMeter >= 0).ToList();
         }
     }
 }

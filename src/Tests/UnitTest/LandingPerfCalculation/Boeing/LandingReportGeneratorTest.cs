@@ -39,7 +39,7 @@ namespace UnitTest.LandingPerfCalculation.Boeing
             AssertOtherResult(report, para, table);
         }
 
-        private void AssertMainResult(LandingReport report,
+        private void AssertMainResult(LandingReportOld report,
             LandingParameters para, BoeingPerfTable table)
         {
             var entry = report.SelectedBrks;
@@ -56,7 +56,7 @@ namespace UnitTest.LandingPerfCalculation.Boeing
             Assert.AreEqual(disRemain, entry.DisRemainMeter, 0.5);
         }
 
-        private void AssertOtherResult(LandingReport report,
+        private void AssertOtherResult(LandingReportOld report,
             LandingParameters para, BoeingPerfTable table)
         {
             var calc = new LandingCalculator(table, para);

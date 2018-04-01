@@ -6,21 +6,17 @@ namespace QSP.LandingPerfCalculation
 {
     public static class FindTable
     {
-        // Returns null is not found.
+        /// <summary>
+        /// Returns null is not found. 
+        /// </summary>
         public static (AircraftConfig, PerfTable) Find(
-            IReadOnlyList<PerfTable> tables,
-            AcConfigManager aircrafts,
-            string registration)
+            IReadOnlyList<PerfTable> tables, AcConfigManager aircrafts, string registration)
         {
-            if (tables != null && tables.Count > 0)
-            {
-                var config = aircrafts.Find(registration);
-                var ac = config.Config;
-                var profileName = ac.TOProfile;
-                return (config, tables.First(t => t.Entry.ProfileName == profileName));
-            }
-
-            return (null, null);
+            if (tables == null || tables.Count == 0) return (null, null);
+            var config = aircrafts.Find(registration);
+            var ac = config.Config;
+            var profileName = ac.TOProfile;
+            return (config, tables.First(t => t.Entry.ProfileName == profileName));
         }
     }
 }

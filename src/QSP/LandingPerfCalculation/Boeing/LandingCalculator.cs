@@ -8,8 +8,7 @@ namespace QSP.LandingPerfCalculation.Boeing
         private BoeingPerfTable perfTable;
         private LandingParameters para;
 
-        public LandingCalculator(BoeingPerfTable perfTable,
-                                 LandingParameters para)
+        public LandingCalculator(BoeingPerfTable perfTable, LandingParameters para)
         {
             this.perfTable = perfTable;
             this.para = para;
@@ -21,16 +20,11 @@ namespace QSP.LandingPerfCalculation.Boeing
         {
             if (para.SurfaceCondition == SurfaceCondition.Dry)
             {
-                return perfTable
-                        .DataDry
-                        .GetValue(para.FlapsIndex, brakeSetting, column);
+                return perfTable.DataDry.GetValue(para.FlapsIndex, brakeSetting, column);
             }
-            return perfTable
-                    .DataWet
-                    .GetValue(para.FlapsIndex,
-                              para.SurfaceCondition,
-                              brakeSetting,
-                              column);
+
+            return perfTable.DataWet.GetValue(
+                para.FlapsIndex, para.SurfaceCondition, brakeSetting, column);
         }
 
         /// <summary>
@@ -51,7 +45,8 @@ namespace QSP.LandingPerfCalculation.Boeing
             {
                 totalDisMeter += ReqData(DataColumn.HalfRev, brakeSetting);
             }
-            else if (para.Reverser == ReverserOption.NoRev)
+
+            if (para.Reverser == ReverserOption.NoRev)
             {
                 totalDisMeter += ReqData(DataColumn.NoRev, brakeSetting);
             }
@@ -65,7 +60,6 @@ namespace QSP.LandingPerfCalculation.Boeing
                 (para.WeightKG - perfTable.WeightRef) / perfTable.WeightStep;
 
             return wtExcessSteps *
-
                 (wtExcessSteps >= 0 ?
                 ReqData(DataColumn.WtAdjustAbove, brakeSetting) :
                 -ReqData(DataColumn.WtAdjustBelow, brakeSetting));
@@ -80,8 +74,7 @@ namespace QSP.LandingPerfCalculation.Boeing
 
         private double WindCorrection(int brake)
         {
-            double corrPer10kts =
-                para.HeadwindKts >= 0 ?
+            double corrPer10kts = para.HeadwindKts >= 0 ?
                 ReqData(DataColumn.HeadwindCorr, brake) :
                 -ReqData(DataColumn.TailwindCorr, brake);
 
@@ -90,8 +83,7 @@ namespace QSP.LandingPerfCalculation.Boeing
 
         private double SlopeCorrection(int brake)
         {
-            double corrPerDegree =
-                para.SlopePercent <= 0 ?
+            double corrPerDegree = para.SlopePercent <= 0 ?
                 -ReqData(DataColumn.DownhillCorr, brake) :
                 ReqData(DataColumn.UphillCorr, brake);
 
@@ -110,16 +102,12 @@ namespace QSP.LandingPerfCalculation.Boeing
 
         private double AppSpdCorrection(int brake)
         {
-            return para.AppSpeedIncrease / 10.0 *
-                ReqData(DataColumn.AppSpdAdjust, brake);
+            return para.AppSpeedIncrease / 10.0 * ReqData(DataColumn.AppSpdAdjust, brake);
         }
 
         /// <summary>
         /// Gets the landing distance for the given landing parameters.
         /// </summary>
-        public double DistanceRequiredMeter()
-        {
-            return DistanceRequiredMeter(para.BrakeIndex);
-        }
+        public double DistanceRequiredMeter() => DistanceRequiredMeter(para.BrakeIndex);
     }
 }

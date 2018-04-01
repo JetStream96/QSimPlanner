@@ -1,36 +1,13 @@
+﻿using QSP.Utilities.Units;
 using System.Collections.Generic;
 using System.Text;
-using QSP.Utilities.Units;
 
 namespace QSP.LandingPerfCalculation
 {
     public class LandingReport
     {
-        public DataRow SelectedBrks { get; private set; }
-        public List<DataRow> AllSettings { get; private set; }
-
-        public LandingReport()
-        {
-            AllSettings = new List<DataRow>();
-        }
-
-        public void SetSelectedBrakesResult(string BrkSetting, int ActualDisMeter, int DisRemainMeter)
-        {
-            SelectedBrks = new DataRow(BrkSetting, ActualDisMeter, DisRemainMeter);
-        }
-
-        public void AddOtherResult(string BrkSetting, int ActualDisMeter, int DisRemainMeter)
-        {
-            AllSettings.Add(new DataRow(BrkSetting, ActualDisMeter, DisRemainMeter));
-        }
-
-        /// <summary>
-        /// Add the result of selected brake to allSettings. Value of selectedBrks must be set already.
-        /// </summary>
-        public void AddOtherResult()
-        {
-            AllSettings.Add(SelectedBrks);
-        }
+        public ReportRow SelectedBrake { get; set; }
+        public List<ReportRow> AllBrakes { get; set; }
 
         public string ToString(LengthUnit lengthUnit)
         {
@@ -40,11 +17,11 @@ namespace QSP.LandingPerfCalculation
             result.AppendLine();
 
             result.AppendLine("           Actual landing distance    " +
-                ConvertToFeetIfNeeded(SelectedBrks.ActualDisMeter, lengthUnit)
+                ConvertToFeetIfNeeded(SelectedBrake.RequiredDistanceMeter, lengthUnit)
                 + " " + unitStr);
 
             result.AppendLine("           Runway remaining           " +
-                ConvertToFeetIfNeeded(SelectedBrks.DisRemainMeter, lengthUnit)
+                ConvertToFeetIfNeeded(SelectedBrake.RemainDistanceMeter, lengthUnit)
                 + " " + unitStr);
 
             result.AppendLine();
@@ -53,11 +30,11 @@ namespace QSP.LandingPerfCalculation
             result.AppendLine("                  Landing distance   Runway remaining");
 
 
-            foreach (var i in AllSettings)
+            foreach (var i in AllBrakes)
             {
-                result.Append(("   " + i.BrkSetting).PadRight(18, ' '));
+                result.Append(("   " + i.BrakeSetting).PadRight(18, ' '));
 
-                result.Append((ConvertToFeetIfNeeded(i.ActualDisMeter, lengthUnit)
+                result.Append((ConvertToFeetIfNeeded(i.RequiredDistanceMeter, lengthUnit)
                                .ToString() +
                                " " +
                                unitStr)
@@ -65,7 +42,7 @@ namespace QSP.LandingPerfCalculation
                                .PadRight(19, ' '));
 
                 result.AppendLine(
-                    (ConvertToFeetIfNeeded(i.DisRemainMeter, lengthUnit) + " " + unitStr)
+                    (ConvertToFeetIfNeeded(i.RemainDistanceMeter, lengthUnit) + " " + unitStr)
                     .ToString()
                     .PadLeft(11, ' '));
             }
@@ -77,20 +54,6 @@ namespace QSP.LandingPerfCalculation
             return unit == LengthUnit.Meter ?
                 disMeter :
                 (int)(disMeter * AviationTools.Constants.MeterFtRatio);
-        }
-
-        public class DataRow
-        {
-            public string BrkSetting { get; private set; }
-            public int ActualDisMeter { get; private set; }
-            public int DisRemainMeter { get; private set; }
-
-            public DataRow(string BrkSetting, int ActualDisMeter, int DisRemainMeter)
-            {
-                this.BrkSetting = BrkSetting;
-                this.ActualDisMeter = ActualDisMeter;
-                this.DisRemainMeter = DisRemainMeter;
-            }
         }
     }
 }
