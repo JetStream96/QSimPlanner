@@ -5,6 +5,7 @@ using QSP.RouteFinding.Tracks;
 using QSP.RouteFinding.Tracks.Actions;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.UI.Util;
+using QSP.UI.Util.ScrollBar;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,16 +15,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using QSP.UI.Util.ScrollBar;
+using static QSP.LibraryExtension.Types;
 using static QSP.RouteFinding.Tracks.AirwayNetwork;
 using static QSP.RouteFinding.Tracks.Common.Helpers;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
 using static QSP.Utilities.LoggerInstance;
-using static QSP.LibraryExtension.Types;
 
 namespace QSP.UI.Views
 {
-    // TODO: Separate presenter from this class.
     public partial class TracksForm
     {
         private static readonly string trackFileExtension = ".track";

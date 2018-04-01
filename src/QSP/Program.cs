@@ -17,6 +17,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using QSP.UI.Forms;
 using static QSP.Updates.Utilities;
 using static QSP.Utilities.ExceptionHelpers;
 

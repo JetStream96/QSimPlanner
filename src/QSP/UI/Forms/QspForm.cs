@@ -8,7 +8,6 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.Tracks;
-using QSP.UI.Forms;
 using QSP.UI.Forms.Options;
 using QSP.UI.Models;
 using QSP.UI.Models.FuelPlan.Routes;
@@ -21,6 +20,7 @@ using QSP.UI.UserControls.TakeoffLanding.LandingPerf;
 using QSP.UI.UserControls.TakeoffLanding.TOPerf;
 using QSP.UI.Util;
 using QSP.UI.Util.ScrollBar;
+using QSP.UI.Views;
 using QSP.UI.Views.FuelPlan;
 using QSP.UI.Views.MiscInfo;
 using QSP.Updates;
@@ -36,10 +36,8 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using static QSP.Utilities.LoggerInstance;
 
-namespace QSP.UI.Views
+namespace QSP.UI.Forms
 {
-    // TODO: Separate presenter from this class.
-
     // Requirements:
     // * When NavData is changed,
     //   * Runway and SID/STAR list should refresh.

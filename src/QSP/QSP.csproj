@@ -323,7 +323,6 @@
     </Compile>
     <Compile Include="UI\Views\FuelPlan\IAlternateRowView.cs" />
     <Compile Include="UI\Views\FuelPlan\IAlternateView.cs" />
-    <Compile Include="UI\Views\FuelPlan\IFuelPlanningView.cs" />
     <Compile Include="UI\Util\ComboBoxHelpers.cs" />
     <Compile Include="UI\Util\ControlDisableStyleController.cs" />
     <Compile Include="UI\Controllers\ControlGroup\ColorGroup.cs" />
@@ -333,6 +332,7 @@
     <Compile Include="UI\Util\ScrollBar\ScrollAnimation.cs" />
     <Compile Include="UI\Controllers\Units\WeightTextBoxController.cs" />
     <Compile Include="UI\Controllers\WeightControl\WeightController.cs" />
+    <Compile Include="UI\Views\FuelPlan\IFuelPlanningView.cs" />
     <Compile Include="UI\Views\FuelPlan\Routes\RouteFinderRow.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -399,10 +399,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\Views\Factories\FormFactory.cs" />
-    <Compile Include="UI\Views\QspForm.cs">
+    <Compile Include="UI\Forms\QspForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Views\QspForm.Designer.cs">
+    <Compile Include="UI\Forms\QspForm.Designer.cs">
       <DependentUpon>QspForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Views\Wind\IWindDataView.cs" />
@@ -958,7 +958,7 @@
     <EmbeddedResource Include="UI\Views\MiscInfo\MiscInfoControl.resx">
       <DependentUpon>MiscInfoControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Views\QspForm.resx">
+    <EmbeddedResource Include="UI\Forms\QspForm.resx">
       <DependentUpon>QspForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Views\FuelPlan\Routes\AvoidCountryControl.resx">

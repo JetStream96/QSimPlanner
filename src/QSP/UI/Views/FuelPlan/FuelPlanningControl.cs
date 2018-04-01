@@ -1,10 +1,10 @@
-﻿using QSP.LibraryExtension;
-using QSP.AircraftProfiles.Configs;
+﻿using QSP.AircraftProfiles.Configs;
 using QSP.Common;
 using QSP.Common.Options;
 using QSP.FuelCalculation.Calculations;
 using QSP.FuelCalculation.FuelData;
 using QSP.FuelCalculation.Results;
+using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Routes;
@@ -22,6 +22,7 @@ using QSP.UI.Views.FuelPlan.Routes;
 using QSP.Utilities.Units;
 using QSP.WindAloft;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -32,14 +33,12 @@ using static QSP.UI.Util.MsgBoxHelper;
 using static QSP.UI.Views.Factories.FormFactory;
 using static QSP.Utilities.LoggerInstance;
 using static QSP.Utilities.Units.Conversions;
-using System.Collections.Generic;
 
 namespace QSP.UI.Views.FuelPlan
 {
     // The implementation of ISupportActionContextMenu is used to support the actions 
     // for the route from origin to destination.
 
-    // TODO: Separate presenter from this class.
     public partial class FuelPlanningControl : UserControl, IRefreshForNavDataChange,
         IFuelPlanningView
     {

@@ -30,8 +30,9 @@ namespace QSP.TOPerfCalculation.Airbus
             {
                 var q = p.CloneWithOat(oat);
                 (e, d) = TakeOffDistanceMeter(t, q);
-                if (e != Error.None) break;
-                rows.Add(new TOReportRow(oat, d, q.RwyLengthMeter - d));
+                var remaining = q.RwyLengthMeter - d;
+                if (e != Error.None || remaining < 0) break;
+                rows.Add(new TOReportRow(oat, d, remaining));
             }
 
             return (Error.None, new TOReport(primary, rows));

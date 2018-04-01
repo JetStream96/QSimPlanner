@@ -1,6 +1,7 @@
 ﻿using QSP.UI.UserControls;
+using QSP.UI.Views;
 
-namespace QSP.UI.Views
+namespace QSP.UI.Forms
 {
     partial class QspForm
     {
