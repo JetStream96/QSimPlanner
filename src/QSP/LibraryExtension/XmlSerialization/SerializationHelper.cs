@@ -44,5 +44,15 @@ namespace QSP.LibraryExtension.XmlSerialization
         {
             return double.Parse(elem.GetString(key));
         }
+
+        public static string GetAttributeString(this XElement e, string key)
+        {
+            return e.Attribute(key).Value;
+        }
+
+        public static double GetAttributeDouble(this XElement e, string key)
+        {
+            return double.Parse(e.GetAttributeString(key));
+        }
     }
 }
