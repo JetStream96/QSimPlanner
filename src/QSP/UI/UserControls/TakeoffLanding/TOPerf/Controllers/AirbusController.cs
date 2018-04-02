@@ -8,7 +8,9 @@ using QSP.UI.Util;
 using QSP.Utilities.Units;
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
+using static QSP.LibraryExtension.Types;
 
 namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
 {
@@ -19,6 +21,21 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
         private TOPerfElements elements;
         private AircraftConfigItem ac;
 
+        public FormOptions Options
+        {
+            get
+            {
+                return new FormOptions()
+                {
+                    Packs = Arr("ON", "OFF"),
+                    AntiIces = Arr("OFF", "ONLY ENG A/I", "ENG AND WING A/I"),
+                    Flaps = ((AirbusPerfTable)acPerf.Item).AvailableFlaps().ToArray(),
+                    Surfaces = Arr("Dry", "Wet"),
+                    Derates = Arr("TO")
+                };
+            }
+        }
+
         public event EventHandler CalculationCompleted;
 
         public AirbusController(FormControllerData d)
@@ -27,98 +44,6 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
             this.elements = d.Elements;
             this.parentControl = d.ParentControl;
             this.ac = d.ConfigItem;
-        }
-
-        public void WeightUnitChanged(object sender, EventArgs e)
-        {
-            if (double.TryParse(elements.Weight.Text, out var wt))
-            {
-                if (elements.WtUnit.SelectedIndex == 0)
-                {
-                    // LB -> KG 
-                    wt *= AviationTools.Constants.LbKgRatio;
-                }
-                else
-                {
-                    // KG -> LB
-                    wt *= AviationTools.Constants.KgLbRatio;
-                }
-
-                elements.Weight.Text = ((int)Math.Round(wt)).ToString();
-            }
-        }
-
-        public void Initialize()
-        {
-            SetDefaultSurfCond();
-            SetDefaultFlaps();
-            SetDerate();
-            SetPackOptions();
-            SetAntiIceOptions();
-        }
-
-        private void SetPackOptions()
-        {
-            var items = elements.Packs.Items;
-            items.Clear();
-            items.AddRange(new[] { "ON", "OFF" });
-            elements.Packs.SelectedIndex = 0;
-        }
-
-        private void SetAntiIceOptions()
-        {
-            var items = elements.AntiIce.Items;
-            items.Clear();
-            items.AddRange(new[]
-            {
-                "OFF",
-                "ONLY ENG A/I",
-                "ENG AND WING A/I"
-            });
-            elements.AntiIce.SelectedIndex = 0;
-        }
-
-        public void FlapsChanged(object sender, EventArgs e)
-        {
-            SetDerate();
-        }
-
-        private void SetDerate()
-        {
-            var thrustComboBox = elements.ThrustRating;
-
-            var items = thrustComboBox.Items;
-            items.Clear();
-
-            items.Add("TO");
-            thrustComboBox.Enabled = false;
-
-            thrustComboBox.SelectedIndex = 0;
-        }
-
-        private void SetDefaultSurfCond()
-        {
-            var surf = elements.SurfCond;
-            var items = surf.Items;
-            var old = surf.Text;
-
-            items.Clear();
-            items.AddRange(new[] { "Dry", "Wet" });
-            surf.SelectedIndex = 0;
-            surf.Text = old;
-        }
-
-        private void SetDefaultFlaps()
-        {
-            var items = elements.Flaps.Items;
-            items.Clear();
-
-            foreach (var i in ((AirbusPerfTable)acPerf.Item).AvailableFlaps())
-            {
-                items.Add(i);
-            }
-
-            elements.Flaps.SelectedIndex = 0;
         }
 
         // Returns whether continue to calculate.

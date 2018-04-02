@@ -4,6 +4,8 @@ using QSP.LibraryExtension;
 using QSP.MathTools;
 using QSP.RouteFinding.Airports;
 using QSP.TOPerfCalculation;
+using QSP.TOPerfCalculation.Airbus.DataClasses;
+using QSP.TOPerfCalculation.Boeing.PerfData;
 using QSP.UI.Models.TakeoffLanding;
 using QSP.UI.UserControls.TakeoffLanding.Common;
 using QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers;
@@ -15,8 +17,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using QSP.TOPerfCalculation.Airbus.DataClasses;
-using QSP.TOPerfCalculation.Boeing.PerfData;
+using static QSP.LibraryExtension.Types;
 
 namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
 {
@@ -32,6 +33,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
 
         private PerfTable currentTable;
         private AutoWeatherSetter wxSetter;
+        private bool updatingFormOptions = false;
 
         public AirportManager Airports
         {
@@ -78,6 +80,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
 
             // Automatically update weather
             airportInfoControl.IcaoChanged += (s, e) => wxSetter.GetMetarAndFillWeather();
+            wtUnitComboBox.SelectedIndexChanged += WeightUnitChanged;
         }
 
         private void UpdateAircraftList()
@@ -166,7 +169,6 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
 
             elements = new TOPerfElements(
                 ac.airportNameLbl,
-                thrustRatingLbl,
                 ac.airportTxtBox,
                 ac.lengthTxtBox,
                 ac.elevationTxtBox,
@@ -221,26 +223,51 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
                 });
 
                 Subscribe(controller);
-                controller.Initialize();
+                UpdateFormOptions();
                 RefreshWtColor();
             }
         }
 
+        private void UpdateFormOptions()
+        {
+            if (updatingFormOptions) return;
+            updatingFormOptions = true;
+
+            var o = controller.Options;
+            var e = elements;
+            var pairs = List(
+                (e.AntiIce, o.AntiIces),
+                (e.Flaps, o.Flaps),
+                (e.Packs, o.Packs),
+                (e.SurfCond, o.Surfaces),
+                (e.ThrustRating, o.Derates));
+
+            pairs.ForEach(p =>
+            {
+                var (x, y) = p;
+                x.SetItemsPreserveSelection(y);
+            });
+
+            updatingFormOptions = false;
+        }
+
         private void Subscribe(IFormController controller)
         {
-            wtUnitComboBox.SelectedIndexChanged += controller.WeightUnitChanged;
-            flapsComboBox.SelectedIndexChanged += controller.FlapsChanged;
-            calculateBtn.Click += controller.Compute;
+            var e = elements;
+            List(e.ThrustRating, e.AntiIce, e.Flaps, e.SurfCond, e.Packs).ForEach(i =>
+                i.SelectedIndexChanged += (s, ev) => UpdateFormOptions());
 
+            calculateBtn.Click += controller.Compute;
             controller.CalculationCompleted += SaveState;
         }
 
         private void UnSubscribe(IFormController controller)
         {
-            wtUnitComboBox.SelectedIndexChanged -= controller.WeightUnitChanged;
-            flapsComboBox.SelectedIndexChanged -= controller.FlapsChanged;
-            calculateBtn.Click -= controller.Compute;
+            var e = elements;
+            List(e.ThrustRating, e.AntiIce, e.Flaps, e.SurfCond, e.Packs).ForEach(i =>
+                i.SelectedIndexChanged -= (s, ev) => UpdateFormOptions());
 
+            calculateBtn.Click -= controller.Compute;
             controller.CalculationCompleted -= SaveState;
         }
 
@@ -249,25 +276,21 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             var ac = aircrafts?.Find(regComboBox.Text);
             var config = ac?.Config;
 
-            if (config != null && double.TryParse(weightTxtBox.Text, out var wtKg))
+            if (config == null || !double.TryParse(weightTxtBox.Text, out var wtKg))
             {
-                if (wtUnitComboBox.SelectedIndex == 1)
-                {
-                    wtKg *= Constants.LbKgRatio;
-                }
+                weightTxtBox.ForeColor = Color.Black;
+                return;
+            }
 
-                if (wtKg > config.MaxTOWtKg || wtKg < config.OewKg)
-                {
-                    weightTxtBox.ForeColor = Color.Red;
-                }
-                else
-                {
-                    weightTxtBox.ForeColor = Color.Green;
-                }
+            if (wtUnitComboBox.SelectedIndex == 1) wtKg *= Constants.LbKgRatio;
+
+            if (wtKg > config.MaxTOWtKg || wtKg < config.OewKg)
+            {
+                weightTxtBox.ForeColor = Color.Red;
             }
             else
             {
-                weightTxtBox.ForeColor = Color.Black;
+                weightTxtBox.ForeColor = Color.Green;
             }
         }
 
@@ -327,6 +350,24 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             if (item is BoeingPerfTable) return new BoeingController(d);
             if (item is AirbusPerfTable) return new AirbusController(d);
             throw new ArgumentException();
+        }
+
+        private void WeightUnitChanged(object sender, EventArgs e)
+        {
+            if (!double.TryParse(elements.Weight.Text, out var wt)) return;
+
+            if (elements.WtUnit.SelectedIndex == 0)
+            {
+                // LB -> KG 
+                wt *= AviationTools.Constants.LbKgRatio;
+            }
+            else
+            {
+                // KG -> LB
+                wt *= AviationTools.Constants.KgLbRatio;
+            }
+
+            elements.Weight.Text = ((int)Math.Round(wt)).ToString();
         }
     }
 }

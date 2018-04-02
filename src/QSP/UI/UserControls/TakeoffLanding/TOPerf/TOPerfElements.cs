@@ -5,7 +5,6 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
     public class TOPerfElements
     {
         public Label AirportName { get; }
-        public Label ThrustRatingLbl { get; }
         public TextBox Airport { get; }
         public TextBox Length { get; }
         public TextBox Elevation { get; }
@@ -29,7 +28,6 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
 
         public TOPerfElements(
             Label AirportName,
-            Label ThrustRatingLbl,
             TextBox Airport,
             TextBox Length,
             TextBox Elevation,
@@ -52,7 +50,6 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             RichTextBox result)
         {
             this.AirportName = AirportName;
-            this.ThrustRatingLbl = ThrustRatingLbl;
             this.Airport = Airport;
             this.Length = Length;
             this.Elevation = Elevation;
