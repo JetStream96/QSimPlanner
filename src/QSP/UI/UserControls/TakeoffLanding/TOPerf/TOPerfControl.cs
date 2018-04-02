@@ -85,15 +85,8 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
 
         private void UpdateAircraftList()
         {
-            var items = acListComboBox.Items;
-
-            items.Clear();
-            items.AddRange(AvailAircraftTypes());
-
-            if (items.Count > 0)
-            {
-                acListComboBox.SelectedIndex = 0;
-            }
+            acListComboBox.SetItems(AvailAircraftTypes());
+            acListComboBox.SetItemsPreserveSelection(AvailAircraftTypes());
         }
 
         private string[] AvailAircraftTypes()
@@ -120,18 +113,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             if (acListComboBox.SelectedIndex >= 0)
             {
                 var ac = aircrafts.FindAircraft(acListComboBox.Text);
-                var items = regComboBox.Items;
-                items.Clear();
-
-                items.AddRange(ac
+                regComboBox.SetItemsPreserveSelection(ac
                     .Where(c => TakeoffProfileExists(c.Config.TOProfile))
                     .Select(c => c.Config.Registration)
                     .ToArray());
-
-                if (items.Count > 0)
-                {
-                    regComboBox.SelectedIndex = 0;
-                }
             }
         }
 

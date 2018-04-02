@@ -1,19 +1,20 @@
-﻿using QSP.LibraryExtension;
-using QSP.AircraftProfiles.Configs;
+﻿using QSP.AircraftProfiles.Configs;
 using QSP.AviationTools;
 using QSP.LandingPerfCalculation;
+using QSP.LibraryExtension;
 using QSP.MathTools;
 using QSP.RouteFinding.Airports;
-using QSP.UI.Views.Factories;
+using QSP.UI.Models.TakeoffLanding;
 using QSP.UI.UserControls.TakeoffLanding.Common;
 using QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers;
+using QSP.UI.Util;
+using QSP.UI.Views.Factories;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using QSP.UI.Models.TakeoffLanding;
-using QSP.UI.Util;
+using static QSP.LibraryExtension.Types;
 
 namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
 {
@@ -29,6 +30,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
 
         private PerfTable currentTable;
         private AutoWeatherSetter wxSetter;
+        private bool updatingFormOptions = false;
 
         public AirportManager Airports
         {
@@ -152,29 +154,17 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
 
         private void UpdateAircraftList()
         {
-            var items = acListComboBox.Items;
-
-            items.Clear();
-            items.AddRange(AvailAircraftTypes());
-
-            if (items.Count > 0) acListComboBox.SelectedIndex = 0;
+            acListComboBox.SetItemsPreserveSelection(AvailAircraftTypes());
         }
 
         private void RefreshRegistrations(object sender, EventArgs e)
         {
-            if (acListComboBox.SelectedIndex >= 0)
-            {
-                var ac = aircrafts.FindAircraft(acListComboBox.Text);
-                var items = regComboBox.Items;
-                items.Clear();
-
-                items.AddRange(ac
-                    .Where(c => LandingProfileExists(c.Config.LdgProfile))
-                    .Select(c => c.Config.Registration)
-                    .ToArray());
-
-                if (items.Count > 0) regComboBox.SelectedIndex = 0;
-            }
+            if (acListComboBox.SelectedIndex < 0) return;
+            var ac = aircrafts.FindAircraft(acListComboBox.Text);
+            regComboBox.SetItemsPreserveSelection(ac
+                .Where(c => LandingProfileExists(c.Config.LdgProfile))
+                .Select(c => c.Config.Registration)
+                .ToArray());
         }
 
         private void RequestBtnClick(object sender, EventArgs e)
@@ -239,21 +229,42 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
                 // TODO: not completely right
 
                 Subscribe(controller);
-                controller.Initialize();
+                UpdateFormOptions();
+
                 RefreshWtColor();
             }
+        }
+
+        private void UpdateFormOptions()
+        {
+            if (updatingFormOptions) return;
+            updatingFormOptions = true;
+
+            var o = controller.Options;
+            var e = elements;
+            var pairs = List(
+                (e.Brake, o.Brakes),
+                (e.Flaps, o.Flaps),
+                (e.SurfCond, o.SurfaceConditions),
+                (e.Reverser, o.Reversers));
+
+            pairs.ForEach(p =>
+            {
+                var (x, y) = p;
+                x.SetItemsPreserveSelection(y);
+            });
+
+            updatingFormOptions = false;
         }
 
         private void Subscribe(IFormController controller)
         {
             var c = controller;
-            var w = weatherInfoControl;
+            var e = elements;
+            List(e.Brake, e.Reverser, e.Flaps, e.SurfCond).ForEach(i =>
+                i.SelectedIndexChanged += (s, ev) => UpdateFormOptions());
 
-            w.surfCondComboBox.SelectedIndexChanged += c.SurfCondChanged;
-            wtUnitComboBox.SelectedIndexChanged += c.WeightUnitChanged;
-            flapsComboBox.SelectedIndexChanged += c.FlapsChanged;
-            revThrustComboBox.SelectedIndexChanged += c.ReverserChanged;
-            brakeComboBox.SelectedIndexChanged += c.BrakesChanged;
+            wtUnitComboBox.SelectedIndexChanged += WeightUnitChanged;
             calculateBtn.Click += c.Compute;
 
             c.CalculationCompleted += SaveState;
@@ -262,13 +273,11 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
         private void UnSubscribe(IFormController controller)
         {
             var c = controller;
-            var w = weatherInfoControl;
+            var e = elements;
+            List(e.Brake, e.Reverser, e.Flaps, e.SurfCond).ForEach(i =>
+                i.SelectedIndexChanged -= (s, ev) => UpdateFormOptions());
 
-            w.surfCondComboBox.SelectedIndexChanged -= c.SurfCondChanged;
-            wtUnitComboBox.SelectedIndexChanged -= c.WeightUnitChanged;
-            flapsComboBox.SelectedIndexChanged -= c.FlapsChanged;
-            revThrustComboBox.SelectedIndexChanged -= c.ReverserChanged;
-            brakeComboBox.SelectedIndexChanged -= c.BrakesChanged;
+            wtUnitComboBox.SelectedIndexChanged -= WeightUnitChanged;
             calculateBtn.Click -= c.Compute;
 
             c.CalculationCompleted -= SaveState;
@@ -279,25 +288,21 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             var ac = aircrafts?.Find(regComboBox.Text);
             var config = ac?.Config;
 
-            if (config != null && double.TryParse(weightTxtBox.Text, out var wtKg))
+            if (config == null || !double.TryParse(weightTxtBox.Text, out var wtKg))
             {
-                if (wtUnitComboBox.SelectedIndex == 1)
-                {
-                    wtKg *= Constants.LbKgRatio;
-                }
+                weightTxtBox.ForeColor = Color.Black;
+                return;
+            }
 
-                if (wtKg > config.MaxLdgWtKg || wtKg < config.OewKg)
-                {
-                    weightTxtBox.ForeColor = Color.Red;
-                }
-                else
-                {
-                    weightTxtBox.ForeColor = Color.Green;
-                }
+            if (wtUnitComboBox.SelectedIndex == 1) wtKg *= Constants.LbKgRatio;
+
+            if (wtKg > config.MaxLdgWtKg || wtKg < config.OewKg)
+            {
+                weightTxtBox.ForeColor = Color.Red;
             }
             else
             {
-                weightTxtBox.ForeColor = Color.Black;
+                weightTxtBox.ForeColor = Color.Green;
             }
         }
 
@@ -327,6 +332,24 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
         private void TxtRichTextBoxContentsResized(object sender, ContentsResizedEventArgs e)
         {
             resultsRichTxtBox.Height = e.NewRectangle.Height + 10;
+        }
+
+        private void WeightUnitChanged(object sender, EventArgs e)
+        {
+            if (!double.TryParse(elements.Weight.Text, out var wt)) return;
+
+            if (elements.WtUnit.SelectedIndex == 0)
+            {
+                // LB -> KG 
+                wt *= AviationTools.Constants.LbKgRatio;
+            }
+            else
+            {
+                // KG -> LB
+                wt *= AviationTools.Constants.KgLbRatio;
+            }
+
+            elements.Weight.Text = ((int)Math.Round(wt)).ToString();
         }
     }
 }

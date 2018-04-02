@@ -8,24 +8,24 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
         public TextBox Airport { get; private set; }
         public TextBox Length { get; private set; }
         public TextBox Elevation { get; private set; }
-        public TextBox rwyHeading { get; private set; }
-        public TextBox windDirection { get; private set; }
-        public TextBox windSpeed { get; private set; }
-        public TextBox oat { get; private set; }
-        public TextBox pressure { get; private set; }
-        public TextBox weight { get; private set; }
-        public TextBox appSpeedIncrease { get; private set; }
-        public ComboBox runway { get; private set; }
-        public ComboBox lengthUnit { get; private set; }
-        public ComboBox slope { get; private set; }
-        public ComboBox tempUnit { get; private set; }
-        public ComboBox brake { get; private set; }
-        public ComboBox surfCond { get; private set; }
-        public ComboBox pressureUnit { get; private set; }
-        public ComboBox wtUnit { get; private set; }
-        public ComboBox flaps { get; private set; }
-        public ComboBox reverser { get; private set; }
-        public RichTextBox result { get; private set; }
+        public TextBox RwyHeading { get; private set; }
+        public TextBox WindDirection { get; private set; }
+        public TextBox WindSpeed { get; private set; }
+        public TextBox Oat { get; private set; }
+        public TextBox Pressure { get; private set; }
+        public TextBox Weight { get; private set; }
+        public TextBox AppSpeedIncrease { get; private set; }
+        public ComboBox Runway { get; private set; }
+        public ComboBox LengthUnit { get; private set; }
+        public ComboBox Slope { get; private set; }
+        public ComboBox TempUnit { get; private set; }
+        public ComboBox Brake { get; private set; }
+        public ComboBox SurfCond { get; private set; }
+        public ComboBox PressureUnit { get; private set; }
+        public ComboBox WtUnit { get; private set; }
+        public ComboBox Flaps { get; private set; }
+        public ComboBox Reverser { get; private set; }
+        public RichTextBox Result { get; private set; }
 
         public LandingPerfElements(
             Label AirportName,
@@ -55,24 +55,24 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             this.Airport = Airport;
             this.Length = Length;
             this.Elevation = Elevation;
-            this.rwyHeading = rwyHeading;
-            this.windDirection = windDirection;
-            this.windSpeed = windSpeed;
-            this.oat = oat;
-            this.pressure = pressure;
-            this.weight = weight;
-            this.appSpeedIncrease = appSpeedIncrease;
-            this.runway = runway;
-            this.lengthUnit = lengthUnit;
-            this.slope = slope;
-            this.tempUnit = tempUnit;
-            this.brake = brake;
-            this.surfCond = surfCond;
-            this.pressureUnit = pressureUnit;
-            this.wtUnit = wtUnit;
-            this.flaps = flaps;
-            this.reverser = reverser;
-            this.result = result;
+            this.RwyHeading = rwyHeading;
+            this.WindDirection = windDirection;
+            this.WindSpeed = windSpeed;
+            this.Oat = oat;
+            this.Pressure = pressure;
+            this.Weight = weight;
+            this.AppSpeedIncrease = appSpeedIncrease;
+            this.Runway = runway;
+            this.LengthUnit = lengthUnit;
+            this.Slope = slope;
+            this.TempUnit = tempUnit;
+            this.Brake = brake;
+            this.SurfCond = surfCond;
+            this.PressureUnit = pressureUnit;
+            this.WtUnit = wtUnit;
+            this.Flaps = flaps;
+            this.Reverser = reverser;
+            this.Result = result;
         }
     }
 }

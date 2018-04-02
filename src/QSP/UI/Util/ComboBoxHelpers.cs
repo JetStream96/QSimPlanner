@@ -22,7 +22,13 @@ namespace QSP.UI.Util
             c.Items.Clear();
             c.Items.AddRange(items.ToArray());
             if (c.Items.Count > 0) c.SelectedIndex = 0;
-            c.Text = original;
+
+            // Setting the Text property to null or an empty string ("") sets 
+            // the SelectedIndex to -1. Setting the Text property to a value 
+            // that is in the Items collection sets the SelectedIndex to the index 
+            // of that item. Setting the Text property to a value that is not in the 
+            // collection leaves the SelectedIndex unchanged.
+            if (original != "") c.Text = original;
         }
     }
 }

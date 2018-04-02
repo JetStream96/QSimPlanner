@@ -35,9 +35,9 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 
             try
             {
-                weightKg = Convert.ToDouble(e.weight.Text);
+                weightKg = Convert.ToDouble(e.Weight.Text);
 
-                if (e.wtUnit.SelectedIndex == 1) //LB
+                if (e.WtUnit.SelectedIndex == 1) //LB
                 {
                     weightKg *= Constants.LbKgRatio;
                 }
@@ -57,7 +57,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
             {
                 rwyLengthMeter = Convert.ToDouble(e.Length.Text);
 
-                if (e.lengthUnit.SelectedIndex == 1) // FT
+                if (e.LengthUnit.SelectedIndex == 1) // FT
                 {
                     rwyLengthMeter *= Constants.FtMeterRatio;
                 }
@@ -90,9 +90,9 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
             try
             {
                 headwindKts = ConversionTools.HeadwindComponent(
-                   Convert.ToDouble(e.rwyHeading.Text),
-                   Convert.ToDouble(e.windDirection.Text),
-                   Convert.ToDouble(e.windSpeed.Text));
+                   Convert.ToDouble(e.RwyHeading.Text),
+                   Convert.ToDouble(e.WindDirection.Text),
+                   Convert.ToDouble(e.WindSpeed.Text));
             }
             catch
             {
@@ -101,7 +101,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 
             try
             {
-                slopePercent = Convert.ToDouble(e.slope.Text);
+                slopePercent = Convert.ToDouble(e.Slope.Text);
             }
             catch
             {
@@ -110,9 +110,9 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 
             try
             {
-                tempCelsius = Convert.ToDouble(e.oat.Text);
+                tempCelsius = Convert.ToDouble(e.Oat.Text);
 
-                if (e.tempUnit.SelectedIndex == 1) // deg F
+                if (e.TempUnit.SelectedIndex == 1) // deg F
                 {
                     tempCelsius = ConversionTools.ToCelsius(tempCelsius);
                 }
@@ -124,9 +124,9 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 
             try
             {
-                qnh = Convert.ToDouble(e.pressure.Text);
+                qnh = Convert.ToDouble(e.Pressure.Text);
 
-                if (e.pressureUnit.SelectedIndex == 1)
+                if (e.PressureUnit.SelectedIndex == 1)
                 {
                     qnh *= 1013.0 / 29.92;
                 }
@@ -143,7 +143,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 
             try
             {
-                appSpeedIncrease = double.Parse(e.appSpeedIncrease.Text);
+                appSpeedIncrease = double.Parse(e.AppSpeedIncrease.Text);
             }
             catch
             {
@@ -152,7 +152,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 
             try
             {
-                reverser = (ReverserOption)e.reverser.SelectedIndex;
+                reverser = (ReverserOption)e.Reverser.SelectedIndex;
             }
             catch
             {
@@ -161,15 +161,15 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 
             try
             {
-                surfaceCondition = (SurfaceCondition)e.surfCond.SelectedIndex;
+                surfaceCondition = (SurfaceCondition)e.SurfCond.SelectedIndex;
             }
             catch
             {
                 throw new InvalidUserInputException("Surface condition is not valid.");
             }
 
-            flapsIndex = e.flaps.SelectedIndex;
-            brakeIndex = e.brake.SelectedIndex;
+            flapsIndex = e.Flaps.SelectedIndex;
+            brakeIndex = e.Brake.SelectedIndex;
 
             return new LandingParameters(
                 weightKg,
