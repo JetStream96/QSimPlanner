@@ -19,13 +19,7 @@ namespace QSP.LandingPerfCalculation.Boeing
         public PerfTable ReadFromXml(string filePath)
         {
             var doc = XDocument.Load(filePath);
-            return new PerfTable(LoadTable(filePath), GetEntry(filePath, doc));
-        }
-
-        public Entry GetEntry(string path, XDocument doc)
-        {
-            var elem = doc.Root.Element("Parameters");
-            return new Entry(elem.Element("ProfileName").Value, path);
+            return new PerfTable(LoadTable(filePath), LdgTableLoader.GetEntry(filePath, doc));
         }
 
         private BoeingPerfTable LoadTable(string path)
@@ -89,14 +83,14 @@ namespace QSP.LandingPerfCalculation.Boeing
 
         private void ReadTableDry(double[][][] item, int firstIndex, string value)
         {
-            string[] lines = value.Split(new [] { '\r', '\n' },
+            string[] lines = value.Split(new[] { '\r', '\n' },
                 StringSplitOptions.RemoveEmptyEntries);
 
             int brakeSettingCount = Math.Min(item[0].Length, lines.Length);
 
             for (int i = 0; i < brakeSettingCount; i++)
             {
-                var words = lines[i].Split(new [] { ' ', '\t', '/' },
+                var words = lines[i].Split(new[] { ' ', '\t', '/' },
                     StringSplitOptions.RemoveEmptyEntries);
 
                 int columnCount = Math.Min(item[0][0].Length, words.Length);
@@ -111,7 +105,7 @@ namespace QSP.LandingPerfCalculation.Boeing
         private void ReadTableWet(double[][][][] item,
             int firstIndex, int secondIndex, string value)
         {
-            string[] lines = value.Split(new [] { '\r', '\n' },
+            string[] lines = value.Split(new[] { '\r', '\n' },
                 StringSplitOptions.RemoveEmptyEntries);
 
             int brakeSettingCount = Math.Min(item[0][0].Length, lines.Length);

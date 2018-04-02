@@ -37,19 +37,7 @@ namespace QSP.TOPerfCalculation.Airbus
 
                 var (headwind, tailwind) = GetTable3Rows(rootNode.Element("Wind").Value);
                 var (uphill, downhill) = GetTable3Rows(rootNode.Element("Slope").Value);
-                (Table1D, Table1D) GetTable3Rows(string str)
-                {
-                    var nums = Regex.Split(str, @"\s").Where(s => s != "")
-                                                      .Select(s => double.Parse(s))
-                                                      .ToList();
-                    var count = nums.Count;
-                    Ensure<Exception>(count % 3 == 0);
-                    var third = count / 3;
-                    var x = nums.Take(third).ToArray();
-                    return (new Table1D(x, nums.Skip(third).Take(third).ToArray()),
-                            new Table1D(x, nums.Skip(third * 2).ToArray()));
-                }
-
+                
                 var tables = rootNode.Elements("Table").Select(GetTableNode);
                 TableDataNode GetTableNode(XElement e)
                 {
@@ -100,6 +88,19 @@ namespace QSP.TOPerfCalculation.Airbus
             {
                 return (false, null);
             }
+        }
+
+        public static (Table1D, Table1D) GetTable3Rows(string str)
+        {
+            var nums = Regex.Split(str, @"\s").Where(s => s != "")
+                .Select(s => double.Parse(s))
+                .ToList();
+            var count = nums.Count;
+            Ensure<Exception>(count % 3 == 0);
+            var third = count / 3;
+            var x = nums.Take(third).ToArray();
+            return (new Table1D(x, nums.Skip(third).Take(third).ToArray()),
+                new Table1D(x, nums.Skip(third * 2).ToArray()));
         }
     }
 }

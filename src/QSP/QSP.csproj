@@ -204,6 +204,10 @@
     <Compile Include="FuelCalculation\Results\Nodes\ScNode.cs" />
     <Compile Include="FuelCalculation\Results\Nodes\TocNode.cs" />
     <Compile Include="FuelCalculation\Results\Nodes\TodNode.cs" />
+    <Compile Include="LandingPerfCalculation\Airbus\AirbusPerfTable.cs" />
+    <Compile Include="LandingPerfCalculation\Airbus\Calculator.cs" />
+    <Compile Include="LandingPerfCalculation\Airbus\Loader.cs" />
+    <Compile Include="LandingPerfCalculation\Airbus\Entry.cs" />
     <Compile Include="LandingPerfCalculation\FindTable.cs" />
     <Compile Include="LandingPerfCalculation\LandingReport.cs" />
     <Compile Include="LandingPerfCalculation\ReportRow.cs" />

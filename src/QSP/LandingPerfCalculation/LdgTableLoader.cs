@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace QSP.LandingPerfCalculation
 {
@@ -34,6 +35,12 @@ namespace QSP.LandingPerfCalculation
             }
 
             return tables.Select(kv => kv.Value);
+        }
+
+        public static Entry GetEntry(string path, XDocument doc)
+        {
+            var elem = doc.Root.Element("Parameters");
+            return new Entry(elem.Element("ProfileName").Value, path);
         }
     }
 }
