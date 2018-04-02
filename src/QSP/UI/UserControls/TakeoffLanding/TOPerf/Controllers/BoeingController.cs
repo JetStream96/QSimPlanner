@@ -23,13 +23,12 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
 
         public event EventHandler CalculationCompleted;
 
-        public BoeingController(AircraftConfigItem ac, PerfTable acPerf, TOPerfElements elements,
-            Control parentControl)
+        public BoeingController(FormControllerData d)
         {
-            this.acPerf = acPerf;
-            this.elements = elements;
-            this.parentControl = parentControl;
-            this.ac = ac;
+            this.acPerf = d.PerfTable;
+            this.elements = d.Elements;
+            this.parentControl = d.ParentControl;
+            this.ac = d.ConfigItem;
         }
 
         public void WeightUnitChanged(object sender, EventArgs e)

@@ -15,6 +15,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using QSP.TOPerfCalculation.Airbus.DataClasses;
+using QSP.TOPerfCalculation.Boeing.PerfData;
 
 namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
 {
@@ -210,8 +212,13 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
 
                 currentTable = perf;
 
-                controller = FormControllerFactory.GetController(
-                    ac.Config, currentTable, elements, this);
+                controller = GetController(new FormControllerData()
+                {
+                    ConfigItem = ac.Config,
+                    PerfTable = currentTable,
+                    Elements = elements,
+                    ParentControl = this
+                });
 
                 Subscribe(controller);
                 controller.Initialize();
@@ -312,6 +319,14 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
         {
             var box = resultsRichTxtBox;
             box.Height = e.NewRectangle.Height + 10;
+        }
+
+        private static IFormController GetController(FormControllerData d)
+        {
+            var item = d.PerfTable.Item;
+            if (item is BoeingPerfTable) return new BoeingController(d);
+            if (item is AirbusPerfTable) return new AirbusController(d);
+            throw new ArgumentException();
         }
     }
 }
