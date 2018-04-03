@@ -1,4 +1,5 @@
 ﻿using QSP.AviationTools;
+using QSP.Common;
 using QSP.MathTools;
 using QSP.MathTools.Interpolation;
 using QSP.MathTools.Tables;
@@ -15,46 +16,43 @@ namespace QSP.TOPerfCalculation.Airbus
         /// <summary>
         /// Error can be None, NoDataForSelectedFlaps, or RunwayTooShort.
         /// </summary>
-        public static (Error e, TOReport r) TakeOffReport(
-            AirbusPerfTable t, TOParameters p, double tempIncrement = 1.0)
+        /// <exception cref="RunwayTooShortException"></exception>
+        /// <exception cref="Exception"></exception>
+        public static TOReport TakeOffReport(AirbusPerfTable t, TOParameters p, 
+            double tempIncrement = 1.0)
         {
-            var (e, d) = TakeOffDistanceMeter(t, p);
+            var d = TakeOffDistanceMeter(t, p);
             var primary = new TOReportRow(p.OatCelsius, d, p.RwyLengthMeter - d);
-            if (e != Error.None) return (e, null);
-            if (primary.RwyRemainingMeter < 0) return (Error.RunwayTooShort, null);
+            if (primary.RwyRemainingMeter < 0) throw new RunwayTooShortException();
 
             var rows = new List<TOReportRow>();
             double maxOat = 67;
 
             for (double oat = p.OatCelsius + tempIncrement; oat <= maxOat; oat += tempIncrement)
             {
-                var q = p.CloneWithOat(oat);
-                (e, d) = TakeOffDistanceMeter(t, q);
-                var remaining = q.RwyLengthMeter - d;
-                if (e != Error.None || remaining < 0) break;
-                rows.Add(new TOReportRow(oat, d, remaining));
+                try
+                {
+                    var q = p.CloneWithOat(oat);
+                    d = TakeOffDistanceMeter(t, q);
+                    var remaining = q.RwyLengthMeter - d;
+                    if (remaining < 0) break;
+                    rows.Add(new TOReportRow(oat, d, remaining));
+                }
+                catch { }
             }
 
-            return (Error.None, new TOReport(primary, rows));
-        }
-
-        public enum Error
-        {
-            None,
-            NoDataForSelectedFlaps,
-            RunwayTooShort
+            return new TOReport(primary, rows);
         }
 
         /// <summary>
         /// Computes the required takeoff distance.
-        /// Error can be None or NoDataForSelectedFlaps
         /// </summary>
-        public static (Error e, double dis) TakeOffDistanceMeter(
-            AirbusPerfTable t, TOParameters p)
+        /// <exception cref="Exception"></exception>
+        public static double TakeOffDistanceMeter(AirbusPerfTable t, TOParameters p)
         {
             var tables = GetTables(t, p);
 
-            if (tables.Count == 0) return (Error.NoDataForSelectedFlaps, 0.0);
+            if (tables.Count == 0) throw new Exception("No data for selected flaps");
             var pressAlt = ConversionTools.PressureAltitudeFt(p.RwyElevationFt, p.QNH);
             var inverseTables = tables.Select(x => GetInverseTable(x, pressAlt, t, p));
             var distancesFt = inverseTables.Select(x =>
@@ -71,7 +69,7 @@ namespace QSP.TOPerfCalculation.Airbus
             // The slope and wind correction is not exactly correct according to
             // performance xml file comments. However, the table itsel is probably
             // not that precise anyways.
-            return (Error.None, Constants.FtMeterRatio * (d - SlopeAndWindCorrectionFt(d, t, p)));
+            return Constants.FtMeterRatio * (d - SlopeAndWindCorrectionFt(d, t, p));
         }
 
         // Use the length of first argument instead of the one in Parameters.

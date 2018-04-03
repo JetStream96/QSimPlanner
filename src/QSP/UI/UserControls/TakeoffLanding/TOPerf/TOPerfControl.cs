@@ -1,11 +1,13 @@
 ﻿using QSP.AircraftProfiles.Configs;
 using QSP.AviationTools;
+using QSP.Common;
 using QSP.LibraryExtension;
 using QSP.MathTools;
 using QSP.RouteFinding.Airports;
 using QSP.TOPerfCalculation;
 using QSP.TOPerfCalculation.Airbus.DataClasses;
 using QSP.TOPerfCalculation.Boeing.PerfData;
+using QSP.UI.Models.MsgBox;
 using QSP.UI.Models.TakeoffLanding;
 using QSP.UI.UserControls.TakeoffLanding.Common;
 using QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers;
@@ -131,11 +133,6 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             ViewStateSaver.Save(FileName, new ControlState(this).Save());
         }
 
-        private void SaveState(object sender, EventArgs e)
-        {
-            TrySaveState();
-        }
-
         private void SetWeatherBtnHandlers()
         {
             wxSetter = new AutoWeatherSetter(weatherInfoControl, airportInfoControl);
@@ -242,8 +239,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             List(e.ThrustRating, e.AntiIce, e.Flaps, e.SurfCond, e.Packs).ForEach(i =>
                 i.SelectedIndexChanged += (s, ev) => UpdateFormOptions());
 
-            calculateBtn.Click += controller.Compute;
-            controller.CalculationCompleted += SaveState;
+            calculateBtn.Click += Compute;
         }
 
         private void UnSubscribe(IFormController controller)
@@ -252,8 +248,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             List(e.ThrustRating, e.AntiIce, e.Flaps, e.SurfCond, e.Packs).ForEach(i =>
                 i.SelectedIndexChanged -= (s, ev) => UpdateFormOptions());
 
-            calculateBtn.Click -= controller.Compute;
-            controller.CalculationCompleted -= SaveState;
+            calculateBtn.Click -= Compute;
         }
 
         private void RefreshWtColor()
@@ -353,6 +348,63 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             }
 
             elements.Weight.Text = ((int)Math.Round(wt)).ToString();
+        }
+
+        // Returns whether continue to calculate.
+        private bool CheckWeight(TOParameters para)
+        {
+            var (a, _) = FindTable.Find(tables, aircrafts, regComboBox.Text);
+            var ac = a.Config;
+            if (para.WeightKg > ac.MaxTOWtKg || para.WeightKg < ac.OewKg)
+            {
+                var result = this.ShowDialog(
+                    "Takeoff weight is not within valid range. Continue to calculate?",
+                    MsgBoxIcon.Warning,
+                    "",
+                    DefaultButton.Button2,
+                    "Yes", "No");
+
+                return result == MsgBoxResult.Button1;
+            }
+
+            return true;
+        }
+
+        public void Compute(object sender, EventArgs e)
+        {
+            try
+            {
+                var para = ParameterValidator.Validate(elements);
+                if (!CheckWeight(para)) return;
+                var tempUnit = (TemperatureUnit)elements.TempUnit.SelectedIndex;
+                var tempIncrement = tempUnit == TemperatureUnit.Celsius ? 1.0 : 2.0 / 1.8;
+                var report = controller.GetReport(para, tempIncrement);
+
+                var text = report.ToString(tempUnit, (LengthUnit)elements.lengthUnit.SelectedIndex);
+
+                // To center the text in the richTxtBox
+                elements.Result.Text = text.ShiftToRight(20);
+
+                elements.Result.ForeColor = Color.Black;
+                TrySaveState();
+            }
+            catch (InvalidUserInputException ex)
+            {
+                this.ShowWarning(ex.Message);
+            }
+            catch (RunwayTooShortException)
+            {
+                this.ShowWarning("Runway length is insufficient for takeoff.");
+            }
+            catch (PoorClimbPerformanceException)
+            {
+                this.ShowWarning("Aircraft too heavy to meet " +
+                    "climb performance requirement.");
+            }
+            catch (Exception ex)
+            {
+                this.ShowError(ex.Message);
+            }
         }
     }
 }
