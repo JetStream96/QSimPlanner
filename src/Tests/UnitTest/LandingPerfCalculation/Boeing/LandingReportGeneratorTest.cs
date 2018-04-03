@@ -28,8 +28,8 @@ namespace UnitTest.LandingPerfCalculation.Boeing
                 15.0,
                 1013.0,
                 5.0,
-                ReverserOption.NoRev,
-                SurfaceCondition.Good,
+                (int)ReverserOption.NoRev,
+                (int)SurfaceCondition.Good,
                 0,
                 0);
 
@@ -45,7 +45,7 @@ namespace UnitTest.LandingPerfCalculation.Boeing
             var entry = report.SelectedBrake;
             var calc = new LandingCalculator(table, para);
 
-            string brake = table.BrakesAvailable(para.SurfaceCondition)[para.BrakeIndex];
+            string brake = table.BrakesAvailable((SurfaceCondition)para.SurfaceCondition)[para.BrakeIndex];
             double rwyRequired = calc.DistanceRequiredMeter();
 
             Assert.IsTrue(entry.BrakeSetting == brake);
@@ -64,7 +64,7 @@ namespace UnitTest.LandingPerfCalculation.Boeing
             foreach (var i in report.AllBrakes)
             {
                 int brakeIndex = Array.FindIndex(
-                    table.BrakesAvailable(para.SurfaceCondition),
+                    table.BrakesAvailable((SurfaceCondition)para.SurfaceCondition),
                     x => x == i.BrakeSetting);
 
                 PropertySetter.Set(para, "BrakeIndex", brakeIndex);
@@ -93,8 +93,8 @@ namespace UnitTest.LandingPerfCalculation.Boeing
                 15.0,
                 1013.0,
                 5.0,
-                ReverserOption.NoRev,
-                SurfaceCondition.Good,
+                (int)ReverserOption.NoRev,
+                (int)SurfaceCondition.Good,
                 0,
                 0);
 

@@ -25,8 +25,8 @@ namespace UnitTest.LandingPerfCalculation.Boeing
                 15.0,
                 1013.25,
                 5.0,
-                ReverserOption.NoRev,
-                SurfaceCondition.Good,
+                (int)ReverserOption.NoRev,
+                (int)SurfaceCondition.Good,
                 0,
                 0);
 

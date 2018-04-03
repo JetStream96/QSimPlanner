@@ -1,21 +1,21 @@
-using QSP.LandingPerfCalculation.Boeing.PerfData;
-
 namespace QSP.LandingPerfCalculation
 {
     public class LandingParameters
     {
-        public double WeightKG { get; private set; }
-        public double RwyLengthMeter { get; private set; }
-        public double ElevationFT { get; private set; }
-        public double HeadwindKts { get; private set; }
-        public double SlopePercent { get; private set; }
-        public double TempCelsius { get; private set; }
-        public double QNH { get; private set; }
-        public double AppSpeedIncrease { get; private set; }
-        public int Reverser { get; private set; }
-        public int SurfaceCondition { get; private set; }
-        public int FlapsIndex { get; private set; }
-        public int BrakeIndex { get; private set; }
+        public double WeightKG { get; set; }
+        public double RwyLengthMeter { get; set; }
+        public double ElevationFT { get; set; }
+        public double HeadwindKts { get; set; }
+        public double SlopePercent { get; set; }
+        public double TempCelsius { get; set; }
+        public double QNH { get; set; }
+        public double AppSpeedIncrease { get; set; }
+        public int Reverser { get; set; }
+        public int SurfaceCondition { get; set; }
+        public int FlapsIndex { get; set; }
+        public int BrakeIndex { get; set; }
+
+        public LandingParameters() { }
 
         public LandingParameters(
             double WeightKG,

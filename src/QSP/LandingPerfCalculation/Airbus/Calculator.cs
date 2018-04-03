@@ -71,11 +71,11 @@ namespace QSP.LandingPerfCalculation.Airbus
 
             var len = table.ValueAt(weight1000LB);
             var alt = ConversionTools.PressureAltitudeFt(p.ElevationFT, p.QNH);
-            len += alt / 1000 * elevation;
-            len += p.HeadwindKts >= 0 ?
+            len *= 1 + alt / 1000 * elevation / 100;
+            len *= 1 + (p.HeadwindKts >= 0 ?
                 (-head * p.HeadwindKts / 10) :
-                (tail * -p.HeadwindKts / 10);
-            len -= p.Reverser == 1 ? reverser : 0;
+                (tail * -p.HeadwindKts / 10)) / 100;
+            len *= 1 - (p.Reverser == 1 ? reverser : 0) / 100;
             len *= 1 + (p.AppSpeedIncrease / 5) * (m.Speed5Knots / 100);
             return len * Constants.FtMeterRatio;
         }
