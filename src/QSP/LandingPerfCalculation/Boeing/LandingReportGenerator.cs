@@ -40,7 +40,7 @@ namespace QSP.LandingPerfCalculation.Boeing
             {
                 BrakeSetting = brkList[para.BrakeIndex],
                 RequiredDistanceMeter = RoundToInt(disReqMeter),
-                RemainDistanceMeter = RoundToInt(disRemainMeter)
+                RemainingDistanceMeter = RoundToInt(disRemainMeter)
             };
         }
 
@@ -55,9 +55,9 @@ namespace QSP.LandingPerfCalculation.Boeing
                 {
                     BrakeSetting = b,
                     RequiredDistanceMeter = RoundToInt(disReq),
-                    RemainDistanceMeter = RoundToInt(disRemain)
+                    RemainingDistanceMeter = RoundToInt(disRemain)
                 };
-            }).Where(r => r.RemainDistanceMeter >= 0).ToList();
+            }).Where(r => r.RemainingDistanceMeter >= 0).ToList();
         }
     }
 }

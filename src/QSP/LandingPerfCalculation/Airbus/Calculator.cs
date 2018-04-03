@@ -17,7 +17,6 @@ namespace QSP.LandingPerfCalculation.Airbus
         /// </summary>
         /// <exception cref="RunwayTooShortException"></exception>
         /// <exception cref="Exception"></exception>
-        /// <returns></returns>
         public static LandingReport LandingReport(CalculatorData d)
         {
             var p = d.Parameters;
@@ -32,14 +31,14 @@ namespace QSP.LandingPerfCalculation.Airbus
                     {
                         BrakeSetting = b,
                         RequiredDistanceMeter = RoundToInt(dis),
-                        RemainDistanceMeter = RoundToInt(p.RwyLengthMeter - dis)
+                        RemainingDistanceMeter = RoundToInt(p.RwyLengthMeter - dis)
                     };
                 }, null);
             }).ToList();
 
             var selected = all[p.BrakeIndex];
             if (selected == null) throw new Exception("Unexpected error occurred.");
-            if (selected.RemainDistanceMeter < 0) throw new RunwayTooShortException();
+            if (selected.RemainingDistanceMeter < 0) throw new RunwayTooShortException();
 
             return new LandingReport()
             {
@@ -51,7 +50,7 @@ namespace QSP.LandingPerfCalculation.Airbus
         /// <summary>
         /// Flaps and brake settings can be overriden.
         /// </summary>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">Unexpected error</exception>
         public static double LandingDistanceMeter(CalculatorData d,
             string flaps = null, string brake = null)
         {

@@ -21,7 +21,7 @@ namespace QSP.LandingPerfCalculation
                 + " " + unitStr);
 
             result.AppendLine("           Runway remaining           " +
-                ConvertToFeetIfNeeded(SelectedBrake.RemainDistanceMeter, lengthUnit)
+                ConvertToFeetIfNeeded(SelectedBrake.RemainingDistanceMeter, lengthUnit)
                 + " " + unitStr);
 
             result.AppendLine();
@@ -42,7 +42,7 @@ namespace QSP.LandingPerfCalculation
                                .PadRight(19, ' '));
 
                 result.AppendLine(
-                    (ConvertToFeetIfNeeded(i.RemainDistanceMeter, lengthUnit) + " " + unitStr)
+                    (ConvertToFeetIfNeeded(i.RemainingDistanceMeter, lengthUnit) + " " + unitStr)
                     .ToString()
                     .PadLeft(11, ' '));
             }

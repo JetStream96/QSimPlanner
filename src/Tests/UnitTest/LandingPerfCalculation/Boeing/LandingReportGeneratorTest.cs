@@ -53,7 +53,7 @@ namespace UnitTest.LandingPerfCalculation.Boeing
 
             double disRemain = para.RwyLengthMeter - rwyRequired;
 
-            Assert.AreEqual(disRemain, entry.RemainDistanceMeter, 0.5);
+            Assert.AreEqual(disRemain, entry.RemainingDistanceMeter, 0.5);
         }
 
         private void AssertOtherResult(LandingReport report,
@@ -73,7 +73,7 @@ namespace UnitTest.LandingPerfCalculation.Boeing
                 Assert.AreEqual(rwyRequired, i.RequiredDistanceMeter, 0.5);
 
                 double disRemain = para.RwyLengthMeter - rwyRequired;
-                Assert.AreEqual(disRemain, i.RemainDistanceMeter, 0.5);
+                Assert.AreEqual(disRemain, i.RemainingDistanceMeter, 0.5);
             }
         }
 

@@ -1,7 +1,9 @@
 ﻿using NUnit.Framework;
 using QSP.AviationTools;
+using QSP.Common;
 using QSP.LandingPerfCalculation;
 using QSP.LandingPerfCalculation.Airbus;
+using System.Linq;
 
 namespace UnitTest.LandingPerfCalculation.Airbus
 {
@@ -165,6 +167,34 @@ namespace UnitTest.LandingPerfCalculation.Airbus
             d.Parameters.AppSpeedIncrease = 5;
             var dis = Calculator.LandingDistanceMeter(d);
             Assert.AreEqual(2460 * Constants.FtMeterRatio * 1.08, dis, 10);
+        }
+
+        [Test]
+        public void LandingReportTest()
+        {
+            var d = new CalculatorData()
+            {
+                Table = LoaderTest.GetTable(),
+                Parameters = GetParameters
+            };
+
+            var r = Calculator.LandingReport(d);
+
+            Assert.IsTrue(r.AllBrakes.All(x => x.RemainingDistanceMeter >= 0));
+            Assert.IsTrue(r.SelectedBrake.RemainingDistanceMeter >= 0);
+        }
+
+        [Test]
+        public void LandingReportRunwayTooShort()
+        {
+            var d = new CalculatorData()
+            {
+                Table = LoaderTest.GetTable(),
+                Parameters = GetParameters
+            };
+
+            d.Parameters.RwyLengthMeter = 100;
+            Assert.Throws<RunwayTooShortException>(() => Calculator.LandingReport(d));
         }
     }
 }

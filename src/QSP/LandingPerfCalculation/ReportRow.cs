@@ -4,6 +4,6 @@
     {
         public string BrakeSetting { get; set; }
         public int RequiredDistanceMeter { get; set; }
-        public int RemainDistanceMeter { get; set; }
+        public int RemainingDistanceMeter { get; set; }
     }
 }
