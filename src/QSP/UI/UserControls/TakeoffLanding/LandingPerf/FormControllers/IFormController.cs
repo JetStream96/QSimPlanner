@@ -1,10 +1,15 @@
-﻿using System;
+﻿using QSP.LandingPerfCalculation;
 namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 {
     public interface IFormController
     {
-        event EventHandler CalculationCompleted;
         FormOptions Options { get; }
-        void Compute(object sender, EventArgs e);
+
+        /// <summary>
+        /// Get landing report.
+        /// </summary>
+        /// <exception cref="RunwayTooShortException"></exception>
+        /// <exception cref="Exception"></exception>
+        LandingReport GetReport(LandingParameters p);
     }
 }

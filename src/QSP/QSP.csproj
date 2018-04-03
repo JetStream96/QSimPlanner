@@ -319,6 +319,8 @@
     <Compile Include="UI\Presenters\Wind\WindDataPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\FuelPlanningPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\AlternateRowPresenter.cs" />
+    <Compile Include="UI\UserControls\TakeoffLanding\LandingPerf\FormControllers\AirbusController.cs" />
+    <Compile Include="UI\UserControls\TakeoffLanding\LandingPerf\FormControllers\ControllerData.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\LandingPerf\FormControllers\FormOptions.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\TOPerf\Controllers\AirbusController.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\TOPerf\Controllers\FormControllerData.cs" />
@@ -674,7 +676,6 @@
     <Compile Include="UI\UserControls\TakeoffLanding\LandingPerf\FormControllers\BoeingController.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\LandingPerf\ParameterValidator.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\LandingPerf\FormControllers\IFormController.cs" />
-    <Compile Include="UI\UserControls\TakeoffLanding\LandingPerf\FormControllers\FormControllerFactory.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\LandingPerf\LandingPerfControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

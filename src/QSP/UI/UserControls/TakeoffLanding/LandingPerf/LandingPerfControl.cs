@@ -1,14 +1,19 @@
 ﻿using QSP.AircraftProfiles.Configs;
 using QSP.AviationTools;
+using QSP.Common;
 using QSP.LandingPerfCalculation;
+using QSP.LandingPerfCalculation.Airbus;
+using QSP.LandingPerfCalculation.Boeing.PerfData;
 using QSP.LibraryExtension;
 using QSP.MathTools;
 using QSP.RouteFinding.Airports;
+using QSP.UI.Models.MsgBox;
 using QSP.UI.Models.TakeoffLanding;
 using QSP.UI.UserControls.TakeoffLanding.Common;
 using QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers;
 using QSP.UI.Util;
 using QSP.UI.Views.Factories;
+using QSP.Utilities.Units;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -68,11 +73,6 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
         public void TrySaveState()
         {
             ViewStateSaver.Save(FileName, new ControlState(this).Save());
-        }
-
-        private void SaveState(object sender, EventArgs e)
-        {
-            TrySaveState();
         }
 
         private void InitializeElements()
@@ -224,15 +224,27 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
 
                 currentTable = tables.First(t => t.Entry.ProfileName == profileName);
 
-                controller = FormControllerFactory.GetController(
-                    ControllerType.Boeing, ac, currentTable, elements, this);
-                // TODO: not completely right
+                controller = GetFormController(new ControllerData()
+                {
+                    ConfigItem = ac,
+                    PerfTable = currentTable,
+                    Elements = elements,
+                    ParentControl = this
+                });
 
                 Subscribe(controller);
                 UpdateFormOptions();
 
                 RefreshWtColor();
             }
+        }
+
+        private static IFormController GetFormController(ControllerData d)
+        {
+            var table = d.PerfTable.Item;
+            if (table is BoeingPerfTable) return new BoeingController(d);
+            if (table is AirbusPerfTable) return new AirbusController(d);
+            throw new ArgumentException();
         }
 
         private void UpdateFormOptions()
@@ -265,9 +277,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
                 i.SelectedIndexChanged += (s, ev) => UpdateFormOptions());
 
             wtUnitComboBox.SelectedIndexChanged += WeightUnitChanged;
-            calculateBtn.Click += c.Compute;
-
-            c.CalculationCompleted += SaveState;
+            calculateBtn.Click += Compute;
         }
 
         private void UnSubscribe(IFormController controller)
@@ -278,9 +288,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
                 i.SelectedIndexChanged -= (s, ev) => UpdateFormOptions());
 
             wtUnitComboBox.SelectedIndexChanged -= WeightUnitChanged;
-            calculateBtn.Click -= c.Compute;
-
-            c.CalculationCompleted -= SaveState;
+            calculateBtn.Click -= Compute;
         }
 
         private void RefreshWtColor()
@@ -350,6 +358,51 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             }
 
             elements.Weight.Text = ((int)Math.Round(wt)).ToString();
+        }
+
+        public void Compute(object sender, EventArgs e)
+        {
+            try
+            {
+                var para = new ParameterValidator(elements).Validate();
+                if (!CheckWeight(para)) return;
+
+                var report = controller.GetReport(para);
+                var text = report.ToString((LengthUnit)elements.LengthUnit.SelectedIndex);
+
+                // To center the text in the richTxtBox
+                elements.Result.Text = text.ShiftToRight(15);
+
+                TrySaveState();
+                elements.Result.ForeColor = Color.Black;
+            }
+            catch (InvalidUserInputException ex)
+            {
+                this.ShowWarning(ex.Message);
+            }
+            catch (RunwayTooShortException)
+            {
+                this.ShowWarning("Runway length is insufficient for landing.");
+            }
+        }
+
+        // Returns whether continue to calculate.
+        private bool CheckWeight(LandingParameters para)
+        {
+            var ac = aircrafts.Find(regComboBox.Text).Config;
+            if (para.WeightKG > ac.MaxTOWtKg || para.WeightKG < ac.OewKg)
+            {
+                var result = this.ShowDialog(
+                    "Landing weight is not within valid range. Continue to calculate?",
+                    MsgBoxIcon.Warning,
+                    "",
+                    DefaultButton.Button2,
+                    "Yes", "No");
+
+                return result == MsgBoxResult.Button1;
+            }
+
+            return true;
         }
     }
 }

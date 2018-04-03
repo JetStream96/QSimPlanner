@@ -1,4 +1,5 @@
-﻿using QSP.LandingPerfCalculation.Boeing;
+﻿using QSP.LibraryExtension;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Xml.Linq;
 
 namespace QSP.LandingPerfCalculation
 {
-    public class LdgTableLoader
+    public static class LdgTableLoader
     {
         public const string DefaultFolderPath = @"PerformanceData\LDG\Default";
         public const string CustomFolderPath = @"PerformanceData\LDG\Custom";
@@ -18,23 +19,36 @@ namespace QSP.LandingPerfCalculation
         /// (1) The file in custom folder shadows file in default folder.
         /// (2) Only one of them is loaded.
         /// </summary>
-        public IEnumerable<PerfTable> Load()
+        public static IEnumerable<PerfTable> Load()
         {
             var tables = new Dictionary<string, PerfTable>();
             var files = Directory.GetFiles(CustomFolderPath).Concat(
                 Directory.GetFiles(DefaultFolderPath));
+            var attempts = LoadTableAttempts();
 
-            foreach (var i in files)
+            files.ForEach(f =>
             {
-                try
+                attempts.ForEach(attempt =>
                 {
-                    var table = new PerfDataLoader().ReadFromXml(i);
-                    tables.Add(table.Entry.ProfileName, table);
-                }
-                catch { }
-            }
+                    try
+                    {
+                        var table = attempt(f);
+                        tables.Add(table.Entry.ProfileName, table);
+                    }
+                    catch { }
+                });
+            });
 
             return tables.Select(kv => kv.Value);
+        }
+
+        public static Func<string, PerfTable>[] LoadTableAttempts()
+        {
+            return new Func<string, PerfTable>[]
+            {
+                file => new Boeing.PerfDataLoader().ReadFromXml(file),
+                file => Airbus.Loader.ReadFromXml(file)
+            };
         }
 
         public static Entry GetEntry(string path, XDocument doc)

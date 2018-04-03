@@ -21,7 +21,7 @@ namespace QSP.AircraftProfiles
         {
             FuelData = FuelDataLoader.Load();
             TOTables = new TOPerfCalculation.TOTableLoader().Load();
-            LdgTables = new LandingPerfCalculation.LdgTableLoader().Load();
+            LdgTables = LandingPerfCalculation.LdgTableLoader.Load();
             var loadedAc = LoadConfig();
             AcConfigs = loadedAc.Result;
 
