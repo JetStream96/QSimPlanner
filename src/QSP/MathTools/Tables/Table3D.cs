@@ -31,10 +31,11 @@ namespace QSP.MathTools.Tables
 
         public bool Equals(Table3D item, double delta)
         {
-            return DoubleArrayCompare.Equals(x, item.x, delta) &&
-                   DoubleArrayCompare.Equals(y, item.y, delta) &&
-                   DoubleArrayCompare.Equals(z, item.z, delta) &&
-                   DoubleArrayCompare.Equals(f, item.f, delta);
+            return item != null &&
+                DoubleArrayCompare.Equals(x, item.x, delta) &&
+                DoubleArrayCompare.Equals(y, item.y, delta) &&
+                DoubleArrayCompare.Equals(z, item.z, delta) &&
+                DoubleArrayCompare.Equals(f, item.f, delta);
         }
 
         /// <exception cref="ArgumentException"></exception>

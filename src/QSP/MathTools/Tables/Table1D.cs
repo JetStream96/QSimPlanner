@@ -26,8 +26,9 @@ namespace QSP.MathTools.Tables
 
         public bool Equals(Table1D item, double delta)
         {
-            return DoubleArrayCompare.Equals(x, item.x, delta) &&
-                   DoubleArrayCompare.Equals(f, item.f, delta);
+            return item != null &&
+                DoubleArrayCompare.Equals(x, item.x, delta) &&
+                DoubleArrayCompare.Equals(f, item.f, delta);
         }
 
         /// <exception cref="ArgumentException"></exception>
