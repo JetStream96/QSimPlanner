@@ -2,6 +2,7 @@
 using QSP.LandingPerfCalculation.Boeing;
 using QSP.LandingPerfCalculation.Boeing.PerfData;
 using System.Xml.Linq;
+using QSP.LandingPerfCalculation;
 
 namespace UnitTest.LandingPerfCalculation.Boeing
 {

@@ -57,7 +57,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
         {
             try
             {
-                var para = new BoeingParameterValidator(elements).Validate();
+                var para = new ParameterValidator(elements).Validate();
                 if (!CheckWeight(para)) return;
 
                 var report = new LandingReportGenerator((BoeingPerfTable)acPerf.Item, para)

@@ -18,13 +18,13 @@ namespace QSP.LandingPerfCalculation.Boeing
         // gets the requested data.
         private double ReqData(DataColumn column, int brakeSetting)
         {
-            if (para.SurfaceCondition == SurfaceCondition.Dry)
+            if (para.SurfaceCondition == (int)SurfaceCondition.Dry)
             {
                 return perfTable.DataDry.GetValue(para.FlapsIndex, brakeSetting, column);
             }
 
             return perfTable.DataWet.GetValue(
-                para.FlapsIndex, para.SurfaceCondition, brakeSetting, column);
+                para.FlapsIndex, (SurfaceCondition)para.SurfaceCondition, brakeSetting, column);
         }
 
         /// <summary>
@@ -41,12 +41,12 @@ namespace QSP.LandingPerfCalculation.Boeing
                 TempCorrection(brakeSetting) +
                 AppSpdCorrection(brakeSetting);
 
-            if (para.Reverser == ReverserOption.HalfRev)
+            if (para.Reverser == (int)ReverserOption.HalfRev)
             {
                 totalDisMeter += ReqData(DataColumn.HalfRev, brakeSetting);
             }
 
-            if (para.Reverser == ReverserOption.NoRev)
+            if (para.Reverser == (int)ReverserOption.NoRev)
             {
                 totalDisMeter += ReqData(DataColumn.NoRev, brakeSetting);
             }

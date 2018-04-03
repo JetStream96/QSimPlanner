@@ -1,16 +1,15 @@
-﻿using System;
-using QSP.AviationTools;
+﻿using QSP.AviationTools;
 using QSP.Common;
-using QSP.LandingPerfCalculation.Boeing;
-using QSP.LandingPerfCalculation.Boeing.PerfData;
+using QSP.LandingPerfCalculation;
+using System;
 
-namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
+namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
 {
-    public class BoeingParameterValidator
+    public class ParameterValidator
     {
         private LandingPerfElements elements;
 
-        public BoeingParameterValidator(LandingPerfElements elements)
+        public ParameterValidator(LandingPerfElements elements)
         {
             this.elements = elements;
         }
@@ -28,8 +27,8 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
             double tempCelsius = 0.0;
             double qnh = 0.0;
             double appSpeedIncrease = 0.0;
-            ReverserOption reverser = default(ReverserOption);
-            SurfaceCondition surfaceCondition = default(SurfaceCondition);
+            int reverser = 0;
+            int surfaceCondition = 0;
             int flapsIndex = 0;
             int brakeIndex = 0;
 
@@ -152,7 +151,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 
             try
             {
-                reverser = (ReverserOption)e.Reverser.SelectedIndex;
+                reverser = e.Reverser.SelectedIndex;
             }
             catch
             {
@@ -161,7 +160,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 
             try
             {
-                surfaceCondition = (SurfaceCondition)e.SurfCond.SelectedIndex;
+                surfaceCondition = e.SurfCond.SelectedIndex;
             }
             catch
             {

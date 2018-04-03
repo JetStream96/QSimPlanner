@@ -6,6 +6,7 @@ namespace QSP.LandingPerfCalculation
 {
     public static class FindTable
     {
+        // TODO: Is this needed??
         /// <summary>
         /// Returns null is not found. 
         /// </summary>
@@ -15,7 +16,7 @@ namespace QSP.LandingPerfCalculation
             if (tables == null || tables.Count == 0) return (null, null);
             var config = aircrafts.Find(registration);
             var ac = config.Config;
-            var profileName = ac.TOProfile;
+            var profileName = ac.LdgProfile;
             return (config, tables.First(t => t.Entry.ProfileName == profileName));
         }
     }

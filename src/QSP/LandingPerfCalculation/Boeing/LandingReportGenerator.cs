@@ -31,7 +31,7 @@ namespace QSP.LandingPerfCalculation.Boeing
 
         private ReportRow GetMainResult()
         {
-            var brkList = perfTable.BrakesAvailable(para.SurfaceCondition);
+            var brkList = perfTable.BrakesAvailable((SurfaceCondition)para.SurfaceCondition);
             double disReqMeter = calc.DistanceRequiredMeter();
             double disRemainMeter = para.RwyLengthMeter - disReqMeter;
 
@@ -46,7 +46,7 @@ namespace QSP.LandingPerfCalculation.Boeing
 
         private List<ReportRow> GetOtherResults()
         {
-            var brakes = perfTable.BrakesAvailable(para.SurfaceCondition);
+            var brakes = perfTable.BrakesAvailable((SurfaceCondition)para.SurfaceCondition);
             return brakes.Select((b, i) =>
             {
                 double disReq = RoundToInt(calc.DistanceRequiredMeter(i));

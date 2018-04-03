@@ -1,6 +1,6 @@
 using QSP.LandingPerfCalculation.Boeing.PerfData;
 
-namespace QSP.LandingPerfCalculation.Boeing
+namespace QSP.LandingPerfCalculation
 {
     public class LandingParameters
     {
@@ -12,8 +12,8 @@ namespace QSP.LandingPerfCalculation.Boeing
         public double TempCelsius { get; private set; }
         public double QNH { get; private set; }
         public double AppSpeedIncrease { get; private set; }
-        public ReverserOption Reverser { get; private set; }
-        public SurfaceCondition SurfaceCondition { get; private set; }
+        public int Reverser { get; private set; }
+        public int SurfaceCondition { get; private set; }
         public int FlapsIndex { get; private set; }
         public int BrakeIndex { get; private set; }
 
@@ -25,9 +25,9 @@ namespace QSP.LandingPerfCalculation.Boeing
             double SlopePercent,
             double TempCelsius,
             double QNH,
-            double AppSpeedIncrease, 
-            ReverserOption Reverser,
-            SurfaceCondition SurfaceCondition, 
+            double AppSpeedIncrease,
+            int Reverser,
+            int SurfaceCondition, 
             int FlapsIndex, 
             int BrakeIndex)
         {

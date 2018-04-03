@@ -205,7 +205,9 @@
     <Compile Include="FuelCalculation\Results\Nodes\TocNode.cs" />
     <Compile Include="FuelCalculation\Results\Nodes\TodNode.cs" />
     <Compile Include="LandingPerfCalculation\Airbus\AirbusPerfTable.cs" />
+    <Compile Include="LandingPerfCalculation\Airbus\AirbusPerfTableExtension.cs" />
     <Compile Include="LandingPerfCalculation\Airbus\Calculator.cs" />
+    <Compile Include="LandingPerfCalculation\Airbus\CalculatorData.cs" />
     <Compile Include="LandingPerfCalculation\Airbus\Loader.cs" />
     <Compile Include="LandingPerfCalculation\Airbus\Entry.cs" />
     <Compile Include="LandingPerfCalculation\FindTable.cs" />
@@ -670,7 +672,7 @@
       <DependentUpon>CustomFuelForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\UserControls\TakeoffLanding\LandingPerf\FormControllers\BoeingController.cs" />
-    <Compile Include="UI\UserControls\TakeoffLanding\LandingPerf\FormControllers\BoeingParameterValidator.cs" />
+    <Compile Include="UI\UserControls\TakeoffLanding\LandingPerf\ParameterValidator.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\LandingPerf\FormControllers\IFormController.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\LandingPerf\FormControllers\FormControllerFactory.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\LandingPerf\LandingPerfControl.cs">
@@ -702,7 +704,7 @@
     <Compile Include="Common\Exceptions.cs" />
     <Compile Include="AviationTools\Airac\AiracTools.cs" />
     <Compile Include="LibraryExtension\Arrays.cs" />
-    <Compile Include="LandingPerfCalculation\Boeing\LandingParameters.cs" />
+    <Compile Include="LandingPerfCalculation\LandingParameters.cs" />
     <Compile Include="LibraryExtension\MultiMap.cs" />
     <Compile Include="LibraryExtension\Util.cs" />
     <Compile Include="LibraryExtension\Lists.cs" />
