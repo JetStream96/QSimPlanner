@@ -3,7 +3,7 @@
   <!-- All lengths in ft. All weights in 1000 LB.-->
   
   <Parameters>
-    <ProfileName>Airbus A319</ProfileName>
+    <ProfileName>Airbus A319-100 CFM</ProfileName>
 
     <!-- Here, 1 represents this landing performance data format. 
          This node does not exist for the data format like 737-600. -->
