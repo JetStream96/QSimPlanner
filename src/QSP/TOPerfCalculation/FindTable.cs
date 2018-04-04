@@ -9,10 +9,8 @@ namespace QSP.TOPerfCalculation
         /// <summary>
         /// Return values are null if not found.
         /// </summary>
-        public static (AircraftConfig, PerfTable) Find(
-            IReadOnlyList<PerfTable> tables,
-            AcConfigManager aircrafts,
-            string registration)
+        public static (AircraftConfig, PerfTable) Find(IReadOnlyList<PerfTable> tables,
+            AcConfigManager aircrafts, string registration)
         {
             if (tables != null && tables.Count > 0)
             {

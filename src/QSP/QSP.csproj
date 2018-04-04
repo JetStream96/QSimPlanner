@@ -210,7 +210,6 @@
     <Compile Include="LandingPerfCalculation\Airbus\CalculatorData.cs" />
     <Compile Include="LandingPerfCalculation\Airbus\Loader.cs" />
     <Compile Include="LandingPerfCalculation\Airbus\Entry.cs" />
-    <Compile Include="LandingPerfCalculation\FindTable.cs" />
     <Compile Include="LandingPerfCalculation\LandingReport.cs" />
     <Compile Include="LandingPerfCalculation\ReportRow.cs" />
     <Compile Include="Libraries\FolderSelectDialog\FolderSelectDialog.cs" />

@@ -1,8 +1,10 @@
 ﻿using NUnit.Framework;
 using QSP.AviationTools;
-using QSP.TOPerfCalculation.Airbus;
-using System.Linq;
+using QSP.Common;
 using QSP.TOPerfCalculation;
+using QSP.TOPerfCalculation.Airbus;
+using System;
+using System.Linq;
 
 namespace UnitTest.TOPerfCalculation.Airbus
 {
@@ -12,7 +14,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
         public static TOParameters GetParameters() => new TOParameters()
         {
             AntiIce = 0,
-           FlapsIndex=0,
+            FlapsIndex = 0,
             OatCelsius = 15,
             PacksOn = false,
             QNH = 1013.25,
@@ -34,8 +36,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
 
             var t = LoaderTest.GetTable();
 
-            var (e, d) = Calculator.TakeOffDistanceMeter(t, p);
-            Assert.AreEqual(Calculator.Error.NoDataForSelectedFlaps, e);
+            Assert.Throws<Exception>(() => Calculator.TakeOffDistanceMeter(t, p));
         }
 
         [Test]
@@ -44,8 +45,8 @@ namespace UnitTest.TOPerfCalculation.Airbus
             var p = GetParameters();
             var t = LoaderTest.GetTable();
 
-            var (e, d) = Calculator.TakeOffDistanceMeter(t, p);
-            Assert.AreEqual(Calculator.Error.None, e);
+            var d = Calculator.TakeOffDistanceMeter(t, p);
+            // Should not throw.
         }
 
         [Test]
@@ -56,7 +57,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
             var t = LoaderTest.GetTable();
             t.Tables = t.Tables.Where(x => x.IsaOffset < 1).ToList();
 
-            var (e, d) = Calculator.TakeOffDistanceMeter(t, p);
+            var d = Calculator.TakeOffDistanceMeter(t, p);
             Assert.AreEqual(5000 * Constants.FtMeterRatio, d, 10);
         }
 
@@ -69,7 +70,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
 
             var t = LoaderTest.GetTable();
 
-            var (e, d) = Calculator.TakeOffDistanceMeter(t, p);
+            var d = Calculator.TakeOffDistanceMeter(t, p);
             Assert.AreEqual(5000 * Constants.FtMeterRatio, d, 10);
         }
 
@@ -82,7 +83,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
 
             var t = LoaderTest.GetTable();
 
-            var (e, d) = Calculator.TakeOffDistanceMeter(t, p);
+            var d = Calculator.TakeOffDistanceMeter(t, p);
             Assert.AreEqual(4000 * Constants.FtMeterRatio, d, 10);
         }
 
@@ -96,7 +97,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
 
             var t = LoaderTest.GetTable();
 
-            var (e, d) = Calculator.TakeOffDistanceMeter(t, p);
+            var d = Calculator.TakeOffDistanceMeter(t, p);
             Assert.AreEqual(5000 * Constants.FtMeterRatio, d, 10);
         }
 
@@ -109,7 +110,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
 
             var t = LoaderTest.GetTable();
 
-            var (e, d) = Calculator.TakeOffDistanceMeter(t, p);
+            var d = Calculator.TakeOffDistanceMeter(t, p);
             Assert.AreEqual((4920 + 524.8) * Constants.FtMeterRatio, d, 10);
         }
 
@@ -122,7 +123,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
 
             var t = LoaderTest.GetTable();
 
-            var (e, d) = Calculator.TakeOffDistanceMeter(t, p);
+            var d = Calculator.TakeOffDistanceMeter(t, p);
             Assert.AreEqual((4920 - 55.76) * Constants.FtMeterRatio, d, 10);
         }
 
@@ -136,7 +137,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
 
             var t = LoaderTest.GetTable();
 
-            var (e, d) = Calculator.TakeOffDistanceMeter(t, p);
+            var d = Calculator.TakeOffDistanceMeter(t, p);
             Assert.AreEqual((4920 - 10 * 21.32) * Constants.FtMeterRatio, d, 10);
         }
 
@@ -150,7 +151,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
 
             var t = LoaderTest.GetTable();
 
-            var (e, d) = Calculator.TakeOffDistanceMeter(t, p);
+            var d = Calculator.TakeOffDistanceMeter(t, p);
             Assert.AreEqual((4920 + 10 * 74.62) * Constants.FtMeterRatio, d, 10);
         }
 
@@ -163,7 +164,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
 
             var t = LoaderTest.GetTable();
 
-            var (e, d) = Calculator.TakeOffDistanceMeter(t, p);
+            var d = Calculator.TakeOffDistanceMeter(t, p);
             Assert.AreEqual(5000 * Constants.FtMeterRatio, d, 10);
         }
 
@@ -176,7 +177,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
 
             var t = LoaderTest.GetTable();
 
-            var (e, d) = Calculator.TakeOffDistanceMeter(t, p);
+            var d = Calculator.TakeOffDistanceMeter(t, p);
             Assert.AreEqual(5000 * Constants.FtMeterRatio, d, 10);
         }
 
@@ -189,7 +190,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
 
             var t = LoaderTest.GetTable();
 
-            var (e, d) = Calculator.TakeOffDistanceMeter(t, p);
+            var d = Calculator.TakeOffDistanceMeter(t, p);
             Assert.AreEqual(5000 * Constants.FtMeterRatio, d, 10);
         }
 
@@ -199,8 +200,8 @@ namespace UnitTest.TOPerfCalculation.Airbus
             var p = GetParameters();
             var t = LoaderTest.GetTable();
 
-            var (e, r) = Calculator.TakeOffReport(t, p);
-            Assert.AreEqual(Calculator.Error.None, e);
+            var r = Calculator.TakeOffReport(t, p);
+            // Should not throw
         }
 
         [Test]
@@ -210,8 +211,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
             p.FlapsIndex = 1;
             var t = LoaderTest.GetTable();
 
-            var (e, r) = Calculator.TakeOffReport(t, p);
-            Assert.AreEqual(Calculator.Error.NoDataForSelectedFlaps, e);
+            Assert.Throws<Exception>(() => Calculator.TakeOffReport(t, p));
         }
 
         [Test]
@@ -221,8 +221,7 @@ namespace UnitTest.TOPerfCalculation.Airbus
             p.RwyLengthMeter = 500;
             var t = LoaderTest.GetTable();
 
-            var (e, r) = Calculator.TakeOffReport(t, p);
-            Assert.AreEqual(Calculator.Error.RunwayTooShort, e);
+            Assert.Throws<RunwayTooShortException>(() => Calculator.TakeOffReport(t, p));
         }
     }
 }
