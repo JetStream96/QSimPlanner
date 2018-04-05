@@ -48,7 +48,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\QSP\QSP.csproj">
+      <Project>{182ca73b-6911-4d37-ba34-c86232fe37f1}</Project>
+      <Name>QSP</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="profile\A319_100_CFM.xml">
       <SubType>Designer</SubType>
