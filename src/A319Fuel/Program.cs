@@ -13,7 +13,7 @@ namespace A319Fuel
     {
         static void Main(string[] args)
         {
-
+            File.WriteAllText("./Out.txt", Convert());
         }
 
         // Convert to Boeing format.
@@ -21,7 +21,9 @@ namespace A319Fuel
         {
             string[] Split(string s, string splitters)
             {
-                return s.Split(splitters.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                return s.Split(splitters.ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
+                    .Where(x => !x.All(c => c == ' ' || c == '\t'))
+                    .ToArray();
             }
 
             var landingWtsKg = new[] { 40000, 50000, 60000, 70000 };
@@ -39,20 +41,20 @@ namespace A319Fuel
                 var x2 = firstLine[1].ToArray();
 
                 // Ignore lines with time. We do not need them.
-                var linesFuel = lines.Where((_, ind) => ind % 2 == 0);
+                var linesFuel = lines.Where((_, ind) => ind % 2 == 1);
                 var f = linesFuel.Select(line =>
                 {
                     var words = Split(line, " \t");
                     var nums = words.Select(s =>
                         s == "NoValue" ? double.PositiveInfinity : double.Parse(s)).ToList();
                     var dis = nums[0];
-                    var f1 = nums.Take(1 + x1.Length).ToArray();
+                    var f1 = nums.Skip(1).Take(x1.Length).ToArray();
                     var f2 = nums.Skip(1 + x1.Length).ToArray();
                     var tablesf2 = new Table1D(x2, f2);
 
                     var minFuel = landingWtsKg.Select(wt =>
                         f1.Select((x, ind) => x + (wt - landingWtKg) / 1000 * tablesf2.ValueAt(x1[ind]))
-                            .Min()
+                          .Min()
                     );
 
                     return new double[] { dis }.Concat(minFuel);
