@@ -189,7 +189,7 @@
     <Compile Include="FuelCalculation\Calculations\NodeMarker.cs" />
     <Compile Include="FuelCalculation\Calculations\PlanNode.cs" />
     <Compile Include="FuelCalculation\Exceptions.cs" />
-    <Compile Include="FuelCalculation\FuelData\Corrections\Boeing\FuelTable.cs" />
+    <Compile Include="FuelCalculation\FuelData\FuelTable.cs" />
     <Compile Include="FuelCalculation\FuelData\DataPoint.cs" />
     <Compile Include="FuelCalculation\FuelData\DataPointExtension.cs" />
     <Compile Include="FuelCalculation\FuelData\FuelData.cs" />
@@ -197,6 +197,8 @@
     <Compile Include="FuelCalculation\FuelData\FuelDataItemExtension.cs" />
     <Compile Include="FuelCalculation\FuelData\FuelDataLoader.cs" />
     <Compile Include="FuelCalculation\FuelData\FuelParameters.cs" />
+    <Compile Include="FuelCalculation\FuelData\IFuelTable.cs" />
+    <Compile Include="FuelCalculation\FuelData\IFuelTableExtension.cs" />
     <Compile Include="FuelCalculation\Results\DetailedPlan.cs" />
     <Compile Include="FuelCalculation\Results\FuelReport.cs" />
     <Compile Include="FuelCalculation\Results\FuelReportGenerator.cs" />

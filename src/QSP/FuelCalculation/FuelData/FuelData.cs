@@ -30,8 +30,11 @@ namespace QSP.FuelCalculation.FuelData
         {
             var root = XDocument.Load(path).Root;
             var loc = root.Element("FileLocation");
-            if (loc != null) return LoadItem(Path.Combine(path, "..", loc.Value));
-            return new FuelDataItem.Serializer().Deserialize(root);
+            if (loc == null) return new FuelDataItem.Serializer().Deserialize(root);
+
+            var biasAttribute = loc.Attribute("bias");
+            var bias = biasAttribute == null ? 1.0 : double.Parse(biasAttribute.Value);
+            return LoadItem(Path.Combine(path, "..", loc.Value)).WithBias(bias);
         }
     }
 }

@@ -1,12 +1,12 @@
 ﻿using QSP.MathTools.Tables.Readers;
 using QSP.MathTools.Tables;
 
-namespace QSP.FuelCalculation.FuelData.Corrections.Boeing
+namespace QSP.FuelCalculation.FuelData
 {
     // The units of variables used in this class is specified in 
     // FuelCalculation/Calculations/VariableUnitStandard.txt.
 
-    public class FuelTable
+    public class FuelTable : IFuelTable
     {
         private readonly Table2D table;
 

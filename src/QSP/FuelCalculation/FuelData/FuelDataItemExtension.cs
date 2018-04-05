@@ -95,7 +95,7 @@ namespace QSP.FuelCalculation.FuelData
                 f.DescendKias,
                 f.DataPoint1.WithBias(bias),
                 f.DataPoint2.WithBias(bias),
-                f.FuelTable);
+                f.FuelTable.WithBias(bias));
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using QSP.FuelCalculation.FuelData.Corrections.Boeing;
-using QSP.LibraryExtension.XmlSerialization;
+﻿using QSP.LibraryExtension.XmlSerialization;
 using System;
 using System.Linq;
 using System.Xml.Linq;
@@ -20,7 +19,7 @@ namespace QSP.FuelCalculation.FuelData
         public double DescendKias { get; private set; }
         public DataPoint DataPoint1 { get; private set; }
         public DataPoint DataPoint2 { get; private set; }
-        public FuelTable FuelTable { get; }
+        public IFuelTable FuelTable { get; }
 
         public FuelDataItem(
              double HoldingFuelFlow,
@@ -31,7 +30,7 @@ namespace QSP.FuelCalculation.FuelData
              double DescendKias,
              DataPoint DataPoint1,
              DataPoint DataPoint2,
-             FuelTable FuelTable = null)
+             IFuelTable FuelTable = null)
         {
             this.HoldingFuelFlow = HoldingFuelFlow;
             this.HoldingFuelRefWt = HoldingFuelRefWt;
@@ -69,7 +68,7 @@ namespace QSP.FuelCalculation.FuelData
                     elem.GetDouble(DescendKias),
                     deserializer.Deserialize(pts[0]),
                     deserializer.Deserialize(pts[1]),
-                    table==null? null: new FuelTable(table));
+                    table == null ? null : new FuelTable(table));
             }
 
             public XElement Serialize(FuelDataItem item, string name)
