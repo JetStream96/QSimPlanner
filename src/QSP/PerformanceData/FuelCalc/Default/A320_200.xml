@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Data>
+
+  <ProfileName>Airbus A320-200</ProfileName>
+  
+  <!-- Implement bias. -->
+  <FileLocation bias="1.011">./A319_100_CFM.xml</FileLocation>
+  
+</Data>

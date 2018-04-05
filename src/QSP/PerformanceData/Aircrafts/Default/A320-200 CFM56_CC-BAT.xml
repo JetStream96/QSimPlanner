@@ -2,7 +2,7 @@
 <root>
   <AC>A320-200 CFM56</AC>
   <Registration>CC-BAT</Registration>
-  <FuelProfile></FuelProfile>
+  <FuelProfile>Airbus A320-200</FuelProfile>
   <TOProfile>Airbus A320-200 CFM56</TOProfile>
   <LdgProfile></LdgProfile>
   <OewKg>43200</OewKg>
