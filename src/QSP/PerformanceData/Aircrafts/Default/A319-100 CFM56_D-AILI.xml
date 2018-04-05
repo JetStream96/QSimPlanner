@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <AC>A319-100 CFM56</AC>
+  <Registration>D-AILI</Registration>
+  <FuelProfile>A319_100_CFM</FuelProfile>
+  <TOProfile></TOProfile>
+  <LdgProfile>A319_100_CFM_LDG</LdgProfile>
+  <OewKg>40800</OewKg>
+  <MaxTOWtKg>75500</MaxTOWtKg>
+  <MaxLdgWtKg>62500</MaxLdgWtKg>
+  <WtUnit>0</WtUnit>
+  <MaxZfwKg>58500</MaxZfwKg>
+  <MaxFuelKg>18729</MaxFuelKg>
+  <FuelBias>1</FuelBias>
+</root>

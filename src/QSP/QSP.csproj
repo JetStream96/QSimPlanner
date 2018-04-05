@@ -828,6 +828,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="PerformanceData\FuelCalc\Default\A319_100_CFM.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="PerformanceData\FuelCalc\Default\747400F.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -863,10 +866,6 @@
     </Content>
     <Content Include="PerformanceData\FuelCalc\Default\737800_cfm56-7b26.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PerformanceData\FuelCalc\Default\A319_100_CFM.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
     </Content>
     <Content Include="PerformanceData\LDG\Default\747400F_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
