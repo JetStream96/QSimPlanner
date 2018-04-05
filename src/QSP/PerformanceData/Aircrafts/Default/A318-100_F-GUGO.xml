@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <AC>A318-100</AC>
+  <Registration>F-GUGO</Registration>
+  <FuelProfile>A318</FuelProfile>
+  <TOProfile></TOProfile>
+  <LdgProfile></LdgProfile>
+  <OewKg>39500</OewKg>
+  <MaxTOWtKg>68000</MaxTOWtKg>
+  <MaxLdgWtKg>57500</MaxLdgWtKg>
+  <WtUnit>0</WtUnit>
+  <MaxZfwKg>54500</MaxZfwKg>
+  <MaxFuelKg>18729</MaxFuelKg>
+  <FuelBias>1</FuelBias>
+</root>
