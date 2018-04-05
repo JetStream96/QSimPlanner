@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LandingData>
+  
+  <Parameters>
+    <ProfileName>Airbus A321 IAE V2500</ProfileName>
+  </Parameters>
+  
+  <FileLocation multiplier="0.9263">./A319_100_CFM_LDG.xml</FileLocation>
+  
+</LandingData>
