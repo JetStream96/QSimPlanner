@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <AC>A321-100</AC>
+  <Registration>D-AIRN</Registration>
+  <FuelProfile>Airbus A321</FuelProfile>
+  <TOProfile></TOProfile>
+  <LdgProfile></LdgProfile>
+  <OewKg>48500</OewKg>
+  <MaxTOWtKg>93500</MaxTOWtKg>
+  <MaxLdgWtKg>77800</MaxLdgWtKg>
+  <WtUnit>0</WtUnit>
+  <MaxZfwKg>73800</MaxZfwKg>
+  <MaxFuelKg>18604</MaxFuelKg>
+  <FuelBias>1</FuelBias>
+</root>

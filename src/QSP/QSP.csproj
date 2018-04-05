@@ -803,10 +803,13 @@
     <Content Include="Libraries\MinMaxHeap.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\Aircrafts\Default\A319-100 CFM56_D-AILI.xml">
+    <Content Include="PerformanceData\Aircrafts\Default\A319-100_CFM56_D-AILI.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\Aircrafts\Default\A320-200 CFM56_CC-BAT.xml">
+    <Content Include="PerformanceData\Aircrafts\Default\A321-100_D-AIRN - Copy.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\Aircrafts\Default\A320-200_CFM56_CC-BAT.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="PerformanceData\Aircrafts\Default\B747-400F_LX-OCV.xml">
@@ -830,6 +833,9 @@
     <Content Include="PerformanceData\FuelCalc\Default\737700_cfm56-7b26.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
+    </Content>
+    <Content Include="PerformanceData\FuelCalc\Default\A321.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="PerformanceData\FuelCalc\Default\A320_200.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
