@@ -2,9 +2,9 @@
 <root>
   <AC>A319-100 CFM56</AC>
   <Registration>D-AILI</Registration>
-  <FuelProfile>A319_100_CFM</FuelProfile>
+  <FuelProfile>A319-100 CFM56-5B</FuelProfile>
   <TOProfile></TOProfile>
-  <LdgProfile>A319_100_CFM_LDG</LdgProfile>
+  <LdgProfile>Airbus A319-100 CFM</LdgProfile>
   <OewKg>40800</OewKg>
   <MaxTOWtKg>75500</MaxTOWtKg>
   <MaxLdgWtKg>62500</MaxLdgWtKg>
