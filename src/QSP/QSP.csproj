@@ -893,6 +893,10 @@
     <Content Include="PerformanceData\LDG\Default\747400_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="PerformanceData\LDG\Default\A320_IAE_LDG.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="PerformanceData\LDG\Default\A320_CFM_LDG.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <!-- All lengths in ft. All weights in 1000 LB.-->
+  
+  <Parameters>
+    <ProfileName>Airbus A320 IAE</ProfileName>
+
+    <!-- Here, 1 represents this landing performance data format. 
+         This node does not exist for the data format like 737-600. -->
+    <Format>1</Format>
+  </Parameters>
+  
+  <!-- 
+        First row: landing weight
+        Second row: Actual landing distance (dry)
+        Third row: Actual landing distance (wet)
+
+        Attributes: 
+        e.g. 
+        elevation_dry="3": In dry condition, add 3% to landing distance per 1000 ft elevation.
+        tailwind_dry="20": In dry condition, add 20% to landing distance per 10 knots.
+        both_reverser_dry="3": In dry condition, subtract 3% to landing distance if both reversers are operational.
+        speed_5kts="8": Add 8% for each 5 knots of extra speed.
+
+        headwind_dry and headwind_wet are 0 because of wind correction on approach speed.
+        
+        The order of flaps and autobrake options appearing in the program is identical
+        to the order in this file.
+    -->
+
+  <Table flaps="3" autobrake="LOW" elevation_dry="4" elevation_wet="4" headwind_dry="0" headwind_wet="0" tailwind_dry="18" tailwind_wet="18" both_reverser_dry="0" both_reverser_wet="1" speed_5kts="8">
+    88.1057  110.1322  132.1586  154.185  176.2115
+    4395.2	5149.6	5936.8	6756.8	7544
+    4395.2	5149.6	5936.8	6756.8	7544
+  </Table>
+
+  <Table flaps="Full" autobrake="LOW" elevation_dry="4" elevation_wet="4" headwind_dry="0" headwind_wet="0" tailwind_dry="18" tailwind_wet="18" both_reverser_dry="0" both_reverser_wet="1" speed_5kts="8">
+    88.1057  110.1322  132.1586  154.185  176.2115
+    4264	4821.6	5576	6330.4	7084.8
+    4264	4821.6	5576	6330.4	7084.8
+  </Table>
+
+  <Table flaps="3" autobrake="MED" elevation_dry="3" elevation_wet="4" headwind_dry="0" headwind_wet="0" tailwind_dry="16" tailwind_wet="20" both_reverser_dry="0" both_reverser_wet="2" speed_5kts="8">
+    88.1057  110.1322  132.1586  154.185  176.2115
+    3017.6	3476.8	3968.8	4460.8	4952.8
+    3050.4	3608	4198.4	4854.4	5510.4
+  </Table>
+  
+  <Table flaps="Full" autobrake="MED" elevation_dry="3" elevation_wet="4" headwind_dry="0" headwind_wet="0" tailwind_dry="16" tailwind_wet="20" both_reverser_dry="0" both_reverser_wet="0" speed_5kts="8">
+    88.1057  110.1322  132.1586  154.185  176.2115
+    2952	3312.8	3772	4231.2	4690.4
+    2952	3312.8	3837.6	4428	4985.6
+  </Table>
+
+  <Table flaps="3" autobrake="MAX" elevation_dry="3" elevation_wet="4" headwind_dry="0" headwind_wet="0" tailwind_dry="17" tailwind_wet="21" both_reverser_dry="5" both_reverser_wet="12" speed_5kts="8">
+    101.3215859	110.1321586	118.9427313	127.753304	136.5638767	145.3744493	154.185022	162.9955947	171.8061674
+    2394.4	2492.8	2624	2755.2	2919.2	3181.6	3476.8	3804.8	4100
+    3181.6	3411.2	3640.8	3870.4	4132.8	4395.2	4657.6	4920	5182.4
+  </Table>
+
+  <Table flaps="Full" autobrake="MAX" elevation_dry="3" elevation_wet="3" headwind_dry="0" headwind_wet="0" tailwind_dry="18" tailwind_wet="21" both_reverser_dry="5" both_reverser_wet="11" speed_5kts="8">
+    101.3215859	110.1321586	118.9427313	127.753304	136.5638767	145.3744493	154.185022	162.9955947	171.8061674
+    2263.2	2394.4	2492.8	2591.2	2722.4	2919.2	3214.4	3509.6	3772
+    2919.2	3116	3312.8	3542.4	3772	4001.6	4231.2	4460.8	4657.6
+  </Table>
+</Root>
