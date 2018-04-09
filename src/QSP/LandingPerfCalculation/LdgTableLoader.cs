@@ -30,7 +30,8 @@ namespace QSP.LandingPerfCalculation
                 var table = TryLoadTable(f);
                 if (table == null) return;
                 var key = table.Entry.ProfileName;
-                if (!tables.ContainsKey(key)) tables.Add(key, table);
+                if (tables.ContainsKey(key)) tables.Remove(key);
+                tables.Add(key, table);
             });
 
             return tables.Select(kv => kv.Value);

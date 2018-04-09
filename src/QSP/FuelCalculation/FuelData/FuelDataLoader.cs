@@ -27,7 +27,9 @@ namespace QSP.FuelCalculation.FuelData
                 try
                 {
                     var data = FuelData.FromFile(i);
-                    tables.Add(data.ProfileName, data);
+                    var key = data.ProfileName;
+                    if (tables.ContainsKey(key)) tables.Remove(key);
+                    tables.Add(key, data);
                 }
                 catch { }
             }

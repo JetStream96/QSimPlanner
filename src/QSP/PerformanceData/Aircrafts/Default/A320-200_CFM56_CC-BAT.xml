@@ -4,7 +4,7 @@
   <Registration>CC-BAT</Registration>
   <FuelProfile>Airbus A320-200</FuelProfile>
   <TOProfile>Airbus A320-200 CFM56</TOProfile>
-  <LdgProfile></LdgProfile>
+  <LdgProfile>Airbus A320 CFM</LdgProfile>
   <OewKg>43200</OewKg>
   <MaxTOWtKg>77000</MaxTOWtKg>
   <MaxLdgWtKg>66000</MaxLdgWtKg>
