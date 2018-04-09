@@ -4,7 +4,7 @@
   <Registration>F-GUGO</Registration>
   <FuelProfile>Airbus A318</FuelProfile>
   <TOProfile></TOProfile>
-  <LdgProfile></LdgProfile>
+  <LdgProfile>Airbus A318 CFM56-5B</LdgProfile>
   <OewKg>39500</OewKg>
   <MaxTOWtKg>68000</MaxTOWtKg>
   <MaxLdgWtKg>57500</MaxLdgWtKg>

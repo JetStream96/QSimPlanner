@@ -76,7 +76,7 @@ namespace QSP.LandingPerfCalculation.Airbus
                 (tail * -p.HeadwindKts / 10)) / 100;
             len *= 1 - (p.Reverser == 1 ? reverser : 0) / 100;
             len *= 1 + (p.AppSpeedIncrease / 5) * (m.Speed5Knots / 100);
-            return len * Constants.FtMeterRatio;
+            return len * Constants.FtMeterRatio * t.Multiplier;
         }
     }
 }

@@ -19,7 +19,11 @@ namespace QSP.LandingPerfCalculation.Boeing
         public PerfTable ReadFromXml(string filePath)
         {
             var doc = XDocument.Load(filePath);
-            return new PerfTable(LoadTable(filePath), LdgTableLoader.GetEntry(filePath, doc));
+            return new PerfTable()
+            {
+                Item = LoadTable(filePath),
+                Entry = LdgTableLoader.GetEntry(filePath, doc)
+            };
         }
 
         private BoeingPerfTable LoadTable(string path)

@@ -30,6 +30,11 @@ namespace QSP.LandingPerfCalculation.Boeing
         /// <summary>
         /// Gets the landing distance for the given landing parameters.
         /// </summary>
+        public double DistanceRequiredMeter() => DistanceRequiredMeter(para.BrakeIndex);
+
+        /// <summary>
+        /// Gets the landing distance for the given landing parameters.
+        /// </summary>
         public double DistanceRequiredMeter(int brakeSetting)
         {
             double totalDisMeter =
@@ -51,7 +56,7 @@ namespace QSP.LandingPerfCalculation.Boeing
                 totalDisMeter += ReqData(DataColumn.NoRev, brakeSetting);
             }
 
-            return totalDisMeter;
+            return totalDisMeter * perfTable.Multiplier;
         }
 
         private double WtCorrection(int brakeSetting)
@@ -104,10 +109,5 @@ namespace QSP.LandingPerfCalculation.Boeing
         {
             return para.AppSpeedIncrease / 10.0 * ReqData(DataColumn.AppSpdAdjust, brake);
         }
-
-        /// <summary>
-        /// Gets the landing distance for the given landing parameters.
-        /// </summary>
-        public double DistanceRequiredMeter() => DistanceRequiredMeter(para.BrakeIndex);
     }
 }

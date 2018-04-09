@@ -5,7 +5,7 @@
     //
     // Every aircraft corresponds to one PerfTable.
     //
-    public class BoeingPerfTable : PerfTableItem
+    public class BoeingPerfTable : IPerfTableItem
     {
         // All lengths in meter, all weights in KG.
         public double WeightRef { get; private set; }
@@ -24,7 +24,8 @@
 
         public string[] Flaps { get; private set; }     
         public string[] Reversers { get; private set; }
-      
+        public double Multiplier { get; set; } = 1;
+
         public BoeingPerfTable(
             double WeightRef,
             double WeightStep,

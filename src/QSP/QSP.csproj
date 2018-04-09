@@ -526,7 +526,7 @@
     <Compile Include="LandingPerfCalculation\Boeing\PerfData\Enums.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\PerfData\TableDry.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\PerfData\TableWet.cs" />
-    <Compile Include="LandingPerfCalculation\PerfTableItem.cs" />
+    <Compile Include="LandingPerfCalculation\IPerfTableItem.cs" />
     <Compile Include="LibraryExtension\DoubleArrays.cs" />
     <Compile Include="LibraryExtension\Graph\Edge.cs" />
     <Compile Include="LibraryExtension\FixedIndexList.cs" />

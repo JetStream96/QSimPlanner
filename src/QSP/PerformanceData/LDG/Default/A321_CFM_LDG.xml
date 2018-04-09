@@ -2,7 +2,7 @@
 <LandingData>
   
   <Parameters>
-    <ProfileName>Airbus A321 IAE V2500</ProfileName>
+    <ProfileName>Airbus A321 CFM</ProfileName>
   </Parameters>
   
   <FileLocation multiplier="0.9368">./A319_100_CFM_LDG.xml</FileLocation>

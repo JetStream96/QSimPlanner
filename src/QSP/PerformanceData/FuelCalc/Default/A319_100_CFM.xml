@@ -8,7 +8,7 @@
        all fuel flows (FF) in kg/min.
   -->
 
-  <ProfileName>A319-100 CFM56-5B</ProfileName>
+  <ProfileName>Airbus A319-100 CFM56-5B</ProfileName>
 
   <!-- 
     The following lines, until and including DataPoints, are borrowed from 737-700 24k. 

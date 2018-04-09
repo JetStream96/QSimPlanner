@@ -31,6 +31,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
         {
             var e = controllerData.Elements;
             var thrustComboBox = e.ThrustRating;
+            if (e.Flaps.SelectedIndex < 0) return Arr("TO");
             var table = PerfTable.Tables[e.Flaps.SelectedIndex];
             if (table.AltnRatingAvail) return table.ThrustRatings.ToArray();
             return Arr("TO");

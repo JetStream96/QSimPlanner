@@ -15,7 +15,11 @@ namespace QSP.LandingPerfCalculation.Airbus
         {
             var doc = XDocument.Load(filePath);
             var table = LoadPerfTable(doc.Root);
-            return new PerfTable(table, LdgTableLoader.GetEntry(filePath, doc));
+            return new PerfTable()
+            {
+                Item = table,
+                Entry = LdgTableLoader.GetEntry(filePath, doc)
+            };
         }
 
         /// <summary>

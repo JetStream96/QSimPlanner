@@ -4,7 +4,7 @@
   <Registration>D-AIRN</Registration>
   <FuelProfile>Airbus A321</FuelProfile>
   <TOProfile></TOProfile>
-  <LdgProfile></LdgProfile>
+  <LdgProfile>Airbus A321 IAE V2500</LdgProfile>
   <OewKg>48500</OewKg>
   <MaxTOWtKg>93500</MaxTOWtKg>
   <MaxLdgWtKg>77800</MaxLdgWtKg>

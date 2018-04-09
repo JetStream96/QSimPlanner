@@ -3,9 +3,10 @@ using System.Linq;
 
 namespace QSP.LandingPerfCalculation.Airbus
 {
-    public class AirbusPerfTable : PerfTableItem
+    public class AirbusPerfTable : IPerfTableItem
     {
         public List<Entry> Entries { get; set; }
+        public double Multiplier { get; set; } = 1;
 
         public bool Equals(AirbusPerfTable a, double delta)
         {

@@ -14,7 +14,13 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
             get
             {
                 var item = ((BoeingPerfTable)controllerData.PerfTable.Item);
-                var surface = (SurfaceCondition)controllerData.Elements.SurfCond.SelectedIndex;
+                var surfaceIndex = controllerData.Elements.SurfCond.SelectedIndex;
+
+                // When the control is loading, surfaceIndex might be -1.
+                var brakes = surfaceIndex >= 0 ?
+                    item.BrakesAvailable((SurfaceCondition)surfaceIndex) :
+                    Arr("Manual");
+
                 return new FormOptions()
                 {
                     SurfaceConditions = Arr(
@@ -25,7 +31,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
                     ),
                     Flaps = item.Flaps,
                     Reversers = item.Reversers,
-                    Brakes = item.BrakesAvailable(surface)
+                    Brakes = brakes
                 };
             }
         }
