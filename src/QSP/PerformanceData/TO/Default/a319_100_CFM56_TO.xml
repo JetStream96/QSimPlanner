@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <!-- All lengths and elevations in ft. All weights in 1000 LB.-->
+  
+  <Parameters>
+    <ProfileName>Airbus A319-100 CFM56</ProfileName>
+    
+    <!-- Here, 1 represents this takeoff performance data format. 
+         This node does not exist for the data format like 737-600. 
+         This can be used to distinguish different data formats.
+         -->
+    <Format>1</Format>
+  </Parameters>
+  
+  <!-- 
+        Wind correction for runway length. 
+        First row is runway length.
+        Second row is length addition per knot headwind, in feet.
+        Third row is length subtraction per knot tailwind, in feet. 
+
+        Second row is from A319 FCOM. Third row is guessed based on Boeing's FCOM.
+    -->
+  <Wind>
+    4920     5740     6560     7380     8200     9020    9840     10660    11480
+    21.32    22.96    26.24    27.88    31.16    32.8    36.08    37.72    41
+    74.62    80.36    91.84    97.58    109.06   114.8   126.28   132.02   143.5
+  </Wind>
+
+  <!-- 
+        Similar to wind. Data is all from A319 FCOM. Second row is uphill correction per percent, and third row is for downhill.    
+        Example for applying corrections:
+        4920 ft physical length, 10 knots headwind and 1% uphill slope => Corrected length is (4920 + 10 * 21.32 - 524.8) ft.
+    -->
+  <Slope>
+    4920     5740     6560     7380     8200      9020      9840      10660     11480
+    524.8    705.2    885.6    1066     1246.4    1426.8    1607.2    1787.6    1968
+    55.76    75.44    95.12    118.08   137.76    157.44    180.4     200.08    219.76
+  </Slope>
+
+  <!-- 
+        From airport planning manual. 
+        First row is runway lengths.
+        First column is elevation.
+        The table is takeoff limit weight. 
+    -->
+  <Table flaps="1+F" ISA_offset="0">
+    4000	5000	6000	7000	8000	9000	10000	11000	12000	13000
+    0	125	148	157	164	170	174	175	176	177	178
+    2000	115	142	152	158	164	169	172	173	174	175
+    4000	110	137	146	153	159	163	166	167	168	169
+    6000	95	132	142	147	153	158	161	162	163	164
+    8000	95	126	135	142	147	151	154	156	157	158
+  </Table>
+
+  <!-- If ISA_offset is "15", it means this table is for temperature at ISA+15°C. -->
+  <Table flaps="1+F" ISA_offset="15">
+    4000	4600	5000	6000	7000	8000	9000	10000	11000	12000	13000
+    0	125	147	152	160	165	170	173	175	176	177	178
+    2000	117	143	148	155	160	165	169	171	172	173	174
+    4000	110	140	144	151	156	161	164	167	168	169	169.5
+    6000	100	135	139	147	152	156	160	162	163	164	165
+    8000	100	130	133	142	148	152	155	158	159	159.5	160
+  </Table>
+
+  <!-- 
+        All data above is for dry condition. Apply this wet correction to get actual takeoff limit weight.
+        First row is runway length.
+        Second row is takeoff limit weight decrement.
+        Data from A319 FCOM.
+    -->
+  <WetCorrection>
+    8000  10000 12000 14000
+    2.228720779	2.228720779	1.823766234	1.823766234
+  </WetCorrection>
+
+  <!-- In 1000 LB. -->
+  <Bleeds engine_ai="0.5556" all_ai="1.6667" packs_on="4.8889"/>
+</Root>

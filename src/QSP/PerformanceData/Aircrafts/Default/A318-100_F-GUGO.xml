@@ -3,7 +3,7 @@
   <AC>A318-100</AC>
   <Registration>F-GUGO</Registration>
   <FuelProfile>Airbus A318</FuelProfile>
-  <TOProfile></TOProfile>
+  <TOProfile>Airbus A318-100 CFM56</TOProfile>
   <LdgProfile>Airbus A318 CFM56-5B</LdgProfile>
   <OewKg>39500</OewKg>
   <MaxTOWtKg>68000</MaxTOWtKg>

@@ -811,6 +811,9 @@
     <Content Include="PerformanceData\Aircrafts\Default\A319-100_CFM56_D-AILI.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="PerformanceData\Aircrafts\Default\A320-200_IAE_CC-BAG.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="PerformanceData\Aircrafts\Default\A321-100_D-AIRN.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -941,9 +944,24 @@
     <None Include="Firefox\omni.ja" />
     <None Include="packages.config" />
     <None Include="Resources\processing.png" />
+    <Content Include="PerformanceData\TO\Default\a321_200_CFM56_TO.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\TO\Default\a319_100_CFM56_TO.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\TO\Default\a318_100_CFM56_TO.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="PerformanceData\TO\Default\a320_200_CFM56_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
+    </Content>
+    <Content Include="PerformanceData\TO\Default\a320_200_IAE_TO.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="updater.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

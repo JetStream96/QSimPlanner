@@ -3,7 +3,7 @@
   <AC>A321-100</AC>
   <Registration>D-AIRN</Registration>
   <FuelProfile>Airbus A321</FuelProfile>
-  <TOProfile></TOProfile>
+  <TOProfile>Airbus A321-200 CFM56</TOProfile>
   <LdgProfile>Airbus A321 IAE V2500</LdgProfile>
   <OewKg>48500</OewKg>
   <MaxTOWtKg>93500</MaxTOWtKg>

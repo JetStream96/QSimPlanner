@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <AC>A320-200 CFM56</AC>
-  <Registration>CC-BAT</Registration>
+  <AC>A320-200 IAE</AC>
+  <Registration>CC-BAG</Registration>
   <FuelProfile>Airbus A320-200</FuelProfile>
-  <TOProfile>Airbus A320-200 CFM56</TOProfile>
-  <LdgProfile>Airbus A320 CFM</LdgProfile>
-  <OewKg>42300</OewKg>
+  <TOProfile>Airbus A320-200 IAE</TOProfile>
+  <LdgProfile>Airbus A320 IAE</LdgProfile>
+  <OewKg>43516</OewKg>
   <MaxTOWtKg>77000</MaxTOWtKg>
   <MaxLdgWtKg>66000</MaxLdgWtKg>
   <WtUnit>0</WtUnit>
