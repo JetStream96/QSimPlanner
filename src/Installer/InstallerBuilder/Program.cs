@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.IO.Compression;
 
 namespace InstallerBuilder
 {
@@ -18,8 +20,8 @@ namespace InstallerBuilder
 
                 try
                 {
-                    var doNotCreateInstaller = args.Length >= 1 && args[0] == "--no-installer";
-                    BuildAttempt(!doNotCreateInstaller);
+                    var createAll = args.Length >= 1 && args[0] == "--all";
+                    BuildAttempt(createAll);
                     return;
                 }
                 catch (Exception e)
@@ -29,12 +31,16 @@ namespace InstallerBuilder
             }
         }
 
-        public static void BuildAttempt(bool createInstaller)
+        public static void BuildAttempt(bool createAll)
         {
             var gen = new FileOutputGenerator();
             gen.Build();
 
-            if (createInstaller) InstallerCreator.WriteFile(gen.Version);
+            if (createAll)
+            {
+                InstallerCreator.WriteFile(gen.Version);
+                PrepareReleaseFiles(gen.Version);
+            }
 
             Console.WriteLine(@"
 
@@ -44,6 +50,16 @@ namespace InstallerBuilder
     Build completed.
 
 ************************");
+        }
+
+        private static void PrepareReleaseFiles(string ver)
+        {
+            var portable = Path.Combine(InstallerCreator.ResultsFolderPath(),
+                $"QSimPlanner_{ver}_portable.zip");
+            ZipFile.CreateFromDirectory(OutputFolder, portable);
+            var update = Path.Combine(InstallerCreator.ResultsFolderPath(),
+                $"{ver}.zip");
+            ZipFile.CreateFromDirectory(Path.Combine(OutputFolder, ver), update);
         }
     }
 }

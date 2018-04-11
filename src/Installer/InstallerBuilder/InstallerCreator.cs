@@ -48,9 +48,10 @@ namespace InstallerBuilder
 
         private static string GetFileText(string version)
         {
-            var text = File.ReadAllText("template.iss");
-            text = text.Replace("AppVersion=", $"AppVersion={version}");
-            return text.Replace("[Files]", "[Files]\n" + FileList());
+            return File.ReadAllText("template.iss")
+                       .Replace("OutputBaseFilename=", $"OutputBaseFilename=QSimPlanner_{version}_setup")
+                       .Replace("AppVersion=", $"AppVersion={version}")
+                       .Replace("[Files]", "[Files]\n" + FileList());
         }
 
         private static string FileList()
@@ -68,7 +69,7 @@ namespace InstallerBuilder
             return string.Join("\n", lines);
         }
 
-        private static string ResultsFolderPath()
+        public static string ResultsFolderPath()
         {
             return Path.Combine(OutputFolder, "../Results");
         }

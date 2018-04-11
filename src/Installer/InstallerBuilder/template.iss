@@ -10,6 +10,7 @@ Compression=lzma2
 SolidCompression=yes
 OutputDir=userdocs:Inno Setup Examples Output 
 DisableDirPage=yes
+OutputBaseFilename=
 
 [Files]
 
