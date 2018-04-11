@@ -1,4 +1,8 @@
-﻿version 0.4.2
+﻿version 0.4.3
+* Add profiles for A320 family.
+* Fix fuel burn bias bug.
+
+version 0.4.2
 * Replace the browser which displays the route map with a better one.
 * Fixed an AUSOTS bug which could not read some coordinate formats.
 * Minor UI improvements.
