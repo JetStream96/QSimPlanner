@@ -8,34 +8,34 @@ namespace QSP.WindAloft
 {
     public class WindFileHandler
     {
-        private WindTable[] windTables;
+        private WxTable[] windTables;
         private FilePaths[] paths;
 
         public WindFileHandler()
         {
             int count = Constants.FullWindDataSet.Count;
-            windTables = new WindTable[count];
+            windTables = new WxTable[count];
             paths = GetPaths();
         }
 
         /// <exception cref="ReadWindFileException"></exception>
-        public WindTableCollection ImportAllTables()
+        public WxTableCollection ImportAllTables()
         {
             for (int i = 0; i < windTables.Length; i++)
             {
                 var path = paths[i];
-                windTables[i] = LoadFromFile(path.UTable, path.VTable);
+                windTables[i] = LoadFromFile(path);
             }
 
-            return new WindTableCollection(windTables);
+            return new WxTableCollection(windTables);
         }
 
         public void TryDeleteCsvFiles()
         {
             foreach (var i in paths)
             {
-                TryDelete(i.UTable);
-                TryDelete(i.VTable);
+                TryDelete(i.U);
+                TryDelete(i.V);
             }
         }
 
@@ -55,24 +55,27 @@ namespace QSP.WindAloft
 
             for (int i = 0; i < windTables.Length; i++)
             {
+                var temp = Path.Combine(dir, $"wx{i * 3 + 1}.csv");
                 var pathU = Path.Combine(dir, $"wx{i * 3 + 2}.csv");
                 var pathV = Path.Combine(dir, $"wx{i * 3 + 3}.csv");
 
-                paths[i] = new FilePaths() { UTable = pathU, VTable = pathV };
+                paths[i] = new FilePaths() { Temp = temp, U = pathU, V = pathV };
             }
 
             return paths;
         }
 
-        private struct FilePaths { public string UTable, VTable; }
+        private struct FilePaths { public string Temp, U, V; }
 
         /// <exception cref="ReadWindFileException"></exception>
-        public static WindTable LoadFromFile(string uFilePath, string vFilePath)
+        private static WxTable LoadFromFile(FilePaths p)
         {
-            var uTable = ReadCsvIntoTable(uFilePath);
-            var vTable = ReadCsvIntoTable(vFilePath);
-
-            return new WindTable(uTable, vTable);
+            return new WxTable()
+            {
+                Temperature = new TableItem() { Values = ReadCsvIntoTable(p.Temp) },
+                UWind = new TableItem() { Values = ReadCsvIntoTable(p.U) },
+                VWind = new TableItem() { Values = ReadCsvIntoTable(p.V) }
+            };
         }
 
         /// <exception cref="ReadWindFileException"></exception>

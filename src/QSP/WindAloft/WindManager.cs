@@ -12,7 +12,7 @@ namespace QSP.WindAloft
         /// @Throws
         /// Download, convert and read the files into WindTableCollection.
         /// </summary>
-        public static WindTableCollection LoadWind()
+        public static WxTableCollection LoadWind()
         {
             new GribDownloader().DownloadGribFile(DownloadFilePath);
             GribConverter.ConvertGrib();
@@ -24,7 +24,7 @@ namespace QSP.WindAloft
         }
 
         // @Throws
-        public static async Task<WindTableCollection> LoadWindAsync()
+        public static async Task<WxTableCollection> LoadWindAsync()
         {
             return await Task.Factory.StartNew(LoadWind);
         }

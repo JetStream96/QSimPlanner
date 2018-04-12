@@ -95,7 +95,7 @@ namespace QSP.UI.Presenters.Wind
         }
         
         // May throw exception.
-        private WindTableCollection LoadWindFile(string path)
+        private WxTableCollection LoadWindFile(string path)
         {
             if (!GetUri(path).Equals(GetUri(WindManager.DownloadFilePath)))
             {

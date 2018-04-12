@@ -163,6 +163,10 @@
     <Compile Include="FuelCalculation\Calculations\ICrzAltProvider.cs" />
     <Compile Include="FuelCalculation\Calculations\IPlanNode.cs" />
     <Compile Include="FuelCalculation\Calculations\NextPlanNodeParameter.cs" />
+    <Compile Include="WindAloft\ITempTableCollection.cs" />
+    <Compile Include="WindAloft\IWxTableCollection.cs" />
+    <Compile Include="WindAloft\WxTable.cs" />
+    <Compile Include="WindAloft\TableItem.cs" />
     <Content Include="config.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -789,8 +793,7 @@
     <Compile Include="WindAloft\Wind.cs" />
     <Compile Include="WindAloft\Constants.cs" />
     <Compile Include="WindAloft\WindManager.cs" />
-    <Compile Include="WindAloft\WindTable.cs" />
-    <Compile Include="WindAloft\WindTableCollection.cs" />
+    <Compile Include="WindAloft\WxTableCollection.cs" />
     <Compile Include="WindAloft\WindUV.cs" />
     <Compile Include="WindAloft\WindFileHandler.cs" />
     <Content Include="ChangeLog.txt">

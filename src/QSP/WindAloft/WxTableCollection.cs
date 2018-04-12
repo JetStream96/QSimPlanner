@@ -6,38 +6,41 @@ using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.WindAloft
 {
-    public class WindTableCollection : IWindTableCollection
+    public class WxTableCollection : IWxTableCollection
     {
         private IReadOnlyList<int> pressures;
-        private WindTable[] windTables;
+        private WxTable[] windTables;
 
-        public WindTableCollection(WindTable[] windTables)
+        public WxTableCollection(WxTable[] windTables)
         {
             pressures = Constants.FullWindDataSet;
             Ensure<ArgumentException>(windTables.Length == pressures.Count);
             this.windTables = windTables;
         }
 
+        private double InterpolatePressure(double lat, double lon, double altFt,
+            Func<WxTable, TableItem> getTable)
+        {
+            double press = ConversionTools.PressureMb(altFt);
+            int index = GetIndicesForInterpolation(press);
+            return Interpolate1D.Interpolate(
+                pressures[index],
+                pressures[index + 1],
+                getTable(windTables[index]).ValueAt(lat, lon),
+                getTable(windTables[index + 1]).ValueAt(lat, lon),
+                press);
+        }
+
+        public double GetTemp(double lat, double lon, double altitudeFt)
+        {
+            return InterpolatePressure(lat, lon, altitudeFt, t => t.Temperature);
+        }
+
         public WindUV GetWindUV(double lat, double lon, double altitudeFt)
         {
-            double press = ConversionTools.PressureMb(altitudeFt);
-            int index = GetIndicesForInterpolation(press);
-
-            double uWind = Interpolate1D.Interpolate(
-                pressures[index],
-                pressures[index + 1],
-                windTables[index].GetUWind(lat, lon),
-                windTables[index + 1].GetUWind(lat, lon),
-                press);
-
-            double vWind = Interpolate1D.Interpolate(
-                pressures[index],
-                pressures[index + 1],
-                windTables[index].GetVWind(lat, lon),
-                windTables[index + 1].GetVWind(lat, lon),
-                press);
-
-            return new WindUV(uWind, vWind);
+            double u = InterpolatePressure(lat, lon, altitudeFt, t => t.UWind);
+            double v = InterpolatePressure(lat, lon, altitudeFt, t => t.VWind);
+            return new WindUV(u, v);
         }
 
         private int GetIndicesForInterpolation(double press)
