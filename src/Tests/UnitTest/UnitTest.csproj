@@ -165,6 +165,7 @@
     <Compile Include="RouteFinding\FileExport\ExportCommandTest.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\Fs9ProviderTest.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\FsxProviderTest.cs" />
+    <Compile Include="RouteFinding\FileExport\Providers\Ifly747v2ProviderTest.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\Ifly737ProviderTest.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\PmdgProviderTest.cs" />
     <Compile Include="RouteFinding\RandomRoutes\RandomRouteFinderTest.cs" />
