@@ -114,7 +114,11 @@ namespace UnitTest.AircraftProfiles.Configs
             var toTable = new TOTable(null, toFile);
 
             var ldgFile = new QSP.LandingPerfCalculation.Entry("Boeing 777-300ER", "");
-            var ldgTable = new LdgTable(null, ldgFile);
+            var ldgTable = new LdgTable()
+            {
+                Item = null,
+                Entry = ldgFile
+            };
 
             Assert.IsNull(manager.Validate(List(fuelTable), List(toTable), List(ldgTable)));
         }

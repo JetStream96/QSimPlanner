@@ -50,7 +50,7 @@ namespace QSP.RouteFinding.FileExport.Providers
 
             while (node != route.Last)
             {
-                var airway = node.Value.Neighbor.Airway;
+                var airway = node.Value.AirwayToNext.Airway;
                 var wpt = node.Value.Waypoint;
 
                 if (airway == "DCT" || node.Next == route.Last)

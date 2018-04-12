@@ -28,7 +28,7 @@ namespace QSP.RouteFinding.Routes
             var matches = items.Nodes().Where(n =>
             {
                 return n.Value.Waypoint.Equals(route.First.Value.Waypoint) &&
-                n.Value.Neighbor.Airway == airway &&
+                n.Value.AirwayToNext.Airway == airway &&
                 n.Next != null &&
                 n.Next.Value.Waypoint.Equals(route.Last.Value.Waypoint);
             });
@@ -58,7 +58,7 @@ namespace QSP.RouteFinding.Routes
             {
                 yield return i.Waypoint;
                 if (i == r.Last.Value) break;
-                foreach (var j in i.Neighbor.InnerWaypoints) yield return j;
+                foreach (var j in i.AirwayToNext.InnerWaypoints) yield return j;
             }
         }        
     }

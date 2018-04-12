@@ -42,7 +42,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             Assert.AreEqual(2, origRoute.Count);
 
             var node = origRoute.First;
-            var neighbor = node.Value.Neighbor;
+            var neighbor = node.Value.AirwayToNext;
             Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
             Assert.IsTrue(neighbor.Airway == "DCT");
             Assert.AreEqual(neighbor.Distance, rwy.Distance(wpt1), 1E-8);
@@ -89,7 +89,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             Assert.AreEqual(2, origRoute.Count);
 
             var node = origRoute.First;
-            var neighbor = node.Value.Neighbor;
+            var neighbor = node.Value.AirwayToNext;
             Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
             Assert.IsTrue(neighbor.Airway == sid.Name);
             Assert.AreEqual(neighbor.Distance, List(rwy, p1, wpt1).TotalDistance(), 1E-8);
@@ -136,7 +136,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             Assert.AreEqual(2, origRoute.Count);
 
             var node = origRoute.First;
-            var neighbor = node.Value.Neighbor;
+            var neighbor = node.Value.AirwayToNext;
             Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
             Assert.IsTrue(neighbor.Airway == sid.Name);
             Assert.AreEqual(neighbor.Distance, List(rwy, p1, wpt1).TotalDistance(), 1E-8);
@@ -184,7 +184,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             Assert.AreEqual(3, origRoute.Count);
 
             var node = origRoute.First;
-            var neighbor1 = node.Value.Neighbor;
+            var neighbor1 = node.Value.AirwayToNext;
             Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
             Assert.IsTrue(neighbor1.Airway == sid.Name);
             Assert.AreEqual(neighbor1.Distance, rwy.Distance(p1), 1E-8);
@@ -192,7 +192,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             Assert.AreEqual(InnerWaypointsType.Terminal, neighbor1.Type);
 
             node = node.Next;
-            var neighbor2 = node.Value.Neighbor;
+            var neighbor2 = node.Value.AirwayToNext;
             Assert.IsTrue(node.Value.Waypoint.Equals(p1));
             Assert.IsTrue(neighbor2.Airway == "DCT");
             Assert.AreEqual(neighbor2.Distance, p1.Distance(wpt1), 1E-8);

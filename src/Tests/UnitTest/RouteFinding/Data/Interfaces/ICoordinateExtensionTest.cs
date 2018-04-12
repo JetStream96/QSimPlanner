@@ -107,7 +107,7 @@ namespace UnitTest.RouteFinding.Data.Interfaces
 
             var pt0 = route.FirstWaypoint;
             Assert.IsTrue(pt0.LatLonEquals(pts[0]));
-            Assert.IsTrue(route.First.Value.Neighbor.Airway == "DCT");
+            Assert.IsTrue(route.First.Value.AirwayToNext.Airway == "DCT");
 
             var pt1 = route.First.Next.Value.Waypoint;
             Assert.IsTrue(pt1.LatLonEquals(pts[1]));

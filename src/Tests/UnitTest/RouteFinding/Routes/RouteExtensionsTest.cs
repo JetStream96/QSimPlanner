@@ -40,7 +40,7 @@ namespace UnitTest.RouteFinding.Routes
             Assert.IsTrue(route.Nodes.Select(n => n.Waypoint.ID).SequenceEqual(
                 new[] { "1", "2", "4", "3" }));
 
-            Assert.IsTrue(route.Nodes.Select(n => n.Neighbor.Airway).Take(3).SequenceEqual(
+            Assert.IsTrue(route.Nodes.Select(n => n.AirwayToNext.Airway).Take(3).SequenceEqual(
                 new[] { "A", "C", "D" }));
         }
 

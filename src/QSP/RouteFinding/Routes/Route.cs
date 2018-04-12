@@ -56,7 +56,7 @@ namespace QSP.RouteFinding.Routes
 
             while (node != Last)
             {
-                dis += node.Value.Neighbor.Distance;
+                dis += node.Value.AirwayToNext.Distance;
                 node = node.Next;
             }
 
@@ -161,19 +161,19 @@ namespace QSP.RouteFinding.Routes
 
             while (node.Next != last)
             {
-                if (node.Value.Neighbor.Airway == "DCT")
+                if (node.Value.AirwayToNext.Airway == "DCT")
                 {
                     if (ShowDct)
                     {
-                        result.Append(node.Value.Neighbor.Airway + ' ');
+                        result.Append(node.Value.AirwayToNext.Airway + ' ');
                     }
 
                     node = node.Next;
                     result.Append(node.Value.Waypoint.ID + ' ');
                 }
-                else if (node.Value.Neighbor.Airway != node.Next.Value.Neighbor.Airway)
+                else if (node.Value.AirwayToNext.Airway != node.Next.Value.AirwayToNext.Airway)
                 {
-                    result.Append(node.Value.Neighbor.Airway + ' ');
+                    result.Append(node.Value.AirwayToNext.Airway + ' ');
                     node = node.Next;
                     result.Append(node.Value.Waypoint.ID + ' ');
                 }
@@ -183,9 +183,9 @@ namespace QSP.RouteFinding.Routes
                 }
             }
 
-            if (node.Value.Neighbor.Airway != "DCT" || ShowDct)
+            if (node.Value.AirwayToNext.Airway != "DCT" || ShowDct)
             {
-                result.Append(node.Value.Neighbor.Airway);
+                result.Append(node.Value.AirwayToNext.Airway);
             }
 
             return result.Length == 0 ? "DCT" : result.ToString();
