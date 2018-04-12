@@ -6,64 +6,33 @@ using QSP.RouteFinding.FileExport.Providers;
 namespace UnitTest.RouteFinding.FileExport.Providers
 {
     [TestFixture]
-    public class Ifly747v2ProviderTest
+    public class AerosoftAirbusProviderTest
     {
         [Test]
         public void GetExportTextTest()
         {
             var route = Common.GetRoute(
                 new Waypoint("RJBB06L", 0.0, 0.0), "A", -1.0,
-                new Waypoint("WPT0", 0.0, 1.0), "B", -1.0,
-                new Waypoint("WPT1", 0.0, 2.0), "DCT", -1.0,
+                new Waypoint("WPT0", 0.0, 10.0), "B", -1.0,
+                new Waypoint("WPT1", 0.0, -20.0), "DCT", -1.0,
                 new Waypoint("WPT2", 0.0, 2.5), "C", -1.0,
                 new Waypoint("RJAA18", 0.0, 3.0));
 
-            var text = Ifly747v2Provider.GetExportText(route);
+            var text = AerosoftAirbusProvider.GetExportText(route);
 
             var expected =
-@"[RTE]
-ORIGIN_AIRPORT=RJBB
-DEST_AIRPORT=RJAA
-
-[RTE.0]
-RouteName=
-Name=WPT0
-Latitude=0.000000
-Longitude=1.000000
-CrossThisPoint=0
-Heading=0
-Speed=0
-Altitude=0
-Frequency=
-FrequencyID=
-
-[RTE.1]
-RouteName=B
-Name=WPT1
-Latitude=0.000000
-Longitude=2.000000
-CrossThisPoint=0
-Heading=0
-Speed=0
-Altitude=0
-Frequency=
-FrequencyID=
-
-[RTE.2]
-RouteName=
-Name=WPT2
-Latitude=0.000000
-Longitude=2.500000
-CrossThisPoint=0
-Heading=0
-Speed=0
-Altitude=0
-Frequency=
-FrequencyID=
-
-[CDU]
-CRZ_ALT=
-COST_INDEX=
+@"[CoRte]
+ArptDep=RJBB
+ArptArr=RJAA
+RwyDep=RJBB06L
+RwyArr=RJAA18
+DctWpt1=WPT0
+DctWpt1Coordinates=0.000000,10.000000
+Airway2=B
+Airway2FROM=WPT0
+Airway2TO=WPT1
+DctWpt3=WPT2
+DctWpt3Coordinates=0.000000,2.500000
 ";
 
             Assert.IsTrue(expected.EqualsIgnoreNewlineStyle(text));

@@ -6,6 +6,10 @@ namespace QSP.RouteFinding.FileExport.Providers
 {
     public class Ifly747v2Provider
     {
+        /// <summary>
+        /// Get string of the flight plan to export.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public static string GetExportText(Route route)
         {
             const string start = @"[RTE]
