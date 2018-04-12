@@ -1,5 +1,6 @@
 using QSP.MathTools.Interpolation;
 using System;
+using static QSP.LibraryExtension.Types;
 
 namespace QSP.WindAloft
 {
@@ -33,20 +34,20 @@ namespace QSP.WindAloft
 
         private double GetUVWindHelper(double lat, double lon, TableOption para)
         {
-            var x = (int) (Math.Floor(lat));
-            var y = (int) (Math.Floor(lon));
+            var x = (int)(Math.Floor(lat));
+            var y = (int)(Math.Floor(lon));
 
             // Prevent interpolation using data that is out of range of array.
             if (x == 90) x = 89;
             if (y == 180) y = 179;
 
             return Interpolate2D.Interpolate(
-                new double[] {x, x + 1},
-                new double[] {y, y + 1},
-                new[] {
-                    new[] {GetWindHelper(x, y, para), GetWindHelper(x, y + 1, para)},
-                    new[] {GetWindHelper(x + 1, y, para), GetWindHelper(x + 1, y + 1, para)}
-                },
+                Arr<double>(x, x + 1),
+                Arr<double>(y, y + 1),
+                Arr(
+                    Arr(GetWindHelper(x, y, para), GetWindHelper(x, y + 1, para)),
+                    Arr(GetWindHelper(x + 1, y, para), GetWindHelper(x + 1, y + 1, para))
+                ),
                 x, y);
         }
 

@@ -82,6 +82,7 @@ namespace QSP.WindAloft
                 items.Add($"lev_{i}_mb=on");
             }
 
+            items.Add("var_TMP=on");
             items.Add("var_UGRD=on");
             items.Add("var_VGRD=on");
 

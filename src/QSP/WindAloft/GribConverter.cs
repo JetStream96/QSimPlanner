@@ -21,17 +21,16 @@ namespace QSP.WindAloft
         {
             var processes = new List<Process>();
 
-            for (int i = 1; i <= Constants.FullWindDataSet.Count * 2; i++)
+            for (int i = 1; i <= Constants.FullWindDataSet.Count * 3; i++)
             {
-                var properties = new ProcessStartInfo();
                 string filepathOut = filepath.Replace(".grib2", i + ".csv");
+                var properties = new ProcessStartInfo()
+                {
+                    FileName = @".\Degrib\degrib.exe",
+                    Arguments = $"-in {filepath} -C -msg {i} -Csv -out {filepathOut}",
+                    WindowStyle = ProcessWindowStyle.Hidden
+                };
 
-                properties.FileName = @".\Degrib\degrib.exe";
-
-                // Command line arguments
-                properties.Arguments = $"-in {filepath} -C -msg {i} -Csv -out {filepathOut}";
-
-                properties.WindowStyle = ProcessWindowStyle.Hidden;
                 processes.Add(Process.Start(properties));
             }
 
