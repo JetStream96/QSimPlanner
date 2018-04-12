@@ -256,6 +256,7 @@
     <Compile Include="RouteFinding\FileExport\Providers\AerosoftAirbusProvider.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\Ifly737Provider.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\Ifly747v2Provider.cs" />
+    <Compile Include="RouteFinding\FileExport\Providers\PmdgWindUplinkProvider.cs" />
     <Compile Include="RouteFinding\Finder\DestInfo.cs" />
     <Compile Include="RouteFinding\Finder\OrigInfo.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Parser\ProcedureParser.cs" />
