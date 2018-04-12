@@ -4,6 +4,9 @@ using static QSP.LibraryExtension.Types;
 
 namespace QSP.RouteFinding.FileExport.Providers
 {
+    /// <summary>
+    /// This is exactly the same format as FlightFactor 777.
+    /// </summary>
     public static class AerosoftAirbusProvider
     {
         /// <summary>
