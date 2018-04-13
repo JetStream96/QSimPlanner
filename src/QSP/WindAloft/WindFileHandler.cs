@@ -1,6 +1,7 @@
 using QSP.Utilities;
 using System;
 using System.IO;
+using static QSP.AviationTools.ConversionTools;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Numbers;
 
@@ -70,12 +71,28 @@ namespace QSP.WindAloft
         /// <exception cref="ReadWindFileException"></exception>
         private static WxTable LoadFromFile(FilePaths p)
         {
+            var temp = Map(ReadCsvIntoTable(p.Temp), x => ToCelsius(x));
+            var u = Map(ReadCsvIntoTable(p.U), x => x / KnotMpsRatio);
+            var v = Map(ReadCsvIntoTable(p.V), x => x / KnotMpsRatio);
             return new WxTable()
             {
-                Temperature = new TableItem() { Values = ReadCsvIntoTable(p.Temp) },
-                UWind = new TableItem() { Values = ReadCsvIntoTable(p.U) },
-                VWind = new TableItem() { Values = ReadCsvIntoTable(p.V) }
+                Temperature = new TableItem() { Values = temp },
+                UWind = new TableItem() { Values = u },
+                VWind = new TableItem() { Values = v }
             };
+        }
+
+        private static double[,] Map(double[,] t, Func<double, double> map)
+        {
+            var y = new double[t.GetLength(0), t.GetLength(1)];
+            for (int i = 0; i < t.GetLength(0); i++)
+            {
+                for (int j = 0; j < t.GetLength(1); j++)
+                {
+                    y[i, j] = map(t[i, j]);
+                }
+            }
+            return y;
         }
 
         /// <exception cref="ReadWindFileException"></exception>
@@ -101,8 +118,7 @@ namespace QSP.WindAloft
                     string[] t = allLines[i].Split(',');
                     int j = RoundToInt(double.Parse(t[2])) + 90;
                     int k = RoundToInt(double.Parse(t[3])) + 180;
-                    double speed = double.Parse(t[4]) / KnotMpsRatio;
-                    table[j, k] = speed;
+                    table[j, k] = double.Parse(t[4]);
                 }
 
                 //add values for -180 (same as 180)

@@ -62,18 +62,20 @@ namespace QSP.UI.Presenters.MiscInfo
         {
             var airport = AirportList[icao];
             double[] flightLevels = { 60, 90, 120, 180, 240, 300, 340, 390, 440, 490 };
-            var winds = DescendForcast.Generate(
+            var windTemp = DescendForcast.Generate(
                 windTableLocator.Instance, airport.Lat, airport.Lon, flightLevels).ToList();
 
             var result = new StringBuilder("\n");
 
             for (int i = 0; i < flightLevels.Length; i++)
             {
+                var (wind,temp) = windTemp[i];
                 var flightLevel = flightLevels[i].ToString().PadLeft(3, '0');
-                var direction = winds[i].DirectionString();
-                int speed = Numbers.RoundToInt(winds[i].Speed);
+                var direction = wind.DirectionString();
+                int speed = Numbers.RoundToInt(wind.Speed);
+                var tempInt = Numbers.RoundToInt(temp);
 
-                result.AppendLine($"        FL{flightLevel}   {direction}/{speed}");
+                result.AppendLine($"        FL{flightLevel}   {direction}/{speed} ({tempInt})");
             }
 
             return result.ToString();
