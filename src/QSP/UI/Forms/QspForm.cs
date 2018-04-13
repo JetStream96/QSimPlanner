@@ -62,7 +62,7 @@ namespace QSP.UI.Forms
         private Locator<AppOptions> appOptionsLocator;
         private Locator<CountryCodeManager> countryCodesLocator;
         private ProcedureFilter procFilter;
-        private Locator<IWindTableCollection> windTableLocator;
+        private Locator<IWxTableCollection> windTableLocator;
         private Updater updater;
         private OptionsForm optionsForm;
 
@@ -223,7 +223,7 @@ namespace QSP.UI.Forms
             }
 
             procFilter = new ProcedureFilter();
-            windTableLocator = new Locator<IWindTableCollection>()
+            windTableLocator = new Locator<IWxTableCollection>()
             {
                 Instance = new DefaultWindTableCollection()
             };

@@ -34,7 +34,7 @@ namespace QSP.WindAloft
         /// <exception cref="InvalidUserInputException"></exception>
         public static AvgWindCalculator GetWindCalculator(
             AppOptions appSettings,
-            Locator<IWindTableCollection> windTableLocator,
+            Locator<IWxTableCollection> windTableLocator,
             AirportManager airportList,
             FuelDataItem fuelData,
             double zfwTon,

@@ -23,7 +23,7 @@ namespace QSP.FuelCalculation.Calculations
     {
         private readonly AirportManager airportList;
         private readonly ICrzAltProvider altProvider;
-        private readonly IWindTableCollection windTable;
+        private readonly IWxTableCollection windTable;
         private readonly Route route;
         private readonly FuelDataItem fuelData;
         private readonly double zfw;
@@ -34,7 +34,7 @@ namespace QSP.FuelCalculation.Calculations
         public FuelCalculator(
             AirportManager airportList,
             ICrzAltProvider altProvider,
-            IWindTableCollection windTable,
+            IWxTableCollection windTable,
             Route route,
             FuelDataItem fuelData,
             double zfw,

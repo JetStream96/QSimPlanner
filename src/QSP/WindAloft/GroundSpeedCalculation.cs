@@ -14,7 +14,7 @@ namespace QSP.WindAloft
         /// different from v2 but v can be the same as v1 or v2.
         /// </summary>
         public static double GetGS(
-            IWindTableCollection windData,
+            IWxTableCollection windData,
             double altitudeFt,
             double ktas,
             Vector3D v1,
@@ -39,7 +39,7 @@ namespace QSP.WindAloft
         /// Gets the wind vector in earth's coordinate at the given location. 
         /// </summary>
         public static Vector3D GetWind(
-            IWindTableCollection windData,
+            IWxTableCollection windData,
             double altitudeFt,
             double lat, 
             double lon)

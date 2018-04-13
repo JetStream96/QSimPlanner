@@ -9,7 +9,7 @@ namespace QSP.FuelCalculation.Calculations
     public interface IPlanNode : ICoordinate
     {
         object NodeValue { get; }
-        IWindTableCollection WindTable { get; }
+        IWxTableCollection WindTable { get; }
         LinkedListNode<RouteNode> NextRouteNode { get; }
         ICoordinate NextPlanNodeCoordinate { get; }
         double Alt { get; }

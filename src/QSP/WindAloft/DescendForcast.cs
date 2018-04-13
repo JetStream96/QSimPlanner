@@ -5,7 +5,7 @@ namespace QSP.WindAloft
 {
     public static class DescendForcast
     {
-        public static IEnumerable<Wind> Generate(IWindTableCollection windTables,
+        public static IEnumerable<Wind> Generate(IWxTableCollection windTables,
             double lat, double lon, IEnumerable<double> flightLevels)
         {
             return flightLevels.Select(fl =>

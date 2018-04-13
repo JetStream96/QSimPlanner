@@ -163,8 +163,6 @@
     <Compile Include="FuelCalculation\Calculations\ICrzAltProvider.cs" />
     <Compile Include="FuelCalculation\Calculations\IPlanNode.cs" />
     <Compile Include="FuelCalculation\Calculations\NextPlanNodeParameter.cs" />
-    <Compile Include="WindAloft\ITempTableCollection.cs" />
-    <Compile Include="WindAloft\IWxTableCollection.cs" />
     <Compile Include="WindAloft\WxTable.cs" />
     <Compile Include="WindAloft\TableItem.cs" />
     <Content Include="config.xml">
@@ -788,7 +786,7 @@
     <Compile Include="WindAloft\GribConverter.cs" />
     <Compile Include="WindAloft\GribDownloader.cs" />
     <Compile Include="WindAloft\GroundSpeedCalculation.cs" />
-    <Compile Include="WindAloft\IWindTableCollection.cs" />
+    <Compile Include="WindAloft\IWxTableCollection.cs" />
     <Compile Include="WindAloft\LastestDataSetFinder.cs" />
     <Compile Include="WindAloft\Wind.cs" />
     <Compile Include="WindAloft\Constants.cs" />

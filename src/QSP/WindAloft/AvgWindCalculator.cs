@@ -17,11 +17,11 @@ namespace QSP.WindAloft
         public double Ktas { get; }
         public double AltitudeFt { get; }
 
-        private readonly IWindTableCollection windData;
+        private readonly IWxTableCollection windData;
         private Vector3D v1;
         private Vector3D v2;
 
-        public AvgWindCalculator(IWindTableCollection windData, double Ktas, double AltitudeFt)
+        public AvgWindCalculator(IWxTableCollection windData, double Ktas, double AltitudeFt)
         {
             this.windData = windData;
             this.Ktas = Ktas;

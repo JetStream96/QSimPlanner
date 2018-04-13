@@ -16,7 +16,7 @@ namespace QSP.UI.Presenters.MiscInfo
         public MiscInfoPresenter(
             IMiscInfoView view,
             AirportManager airportList,
-            Locator<IWindTableCollection> windTableLocator,
+            Locator<IWxTableCollection> windTableLocator,
             bool enableBrowser,
             Func<string> origGetter,
             Func<string> destGetter,

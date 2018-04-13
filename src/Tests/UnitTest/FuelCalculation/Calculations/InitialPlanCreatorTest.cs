@@ -20,7 +20,7 @@ namespace UnitTest.FuelCalculation.Calculations
         public void CreateTest()
         {
             var wind = new WindUV(0.0, 0.0);
-            var creator = GetCreator(new WindCollectionStub(wind));
+            var creator = GetCreator(GetWindCollectionStub(wind));
 
             var nodes = creator.Create();
 
@@ -37,7 +37,7 @@ namespace UnitTest.FuelCalculation.Calculations
         public void CalculatesWindEffectTest()
         {
             var wind = new WindUV(50.0, 50.0);
-            var creator = GetCreator(new WindCollectionStub(wind));
+            var creator = GetCreator(GetWindCollectionStub(wind));
 
             var nodes = creator.Create();
 
@@ -50,7 +50,7 @@ namespace UnitTest.FuelCalculation.Calculations
             Assert.AreEqual(33.8, first.TimeRemaining, 1.0);
         }
 
-        public static InitialPlanCreator GetCreator(IWindTableCollection w)
+        public static InitialPlanCreator GetCreator(IWxTableCollection w)
         {
             return new InitialPlanCreator(
                 TestAirportManager(),
@@ -87,16 +87,12 @@ namespace UnitTest.FuelCalculation.Calculations
             return airport;
         }
 
-        public class WindCollectionStub : IWindTableCollection
+        public static IWxTableCollection GetWindCollectionStub(WindUV wind)
         {
-            private WindUV wind;
-
-            public WindCollectionStub(WindUV wind)
-            {
-                this.wind = wind;
-            }
-
-            public WindUV GetWindUV(double lat, double lon, double altitudeFt) => wind;
+            var s = A.Fake<IWxTableCollection>();
+            A.CallTo(() => s.GetWindUV(A<double>.Ignored,A<double>.Ignored,A<double>.Ignored))
+             .Returns(wind);
+            return s;
         }
 
         public class CrzAltProviderStub : ICrzAltProvider

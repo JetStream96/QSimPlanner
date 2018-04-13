@@ -18,7 +18,7 @@ namespace QSP.UI.Models.FuelPlan.Routes
         Locator<CountryCodeManager> CountryCodeManager { get; }
         Locator<CountryCodeCollection> CheckedCountryCodes { get; }
         ProcedureFilter ProcFilter { get; }
-        Locator<IWindTableCollection> WindTables { get; }
+        Locator<IWxTableCollection> WindTables { get; }
         AcConfigManager Aircrafts { get; }
         IEnumerable<FuelData> FuelData { get; }
     }
@@ -30,7 +30,7 @@ namespace QSP.UI.Models.FuelPlan.Routes
         public Locator<CountryCodeManager> CountryCodeManager { get; }
         public Locator<CountryCodeCollection> CheckedCountryCodes { get; }
         public ProcedureFilter ProcFilter { get; }
-        public Locator<IWindTableCollection> WindTables { get; }
+        public Locator<IWxTableCollection> WindTables { get; }
         public AcConfigManager Aircrafts { get; }
         public IEnumerable<FuelData> FuelData { get; }
 
@@ -40,7 +40,7 @@ namespace QSP.UI.Models.FuelPlan.Routes
             Locator<CountryCodeManager> CountryCodeManager,
             Locator<CountryCodeCollection> CheckedCountryCodes,
             ProcedureFilter ProcFilter,
-            Locator<IWindTableCollection> WindTables,
+            Locator<IWxTableCollection> WindTables,
             AcConfigManager Aircrafts,
             IEnumerable<FuelData> FuelData)
         {

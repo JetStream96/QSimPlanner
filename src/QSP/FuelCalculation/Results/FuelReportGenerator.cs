@@ -21,7 +21,7 @@ namespace QSP.FuelCalculation.Results
 
         private readonly AirportManager airportList;
         private readonly ICrzAltProvider altProvider;
-        private readonly IWindTableCollection windTable;
+        private readonly IWxTableCollection windTable;
         private readonly Route routeToDest;
         private readonly IReadOnlyList<Route> routesToAltn;
         private readonly FuelParameters para;
@@ -33,7 +33,7 @@ namespace QSP.FuelCalculation.Results
         public FuelReportGenerator(
             AirportManager airportList,
             ICrzAltProvider altProvider,
-            IWindTableCollection windTable,
+            IWxTableCollection windTable,
             Route routeToDest,
             IEnumerable<Route> routesToAltn,
             FuelParameters para,

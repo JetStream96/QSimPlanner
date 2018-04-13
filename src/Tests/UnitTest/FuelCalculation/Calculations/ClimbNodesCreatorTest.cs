@@ -13,7 +13,7 @@ namespace UnitTest.FuelCalculation.Calculations
         public void CreateTest()
         {
             var wind = new WindUV(0.0, 0.0);
-            var initPlan = GetCreator(new WindCollectionStub(wind)).Create();
+            var initPlan = GetCreator(GetWindCollectionStub(wind)).Create();
 
             var creator = new ClimbNodesCreator(
                 TestAirportManager(),
@@ -35,7 +35,7 @@ namespace UnitTest.FuelCalculation.Calculations
         public void CalculatesWindEffectTest()
         {
             var wind = new WindUV(50.0, 50.0);
-            var initPlan = GetCreator(new WindCollectionStub(wind)).Create();
+            var initPlan = GetCreator(GetWindCollectionStub(wind)).Create();
 
             var creator = new ClimbNodesCreator(
                 TestAirportManager(),

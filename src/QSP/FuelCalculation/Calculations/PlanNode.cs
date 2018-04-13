@@ -37,7 +37,7 @@ namespace QSP.FuelCalculation.Calculations
         // classes like InitialPlanCreator computes the flight plan backwards.
 
         // These are passed in via ctor.
-        public IWindTableCollection WindTable { get; }
+        public IWxTableCollection WindTable { get; }
 
         // If the current node is at a RouteNode, this property
         // is identical to the current node.
@@ -70,7 +70,7 @@ namespace QSP.FuelCalculation.Calculations
 
         public PlanNode(
             object NodeValue,
-            IWindTableCollection WindTable,
+            IWxTableCollection WindTable,
             LinkedListNode<RouteNode> NextRouteNode,
             ICoordinate NextPlanNodeCoordinate,
             double Alt,

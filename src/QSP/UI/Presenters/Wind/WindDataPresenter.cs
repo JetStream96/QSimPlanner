@@ -14,10 +14,10 @@ namespace QSP.UI.Presenters.Wind
     public class WindDataPresenter
     {
         private IWindDataView view;
-        private Locator<IWindTableCollection> windTableLocator;
+        private Locator<IWxTableCollection> windTableLocator;
         public bool WindAvailable { get; private set; } = false;
 
-        public WindDataPresenter(IWindDataView view, Locator<IWindTableCollection> windTableLocator)
+        public WindDataPresenter(IWindDataView view, Locator<IWxTableCollection> windTableLocator)
         {
             this.view = view;
             this.windTableLocator = windTableLocator;

@@ -14,7 +14,7 @@ namespace QSP.UI.Presenters.MiscInfo
     public class DescentForcastPresenter
     {
         private IDescentForcastView view;
-        private Locator<IWindTableCollection> windTableLocator;
+        private Locator<IWxTableCollection> windTableLocator;
         private Func<string> destGetter;
 
         public AirportManager AirportList { get; set; }
@@ -22,7 +22,7 @@ namespace QSP.UI.Presenters.MiscInfo
         public DescentForcastPresenter(
             IDescentForcastView view,
             AirportManager airportList,
-            Locator<IWindTableCollection> windTableLocator,
+            Locator<IWxTableCollection> windTableLocator,
             Func<string> destGetter)
         {
             this.view = view;

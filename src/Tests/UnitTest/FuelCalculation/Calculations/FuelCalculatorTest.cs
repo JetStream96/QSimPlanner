@@ -58,11 +58,11 @@ namespace UnitTest.FuelCalculation.Calculations
             Assert.Throws<ElevationDifferenceTooLargeException>(() => calc.Create());
         }
 
-        private static IWindTableCollection NoWind
+        private static IWxTableCollection NoWind
         {
             get
             {
-                var table = A.Fake<IWindTableCollection>();
+                var table = A.Fake<IWxTableCollection>();
 
                 A.CallTo(() => table.GetWindUV(A<double>.Ignored,
                                                A<double>.Ignored,
@@ -73,7 +73,7 @@ namespace UnitTest.FuelCalculation.Calculations
             }
         }
 
-        private static FuelCalculator GetCalculator(IWindTableCollection w, Route route)
+        private static FuelCalculator GetCalculator(IWxTableCollection w, Route route)
         {
             return new FuelCalculator(
                 TestAirportManager(),

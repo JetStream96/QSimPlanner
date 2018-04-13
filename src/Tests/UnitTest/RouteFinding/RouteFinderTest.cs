@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using FakeItEasy;
+using NUnit.Framework;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Data.Interfaces;
@@ -169,9 +170,11 @@ namespace UnitTest.RouteFinding
 
             Assert.IsTrue(expected.Equals(route));
         }
-
-        private class WindTableStub : IWindTableCollection
+        
+        private class WindTableStub : IWxTableCollection
         {
+            public double GetTemp(double lat, double lon, double altitudeFt) => 0;
+
             public WindUV GetWindUV(double lat, double lon, double altitudeFt)
             {
                 if (lat >= 0.0) return new WindUV(-100.0, 0.0);

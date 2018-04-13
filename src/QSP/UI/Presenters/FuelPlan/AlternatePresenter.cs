@@ -21,7 +21,7 @@ namespace QSP.UI.Presenters.FuelPlan
 
         private Locator<AppOptions> appOptionsLocator;
         private AirwayNetwork airwayNetwork;
-        private Locator<IWindTableCollection> windTableLocator;
+        private Locator<IWxTableCollection> windTableLocator;
         private DestinationSidSelection destSidProvider;
         private Func<FuelDataItem> fuelData;
         private Func<double> zfwTon;
@@ -51,7 +51,7 @@ namespace QSP.UI.Presenters.FuelPlan
             IAlternateView view,
             Locator<AppOptions> appOptionsLocator,
             AirwayNetwork airwayNetwork,
-            Locator<IWindTableCollection> windTableLocator,
+            Locator<IWxTableCollection> windTableLocator,
             DestinationSidSelection destSidProvider,
             Func<FuelDataItem> fuelData,
             Func<double> zfwTon,
