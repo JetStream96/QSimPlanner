@@ -9,6 +9,8 @@ namespace QSP.RouteFinding.FileExport.Providers
     /// </summary>
     public static class AerosoftAirbusProvider
     {
+        // TODO: Consecutive airways should be combined.
+
         /// <summary>
         /// Get string of the flight plan to export.
         /// </summary>
