@@ -10,7 +10,7 @@ namespace UnitTest.WindAloft
         [Test]
         public void GetAirDistanceLessThanTwoElementShouldReturnZero()
         {
-            var calc = new AvgWindCalculator(new DefaultWindTableCollection(), 100.0, 10000.0);
+            var calc = new AvgWindCalculator(new DefaultWxTableCollection(), 100.0, 10000.0);
 
             var zeroElem = new LatLon[] { };
             var oneElem = new[] { new LatLon(0.0, 1.0) };
@@ -36,7 +36,7 @@ namespace UnitTest.WindAloft
 
         private static AvgWindCalculator GetCalc()
         {
-            return new AvgWindCalculator(new DefaultWindTableCollection(), 100.0, 10000.0);
+            return new AvgWindCalculator(new DefaultWxTableCollection(), 100.0, 10000.0);
         }
     }
 }

@@ -315,7 +315,7 @@ namespace QSP.UI.Views.FuelPlan
 
             var windTables = model.WindTables.Instance;
 
-            if (windTables is DefaultWindTableCollection)
+            if (windTables is DefaultWxTableCollection)
             {
                 var result = this.ShowDialog(
                     "The wind data has not been downloaded. " +

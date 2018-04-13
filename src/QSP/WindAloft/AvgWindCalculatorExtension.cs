@@ -43,7 +43,7 @@ namespace QSP.WindAloft
         {
             if (!appSettings.EnableWindOptimizedRoute) return null;
 
-            if (windTableLocator.Instance is DefaultWindTableCollection)
+            if (windTableLocator.Instance is DefaultWxTableCollection)
             {
                 throw new InvalidUserInputException(
                     "Wind data has not been downloaded or loaded from file.\n" +

@@ -76,7 +76,7 @@ namespace QSP.UI.Presenters.Wind
             {
                 view.ShowWindStatus(WindDownloadStatus.LoadingFromFile);
 
-                await Task.Factory.StartNew(() => LoadWindFile(file));
+                await Task.Run(() => windTableLocator.Instance = LoadWindFile(file));
 
                 var fileNameShort = Path.GetFileName(file);
                 var fileNameMsg = fileNameShort.Length > 10 ? "" : $"({fileNameShort})";
@@ -93,7 +93,7 @@ namespace QSP.UI.Presenters.Wind
                 view.ShowWindStatus(oldStatus);
             }
         }
-        
+
         // May throw exception.
         private WxTableCollection LoadWindFile(string path)
         {

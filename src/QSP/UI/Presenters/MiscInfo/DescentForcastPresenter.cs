@@ -33,7 +33,7 @@ namespace QSP.UI.Presenters.MiscInfo
 
         public async Task UpdateForcast()
         {
-            if (windTableLocator.Instance is DefaultWindTableCollection)
+            if (windTableLocator.Instance is DefaultWxTableCollection)
             {
                 view.Forcast = "\n\n\n       Wind aloft has not been downloaded.";
                 return;
@@ -65,7 +65,7 @@ namespace QSP.UI.Presenters.MiscInfo
             var windTemp = DescendForcast.Generate(
                 windTableLocator.Instance, airport.Lat, airport.Lon, flightLevels).ToList();
 
-            var result = new StringBuilder("\n");
+            var result = new StringBuilder("         FL      wind  (temp)\n\n");
 
             for (int i = 0; i < flightLevels.Length; i++)
             {

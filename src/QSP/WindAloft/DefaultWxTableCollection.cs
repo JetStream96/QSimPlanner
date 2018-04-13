@@ -1,6 +1,6 @@
 ﻿namespace QSP.WindAloft
 {
-    public sealed class DefaultWindTableCollection : IWxTableCollection
+    public sealed class DefaultWxTableCollection : IWxTableCollection
     {
         public double GetTemp(double lat, double lon, double altitudeFt) => 0;
 

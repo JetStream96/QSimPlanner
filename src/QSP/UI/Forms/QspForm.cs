@@ -225,7 +225,7 @@ namespace QSP.UI.Forms
             procFilter = new ProcedureFilter();
             windTableLocator = new Locator<IWxTableCollection>()
             {
-                Instance = new DefaultWindTableCollection()
+                Instance = new DefaultWxTableCollection()
             };
             updater = new Updater();
         }

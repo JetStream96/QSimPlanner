@@ -780,7 +780,7 @@
     <Compile Include="Utilities\Version.cs" />
     <Compile Include="WindAloft\AvgWindCalculator.cs" />
     <Compile Include="WindAloft\AvgWindCalculatorExtension.cs" />
-    <Compile Include="WindAloft\DefaultWindTableCollection.cs" />
+    <Compile Include="WindAloft\DefaultWxTableCollection.cs" />
     <Compile Include="WindAloft\DescendForcast.cs" />
     <Compile Include="WindAloft\Exceptions.cs" />
     <Compile Include="WindAloft\GribConverter.cs" />
