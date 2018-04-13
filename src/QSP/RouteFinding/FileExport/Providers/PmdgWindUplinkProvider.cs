@@ -7,7 +7,6 @@ using static QSP.MathTools.Numbers;
 
 namespace QSP.RouteFinding.FileExport.Providers
 {
-    // TODO: Add test.
     public static class PmdgWindUplinkProvider
     {
         /// <summary>
@@ -27,7 +26,7 @@ namespace QSP.RouteFinding.FileExport.Providers
 
                 var altitudesStr = altitudes.Select(a => GetWindTemp(w, wpt, a)).ToList();
                 return string.Join("\t", List(id).Concat(altitudesStr.Take(5))) + "\n\t" +
-                       string.Join("\t", altitudes.Skip(5));
+                       string.Join("\t", altitudesStr.Skip(5));
             }));
         }
 
@@ -35,7 +34,7 @@ namespace QSP.RouteFinding.FileExport.Providers
         {
             var windUV = w.GetWindUV(c.Lat, c.Lon, alt);
             var wind = Wind.FromUV(windUV);
-            return string.Format("{0}/{1}({2}",
+            return string.Format("{0}@{1}({2})",
                 RoundToInt(wind.Direction),
                 RoundToInt(wind.Speed),
                 RoundToInt(w.GetTemp(c.Lat, c.Lon, alt)));

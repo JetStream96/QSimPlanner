@@ -38,5 +38,17 @@ namespace UnitTest.WindAloft
             Assert.AreEqual(10.0 * Sqrt(2.0), w.Speed, delta);
             Assert.AreEqual(45.0, w.Direction, delta);
         }
+
+        [Test]
+        public void ToWindUVTest()
+        {
+            var uv = new Wind(180, 5).ToWindUV();
+            Assert.AreEqual(0, uv.UComp, 1e-8);
+            Assert.AreEqual(5, uv.VComp, 1e-8);
+
+            uv = new Wind(135, Sqrt(2)).ToWindUV();
+            Assert.AreEqual(-1, uv.UComp, 1e-8);
+            Assert.AreEqual(1, uv.VComp, 1e-8);
+        }
     }
 }

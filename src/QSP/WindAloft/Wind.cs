@@ -19,6 +19,12 @@ namespace QSP.WindAloft
             this.Speed = Speed;
         }
 
+        public WindUV ToWindUV()
+        {
+            var rad = (-Direction + 270) / 180.0 * PI;
+            return new WindUV(Speed * Cos(rad), Speed * Sin(rad));
+        }
+
         public static Wind FromUV(WindUV w)
         {
             return FromUV(w.UComp, w.VComp);
