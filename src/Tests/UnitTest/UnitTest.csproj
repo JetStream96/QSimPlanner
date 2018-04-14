@@ -163,6 +163,7 @@
     <Compile Include="RouteFinding\Data\Interfaces\ICoordinateExtensionTest.cs" />
     <Compile Include="RouteFinding\Data\LatLonSearcherTest.cs" />
     <Compile Include="RouteFinding\FileExport\ExportCommandTest.cs" />
+    <Compile Include="RouteFinding\FileExport\Providers\FlightFactorA320ProviderTest.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\PmdgWindUplinkProviderTest.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\Fs9ProviderTest.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\FsxProviderTest.cs" />
