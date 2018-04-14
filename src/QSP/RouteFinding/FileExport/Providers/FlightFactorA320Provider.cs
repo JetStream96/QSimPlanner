@@ -1,8 +1,4 @@
-﻿using QSP.LibraryExtension;
-using QSP.RouteFinding.Routes;
-using System;
-using System.Linq;
-using static QSP.LibraryExtension.Types;
+﻿using QSP.RouteFinding.Routes;
 
 namespace QSP.RouteFinding.FileExport.Providers
 {
@@ -14,19 +10,9 @@ namespace QSP.RouteFinding.FileExport.Providers
         /// <exception cref="Exception"></exception>
         public static string GetExportText(Route route)
         {
-            if (route.Count < 2) throw new ArgumentException();
             var from = route.FirstWaypoint.ID.Substring(0, 4);
             var to = route.LastWaypoint.ID.Substring(0, 4);
-
-            var str = route.ToString(true);
-            if (str == "DCT") return $"RTE {from}{to}01 {from} {to}";
-            
-            // Replace SID/STAR with DCT.
-            var split = str.Split(' ');
-            if (split.Length < 3) throw new ArgumentException();
-            var middle= split.WithoutFirstAndLast();
-            var text = string.Join(" ", List("DCT").Concat(middle).Concat(List("DCT")));
-            return $"RTE {from}{to}01 {from} {text} {to}";
+            return $"RTE {from}{to}01 " + JarDesignAirbusProvider.GetExportText(route);
         }
     }
 }

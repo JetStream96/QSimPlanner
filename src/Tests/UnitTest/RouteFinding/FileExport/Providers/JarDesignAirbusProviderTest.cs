@@ -6,7 +6,7 @@ using QSP.RouteFinding.FileExport.Providers;
 namespace UnitTest.RouteFinding.FileExport.Providers
 {
     [TestFixture]
-    public class FlightFactorA320ProviderTest
+    public class JarDesignAirbusProviderTest
     {
         [Test]
         public void GetExportTextTest()
@@ -18,9 +18,9 @@ namespace UnitTest.RouteFinding.FileExport.Providers
                 new Waypoint("WPT2", 0.0, 2.5), "C", -1.0,
                 new Waypoint("RJAA18", 0.0, 3.0));
 
-            var text = FlightFactorA320Provider.GetExportText(route);
+            var text = JarDesignAirbusProvider.GetExportText(route);
 
-            var expected = "RTE RJBBRJAA01 RJBB DCT WPT0 B WPT1 DCT WPT2 DCT RJAA";
+            var expected = "RJBB DCT WPT0 B WPT1 DCT WPT2 DCT RJAA";
 
             Assert.IsTrue(expected.EqualsIgnoreNewlineStyle(text));
         }
@@ -32,9 +32,9 @@ namespace UnitTest.RouteFinding.FileExport.Providers
                 new Waypoint("RJBB06L", 0.0, 0.0), "DCT", -1.0,
                 new Waypoint("RJAA18", 0.0, 3.0));
 
-            var text = FlightFactorA320Provider.GetExportText(route);
+            var text = JarDesignAirbusProvider.GetExportText(route);
 
-            var expected = "RTE RJBBRJAA01 RJBB RJAA";
+            var expected = "RJBB RJAA";
 
             Assert.IsTrue(expected.EqualsIgnoreNewlineStyle(text));
         }
