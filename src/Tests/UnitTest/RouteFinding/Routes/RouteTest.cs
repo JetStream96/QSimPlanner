@@ -168,7 +168,7 @@ namespace UnitTest.RouteFinding.Routes
 
             Assert.IsTrue(x.Equals(route.LastWaypoint));
         }
-        
+
         [Test]
         public void AddLastWaypointTest3()
         {
@@ -200,7 +200,7 @@ namespace UnitTest.RouteFinding.Routes
 
             Assert.IsTrue(x.Equals(route.LastWaypoint));
         }
-        
+
         private Route GetRoute1()
         {
             var route = new Route();
@@ -249,6 +249,49 @@ namespace UnitTest.RouteFinding.Routes
             route.AddLastWaypoint(x);
 
             Assert.Throws<ArgumentException>(() => route.Connect(GetRoute1()));
+        }
+
+        [Test]
+        public void ToStringOnlyTwoWptsShowDct()
+        {
+            var route = Common.GetRoute(new Waypoint("VHHH07R"), "DCT", -1,
+                                        new Waypoint("OMDB12L"));
+            var s = route.ToString(true);
+            Assert.AreEqual("DCT", s);
+        }
+
+        [Test]
+        public void ToStringOnlyTwoWptsShouldStillShowDctDespiteFalse()
+        {
+            var route = Common.GetRoute(new Waypoint("VHHH07R"), "DCT", -1,
+                                        new Waypoint("OMDB12L"));
+            var s = route.ToString(false);
+            Assert.AreEqual("DCT", s);
+        }
+
+        [Test]
+        public void ToStringConsecutiveAirways()
+        {
+            var route = Common.GetRoute(new Waypoint("VHHH07R"), "DCT", -1,
+                                        new Waypoint("A"), "1", -1,
+                                        new Waypoint("B"), "1", -1,
+                                        new Waypoint("C"), "1", -1,
+                                        new Waypoint("D"), "2", -1,
+                                        new Waypoint("E"), "3", -1,
+                                        new Waypoint("OMDB12L"));
+            var s = route.ToString(true);
+            Assert.AreEqual("DCT A 1 D 2 E 3", s);
+        }
+
+        [Test]
+        public void ToStringHideDct()
+        {
+            var route = Common.GetRoute(new Waypoint("VHHH07R"), "DCT", -1,
+                                        new Waypoint("A"), "DCT", -1,
+                                        new Waypoint("B"), "1", -1,
+                                        new Waypoint("OMDB12L"));
+            var s = route.ToString(false);
+            Assert.AreEqual("A B 1", s);
         }
     }
 }

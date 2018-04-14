@@ -60,6 +60,6 @@ namespace QSP.RouteFinding.Routes
                 if (i == r.Last.Value) break;
                 foreach (var j in i.AirwayToNext.InnerWaypoints) yield return j;
             }
-        }        
+        }
     }
 }

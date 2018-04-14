@@ -34,7 +34,9 @@ namespace UnitTest.RouteFinding
 
             for (int i = para.Length - 2; i >= 0; i -= 3)
             {
-                var dis = (double)para[i];
+                // Need to use Convert.ToDouble here because if a cast to double is
+                // used, an InvalidCastException will be thrown when para[i] is an int.
+                var dis = Convert.ToDouble(para[i]);
                 var wpt = (Waypoint)para[i - 2];
 
                 if (dis < 0.0)
