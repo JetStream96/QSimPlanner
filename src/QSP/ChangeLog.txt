@@ -1,4 +1,7 @@
-﻿version 0.4.3
+﻿version 0.4.4
+* Fix errors when calculating fuel with certain aircrafts.
+
+version 0.4.3
 * Add profiles for A320 family.
 * Fix fuel burn bias bug.
 

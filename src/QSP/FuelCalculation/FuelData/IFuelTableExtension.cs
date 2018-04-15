@@ -2,9 +2,12 @@
 {
     public static class IFuelTableExtension
     {
+        /// <summary>
+        /// Returns null if f is null.
+        /// </summary>
         public static IFuelTable WithBias(this IFuelTable f, double bias)
         {
-            return new Helper(f, bias);
+            return f == null ? null : new Helper(f, bias);
         }
 
         private class Helper : IFuelTable
