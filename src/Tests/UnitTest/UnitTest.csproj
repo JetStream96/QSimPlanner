@@ -124,6 +124,7 @@
     <Compile Include="NavData\AAX\AtsFileLoaderTest.cs" />
     <Compile Include="NavData\AAX\CountryCodeGeneratorTest.cs" />
     <Compile Include="NavData\AAX\FixesLoaderTest.cs" />
+    <Compile Include="NavData\AAX\NavaidsLoaderTest.cs" />
     <Compile Include="RouteFinding\Airports\IAirportExtensionTest.cs" />
     <Compile Include="RouteFinding\Airports\AirportManagerTest.cs" />
     <Compile Include="RouteFinding\AirwayNodeFinderTest.cs" />
