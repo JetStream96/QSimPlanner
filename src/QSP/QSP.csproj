@@ -312,9 +312,9 @@
     <Compile Include="UI\Models\ButtonColorStyle.cs" />
     <Compile Include="UI\Models\FuelPlan\IRefreshForNavDataChange.cs" />
     <Compile Include="UI\Models\FuelPlan\RouteDistanceDisplay.cs" />
-    <Compile Include="UI\Models\FuelPlan\Routes\IFinderOptionModel.cs" />
-    <Compile Include="UI\Models\FuelPlan\Routes\IFuelPlanningModel.cs" />
-    <Compile Include="UI\Models\FuelPlan\Routes\IRouteFinderModel.cs" />
+    <Compile Include="UI\Models\FuelPlan\Routes\FinderOptionModel.cs" />
+    <Compile Include="UI\Models\FuelPlan\Routes\FuelPlanningModel.cs" />
+    <Compile Include="UI\Models\FuelPlan\Routes\RouteFinderModel.cs" />
     <Compile Include="UI\Models\MiscInfo\MetarViewStatus.cs" />
     <Compile Include="UI\Presenters\FindAltnPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\AlternatePresenter.cs" />
@@ -328,7 +328,6 @@
     <Compile Include="UI\Presenters\MiscInfo\MetarViewerPresenter.cs" />
     <Compile Include="UI\Presenters\MiscInfo\MiscInfoPresenter.cs" />
     <Compile Include="UI\Presenters\Wind\WindDataPresenter.cs" />
-    <Compile Include="UI\Presenters\FuelPlan\FuelPlanningPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\AlternateRowPresenter.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\LandingPerf\FormControllers\AirbusController.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\LandingPerf\FormControllers\ControllerData.cs" />
@@ -354,7 +353,6 @@
     <Compile Include="UI\Util\ScrollBar\ScrollAnimation.cs" />
     <Compile Include="UI\Controllers\Units\WeightTextBoxController.cs" />
     <Compile Include="UI\Controllers\WeightControl\WeightController.cs" />
-    <Compile Include="UI\Views\FuelPlan\IFuelPlanningView.cs" />
     <Compile Include="UI\Views\FuelPlan\Routes\RouteFinderRow.cs">
       <SubType>UserControl</SubType>
     </Compile>

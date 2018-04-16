@@ -39,13 +39,12 @@ namespace QSP.UI.Views.FuelPlan
     // The implementation of ISupportActionContextMenu is used to support the actions 
     // for the route from origin to destination.
 
-    public partial class FuelPlanningControl : UserControl, IRefreshForNavDataChange,
-        IFuelPlanningView
+    public partial class FuelPlanningControl : UserControl, IRefreshForNavDataChange
     {
         public event EventHandler OrigIcaoChanged;
         public event EventHandler DestIcaoChanged;
 
-        private IFuelPlanningModel model;
+        private FuelPlanningModel model;
 
         private RouteFinderControl advancedRouteTool;
 
@@ -94,14 +93,19 @@ namespace QSP.UI.Views.FuelPlan
             InitializeComponent();
         }
 
-        public void Init(IFuelPlanningModel model)
+        public void Init(FuelPlanningModel model)
         {
             this.model = model;
 
             SetDefaultState();
             SetOrigDestEvents();
 
-            var routeFinderModel = new RouteFinderModel(model, () => model.GetWindCalculator(this));
+            var routeFinderModel = new RouteFinderModel()
+            {
+                FuelPlanningModel = model,
+                WindCalc = () => model.GetWindCalculator(this)
+            };
+
             routeFinderControl.Init(routeFinderModel, ParentForm);
 
             AltnPresenter = new AlternatePresenter(

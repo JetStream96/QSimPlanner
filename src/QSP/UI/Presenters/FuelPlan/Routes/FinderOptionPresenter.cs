@@ -24,7 +24,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
         public static readonly string AutoProcedureTxt = "AUTO";
 
         private readonly IFinderOptionView view;
-        private readonly IFinderOptionModel model;
+        private readonly FinderOptionModel model;
 
         public WaypointList WptList => model.WptList();
         public AirportManager AirportList => model.AirportList();
@@ -34,7 +34,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             get => view.SelectedProcedureText; set => view.SelectedProcedureText = value;
         }
 
-        public FinderOptionPresenter(IFinderOptionView view, IFinderOptionModel model)
+        public FinderOptionPresenter(IFinderOptionView view, FinderOptionModel model)
         {
             this.view = view;
             this.model = model;

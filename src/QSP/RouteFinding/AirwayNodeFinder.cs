@@ -41,16 +41,8 @@ namespace QSP.RouteFinding
         /// </summary>
         public List<int> GetWaypointIndices()
         {
-            var result = FindWptOnAirwayOneDir(FindOnAwyOption.First);
-
-            if (result != null)
-            {
-                return result;
-            }
-            else
-            {
-                return FindWptOnAirwayOneDir(FindOnAwyOption.Second);
-            }
+            return FindWptOnAirwayOneDir(FindOnAwyOption.First) ??
+                   FindWptOnAirwayOneDir(FindOnAwyOption.Second);
         }
 
         /// <summary>

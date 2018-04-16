@@ -21,7 +21,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
             InitializeComponent();
         }
 
-        public void Init(IFinderOptionModel model)
+        public void Init(FinderOptionModel model)
         {
             Presenter = new FinderOptionPresenter(this, model);
             filterBtn.Enabled = false;

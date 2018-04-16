@@ -220,7 +220,7 @@ namespace QSP.UI.Forms
 
                 countryCodesLocator = new Locator<CountryCodeManager>(null);
                 airwayNetwork = new AirwayNetwork(
-                    new DefaultWaypointList(), new DefaultAirportManager(), 
+                    new DefaultWaypointList(), new DefaultAirportManager(),
                     new MultiMap<string, Navaid>());
             }
 
@@ -261,15 +261,17 @@ namespace QSP.UI.Forms
             acMenu.AircraftsChanged += toMenu.RefreshAircrafts;
             acMenu.AircraftsChanged += ldgMenu.RefreshAircrafts;
 
-            var fuelPlanningModel = new FuelPlanningModel(
-                airwayNetwork,
-                appOptionsLocator,
-                countryCodesLocator,
-                new CountryCodeCollection().ToLocator(),
-                procFilter,
-                windTableLocator,
-                profiles.AcConfigs,
-                profiles.FuelData);
+            var fuelPlanningModel = new FuelPlanningModel()
+            {
+                AirwayNetwork = airwayNetwork,
+                AppOption = appOptionsLocator,
+                CountryCodeManager = countryCodesLocator,
+                CheckedCountryCodes = new CountryCodeCollection().ToLocator(),
+                ProcFilter = procFilter,
+                WindTables = windTableLocator,
+                Aircrafts = profiles.AcConfigs,
+                FuelData = profiles.FuelData
+            };
 
             fuelMenu.Init(fuelPlanningModel);
 
@@ -308,7 +310,7 @@ namespace QSP.UI.Forms
                 ldgMenu.Airports = AirportList;
                 miscInfoPresenter.AirportList = AirportList;
             };
-            
+
             aboutMenu.Init("QSimPlanner");
             navBar.Init(acMenu, fuelMenu, toMenu, ldgMenu, miscInfoMenu, aboutMenu, panel2);
 
@@ -404,7 +406,7 @@ namespace QSP.UI.Forms
                 panel2.Controls.Add(i);
             }
         }
-        
+
         private void DownloadTracksIfNeeded()
         {
             trackStatusLabel.Image = Properties.Resources.YellowLight;

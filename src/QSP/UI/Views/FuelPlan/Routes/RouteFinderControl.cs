@@ -25,7 +25,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
         public event EventHandler DestIcaoChanged;
 
         private RouteFinderPresenter presenter;
-        private IRouteFinderModel model;
+        private RouteFinderModel model;
         private ActionContextMenu actionMenu;
         private RouteOptionContextMenu optionMenu;
 
@@ -50,7 +50,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
         /// </summary>
         public Form MainForm { get; private set; }
 
-        public void Init(IRouteFinderModel model, Form MainForm)
+        public void Init(RouteFinderModel model, Form MainForm)
         {
             this.model = model;
             this.MainForm = MainForm;

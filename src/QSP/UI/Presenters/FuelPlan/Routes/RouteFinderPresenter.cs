@@ -17,11 +17,11 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
     public class RouteFinderPresenter: IRefreshForNavDataChange
     {
         private IRouteFinderView view;
-        private IRouteFinderModel model;
+        private RouteFinderModel model;
 
         public RouteGroup Route { get; private set; }
 
-        public RouteFinderPresenter(IRouteFinderView view, IRouteFinderModel model)
+        public RouteFinderPresenter(IRouteFinderView view, RouteFinderModel model)
         {
             this.view = view;
             this.model = model;

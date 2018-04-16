@@ -13,7 +13,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
 {
     public partial class RouteFinderRow : UserControl, IRouteFinderRowView
     {
-        private IFinderOptionModel model;
+        private FinderOptionModel model;
 
         public event EventHandler IcaoChanged;
 
@@ -76,7 +76,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
             return new LatLon(lat, lon);
         }
 
-        public void Init(IFinderOptionModel model)
+        public void Init(FinderOptionModel model)
         {
             this.model = model;
             var p = new FinderOptionPresenter(OptionControl, model);
