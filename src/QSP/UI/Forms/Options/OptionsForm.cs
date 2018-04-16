@@ -8,16 +8,18 @@ using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.FileExport.Providers;
+using QSP.RouteFinding.Navaids;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.Models.MsgBox;
+using QSP.UI.Views;
 using QSP.Updates;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QSP.UI.Views;
 using static QSP.UI.Util.MsgBoxHelper;
 using static QSP.Utilities.LoggerInstance;
 
@@ -59,7 +61,7 @@ namespace QSP.UI.Forms.Options
             SetDefaultState();
             SetControlsAsInOptions();
             FormClosing += CurrentFormClosing;
-            
+
 #if (DEBUG)
             updateBtn.Enabled = false;
             updateBtn.Text = "Update disabled in debug mode.";
@@ -171,19 +173,20 @@ namespace QSP.UI.Forms.Options
         private async Task TryUpdateWptAndAirportsAndSaveOptions()
         {
             var wptList = TryLoadWpts();
+            if (wptList == null) return;
 
-            if (wptList != null)
-            {
-                var airportList = TryLoadAirports();
+            var airportList = TryLoadAirports();
+            if (airportList == null) return;
 
-                if (airportList != null && TrySaveOptions())
-                {
-                    // Successful
-                    await tracksForm.Update(wptList, airportList);
-                    NavDataLocationChanged?.Invoke(this, EventArgs.Empty);
-                    Close();
-                }
-            }
+            var navaids = TryLoadNavaids();
+            if (navaids == null) return;
+
+            if (!TrySaveOptions()) return;
+
+            // Successful
+            await tracksForm.Update(wptList, airportList, navaids);
+            NavDataLocationChanged?.Invoke(this, EventArgs.Empty);
+            Close();
         }
 
         // If failed, returns null.
@@ -216,7 +219,7 @@ namespace QSP.UI.Forms.Options
             try
             {
                 var directory = pathTxtBox.Text;
-                var filePath = Path.Combine(directory, "Airports.txt");
+                var filePath = Path.Combine(directory, "airports.txt");
                 var loadResult = AirportDataLoader.LoadFromFile(filePath);
                 var err = loadResult.Errors;
                 if (err.Any()) Log(ReadFileErrorMsg.ErrorMsg(err, "ats.txt"));
@@ -226,6 +229,22 @@ namespace QSP.UI.Forms.Options
             {
                 Log(ex);
                 this.ShowError("Failed to load airports.txt.");
+                return null;
+            }
+        }
+
+        // If failed, returns null.
+        private MultiMap<string, Navaid> TryLoadNavaids()
+        {
+            try
+            {
+                var dir = pathTxtBox.Text;
+                return NavaidsLoader.LoadFromFile(Path.Combine(dir, "navaids.txt"));
+            }
+            catch (Exception ex)
+            {
+                Log(ex);
+                this.ShowError("Failed to load navaids.txt.");
                 return null;
             }
         }

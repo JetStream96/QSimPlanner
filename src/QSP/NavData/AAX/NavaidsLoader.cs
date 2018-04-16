@@ -1,4 +1,5 @@
-﻿using QSP.RouteFinding.Navaids;
+﻿using QSP.LibraryExtension;
+using QSP.RouteFinding.Navaids;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace QSP.NavData.AAX
         /// Loads all navaids.
         /// </summary>
         /// <exception cref="Exception"></exception>
-        public static Dictionary<string, Navaid> LoadFromFile(string filePath)
+        public static MultiMap<string, Navaid> LoadFromFile(string filePath)
         {
             return Load(File.ReadAllLines(filePath));
         }
@@ -24,11 +25,11 @@ namespace QSP.NavData.AAX
         /// Loads all navaids.
         /// </summary>
         /// <exception cref="Exception"></exception>
-        public static Dictionary<string, Navaid> Load(IEnumerable<string> lines)
+        public static MultiMap<string, Navaid> Load(IEnumerable<string> lines)
         {
             return lines.Select(line => DefaultIfThrows(() => ParseLine(line), null))
                         .Where(x => x != null)
-                        .ToDictionary(x => x.ID);
+                        .ToMultiMap(x => x.ID);
         }
 
         private static Navaid ParseLine(string line)

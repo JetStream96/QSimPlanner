@@ -32,9 +32,9 @@ namespace UnitTest.NavData.AAX
             };
 
             Assert.AreEqual(3, navaids.Count);
-            Assert.AreEqual(x, navaids["1A"]);
-            Assert.AreEqual(43.93056, navaids["1B"].Lat);
-            Assert.AreEqual("346.000", navaids["1D"].Freq);
+            Assert.AreEqual(x, navaids.FindAny("1A"));
+            Assert.AreEqual(43.93056, navaids.FindAny("1B").Lat);
+            Assert.AreEqual("346.000", navaids.FindAny("1D").Freq);
         }
     }
 }

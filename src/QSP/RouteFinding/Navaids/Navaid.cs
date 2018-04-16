@@ -20,7 +20,8 @@ namespace QSP.RouteFinding.Navaids
         public int ElevationFt { get; set; }
 
         /// <summary>
-        /// ISO country code.
+        /// ISO country code. 
+        /// This country code may have nothing to do with the others in this program.
         /// </summary>
         public string CountryCode { get; set; }
 

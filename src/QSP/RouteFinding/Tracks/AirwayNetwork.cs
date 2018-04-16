@@ -1,6 +1,7 @@
 ﻿using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Navaids;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.Tracks.Actions;
 using QSP.RouteFinding.Tracks.Ausots;
@@ -33,11 +34,12 @@ namespace QSP.RouteFinding.Tracks
 
         public WaypointList WptList { get; private set; }
         public AirportManager AirportList { get; private set; }
+        public MultiMap<string, Navaid> Navaids { get; private set; }
         public TrackInUseCollection TracksInUse { get; private set; } = new TrackInUseCollection();
         public StatusRecorder StatusRecorder { get; private set; } = new StatusRecorder();
 
         /// <summary>
-        /// This event fires after nav data (WptList and AirportList) changed.
+        /// This event fires after nav data (WptList, AirportList and Navaids) changed.
         /// </summary>
         public event EventHandler NavDataChanged;
 
@@ -48,10 +50,12 @@ namespace QSP.RouteFinding.Tracks
         // that the status has changed.
         public event EventHandler StatusChanged;
 
-        public AirwayNetwork(WaypointList wptList, AirportManager airportList)
+        public AirwayNetwork(WaypointList wptList, AirportManager airportList,
+            MultiMap<string, Navaid> Navaids)
         {
             this.WptList = wptList;
             this.AirportList = airportList;
+            this.Navaids = Navaids;
 
             SetTrackData();
         }
@@ -92,7 +96,7 @@ namespace QSP.RouteFinding.Tracks
         /// and added to the wptList if the specific track system was enabled.
         /// </summary>
         public async Task Update(WaypointList wptList, AirportManager airportList,
-            NetworkUpdateAction action)
+            MultiMap<string, Navaid> Navaids, NetworkUpdateAction action)
         {
             await queues.WaitForTasks();
 
@@ -100,6 +104,7 @@ namespace QSP.RouteFinding.Tracks
 
             this.WptList = wptList;
             this.AirportList = airportList;
+            this.Navaids = Navaids;
 
             SetTrackData();
 

@@ -100,6 +100,14 @@ namespace QSP.LibraryExtension
 
             return true;
         }
+
+        public static MultiMap<TKey, TValue> ToMultiMap<TKey, TValue>(
+            this IEnumerable<TValue> source, Func<TValue, TKey> keySelector)
+        {
+            var m = new MultiMap<TKey, TValue>();
+            source.ForEach(val => m.Add(keySelector(val), val));
+            return m;
+        }
     }
 }
 

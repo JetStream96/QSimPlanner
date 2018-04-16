@@ -6,6 +6,7 @@ using QSP.NavData.AAX;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
+using QSP.RouteFinding.Navaids;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.Forms.Options;
@@ -219,7 +220,8 @@ namespace QSP.UI.Forms
 
                 countryCodesLocator = new Locator<CountryCodeManager>(null);
                 airwayNetwork = new AirwayNetwork(
-                    new DefaultWaypointList(), new DefaultAirportManager());
+                    new DefaultWaypointList(), new DefaultAirportManager(), 
+                    new MultiMap<string, Navaid>());
             }
 
             procFilter = new ProcedureFilter();
@@ -243,7 +245,10 @@ namespace QSP.UI.Forms
 
             var result = new WptListLoader(navDataPath).LoadFromFile();
             countryCodesLocator = result.CountryCodes.ToLocator();
-            airwayNetwork = new AirwayNetwork(result.WptList, airports);
+
+            var navaids = NavaidsLoader.LoadFromFile(Path.Combine(navDataPath, "navaids.txt"));
+
+            airwayNetwork = new AirwayNetwork(result.WptList, airports, navaids);
         }
 
         private void InitControls()

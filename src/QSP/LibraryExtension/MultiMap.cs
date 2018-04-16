@@ -94,6 +94,10 @@ namespace QSP.LibraryExtension
             throw new ArgumentException("Key not found.");
         }
 
+        /// <summary>
+        /// Add the key and value.
+        /// </summary>
+        /// <exception cref="ArgumentException">key is null</exception>
         public void Add(TKey key, TValue value)
         {
             Insert(key, value);
