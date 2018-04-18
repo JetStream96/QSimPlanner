@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using QSP.MathTools;
+using System;
+using System.Text.RegularExpressions;
 
 namespace QSP.AviationTools.Coordinates
 {
@@ -9,6 +11,26 @@ namespace QSP.AviationTools.Coordinates
     /// </summary>
     public static class FormatDegMinNoSymbol
     {
+        /// <summary>
+        /// Convert to this format with specified number of decimal places.
+        /// </summary>
+        public static string ToFormatDegMinNoSymbol(LatLon x, int decimalPlaces = 0)
+        {
+            var a = x.Lat < 0 ? 'S' : 'N';
+            var b = x.Lon < 0 ? 'W' : 'E';
+
+            string Format(double n)
+            {
+                var abs = Math.Abs(n);
+                var integralPart = Math.Floor(abs);
+                var format = "00." + new string('0', decimalPlaces);
+                var decimalPart = ((abs - integralPart) * 60).ToString(format);
+                return integralPart.ToString() + decimalPart;
+            }
+
+            return Format(x.Lat) + a + Format(x.Lon) + b;
+        }
+
         /// <summary>
         /// Returns null if the format does not match.
         /// </summary>
