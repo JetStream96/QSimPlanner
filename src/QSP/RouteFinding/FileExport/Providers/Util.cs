@@ -11,7 +11,7 @@ namespace QSP.RouteFinding.FileExport.Providers
     {
         public static string FormatWaypointId(this Waypoint w)
         {
-
+            throw new NotImplementedException();
         }
     }
 }

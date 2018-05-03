@@ -65,7 +65,7 @@ namespace QSP.UI.Presenters.MiscInfo
             var windTemp = DescendForcast.Generate(
                 windTableLocator.Instance, airport.Lat, airport.Lon, flightLevels).ToList();
 
-            var result = new StringBuilder("         FL      wind  (temp)\n\n");
+            var result = new StringBuilder("         FL      wind   (temp)\n\n");
 
             for (int i = 0; i < flightLevels.Length; i++)
             {
@@ -74,8 +74,9 @@ namespace QSP.UI.Presenters.MiscInfo
                 var direction = wind.DirectionString();
                 int speed = Numbers.RoundToInt(wind.Speed);
                 var tempInt = Numbers.RoundToInt(temp);
+                var windSpeedDir = $"{direction}/{speed}".PadRight(7);
 
-                result.AppendLine($"        FL{flightLevel}   {direction}/{speed} ({tempInt})");
+                result.AppendLine($"        FL{flightLevel}   {windSpeedDir} ({tempInt})");
             }
 
             return result.ToString();
