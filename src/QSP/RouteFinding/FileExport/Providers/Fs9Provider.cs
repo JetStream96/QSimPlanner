@@ -51,7 +51,11 @@ cruising_altitude=10000");
 
             var wptLines = route
                 .WithoutFirstAndLast()
-                .Select(n => $"{n.Waypoint.ID}, I, {LatLonAlt(n.Waypoint, 0.0)}, ");
+                .Select(n =>
+                {
+                    var id = n.Waypoint.ID.FormatWaypointId();
+                    return $"{id}, I, {LatLonAlt(n.Waypoint, 0.0)}, ";
+                });
 
             lines.AddRange(wptLines);
             lines.Add(destLine);

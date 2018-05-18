@@ -49,7 +49,7 @@ FrequencyID=
                 var wpt = next.Value.Waypoint;
                 var val = template.Replace("{id}", index.ToString())
                                   .Replace("{route}", airwayStr)
-                                  .Replace("{wpt}", wpt.ID)
+                                  .Replace("{wpt}", wpt.ID.FormatWaypointId())
                                   .Replace("{lat}", wpt.Lat.ToString("0.000000"))
                                   .Replace("{lon}", wpt.Lon.ToString("0.000000"));
 

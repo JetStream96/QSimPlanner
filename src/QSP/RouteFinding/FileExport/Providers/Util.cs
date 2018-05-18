@@ -1,5 +1,6 @@
 ﻿using QSP.AviationTools.Coordinates;
-using QSP.RouteFinding.Containers;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace QSP.RouteFinding.FileExport.Providers
 {
@@ -10,11 +11,16 @@ namespace QSP.RouteFinding.FileExport.Providers
         /// the coordinate in ... format (e.g. 4820N15054E). Otherwise, returns 
         /// the waypoint id.
         /// </summary>
-        public static string FormatWaypointId(this Waypoint w)
+        public static string FormatWaypointId(this string id)
         {
-            var c = Formatter.ParseLatLon(w.ID);
-            if (c == null) return w.ID;
+            var c = Formatter.ParseLatLon(id);
+            if (c == null) return id;
             return FormatDegMinNoSymbol.ToString(c);
+        }
+
+        public static List<string> FormatWaypointIds(this IEnumerable<string> w)
+        {
+            return w.Select(FormatWaypointId).ToList();
         }
     }
 }

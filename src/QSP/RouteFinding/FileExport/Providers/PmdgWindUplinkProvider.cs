@@ -22,7 +22,7 @@ namespace QSP.RouteFinding.FileExport.Providers
                 var wpt = node.Waypoint;
                 var id = (node == route.First.Value || node == route.Last.Value) ?
                     wpt.ID.Substring(0, 4) :
-                    wpt.ID;
+                    wpt.ID.FormatWaypointId();
 
                 var altitudesStr = altitudes.Select(a => GetWindTemp(w, wpt, a)).ToList();
                 return string.Join("\t", List(id).Concat(altitudesStr.Take(5))) + "\n\t" +
@@ -35,8 +35,8 @@ namespace QSP.RouteFinding.FileExport.Providers
             var windUV = w.GetWindUV(c.Lat, c.Lon, alt);
             var wind = Wind.FromUV(windUV);
             return string.Format("{0}@{1}({2})",
-                RoundToInt(wind.Direction),
-                RoundToInt(wind.Speed),
+                RoundToInt(wind.Direction).ToString().PadLeft(3,'0'),
+                RoundToInt(wind.Speed).ToString().PadLeft(2, '0'),
                 RoundToInt(w.GetTemp(c.Lat, c.Lon, alt)));
         }
     }

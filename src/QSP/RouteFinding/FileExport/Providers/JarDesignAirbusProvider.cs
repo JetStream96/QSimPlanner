@@ -1,8 +1,6 @@
 ﻿using QSP.LibraryExtension;
 using QSP.RouteFinding.Routes;
 using System;
-using System.Linq;
-using static QSP.LibraryExtension.Types;
 
 namespace QSP.RouteFinding.FileExport.Providers
 {
@@ -24,9 +22,8 @@ namespace QSP.RouteFinding.FileExport.Providers
             // Replace SID/STAR with DCT.
             var split = str.Split(' ');
             if (split.Length < 3) throw new ArgumentException();
-            var middle = split.WithoutFirstAndLast();
-            var text = string.Join(" ", List("DCT").Concat(middle).Concat(List("DCT")));
-            return $"{from} {text} {to}";
+            var middle =string.Join(" ", split.WithoutFirstAndLast().FormatWaypointIds());
+            return $"{from} DCT {middle} DCT {to}";
         }
     }
 }
