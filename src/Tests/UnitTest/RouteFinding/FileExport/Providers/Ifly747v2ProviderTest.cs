@@ -70,6 +70,41 @@ COST_INDEX=
         }
 
         [Test]
+        public void GetExportTextCoordinateFormatIsCorrect()
+        {
+            var route = Common.GetRoute(
+                new Waypoint("RJBB06L", 0.0, 0.0), "A", -1.0,
+                new Waypoint("N10.2W20.0", 10.2, -20.0), "B", -1.0,
+                new Waypoint("RJAA18", 0.0, 3.0));
+
+            var text = Ifly747v2Provider.GetExportText(route);
+
+            var expected =
+                @"[RTE]
+ORIGIN_AIRPORT=RJBB
+DEST_AIRPORT=RJAA
+
+[RTE.0]
+RouteName=
+Name=1012N2000W
+Latitude=10.200000
+Longitude=-20.000000
+CrossThisPoint=0
+Heading=0
+Speed=0
+Altitude=0
+Frequency=
+FrequencyID=
+
+[CDU]
+CRZ_ALT=
+COST_INDEX=
+";
+
+            Assert.IsTrue(expected.EqualsIgnoreNewlineStyle(text));
+        }
+
+        [Test]
         public void GetExportTextNoWaypontDoesNotThrow()
         {
             var route = Common.GetRoute(

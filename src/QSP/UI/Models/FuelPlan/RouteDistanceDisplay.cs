@@ -21,13 +21,7 @@ namespace QSP.UI.Models.FuelPlan
             string diffStr = percentDiff.ToString("0.0");
 
             var text = $"{disInt} NM (+{diffStr}%)";
-
-            if (displayStyle == Style.Long)
-            {
-                text = "Distance: " + text;
-            }
-
-            return text;
+            return displayStyle == Style.Long ? ("Distance: " + text) : text;
         }
     }
 }
