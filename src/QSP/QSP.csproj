@@ -971,6 +971,7 @@
     <Content Include="PerformanceData\TO\Default\a320_200_IAE_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="RouteFinding\FileExport\Providers\notes.txt" />
     <Content Include="updater.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
