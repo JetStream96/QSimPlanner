@@ -5,7 +5,7 @@ namespace QSP.AviationTools.Coordinates
     // e.g. N32.665W122.1265
     public static class FormatDecimal
     {
-        public static string ToDecimalFormat(double Lat, double Lon)
+        public static string ToString(double Lat, double Lon)
         {
             char NS;
             char EW;

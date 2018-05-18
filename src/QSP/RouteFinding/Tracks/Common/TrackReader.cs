@@ -126,7 +126,7 @@ namespace QSP.RouteFinding.Tracks.Common
             var latLon = trk.PreferredFirstLatLon;
 
             var analyzer = new AutoSelectAnalyzer(
-                CoordinateFormatter.Split(CombineArray(route)),
+                InputFormatter.Split(CombineArray(route)),
                 latLon,
                 latLon,
                 wptList);

@@ -35,7 +35,7 @@ namespace IntegrationTest.QSP.RouteFinding.TestSetup
                 for (int lat = -90; lat <= 90; lat++)
                 {
                     wptList.AddWaypoint(
-                        new Waypoint(Format5Letter.To5LetterFormat(lat, lon), lat, lon));
+                        new Waypoint(Format5Letter.ToString(lat, lon), lat, lon));
                 }
             }
         }

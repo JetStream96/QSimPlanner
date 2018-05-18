@@ -34,8 +34,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
     //        airport.
     //    (5) All WPT, except for the last waypoint of the SID or first 
     //        one of the STAR, must either exist in wptList or is represented 
-    //        with lat/lon (COORD). In the latter case, it has to be in 
-    //        decimal representation (e.g. N32.665W122.1265).
+    //        with lat/lon (COORD). In the latter case, the format must be supported
+    //        by method Formatter.ParseLatLon.
     //    (6) "AUTO" or "RAND" can only appear before or after ICAO, or 
     //        between two waypoints.
     //    (7) If the route is empty, a direct route from origin to 
@@ -107,7 +107,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             EnsureNoConsectiveCommands(route);
             route = RemoveIcaos(route);
-            IdentifyLatLon();
+            AddLatLonWaypointsToEditor();
 
             var subRoutes = EntryGrouping.Group(new RouteString(route));
             var analyzed = TransformSubRoutes(subRoutes);
@@ -118,25 +118,18 @@ namespace QSP.RouteFinding.RouteAnalyzers
             return final.Connect();
         }
 
-        private void IdentifyLatLon()
+        private void AddLatLonWaypointsToEditor()
         {
             foreach (var i in route)
             {
-                var coords = ParseLatLon(i);
+                var coords = Formatter.ParseLatLon(i);
                 if (coords != null)
                 {
                     editor.AddWaypoint(new Waypoint(i, coords));
                 }
             }
         }
-
-        private static LatLon ParseLatLon(string s)
-        {
-            return Format5Letter.Parse(s) ??
-                Format7Letter.Parse(s) ??
-                FormatDecimal.Parse(s);
-        }
-
+        
         private Route DirectRoute()
         {
             var route = new Route();

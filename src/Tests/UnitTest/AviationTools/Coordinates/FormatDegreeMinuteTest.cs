@@ -9,7 +9,7 @@ namespace UnitTest.AviationTools.Coordinates
         [Test]
         public void CustomFormatTest()
         {
-            var result = ToDegreeMinuteFormat(25.073133333, "F2");
+            var result = QSP.AviationTools.Coordinates.FormatDegreeMinute.ToString(25.073133333, "F2");
             Assert.IsTrue("25° 4.39'" == result);
         }
     }

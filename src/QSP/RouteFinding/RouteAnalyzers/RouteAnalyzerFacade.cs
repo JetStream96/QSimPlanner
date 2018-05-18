@@ -34,7 +34,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 airportList);
 
             return new AnalyzerWithCommands(
-                CoordinateFormatter.Split(route),
+                InputFormatter.Split(route),
                 origIcao,
                 origRwy,
                 destIcao,

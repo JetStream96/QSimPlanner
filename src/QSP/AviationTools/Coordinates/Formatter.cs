@@ -25,5 +25,28 @@ namespace QSP.AviationTools.Coordinates
 
             return item;
         }
+
+        /// <summary>
+        /// Try to parse all supported lat/lon formats. See method body for supported
+        /// formats. This method defines the supported formats for user-entered routes.
+        /// 
+        /// Returns null if cannot parse the input as lat/lon.
+        /// </summary>
+        public static LatLon ParseLatLon(this string s)
+        {
+            var parsers = List<Func<string, LatLon>>(
+                Format7Letter.Parse, 
+                Format5Letter.Parse,
+                FormatDecimal.Parse,
+                FormatDegMinNoSymbol.Parse);
+
+            foreach (var p in parsers)
+            {
+                var coord = p(s);
+                if (coord != null) return coord;
+            }
+
+            return null;
+        }
     }
 }

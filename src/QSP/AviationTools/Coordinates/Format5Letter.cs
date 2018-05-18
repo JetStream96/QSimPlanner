@@ -12,12 +12,12 @@ namespace QSP.AviationTools.Coordinates
         /// Output examples: 36N70, 3480E.
         /// Returns null if either Lat or Lon is not an integer.
         /// </summary>
-        public static string To5LetterFormat(double Lat, double Lon)
+        public static string ToString(double Lat, double Lon)
         {
             if (IsInteger(Lat, Constants.LatLonTolerance) &&
                 IsInteger(Lon, Constants.LatLonTolerance))
             {
-                return To5LetterFormat(RoundToInt(Lat), RoundToInt(Lon));
+                return ToString(RoundToInt(Lat), RoundToInt(Lon));
             }
 
             return null;
@@ -35,7 +35,7 @@ namespace QSP.AviationTools.Coordinates
             }
         }
 
-        public static string To5LetterFormat(int lat, int lon)
+        public static string ToString(int lat, int lon)
         {
             char c = SelectChar(lat, lon);
 

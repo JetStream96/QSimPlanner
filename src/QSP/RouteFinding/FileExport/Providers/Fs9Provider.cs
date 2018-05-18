@@ -72,8 +72,8 @@ cruising_altitude=10000");
         public static string LatLonAlt(ICoordinate latLon, double altitudeFt)
         {
             var format = "F2";
-            var lat = LatToDegreeMinuteFormat(latLon.Lat, format);
-            var lon = LonToDegreeMinuteFormat(latLon.Lon, format);
+            var lat = LatToString(latLon.Lat, format);
+            var lon = LonToString(latLon.Lon, format);
             var alt = altitudeFt.ToString(format);
 
             if (alt[0] != '-') alt = '+' + alt;

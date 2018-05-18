@@ -47,23 +47,14 @@ namespace QSP.AviationTools.Coordinates
         /// Output examples: 36N170W 34N080E
         /// Returns null if either Lat or Lon is not an integer.
         /// </summary>
-        public string To7LetterFormat()
-        {
-            return Format7Letter.To7LetterFormat(Lat, Lon);
-        }
+        public string To7LetterFormat() => Format7Letter.ToString(Lat, Lon);
 
         /// <summary>
         /// Output examples: 36N70, 3480E.
         /// Returns null if either Lat or Lon is not an integer.
         /// </summary>
-        public string To5LetterFormat()
-        {
-            return Format5Letter.To5LetterFormat(Lat, Lon);
-        }
+        public string To5LetterFormat() => Format5Letter.ToString(Lat, Lon);
 
-        public string ToDecimalFormat()
-        {
-            return FormatDecimal.ToDecimalFormat(Lat, Lon);
-        }
+        public string ToDecimalFormat() => FormatDecimal.ToString(Lat, Lon);
     }
 }

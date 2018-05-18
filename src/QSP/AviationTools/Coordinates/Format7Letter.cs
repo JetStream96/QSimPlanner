@@ -9,18 +9,18 @@ namespace QSP.AviationTools.Coordinates
         /// Output examples: 36N170W 34N080E
         /// Returns null if either Lat or Lon is not an integer.
         /// </summary>
-        public static string To7LetterFormat(double Lat, double Lon)
+        public static string ToString(double Lat, double Lon)
         {
             if (IsInteger(Lat, Constants.LatLonTolerance) &&
                 IsInteger(Lon, Constants.LatLonTolerance))
             {
-                return To7LetterFormat(RoundToInt(Lat), RoundToInt(Lon));
+                return ToString(RoundToInt(Lat), RoundToInt(Lon));
             }
 
             return null;
         }
 
-        public static string To7LetterFormat(int lat, int lon)
+        public static string ToString(int lat, int lon)
         {
             char NS;
 

@@ -71,8 +71,8 @@ namespace QSP.RouteFinding.Data.Interfaces
                 double lon = i.Lon;
 
                 string latLonTxt =
-                    Format5Letter.To5LetterFormat(lat, lon) ??
-                    FormatDecimal.ToDecimalFormat(lat, lon);
+                    Format5Letter.ToString(lat, lon) ??
+                    FormatDecimal.ToString(lat, lon);
 
                 var wpt = new Waypoint(latLonTxt, lat, lon);
                 result.AddLastWaypoint(wpt, "DCT");

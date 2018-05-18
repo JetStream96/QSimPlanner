@@ -27,9 +27,9 @@ namespace QSP.RouteFinding.RouteAnalyzers
     //        between the two waypoints.
     //    (2) Any DCT can be omitted.
 
-    public static class CoordinateFormatter
+    public static class InputFormatter
     {
-        private static readonly char[] DelimiterWords = { ' ', '\n', '\r', '\t' };
+        private static readonly char[] DelimiterWords = " \n\r\t".ToCharArray();
         
         public static RouteString Split(string route)
         {

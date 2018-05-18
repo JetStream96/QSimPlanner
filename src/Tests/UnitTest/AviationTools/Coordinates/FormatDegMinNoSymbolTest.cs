@@ -10,8 +10,8 @@ namespace UnitTest.AviationTools.Coordinates
         [Test]
         public void ToFormatDegMinNoSymbolTest()
         {
-            Assert.AreEqual("2100S13530E", ToFormatDegMinNoSymbol( new LatLon(-21, 135.5), 0));
-            Assert.AreEqual("2121.40S13521.19E", ToFormatDegMinNoSymbol(new LatLon(-21.3567, 135.3531), 2));
+            Assert.AreEqual("2100S13530E", FormatDegMinNoSymbol.ToString( new LatLon(-21, 135.5), 0));
+            Assert.AreEqual("2121.40S13521.19E", FormatDegMinNoSymbol.ToString(new LatLon(-21.3567, 135.3531), 2));
         }
 
         [Test]

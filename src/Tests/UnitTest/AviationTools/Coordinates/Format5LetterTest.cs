@@ -30,10 +30,10 @@ namespace UnitTest.AviationTools.Coordinates
         [Test]
         public void OutputStringAsExpected()
         {
-            Assert.IsTrue(To5LetterFormat(36.0, -150.0).Equals("36N50"));
-            Assert.IsTrue(To5LetterFormat(36.0, 150.0).Equals("36E50"));
-            Assert.IsTrue(To5LetterFormat(-36.0, -150.0).Equals("36W50"));
-            Assert.IsTrue(To5LetterFormat(-36.0, 150.0).Equals("36S50"));
+            Assert.IsTrue(Format5Letter.ToString(36.0, -150.0).Equals("36N50"));
+            Assert.IsTrue(Format5Letter.ToString(36.0, 150.0).Equals("36E50"));
+            Assert.IsTrue(Format5Letter.ToString(-36.0, -150.0).Equals("36W50"));
+            Assert.IsTrue(Format5Letter.ToString(-36.0, 150.0).Equals("36S50"));
         }
     }
 }

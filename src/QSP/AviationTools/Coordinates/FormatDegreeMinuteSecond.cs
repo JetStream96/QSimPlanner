@@ -5,24 +5,24 @@ namespace QSP.AviationTools.Coordinates
     public static class FormatDegreeMinuteSecond
     {
         // E.g. 25.073133333 -> N25° 4' 23.28"
-        public static string LatToDegreeMinuteSecondFormat(double lat, string format = "F2")
+        public static string LatToString(double lat, string format = "F2")
         {
-            string result = ToDegreeMinuteSecondFormat(lat, format);
+            string result = ToString(lat, format);
             string ns = lat < 0.0 ? "S" : "N";
             return ns + result;
         }
 
         // E.g. 25.073133333, 121.216183333 ->
         // N25° 4' 23.28", E121° 12' 58.26"
-        public static string LonToDegreeMinuteSecondFormat(double lon, string format = "F2")
+        public static string LonToString(double lon, string format = "F2")
         {
-            string result = ToDegreeMinuteSecondFormat(lon, format);
+            string result = ToString(lon, format);
             string ew = lon < 0.0 ? "W" : "E";
             return ew + result;
         }
 
         // E.g. 25.073133333 -> 25° 4' 23.28"
-        public static string ToDegreeMinuteSecondFormat(double d, string format = "F2")
+        public static string ToString(double d, string format = "F2")
         {
             if (d < 0.0) d = -d;
             int degree = FloorInt(d);

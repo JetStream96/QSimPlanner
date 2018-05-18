@@ -1,5 +1,4 @@
-﻿using QSP.MathTools;
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
 
 namespace QSP.AviationTools.Coordinates
@@ -14,7 +13,7 @@ namespace QSP.AviationTools.Coordinates
         /// <summary>
         /// Convert to this format with specified number of decimal places.
         /// </summary>
-        public static string ToFormatDegMinNoSymbol(LatLon x, int decimalPlaces = 0)
+        public static string ToString(LatLon x, int decimalPlaces = 0)
         {
             var a = x.Lat < 0 ? 'S' : 'N';
             var b = x.Lon < 0 ? 'W' : 'E';

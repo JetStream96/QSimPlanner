@@ -100,8 +100,8 @@ namespace QSP.RouteFinding.FileExport.Providers
         public static string LatLonAlt(ICoordinate latLon, double altitudeFt)
         {
             var format = "F2";
-            var lat = LatToDegreeMinuteSecondFormat(latLon.Lat, format);
-            var lon = LonToDegreeMinuteSecondFormat(latLon.Lon, format);
+            var lat = LatToString(latLon.Lat, format);
+            var lon = LonToString(latLon.Lon, format);
             var alt = altitudeFt.ToString(format);
 
             if (alt[0] != '-') alt = '+' + alt;

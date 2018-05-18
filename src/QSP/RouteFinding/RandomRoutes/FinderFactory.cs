@@ -50,7 +50,7 @@ namespace QSP.RouteFinding.RandomRoutes
 
         private static Waypoint CreateWptHelper(int lat, int lon)
         {
-            return new Waypoint(To5LetterFormat(lat, lon), lat, lon);
+            return new Waypoint(AviationTools.Coordinates.Format5Letter.ToString(lat, lon), lat, lon);
         }
     }
 }

@@ -29,10 +29,10 @@ namespace UnitTest.AviationTools.Coordinates
         [Test]
         public void OutputStringAsExpected()
         {
-            Assert.IsTrue(ToDecimalFormat(36.0, -150.0).Equals("N36.000000W150.000000"));
-            Assert.IsTrue(ToDecimalFormat(36.0, 150.0).Equals("N36.000000E150.000000"));
-            Assert.IsTrue(ToDecimalFormat(-36.0, -150.0).Equals("S36.000000W150.000000"));
-            Assert.IsTrue(ToDecimalFormat(-36.0, 150.0).Equals("S36.000000E150.000000"));
+            Assert.IsTrue(FormatDecimal.ToString(36.0, -150.0).Equals("N36.000000W150.000000"));
+            Assert.IsTrue(FormatDecimal.ToString(36.0, 150.0).Equals("N36.000000E150.000000"));
+            Assert.IsTrue(FormatDecimal.ToString(-36.0, -150.0).Equals("S36.000000W150.000000"));
+            Assert.IsTrue(FormatDecimal.ToString(-36.0, 150.0).Equals("S36.000000E150.000000"));
         }
     }
 }
