@@ -23,11 +23,12 @@ namespace UnitTest.RouteFinding.FileExport.Providers
             var route = Common.GetRoute(
                 new Waypoint("ABCD02", 0.0, 0.0), "A", -1.0,
                 new Waypoint("WPT", 0.0, 1.0), "B", -1.0,
+                new Waypoint("N10.2W20.0", 10.2, -20.0), "DCT", -1.0,
                 new Waypoint("EFGH18", 0.0, 3.0));
 
             var text = FsxProvider.GetExportText(route, manager);
 
-            // AssertFlightPlan
+            // Assert flight plan.
             var doc = XDocument.Parse(text);
             var root = doc.Root;
 
@@ -46,10 +47,10 @@ namespace UnitTest.RouteFinding.FileExport.Providers
             Assert.IsTrue(
                 main.Elements("Title").Any() &&
                 main.Element("FPType").Value == "IFR" &&
-                CanConvertToDouble(main.Element("CruisingAlt").Value) &&
-                main.Element("DepartureID").Value == abcd.Icao &&
+                IsDouble(main.Element("CruisingAlt").Value) &&
+                main.Element("DepartureID").Value == "ABCD" &&
                 main.Element("DepartureLLA").Value == origLatLonAlt &&
-                main.Element("DestinationID").Value == efgh.Icao &&
+                main.Element("DestinationID").Value == "EFGH" &&
                 main.Element("DestinationLLA").Value == destLatLonAlt &&
                 main.Element("DepartureName").Value == abcd.Name &&
                 main.Element("DestinationName").Value == efgh.Name);
@@ -60,23 +61,29 @@ namespace UnitTest.RouteFinding.FileExport.Providers
             Assert.AreEqual(ver.Element("AppVersionBuild").Value, "61637");
 
             var wpts = main.Elements("ATCWaypoint").ToList();
-            Assert.IsTrue(wpts.Count >= 2);
-            Assert.IsTrue(wpts.All(w => w.Attribute("id").Value == GetIdent(w)));
+            Assert.AreEqual(4, wpts.Count);
 
+            // The waypoint nodes.
+            Assert.AreEqual(wpts[0].Attribute("id").Value, "ABCD");
             Assert.AreEqual(wpts[0].Element("ATCWaypointType").Value, "Airport");
             Assert.AreEqual(wpts[0].Element("WorldPosition").Value, origLatLonAlt);
-            Assert.AreEqual(GetIdent(wpts[0]), abcd.Icao);
+            Assert.AreEqual(GetIdent(wpts[0]), "ABCD");
 
-            var wpt = route.First.Next.Value.Waypoint;
-
+            Assert.AreEqual(wpts[1].Attribute("id").Value, "WPT");
             Assert.AreEqual(wpts[1].Element("ATCWaypointType").Value, "Intersection");
-            Assert.AreEqual(wpts[1].Element("WorldPosition").Value, LatLonAlt(wpt, 0.0));
-            Assert.AreEqual(GetIdent(wpts[1]), wpt.ID);
+            Assert.AreEqual(wpts[1].Element("WorldPosition").Value, "N0° 0' 0.00\",E1° 0' 0.00\",+000000.00");
+            Assert.AreEqual(GetIdent(wpts[1]), "WPT");
 
-            Assert.IsTrue(
-                wpts[2].Element("ATCWaypointType").Value == "Airport" &&
-                wpts[2].Element("WorldPosition").Value == destLatLonAlt &&
-                GetIdent(wpts[2]) == efgh.Icao);
+            // In this case the id attribute is different from ident.
+            Assert.AreEqual(wpts[2].Attribute("id").Value, "1020N");
+            Assert.AreEqual(wpts[2].Element("ATCWaypointType").Value, "Intersection");
+            Assert.AreEqual(wpts[2].Element("WorldPosition").Value, "N10° 12' 0.00\",W20° 0' 0.00\",+000000.00");
+            Assert.AreEqual(GetIdent(wpts[2]), "1012N2000W");
+
+            Assert.AreEqual(wpts[3].Attribute("id").Value, "EFGH");
+            Assert.AreEqual(wpts[3].Element("ATCWaypointType").Value, "Airport");
+            Assert.AreEqual(wpts[3].Element("WorldPosition").Value, destLatLonAlt);
+            Assert.AreEqual(GetIdent(wpts[3]), "EFGH");
         }
 
         private static IAirport GetAirport(string icao, string name,
@@ -96,10 +103,7 @@ namespace UnitTest.RouteFinding.FileExport.Providers
             return node.Element("ICAO").Element("ICAOIdent").Value;
         }
 
-        private static bool CanConvertToDouble(string s)
-        {
-            return double.TryParse(s, out var d);
-        }
+        private static bool IsDouble(string s) => double.TryParse(s, out var d);
 
         [Test]
         public void LatLonAltTest()

@@ -30,6 +30,20 @@ namespace QSP.AviationTools.Coordinates
             double second = (d - degree - minute / 60.0) * 3600.0;
             string secondStr = second.ToString(format);
 
+            // Due to rounding errors, it's possible that second is 60.
+            // We handle this condition.
+            if (secondStr.Substring(0, 2) == "60")
+            {
+                secondStr = 0.ToString(format);
+                minute += 1;
+            }
+
+            if (minute == 60)
+            {
+                minute = 0;
+                degree++;
+            }
+
             return $"{degree}° {minute}' {secondStr}\"";
         }
     }

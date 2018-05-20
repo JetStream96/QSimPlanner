@@ -1,4 +1,5 @@
-﻿using QSP.LibraryExtension;
+﻿using QSP.AviationTools.Coordinates;
+using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
@@ -85,15 +86,22 @@ namespace QSP.RouteFinding.FileExport.Providers
             return doc.ToString();
         }
 
+        private static string FormatIdAttribute(string id)
+        {
+            var c = Formatter.ParseLatLon(id);
+            if (c == null) return id;
+            return Format5Letter.ToString(Math.Round(c.Lat), Math.Round(c.Lon));
+        }
+
         private static XElement GetWaypointNode(Waypoint wpt)
         {
             var node = new XElement("ATCWaypoint",
                 new XElement("ATCWaypointType", "Intersection"),
                 new XElement("WorldPosition", LatLonAlt(wpt, 0.0)),
                 new XElement("ICAO",
-                    new XElement("ICAOIdent", wpt.ID)));
+                    new XElement("ICAOIdent", wpt.ID.FormatWaypointId())));
 
-            node.SetAttributeValue("id", wpt.ID);
+            node.SetAttributeValue("id", FormatIdAttribute(wpt.ID));
             return node;
         }
 
