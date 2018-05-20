@@ -34,12 +34,13 @@ namespace QSP.RouteFinding.FileExport.Providers
                 var isDirect = (index == 1 || airway == "DCT");
                 var currentWpt = current.Value.Waypoint;
                 var nextWpt = next.Value.Waypoint;
-
+                
                 if (isDirect)
                 {
+                    var id = nextWpt.ID.FormatWaypointId();
                     var lat = nextWpt.Lat.ToString("0.000000");
                     var lon = nextWpt.Lon.ToString("0.000000");
-                    lines.Add($"DctWpt{index}={nextWpt.ID}");
+                    lines.Add($"DctWpt{index}={id}");
                     lines.Add($"DctWpt{index}Coordinates={lat},{lon}");
                 }
                 else

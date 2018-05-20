@@ -1,9 +1,7 @@
 ﻿Support of waypoints with only lat/lon:
 
-The following does support the format:
-* Aerosoft / FF 777
-
 The following supports it, with waypoint ID like '4820N15054E':
+* Aerosoft / FF 777
 * FF A320
 * FS9
 * Ifly 737
