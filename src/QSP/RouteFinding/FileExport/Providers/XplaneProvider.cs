@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Linq;
+using QSP.LibraryExtension;
 using QSP.RouteFinding.Data.Interfaces;
+using QSP.RouteFinding.Navaids;
 using QSP.RouteFinding.Routes;
 
 namespace QSP.RouteFinding.FileExport.Providers
 {
-    // TODO: How do other providers handle lat/lon waypoint?
-
     /// <summary>
     /// Implements the "3 version" format. Supports x-plane 8 to 11.
     /// Specs: https://flightplandatabase.com/dev/specification
@@ -18,9 +19,9 @@ namespace QSP.RouteFinding.FileExport.Providers
         /// Get string of the flight plan to export.
         /// </summary>
         /// <exception cref="Exception"></exception>
-        public static string GetExportText(Route route)
+        public static string GetExportText(Route route, MultiMap<string, Navaid> navaids)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
 
             if (route.Count < 2) throw new ArgumentException();
             var from = route.FirstWaypoint;
@@ -33,7 +34,17 @@ namespace QSP.RouteFinding.FileExport.Providers
 
             var firstLine = GetLine(from.ID, from, 1);
             var lastLine = GetLine(to.ID, to, 1);
+            var middleLines = route.WithoutFirstAndLast().Select(n =>
+            {
+                var w = n.Waypoint;
+                var id = w.ID;
+                var navaid = navaids.Find(id, w);
+                if (navaid != null && navaid.IsVOR) return GetLine(id, w, 3);
+                if (navaid != null && navaid.IsNDB) return GetLine(id, w, 2);
 
+                var coordinate = 
+                return 0;
+            });
         }
 
         // Types:

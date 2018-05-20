@@ -169,6 +169,7 @@
     <Compile Include="RouteFinding\FileExport\Providers\Util.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\XplaneProvider.cs" />
     <Compile Include="RouteFinding\Navaids\Navaid.cs" />
+    <Compile Include="RouteFinding\Navaids\NavaidExtension.cs" />
     <Compile Include="UI\UserControls\TracksControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
