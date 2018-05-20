@@ -1,6 +1,6 @@
 ﻿using QSP.UI.Models.Wind;
 
-namespace QSP.UI.Forms
+namespace QSP.UI.UserControls
 {
     public interface IWindDataView
     {

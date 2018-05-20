@@ -27,6 +27,7 @@ namespace QSP.UI.Views
         private LandingPerfControl ldgMenu;
         private MiscInfoControl miscInfoMenu;
         private TracksControl tracksMenu;
+        private WindControl windControl;
         private AboutPageControl aboutMenu;
         private Panel innerPanel;
 
@@ -35,7 +36,7 @@ namespace QSP.UI.Views
 
         private IEnumerable<Control> AllPages => Arr<Control>
         (
-            acMenu, fuelMenu, toMenu, ldgMenu, miscInfoMenu, tracksMenu, aboutMenu
+            acMenu, fuelMenu, toMenu, ldgMenu, miscInfoMenu, tracksMenu, windControl, aboutMenu
         );
 
         public NavBar()
@@ -49,6 +50,7 @@ namespace QSP.UI.Views
             LandingPerfControl ldgMenu,
             MiscInfoControl miscInfoMenu,
             TracksControl tracksMenu,
+            WindControl windControl,
             AboutPageControl aboutMenu,
             Panel innerPanel)
         {
@@ -58,6 +60,7 @@ namespace QSP.UI.Views
             this.ldgMenu = ldgMenu;
             this.miscInfoMenu = miscInfoMenu;
             this.tracksMenu = tracksMenu;
+            this.windControl = windControl;
             this.aboutMenu = aboutMenu;
             this.innerPanel = innerPanel;
 
@@ -71,6 +74,12 @@ namespace QSP.UI.Views
         {
             viewControl.ShowControl(tracksLbl);
             btnControl.SetSelected(tracksLbl);
+        }
+
+        public void ShowWind()
+        {
+            viewControl.ShowControl(windLbl);
+            btnControl.SetSelected(windLbl);
         }
 
         private void SetManualLblListener()
@@ -97,6 +106,7 @@ namespace QSP.UI.Views
                 new ControlPair(ldgLbl, ldgMenu),
                 new ControlPair(miscLbl, miscInfoMenu),
                 new ControlPair(tracksLbl, tracksMenu),
+                new ControlPair(windLbl, windControl),
                 new ControlPair(aboutLbl, aboutMenu));
 
             viewControl.Subscribed = true;
@@ -109,7 +119,7 @@ namespace QSP.UI.Views
 
         private void EnableControlColors()
         {
-            var pairs = Arr(acLbl, fuelLbl, tolbl, ldgLbl, miscLbl, tracksLbl, aboutLbl)
+            var pairs = Arr(acLbl, fuelLbl, tolbl, ldgLbl, miscLbl, tracksLbl, windLbl, aboutLbl)
                 .Select(lbl => new ControlColorPair(lbl, ColorStyle));
 
             btnControl = new GroupController(pairs.ToArray());

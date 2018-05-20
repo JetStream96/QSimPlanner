@@ -45,15 +45,15 @@
             this.BtnAusotsDn = new System.Windows.Forms.Button();
             this.BtnPacotsDn = new System.Windows.Forms.Button();
             this.BtnNatsDn = new System.Windows.Forms.Button();
+            this.PicBoxAusots = new System.Windows.Forms.PictureBox();
+            this.PicBoxPacots = new System.Windows.Forms.PictureBox();
+            this.PicBoxNats = new System.Windows.Forms.PictureBox();
             this.viewAusotsBtn = new System.Windows.Forms.Button();
             this.viewPacotsBtn = new System.Windows.Forms.Button();
             this.viewNatsBtn = new System.Windows.Forms.Button();
             this.Label1 = new System.Windows.Forms.Label();
             this.Label2 = new System.Windows.Forms.Label();
             this.Label3 = new System.Windows.Forms.Label();
-            this.PicBoxAusots = new System.Windows.Forms.PictureBox();
-            this.PicBoxPacots = new System.Windows.Forms.PictureBox();
-            this.PicBoxNats = new System.Windows.Forms.PictureBox();
             this.CBoxAusotsEnabled = new QSP.UI.Views.ComboBoxWithBorder();
             this.CBoxPacotsEnabled = new QSP.UI.Views.ComboBoxWithBorder();
             this.CBoxNatsEnabled = new QSP.UI.Views.ComboBoxWithBorder();
@@ -358,6 +358,38 @@
             this.BtnNatsDn.Text = "Download";
             this.BtnNatsDn.UseVisualStyleBackColor = false;
             // 
+            // PicBoxAusots
+            // 
+            this.PicBoxAusots.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.PicBoxAusots.Location = new System.Drawing.Point(2, 87);
+            this.PicBoxAusots.Margin = new System.Windows.Forms.Padding(2);
+            this.PicBoxAusots.Name = "PicBoxAusots";
+            this.PicBoxAusots.Size = new System.Drawing.Size(26, 26);
+            this.PicBoxAusots.TabIndex = 12;
+            this.PicBoxAusots.TabStop = false;
+            // 
+            // PicBoxPacots
+            // 
+            this.PicBoxPacots.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.PicBoxPacots.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.PicBoxPacots.Location = new System.Drawing.Point(2, 47);
+            this.PicBoxPacots.Margin = new System.Windows.Forms.Padding(2);
+            this.PicBoxPacots.Name = "PicBoxPacots";
+            this.PicBoxPacots.Size = new System.Drawing.Size(26, 26);
+            this.PicBoxPacots.TabIndex = 11;
+            this.PicBoxPacots.TabStop = false;
+            // 
+            // PicBoxNats
+            // 
+            this.PicBoxNats.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.PicBoxNats.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.PicBoxNats.Location = new System.Drawing.Point(2, 7);
+            this.PicBoxNats.Margin = new System.Windows.Forms.Padding(2);
+            this.PicBoxNats.Name = "PicBoxNats";
+            this.PicBoxNats.Size = new System.Drawing.Size(26, 26);
+            this.PicBoxNats.TabIndex = 10;
+            this.PicBoxNats.TabStop = false;
+            // 
             // viewAusotsBtn
             // 
             this.viewAusotsBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -448,38 +480,6 @@
             this.Label3.TabIndex = 2;
             this.Label3.Text = "AUSOTS";
             // 
-            // PicBoxAusots
-            // 
-            this.PicBoxAusots.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.PicBoxAusots.Location = new System.Drawing.Point(2, 87);
-            this.PicBoxAusots.Margin = new System.Windows.Forms.Padding(2);
-            this.PicBoxAusots.Name = "PicBoxAusots";
-            this.PicBoxAusots.Size = new System.Drawing.Size(26, 26);
-            this.PicBoxAusots.TabIndex = 12;
-            this.PicBoxAusots.TabStop = false;
-            // 
-            // PicBoxPacots
-            // 
-            this.PicBoxPacots.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.PicBoxPacots.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.PicBoxPacots.Location = new System.Drawing.Point(2, 47);
-            this.PicBoxPacots.Margin = new System.Windows.Forms.Padding(2);
-            this.PicBoxPacots.Name = "PicBoxPacots";
-            this.PicBoxPacots.Size = new System.Drawing.Size(26, 26);
-            this.PicBoxPacots.TabIndex = 11;
-            this.PicBoxPacots.TabStop = false;
-            // 
-            // PicBoxNats
-            // 
-            this.PicBoxNats.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.PicBoxNats.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.PicBoxNats.Location = new System.Drawing.Point(2, 7);
-            this.PicBoxNats.Margin = new System.Windows.Forms.Padding(2);
-            this.PicBoxNats.Name = "PicBoxNats";
-            this.PicBoxNats.Size = new System.Drawing.Size(26, 26);
-            this.PicBoxNats.TabIndex = 10;
-            this.PicBoxNats.TabStop = false;
-            // 
             // CBoxAusotsEnabled
             // 
             this.CBoxAusotsEnabled.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -536,8 +536,8 @@
             // 
             // TracksControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;

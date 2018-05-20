@@ -55,6 +55,8 @@ namespace QSP.UI.Forms
         private TOPerfControl toMenu;
         private LandingPerfControl ldgMenu;
         private MiscInfoControl miscInfoMenu;
+        private TracksControl tracksContorl;
+        private WindControl windControl;
         private AboutPageControl aboutMenu;
 
         private MiscInfoPresenter miscInfoPresenter;
@@ -68,8 +70,6 @@ namespace QSP.UI.Forms
         private Updater updater;
         private OptionsForm optionsForm;
 
-        private TracksControl tracksContorl;
-        private WindDataForm windFrm;
         private bool failedToLoadNavDataAtStartUp = false;
 
         private AppOptions AppSettings => appOptionsLocator.Instance;
@@ -83,6 +83,7 @@ namespace QSP.UI.Forms
             ldgMenu,
             miscInfoMenu,
             tracksContorl,
+            windControl,
             aboutMenu
         };
 
@@ -99,7 +100,7 @@ namespace QSP.UI.Forms
                 DoPostUpdateActions();
                 InitData();
                 InitControls();
-                InitWindForm();
+                InitWindControl();
                 InitOptionsForm();
                 DownloadWindIfNeeded();
                 DownloadTracksIfNeeded();
@@ -158,11 +159,10 @@ namespace QSP.UI.Forms
 #endif
         }
 
-        private void InitWindForm()
+        private void InitWindControl()
         {
-            windFrm = new WindDataForm();
-            var presenter = new WindDataPresenter(windFrm, windTableLocator);
-            windFrm.Init(windDataStatusLabel, presenter, WindDownloadStatus.WaitingManualDownload);
+            var presenter = new WindDataPresenter(windControl, windTableLocator);
+            windControl.Init(windDataStatusLabel, presenter, WindDownloadStatus.WaitingManualDownload);
         }
 
         private void InitTrackControl()
@@ -315,7 +315,7 @@ namespace QSP.UI.Forms
 
             aboutMenu.Init("QSimPlanner");
             navBar.Init(acMenu, fuelMenu, toMenu, ldgMenu, 
-                miscInfoMenu, tracksContorl, aboutMenu, panel2);
+                miscInfoMenu, tracksContorl, windControl, aboutMenu, panel2);
 
             FormClosing += CloseMain;
             new ScrollBarWorkaround(panel1).Enable();
@@ -355,7 +355,7 @@ namespace QSP.UI.Forms
             EnableAirportRequests();
             SetCursorStatusLabel();
             navDataStatusLabel.Click += (s, e) => ShowOptionsForm();
-            windDataStatusLabel.Click += (s, e) => windFrm.ShowDialog();
+            windDataStatusLabel.Click += (s, e) => navBar.ShowWind();
             trackStatusLabel.Click += (s, e) => navBar.ShowTracks();
             navBar.OptionLbl.Click += (s, e) => ShowOptionsForm();
         }
@@ -401,6 +401,7 @@ namespace QSP.UI.Forms
             ldgMenu = new LandingPerfControl();
             miscInfoMenu = new MiscInfoControl();
             tracksContorl = new TracksControl();
+            windControl = new WindControl();
             aboutMenu = new AboutPageControl();
 
             foreach (var i in Pages)
@@ -422,7 +423,7 @@ namespace QSP.UI.Forms
         {
             if (AppSettings.AutoDLWind)
             {
-                await windFrm.DownloadWind();
+                await windControl.DownloadWind();
             }
         }
 

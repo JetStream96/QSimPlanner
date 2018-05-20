@@ -6,14 +6,14 @@ using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace QSP.UI.Forms
+namespace QSP.UI.UserControls
 {
-    public partial class WindDataForm : Form, IWindDataView
+    public partial class WindControl : UserControl, IWindDataView
     {
         private WindDataPresenter presenter;
         private ToolStripStatusLabel toolStripLbl;
 
-        public WindDataForm()
+        public WindControl()
         {
             InitializeComponent();
         }
@@ -63,7 +63,7 @@ namespace QSP.UI.Forms
             loadFileBtn.Enabled = true;
         }
 
-        public WindDownloadStatus ToolStripWindStatus => 
+        public WindDownloadStatus ToolStripWindStatus =>
             new WindDownloadStatus(toolStripLbl.Text, toolStripLbl.Image);
 
         public void ShowWindStatus(WindDownloadStatus item)
