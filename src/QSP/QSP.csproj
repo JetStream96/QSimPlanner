@@ -169,6 +169,12 @@
     <Compile Include="RouteFinding\FileExport\Providers\Util.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\XplaneProvider.cs" />
     <Compile Include="RouteFinding\Navaids\Navaid.cs" />
+    <Compile Include="UI\UserControls\TracksControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\TracksControl.Designer.cs">
+      <DependentUpon>TracksControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="WindAloft\WxTable.cs" />
     <Compile Include="WindAloft\TableItem.cs" />
     <Content Include="config.xml">
@@ -773,12 +779,6 @@
     <Compile Include="UI\Views\Splash.Designer.cs">
       <DependentUpon>Splash.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Views\TracksForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Views\TracksForm.Designer.cs">
-      <DependentUpon>TracksForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Utilities\Logger.cs" />
     <Compile Include="Utilities\Units\Enums.cs" />
     <Compile Include="Utilities\Version.cs" />
@@ -991,6 +991,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\qsp_icon.ico" />
+    <EmbeddedResource Include="UI\UserControls\TracksControl.resx">
+      <DependentUpon>TracksControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Views\FuelPlan\AlternateControl.resx">
       <DependentUpon>AlternateControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -1086,9 +1089,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Views\Splash.resx">
       <DependentUpon>Splash.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Views\TracksForm.resx">
-      <DependentUpon>TracksForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\TakeoffLanding\Common\WeatherInfoControl.resx">
       <DependentUpon>WeatherInfoControl.cs</DependentUpon>

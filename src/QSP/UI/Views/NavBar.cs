@@ -1,16 +1,18 @@
 ﻿using QSP.LibraryExtension;
 using QSP.UI.Controllers.ControlGroup;
+using QSP.UI.UserControls;
 using QSP.UI.UserControls.AircraftMenu;
 using QSP.UI.UserControls.TakeoffLanding.LandingPerf;
 using QSP.UI.UserControls.TakeoffLanding.TOPerf;
+using QSP.UI.Views.FuelPlan;
+using QSP.UI.Views.MiscInfo;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using QSP.UI.Views.FuelPlan;
-using QSP.UI.Views.MiscInfo;
+using static QSP.LibraryExtension.Types;
 using static QSP.UI.Controllers.ControlGroup.ControlSwitcher;
 using static QSP.UI.Controllers.ControlGroup.GroupController;
 using static QSP.UI.Util.OpenFileHelper;
@@ -24,17 +26,18 @@ namespace QSP.UI.Views
         private TOPerfControl toMenu;
         private LandingPerfControl ldgMenu;
         private MiscInfoControl miscInfoMenu;
+        private TracksControl tracksMenu;
         private AboutPageControl aboutMenu;
         private Panel innerPanel;
 
         private GroupController btnControl;
         private ControlSwitcher viewControl;
 
-        private IEnumerable<Control> AllPages => new Control[]
-        {
-            acMenu, fuelMenu, toMenu, ldgMenu, miscInfoMenu, aboutMenu
-        };
-        
+        private IEnumerable<Control> AllPages => Arr<Control>
+        (
+            acMenu, fuelMenu, toMenu, ldgMenu, miscInfoMenu, tracksMenu, aboutMenu
+        );
+
         public NavBar()
         {
             InitializeComponent();
@@ -45,6 +48,7 @@ namespace QSP.UI.Views
             TOPerfControl toMenu,
             LandingPerfControl ldgMenu,
             MiscInfoControl miscInfoMenu,
+            TracksControl tracksMenu,
             AboutPageControl aboutMenu,
             Panel innerPanel)
         {
@@ -53,6 +57,7 @@ namespace QSP.UI.Views
             this.toMenu = toMenu;
             this.ldgMenu = ldgMenu;
             this.miscInfoMenu = miscInfoMenu;
+            this.tracksMenu = tracksMenu;
             this.aboutMenu = aboutMenu;
             this.innerPanel = innerPanel;
 
@@ -60,6 +65,12 @@ namespace QSP.UI.Views
             EnableControlColors();
             SetExtraLblStyle();
             SetManualLblListener();
+        }
+
+        public void ShowTracks()
+        {
+            viewControl.ShowControl(tracksLbl);
+            btnControl.SetSelected(tracksLbl);
         }
 
         private void SetManualLblListener()
@@ -85,6 +96,7 @@ namespace QSP.UI.Views
                 new ControlPair(tolbl, toMenu),
                 new ControlPair(ldgLbl, ldgMenu),
                 new ControlPair(miscLbl, miscInfoMenu),
+                new ControlPair(tracksLbl, tracksMenu),
                 new ControlPair(aboutLbl, aboutMenu));
 
             viewControl.Subscribed = true;
@@ -97,7 +109,7 @@ namespace QSP.UI.Views
 
         private void EnableControlColors()
         {
-            var pairs = new[] { acLbl, fuelLbl, tolbl, ldgLbl, miscLbl, aboutLbl }
+            var pairs = Arr(acLbl, fuelLbl, tolbl, ldgLbl, miscLbl, tracksLbl, aboutLbl)
                 .Select(lbl => new ControlColorPair(lbl, ColorStyle));
 
             btnControl = new GroupController(pairs.ToArray());
@@ -107,8 +119,8 @@ namespace QSP.UI.Views
 
         private void SetExtraLblStyle()
         {
-            new[] { OptionLbl, manualLbl }.ForEach(
-                i => new ColorController(i, ColorStyle).Subscribed = true);
+            Arr(OptionLbl, manualLbl).ForEach(i =>
+                new ColorController(i, ColorStyle).Subscribed = true);
         }
     }
 }

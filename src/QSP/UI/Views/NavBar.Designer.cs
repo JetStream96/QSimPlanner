@@ -37,6 +37,8 @@
             this.miscLbl = new System.Windows.Forms.Label();
             this.OptionLbl = new System.Windows.Forms.Label();
             this.aboutLbl = new System.Windows.Forms.Label();
+            this.tracksLbl = new System.Windows.Forms.Label();
+            this.windLbl = new System.Windows.Forms.Label();
             this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,18 +59,22 @@
             this.tableLayoutPanel.BackColor = System.Drawing.Color.White;
             this.tableLayoutPanel.ColumnCount = 1;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
-            this.tableLayoutPanel.Controls.Add(this.manualLbl, 0, 6);
             this.tableLayoutPanel.Controls.Add(this.acLbl, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.fuelLbl, 0, 1);
             this.tableLayoutPanel.Controls.Add(this.tolbl, 0, 2);
             this.tableLayoutPanel.Controls.Add(this.ldgLbl, 0, 3);
             this.tableLayoutPanel.Controls.Add(this.miscLbl, 0, 4);
-            this.tableLayoutPanel.Controls.Add(this.OptionLbl, 0, 5);
-            this.tableLayoutPanel.Controls.Add(this.aboutLbl, 0, 7);
+            this.tableLayoutPanel.Controls.Add(this.manualLbl, 0, 8);
+            this.tableLayoutPanel.Controls.Add(this.OptionLbl, 0, 7);
+            this.tableLayoutPanel.Controls.Add(this.tracksLbl, 0, 5);
+            this.tableLayoutPanel.Controls.Add(this.windLbl, 0, 6);
+            this.tableLayoutPanel.Controls.Add(this.aboutLbl, 0, 9);
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
-            this.tableLayoutPanel.RowCount = 8;
+            this.tableLayoutPanel.RowCount = 10;
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
@@ -78,14 +84,14 @@
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(120, 304);
+            this.tableLayoutPanel.Size = new System.Drawing.Size(120, 380);
             this.tableLayoutPanel.TabIndex = 9;
             // 
             // manualLbl
             // 
             this.manualLbl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.manualLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.manualLbl.Location = new System.Drawing.Point(0, 228);
+            this.manualLbl.Location = new System.Drawing.Point(0, 304);
             this.manualLbl.Margin = new System.Windows.Forms.Padding(0);
             this.manualLbl.Name = "manualLbl";
             this.manualLbl.Size = new System.Drawing.Size(120, 38);
@@ -146,7 +152,7 @@
             // 
             this.OptionLbl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.OptionLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OptionLbl.Location = new System.Drawing.Point(0, 190);
+            this.OptionLbl.Location = new System.Drawing.Point(0, 266);
             this.OptionLbl.Margin = new System.Windows.Forms.Padding(0);
             this.OptionLbl.Name = "OptionLbl";
             this.OptionLbl.Size = new System.Drawing.Size(120, 38);
@@ -158,13 +164,37 @@
             // 
             this.aboutLbl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.aboutLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aboutLbl.Location = new System.Drawing.Point(0, 266);
+            this.aboutLbl.Location = new System.Drawing.Point(0, 342);
             this.aboutLbl.Margin = new System.Windows.Forms.Padding(0);
             this.aboutLbl.Name = "aboutLbl";
             this.aboutLbl.Size = new System.Drawing.Size(120, 38);
             this.aboutLbl.TabIndex = 7;
             this.aboutLbl.Text = "About";
             this.aboutLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // tracksLbl
+            // 
+            this.tracksLbl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.tracksLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tracksLbl.Location = new System.Drawing.Point(0, 190);
+            this.tracksLbl.Margin = new System.Windows.Forms.Padding(0);
+            this.tracksLbl.Name = "tracksLbl";
+            this.tracksLbl.Size = new System.Drawing.Size(120, 38);
+            this.tracksLbl.TabIndex = 8;
+            this.tracksLbl.Text = "Tracks";
+            this.tracksLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // windLbl
+            // 
+            this.windLbl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.windLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.windLbl.Location = new System.Drawing.Point(0, 228);
+            this.windLbl.Margin = new System.Windows.Forms.Padding(0);
+            this.windLbl.Name = "windLbl";
+            this.windLbl.Size = new System.Drawing.Size(120, 38);
+            this.windLbl.TabIndex = 9;
+            this.windLbl.Text = "Wind aloft";
+            this.windLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // NavBar
             // 
@@ -177,7 +207,7 @@
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "NavBar";
-            this.Size = new System.Drawing.Size(120, 304);
+            this.Size = new System.Drawing.Size(120, 380);
             this.tableLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -194,5 +224,7 @@
         private System.Windows.Forms.Label fuelLbl;
         public System.Windows.Forms.Label OptionLbl;
         private System.Windows.Forms.Label manualLbl;
+        private System.Windows.Forms.Label tracksLbl;
+        private System.Windows.Forms.Label windLbl;
     }
 }

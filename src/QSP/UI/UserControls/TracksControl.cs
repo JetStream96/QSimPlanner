@@ -1,30 +1,29 @@
-using QSP.LibraryExtension;
+﻿using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Navaids;
 using QSP.RouteFinding.Tracks;
 using QSP.RouteFinding.Tracks.Actions;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.UI.Util;
-using QSP.UI.Util.ScrollBar;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using QSP.RouteFinding.Navaids;
 using static QSP.LibraryExtension.Types;
 using static QSP.RouteFinding.Tracks.AirwayNetwork;
 using static QSP.RouteFinding.Tracks.Common.Helpers;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
 using static QSP.Utilities.LoggerInstance;
 
-namespace QSP.UI.Views
+namespace QSP.UI.UserControls
 {
-    public partial class TracksForm
+    public partial class TracksControl : UserControl
     {
         private static readonly string trackFileExtension = ".track";
 
@@ -32,7 +31,7 @@ namespace QSP.UI.Views
         private ImageList imageList;
         private ToolStripStatusLabel statusLbl;
 
-        public TracksForm()
+        public TracksControl()
         {
             InitializeComponent();
         }
@@ -63,8 +62,6 @@ namespace QSP.UI.Views
             downloadAllBtn.EnabledChanged += (s, e) => importBtn.Enabled = downloadAllBtn.Enabled;
             airwayNetwork.TrackMessageUpdated += (s, e) => RefreshViewTrackBtns();
             airwayNetwork.StatusChanged += (s, e) => RefreshStatus(((TrackEventArg)e).TrackType);
-            Closing += CloseForm;
-            ScrollBarsUtil.OverrideScrollBar(panel1, this);
         }
 
         private void RefreshListViewColumnWidth()
@@ -298,13 +295,6 @@ namespace QSP.UI.Views
             airwayNetwork.SetTrackEnabled(t, TrackEnabled(t), actions);
         }
 
-        private void CloseForm(object sender, CancelEventArgs e)
-        {
-            // Do NOT close this form. Hide instead.
-            e.Cancel = true;
-            Hide();
-        }
-
         private void TxtRichTextBoxContentsResized(object sender, ContentsResizedEventArgs e)
         {
             txtRichTextBox.Height = e.NewRectangle.Height + 10;
@@ -395,10 +385,10 @@ namespace QSP.UI.Views
                 () =>
                 {
                     DisableUserInputs(type);
-                    SetProcessingImage(type);
                     EnabledCBox(type).SelectedIndex = 0;
                 },
-                () => EnableUserInputs(type));
+                () => EnableUserInputs(type)
+                );
 
             airwayNetwork.SetTrackMessageAndEnable(type, GetTrackMessage(type, doc), seq);
         }

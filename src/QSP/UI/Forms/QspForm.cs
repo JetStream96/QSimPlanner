@@ -16,6 +16,7 @@ using QSP.UI.Models.MsgBox;
 using QSP.UI.Models.Wind;
 using QSP.UI.Presenters.MiscInfo;
 using QSP.UI.Presenters.Wind;
+using QSP.UI.UserControls;
 using QSP.UI.UserControls.AircraftMenu;
 using QSP.UI.UserControls.TakeoffLanding.LandingPerf;
 using QSP.UI.UserControls.TakeoffLanding.TOPerf;
@@ -67,7 +68,7 @@ namespace QSP.UI.Forms
         private Updater updater;
         private OptionsForm optionsForm;
 
-        private TracksForm trackFrm;
+        private TracksControl tracksContorl;
         private WindDataForm windFrm;
         private bool failedToLoadNavDataAtStartUp = false;
 
@@ -81,6 +82,7 @@ namespace QSP.UI.Forms
             toMenu,
             ldgMenu,
             miscInfoMenu,
+            tracksContorl,
             aboutMenu
         };
 
@@ -97,7 +99,6 @@ namespace QSP.UI.Forms
                 DoPostUpdateActions();
                 InitData();
                 InitControls();
-                InitTrackForm();
                 InitWindForm();
                 InitOptionsForm();
                 DownloadWindIfNeeded();
@@ -118,7 +119,7 @@ namespace QSP.UI.Forms
         {
             optionsForm = new OptionsForm();
             optionsForm.Init(
-               trackFrm,
+               tracksContorl,
                airwayNetwork,
                countryCodesLocator,
                appOptionsLocator,
@@ -164,10 +165,9 @@ namespace QSP.UI.Forms
             windFrm.Init(windDataStatusLabel, presenter, WindDownloadStatus.WaitingManualDownload);
         }
 
-        private void InitTrackForm()
+        private void InitTrackControl()
         {
-            trackFrm = new TracksForm();
-            trackFrm.Init(airwayNetwork, trackStatusLabel);
+            tracksContorl.Init(airwayNetwork, trackStatusLabel);
         }
 
         private static void ShowSplashWhile(Action action)
@@ -311,8 +311,11 @@ namespace QSP.UI.Forms
                 miscInfoPresenter.AirportList = AirportList;
             };
 
+            InitTrackControl();
+
             aboutMenu.Init("QSimPlanner");
-            navBar.Init(acMenu, fuelMenu, toMenu, ldgMenu, miscInfoMenu, aboutMenu, panel2);
+            navBar.Init(acMenu, fuelMenu, toMenu, ldgMenu, 
+                miscInfoMenu, tracksContorl, aboutMenu, panel2);
 
             FormClosing += CloseMain;
             new ScrollBarWorkaround(panel1).Enable();
@@ -353,7 +356,7 @@ namespace QSP.UI.Forms
             SetCursorStatusLabel();
             navDataStatusLabel.Click += (s, e) => ShowOptionsForm();
             windDataStatusLabel.Click += (s, e) => windFrm.ShowDialog();
-            trackStatusLabel.Click += (s, e) => trackFrm.ShowDialog();
+            trackStatusLabel.Click += (s, e) => navBar.ShowTracks();
             navBar.OptionLbl.Click += (s, e) => ShowOptionsForm();
         }
 
@@ -397,6 +400,7 @@ namespace QSP.UI.Forms
             toMenu = new TOPerfControl();
             ldgMenu = new LandingPerfControl();
             miscInfoMenu = new MiscInfoControl();
+            tracksContorl = new TracksControl();
             aboutMenu = new AboutPageControl();
 
             foreach (var i in Pages)
@@ -411,7 +415,7 @@ namespace QSP.UI.Forms
         {
             trackStatusLabel.Image = Properties.Resources.YellowLight;
             trackStatusLabel.Text = "Tracks: Not downloaded";
-            if (AppSettings.AutoDLTracks) trackFrm.DownloadAndEnableTracks();
+            if (AppSettings.AutoDLTracks) tracksContorl.DownloadAndEnableTracks();
         }
 
         private async Task DownloadWindIfNeeded()

@@ -11,6 +11,7 @@ using QSP.RouteFinding.FileExport.Providers;
 using QSP.RouteFinding.Navaids;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.Models.MsgBox;
+using QSP.UI.UserControls;
 using QSP.UI.Views;
 using QSP.Updates;
 using System;
@@ -30,7 +31,7 @@ namespace QSP.UI.Forms.Options
         private Locator<CountryCodeManager> countryCodesLocator;
         private Locator<AppOptions> appSettingsLocator;
         private Updater updater;
-        private TracksForm tracksForm;
+        private TracksControl tracksControl;
         private AirwayNetwork airwayNetwork;
         private FlightPlanExportController exportController;
         private Panel popUpPanel;
@@ -45,13 +46,13 @@ namespace QSP.UI.Forms.Options
         }
 
         public void Init(
-            TracksForm tracksForm,
+            TracksControl tracksControl,
             AirwayNetwork airwayNetwork,
             Locator<CountryCodeManager> countryCodesLocator,
             Locator<AppOptions> appSettingsLocator,
             Updater updater)
         {
-            this.tracksForm = tracksForm;
+            this.tracksControl = tracksControl;
             this.airwayNetwork = airwayNetwork;
             this.countryCodesLocator = countryCodesLocator;
             this.appSettingsLocator = appSettingsLocator;
@@ -184,7 +185,7 @@ namespace QSP.UI.Forms.Options
             if (!TrySaveOptions()) return;
 
             // Successful
-            await tracksForm.Update(wptList, airportList, navaids);
+            await tracksControl.Update(wptList, airportList, navaids);
             NavDataLocationChanged?.Invoke(this, EventArgs.Empty);
             Close();
         }

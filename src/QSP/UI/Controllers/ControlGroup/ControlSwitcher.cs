@@ -16,10 +16,7 @@ namespace QSP.UI.Controllers.ControlGroup
 
         public bool Subscribed
         {
-            get
-            {
-                return _subscribed;
-            }
+            get => _subscribed;
 
             set
             {
@@ -54,6 +51,14 @@ namespace QSP.UI.Controllers.ControlGroup
             {
                 i.Control.Visible = (i.Button == sender);
             }
+        }
+
+        /// <summary>
+        /// Show the UserControl corresponding to the given Control.
+        /// </summary>
+        public void ShowControl(Control c)
+        {
+            ShowControl(c, EventArgs.Empty);
         }
 
         public class ControlPair
