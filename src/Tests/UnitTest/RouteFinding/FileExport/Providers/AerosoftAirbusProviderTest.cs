@@ -48,7 +48,7 @@ DctWpt4Coordinates=0.000000,2.500000
                 new Waypoint("RJBB06L", 0.0, 0.0), "DCT", -1.0,
                 new Waypoint("RJAA18", 0.0, 3.0));
 
-            var text = Ifly747v2Provider.GetExportText(route);
+            var text = AerosoftAirbusProvider.GetExportText(route);
         }
     }
 }
