@@ -26,7 +26,7 @@ namespace QSP.RouteFinding.FileExport.Providers
         /// <exception cref="Exception"></exception>
         public static string GetExportText(ExportInput input)
         {
-            var (route, navaids) = (input.Route, input.Navaids);
+            var (route, navaids, wptList) = (input.Route, input.Navaids, input.Waypoints);
             if (route.Count < 2) throw new ArgumentException();
             var from = route.FirstWaypoint;
             var to = route.LastWaypoint;
