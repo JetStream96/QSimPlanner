@@ -18,7 +18,7 @@ namespace UnitTest.RouteFinding.FileExport.Providers
                 new Waypoint("WPT2", 0.0, 2.5), "C", -1.0,
                 new Waypoint("RJAA18", 0.0, 3.0));
 
-            var text = Ifly737Provider.GetExportText(route);
+            var text = Ifly737Provider.GetExportText(new ExportInput() { Route = route });
 
             var expected =
 @"RJBB,
@@ -53,7 +53,7 @@ DIRECT,3,WPT2,0, 0.000000 2.500000,0,0, 90.00000,0,0,1,-1,0.000,0,-1000,-1000,-1
                 new Waypoint("N10.2W20.0", 10.2, -20.0), "DCT", -1.0,
                 new Waypoint("RJAA18", 10.2, 3.0));
 
-            var text = Ifly737Provider.GetExportText(route);
+            var text = Ifly737Provider.GetExportText(new ExportInput() { Route = route });
 
             var expected =
                 @"RJBB,
@@ -85,7 +85,7 @@ DIRECT,3,1012N2000W,0, 10.200000 -20.000000,0,0, 360.00000,0,0,1,-1,0.000,0,-100
                 new Waypoint("RJBB06L", 0.0, 0.0), "DCT", -1.0,
                 new Waypoint("RJAA18", 0.0, 3.0));
 
-            var text = Ifly737Provider.GetExportText(route);
+            var text = Ifly737Provider.GetExportText(new ExportInput() { Route = route });
         }
     }
 }

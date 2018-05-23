@@ -10,8 +10,9 @@ namespace QSP.RouteFinding.FileExport.Providers
         /// Get string of the flight plan to export.
         /// </summary>
         /// <exception cref="Exception"></exception>
-        public static string GetExportText(Route route)
+        public static string GetExportText(ExportInput input)
         {
+            var route = input.Route;
             const string start = @"[RTE]
 ORIGIN_AIRPORT=ABCD
 DEST_AIRPORT=EFGH

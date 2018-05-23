@@ -20,7 +20,12 @@ namespace UnitTest.RouteFinding.FileExport.Providers
                new Waypoint("WPT", 0.0, 1.0), "B", -1.0,
                new Waypoint("EFGH18"));
 
-            var text = Fs9Provider.GetExportText(route, manager);
+            var text = Fs9Provider.GetExportText(new ExportInput()
+            {
+                Route = route,
+                Airports = manager
+            });
+
             var expected =
 @"[flightplan]
 title=ABCD to EFGH
@@ -52,7 +57,11 @@ waypoint.2=EFGH, A, N0* 0.00', E0* 0.00', +000000.00,
                 new Waypoint("N10.2W20.0", 10.2, -20.0), "B", -1.0,
                 new Waypoint("EFGH18"));
 
-            var text = Fs9Provider.GetExportText(route, manager);
+            var text = Fs9Provider.GetExportText(new ExportInput()
+            {
+                Route = route,
+                Airports = manager
+            });
 
             var expected =
 @"[flightplan]

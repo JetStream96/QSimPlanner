@@ -13,8 +13,9 @@ namespace QSP.RouteFinding.FileExport.Providers
         /// Get string of the flight plan to export.
         /// </summary>
         /// <exception cref="Exception"></exception>
-        public static string GetExportText(Route route, IWxTableCollection w)
+        public static string GetExportText(ExportInput input)
         {
+            var (route, w) = (input.Route, input.WindTables);
             var altitudes = List(6000, 9000, 12000, 18000, 24000,
                30000, 34000, 39000, 44000, 49000);
             return string.Join("\n", route.Select(node =>

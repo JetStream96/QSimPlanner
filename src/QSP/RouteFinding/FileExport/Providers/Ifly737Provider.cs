@@ -18,8 +18,9 @@ namespace QSP.RouteFinding.FileExport.Providers
         // 
         // heading0 is the direct heading from WPT0 to WPT1, at WPT0.
         
-        public static string GetExportText(Route route)
+        public static string GetExportText(ExportInput input)
         {
+            var route = input.Route;
             if (route.Count < 2) throw new ArgumentException();
             var linesPart1 = List(
                 route.FirstWaypoint.ID.Substring(0, 4),

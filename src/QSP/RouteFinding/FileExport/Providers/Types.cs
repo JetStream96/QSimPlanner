@@ -1,6 +1,7 @@
 ﻿using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Routes;
 using System;
+using System.Collections.Generic;
 
 namespace QSP.RouteFinding.FileExport.Providers
 {
@@ -13,39 +14,28 @@ namespace QSP.RouteFinding.FileExport.Providers
 
     public static class Types
     {
-        public static string GetExtension(ProviderType type)
+        private static readonly 
+            IReadOnlyDictionary<ProviderType, (string, Func<ExportInput, string>)> lookup = 
+                 new Dictionary<ProviderType, (string, Func<ExportInput, string>)>
         {
-            switch (type)
-            {
-                case ProviderType.Pmdg:
-                    return ".rte";
+            // [type] = (file_extension, export_method)
+            [ProviderType.Pmdg] = (".rte", PmdgProvider.GetExportText),
+            [ProviderType.Fsx] = (".PLN", FsxProvider.GetExportText),
+            [ProviderType.Fs9] = (".PLN", Fs9Provider.GetExportText)
+        };
 
-                case ProviderType.Fsx:
-                case ProviderType.Fs9:
-                    return ".PLN";
-
-                default:
-                    throw new ArgumentException();
-            }
-        }
+        public static string GetExtension(ProviderType type) => lookup[type].Item1;
 
         public static string GetExportText(ProviderType type, Route route,
             AirportManager airports)
         {
-            switch (type)
+            var input = new ExportInput()
             {
-                case ProviderType.Pmdg:
-                    return PmdgProvider.GetExportText(route, airports);
+                Route = route,
+                Airports = airports
+            };
 
-                case ProviderType.Fsx:
-                    return FsxProvider.GetExportText(route, airports);
-
-                case ProviderType.Fs9:
-                    return Fs9Provider.GetExportText(route, airports);
-
-                default:
-                    throw new ArgumentException();
-            }
+            return lookup[type].Item2(input);
         }
     }
 }

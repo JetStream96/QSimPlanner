@@ -24,10 +24,9 @@ namespace QSP.RouteFinding.FileExport.Providers
         /// Get string of the flight plan to export.
         /// </summary>
         /// <exception cref="Exception"></exception>
-        public static string GetExportText(Route route, MultiMap<string, Navaid> navaids)
+        public static string GetExportText(ExportInput input)
         {
-            //throw new NotImplementedException();
-
+            var (route, navaids) = (input.Route, input.Navaids);
             if (route.Count < 2) throw new ArgumentException();
             var from = route.FirstWaypoint;
             var to = route.LastWaypoint;

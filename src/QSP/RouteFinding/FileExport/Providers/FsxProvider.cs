@@ -17,8 +17,9 @@ namespace QSP.RouteFinding.FileExport.Providers
         /// Returns the text of the file to export.
         /// </summary>
         /// <exception cref="Exception"></exception>
-        public static string GetExportText(Route route, AirportManager airports)
+        public static string GetExportText(ExportInput input)
         {
+            var (route, airports) = (input.Route, input.Airports);
             if (route.Count < 2) throw new ArgumentException();
 
             var version = new XElement("AppVersion",

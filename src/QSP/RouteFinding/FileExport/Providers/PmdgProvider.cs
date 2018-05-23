@@ -1,5 +1,4 @@
 ﻿using QSP.RouteFinding.Airports;
-using QSP.RouteFinding.Routes;
 using System.Text;
 
 namespace QSP.RouteFinding.FileExport.Providers
@@ -35,8 +34,10 @@ namespace QSP.RouteFinding.FileExport.Providers
         /// Returns a string represents the PMDG .rte file. 
         /// SIDs, STARs are not included.
         /// </summary>
-        public static string GetExportText(Route route, AirportManager airports)
+        public static string GetExportText(ExportInput input)
         {
+            var route = input.Route;
+            var airports = input.Airports;
             int numWpts = route.Count;
 
             // Including dep/arr airports

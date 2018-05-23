@@ -26,7 +26,11 @@ namespace UnitTest.RouteFinding.FileExport.Providers
                 new Waypoint("N10.2W20.0", 10.2, -20.0), "DCT", -1.0,
                 new Waypoint("EFGH18", 0.0, 3.0));
 
-            var text = FsxProvider.GetExportText(route, manager);
+            var text = FsxProvider.GetExportText(new ExportInput()
+            {
+                Route = route,
+                Airports = manager
+            });
 
             // Assert flight plan.
             var doc = XDocument.Parse(text);

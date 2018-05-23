@@ -18,7 +18,11 @@ namespace UnitTest.RouteFinding.FileExport.Providers
                 new Waypoint("WPT0", 0.0, 10.0), "B", -1.0,
                 new Waypoint("RJAA18", 0.0, 3.0));
 
-            var text = PmdgWindUplinkProvider.GetExportText(route, new WxTablesStub());
+            var text = PmdgWindUplinkProvider.GetExportText(new ExportInput()
+            {
+                Route = route,
+                WindTables = new WxTablesStub()
+            });
 
             var expected =
 @"RJBB	275@27(8)	275@27(8)	275@27(8)	275@27(8)	275@27(8)
@@ -39,7 +43,11 @@ RJAA	278@26(6)	278@26(6)	278@26(6)	278@26(6)	278@26(6)
                 new Waypoint("N10.2W20.0", 10.2, -20.0), "B", -1.0,
                 new Waypoint("RJAA18", 0.0, 3.0));
 
-            var text = PmdgWindUplinkProvider.GetExportText(route, new WxTablesStub());
+            var text = PmdgWindUplinkProvider.GetExportText(new ExportInput()
+            {
+                Route = route,
+                WindTables = new WxTablesStub()
+            });
 
             var expected =
                 @"RJBB	275@27(8)	275@27(8)	275@27(8)	275@27(8)	275@27(8)
@@ -59,7 +67,11 @@ RJAA	278@26(6)	278@26(6)	278@26(6)	278@26(6)	278@26(6)
                 new Waypoint("RJBB06L", 0.0, 0.0), "DCT", -1.0,
                 new Waypoint("RJAA18", 0.0, 3.0));
 
-            var text = PmdgWindUplinkProvider.GetExportText(route, new WxTablesStub());
+            var text = PmdgWindUplinkProvider.GetExportText(new ExportInput()
+            {
+                Route = route,
+                WindTables = new WxTablesStub()
+            });
         }
 
         private class WxTablesStub : IWxTableCollection

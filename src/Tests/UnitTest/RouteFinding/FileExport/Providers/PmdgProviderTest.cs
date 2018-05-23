@@ -21,7 +21,11 @@ namespace UnitTest.RouteFinding.FileExport.Providers
                 new Waypoint("WPT2", 0.0, 2.0), "STAR", -1.0,
                 new Waypoint("EFGH18", 0.0, 3.0));
 
-            var text = PmdgProvider.GetExportText(route, manager);
+            var text = PmdgProvider.GetExportText(new ExportInput()
+            {
+                Route = route,
+                Airports=manager
+            });
 
             // The coordinates for ABCD and EFGH are based on the AirportManager
             // instead of the runway waypoints in routes.
@@ -91,7 +95,12 @@ EFGH
                 new Waypoint("N10.2W20.0", 10.2, -20.0), "STAR", -1.0,
                 new Waypoint("EFGH18", 0.0, 3.0));
 
-            var text = PmdgProvider.GetExportText(route, manager);
+            var text = PmdgProvider.GetExportText(new ExportInput()
+            {
+                Route = route,
+                Airports = manager
+            });
+
             var expected =
                 @"Flight plan is built by QSimPlanner.
 

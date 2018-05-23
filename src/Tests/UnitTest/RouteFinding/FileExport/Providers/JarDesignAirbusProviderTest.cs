@@ -18,7 +18,7 @@ namespace UnitTest.RouteFinding.FileExport.Providers
                 new Waypoint("WPT2", 0.0, 2.5), "C", -1.0,
                 new Waypoint("RJAA18", 0.0, 3.0));
 
-            var text = JarDesignAirbusProvider.GetExportText(route);
+            var text = JarDesignAirbusProvider.GetExportText(new ExportInput() { Route = route });
 
             var expected = "RJBB DCT WPT0 B WPT1 DCT WPT2 DCT RJAA";
 
@@ -33,7 +33,7 @@ namespace UnitTest.RouteFinding.FileExport.Providers
                 new Waypoint("N10.2W20.0", 10.2, -20.0), "DCT", -1.0,
                 new Waypoint("RJAA18", 0.0, 3.0));
 
-            var text = JarDesignAirbusProvider.GetExportText(route);
+            var text = JarDesignAirbusProvider.GetExportText(new ExportInput() { Route = route });
 
             var expected = "RJBB DCT 1012N2000W DCT RJAA";
 
@@ -47,7 +47,7 @@ namespace UnitTest.RouteFinding.FileExport.Providers
                 new Waypoint("RJBB06L", 0.0, 0.0), "DCT", -1.0,
                 new Waypoint("RJAA18", 0.0, 3.0));
 
-            var text = JarDesignAirbusProvider.GetExportText(route);
+            var text = JarDesignAirbusProvider.GetExportText(new ExportInput() { Route = route });
 
             var expected = "RJBB RJAA";
 

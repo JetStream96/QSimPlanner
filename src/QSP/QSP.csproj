@@ -164,6 +164,7 @@
     <Compile Include="FuelCalculation\Calculations\IPlanNode.cs" />
     <Compile Include="FuelCalculation\Calculations\NextPlanNodeParameter.cs" />
     <Compile Include="NavData\AAX\NavaidsLoader.cs" />
+    <Compile Include="RouteFinding\FileExport\Providers\ExportInput.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\FlightFactorA320Provider.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\JarDesignAirbusProvider.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\Util.cs" />

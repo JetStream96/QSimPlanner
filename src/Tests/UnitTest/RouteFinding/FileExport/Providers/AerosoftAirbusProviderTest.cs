@@ -19,7 +19,7 @@ namespace UnitTest.RouteFinding.FileExport.Providers
                 new Waypoint("WPT2", 0.0, 2.5), "C", -1.0,
                 new Waypoint("RJAA18", 0.0, 3.0));
 
-            var text = AerosoftAirbusProvider.GetExportText(route);
+            var text = AerosoftAirbusProvider.GetExportText(new ExportInput() { Route = route });
 
             var expected =
 @"[CoRte]
@@ -48,7 +48,7 @@ DctWpt4Coordinates=0.000000,2.500000
                 new Waypoint("RJBB06L", 0.0, 0.0), "DCT", -1.0,
                 new Waypoint("RJAA18", 0.0, 3.0));
 
-            var text = AerosoftAirbusProvider.GetExportText(route);
+            var text = AerosoftAirbusProvider.GetExportText(new ExportInput() { Route = route });
         }
     }
 }

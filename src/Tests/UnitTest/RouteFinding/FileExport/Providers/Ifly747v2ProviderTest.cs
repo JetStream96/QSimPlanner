@@ -18,7 +18,7 @@ namespace UnitTest.RouteFinding.FileExport.Providers
                 new Waypoint("WPT2", 0.0, 2.5), "C", -1.0,
                 new Waypoint("RJAA18", 0.0, 3.0));
 
-            var text = Ifly747v2Provider.GetExportText(route);
+            var text = Ifly747v2Provider.GetExportText(new ExportInput() { Route = route });
 
             var expected =
 @"[RTE]
@@ -77,7 +77,7 @@ COST_INDEX=
                 new Waypoint("N10.2W20.0", 10.2, -20.0), "B", -1.0,
                 new Waypoint("RJAA18", 0.0, 3.0));
 
-            var text = Ifly747v2Provider.GetExportText(route);
+            var text = Ifly747v2Provider.GetExportText(new ExportInput() { Route = route });
 
             var expected =
                 @"[RTE]
@@ -111,7 +111,7 @@ COST_INDEX=
                 new Waypoint("RJBB06L", 0.0, 0.0), "DCT", -1.0,
                 new Waypoint("RJAA18", 0.0, 3.0));
 
-            var text = Ifly747v2Provider.GetExportText(route);
+            var text = Ifly747v2Provider.GetExportText(new ExportInput() { Route = route });
         }
     }
 }
