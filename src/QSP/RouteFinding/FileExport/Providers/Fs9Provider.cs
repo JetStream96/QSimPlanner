@@ -54,7 +54,7 @@ cruising_altitude=10000");
                 .WithoutFirstAndLast()
                 .Select(n =>
                 {
-                    var id = n.Waypoint.ID.FormatWaypointId();
+                    var id = n.Waypoint.FormatWaypointId(input);
                     return $"{id}, I, {LatLonAlt(n.Waypoint, 0.0)}, ";
                 });
 

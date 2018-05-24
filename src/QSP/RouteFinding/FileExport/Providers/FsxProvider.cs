@@ -54,7 +54,8 @@ namespace QSP.RouteFinding.FileExport.Providers
             destNode.SetAttributeValue("id", destIcao);
 
             var waypoints = route.Select(n => n.Waypoint).ToArray();
-            var wptNodes = waypoints.WithoutFirstAndLast().Select(GetWaypointNode);
+            var wptNodes = waypoints.WithoutFirstAndLast()
+                                    .Select(x => GetWaypointNode(x, input));
 
             var flightPlanChild = new XElement[]
             {
@@ -94,13 +95,13 @@ namespace QSP.RouteFinding.FileExport.Providers
             return Format5Letter.ToString(Math.Round(c.Lat), Math.Round(c.Lon));
         }
 
-        private static XElement GetWaypointNode(Waypoint wpt)
+        private static XElement GetWaypointNode(Waypoint wpt, ExportInput input)
         {
             var node = new XElement("ATCWaypoint",
                 new XElement("ATCWaypointType", "Intersection"),
                 new XElement("WorldPosition", LatLonAlt(wpt, 0.0)),
                 new XElement("ICAO",
-                    new XElement("ICAOIdent", wpt.ID.FormatWaypointId())));
+                    new XElement("ICAOIdent", wpt.FormatWaypointId(input))));
 
             node.SetAttributeValue("id", FormatIdAttribute(wpt.ID));
             return node;

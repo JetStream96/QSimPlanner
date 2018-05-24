@@ -7,7 +7,7 @@ namespace QSP.MathTools
     public static class GCDis
     {
         /// <summary>
-        /// Great circle distance between two points.
+        /// Great circle distance between two points in nautical miles.
         /// </summary>
         public static double Distance(double lat1, double lon1, double lat2, double lon2)
         {
@@ -15,7 +15,7 @@ namespace QSP.MathTools
         }
 
         /// <summary>
-        /// Great circle distance between two points.
+        /// Great circle distance between two points in nautical miles.
         /// </summary>
         public static double Distance(double lat1, double lat2, double deltaLon)
         {

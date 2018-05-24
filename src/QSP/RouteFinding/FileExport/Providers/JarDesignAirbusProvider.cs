@@ -23,7 +23,7 @@ namespace QSP.RouteFinding.FileExport.Providers
             // Replace SID/STAR with DCT.
             var split = str.Split(' ');
             if (split.Length < 3) throw new ArgumentException();
-            var middle =string.Join(" ", split.WithoutFirstAndLast().FormatWaypointIds());
+            var middle =string.Join(" ", split.WithoutFirstAndLast().FormatWaypointIds(input));
             return $"{from} DCT {middle} DCT {to}";
         }
     }

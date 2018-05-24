@@ -38,7 +38,7 @@ namespace QSP.RouteFinding.FileExport.Providers
                 
                 if (isDirect)
                 {
-                    var id = nextWpt.ID.FormatWaypointId();
+                    var id = nextWpt.FormatWaypointId(input);
                     var lat = nextWpt.Lat.ToString("0.000000");
                     var lon = nextWpt.Lon.ToString("0.000000");
                     lines.Add($"DctWpt{index}={id}");
