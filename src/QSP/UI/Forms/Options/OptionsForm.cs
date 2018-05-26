@@ -14,6 +14,7 @@ using QSP.UI.Models.MsgBox;
 using QSP.UI.UserControls;
 using QSP.Updates;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -277,6 +278,7 @@ namespace QSP.UI.Forms.Options
                 hideDctCheckBox.Checked,
                 showTrackIdOnlyCheckBox.Checked,
                 updateFreqComboBox.SelectedIndex == 0,
+                new Dictionary<string,string>(), //TODO:
                 exportController.GetCommands());
         }
 

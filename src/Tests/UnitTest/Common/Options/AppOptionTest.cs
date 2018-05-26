@@ -21,8 +21,8 @@ namespace UnitTest.Common.Options
                 ["P3D"] = command2
             };
 
-            var option = new AppOptions(
-                "C:\\123", true, true, false, false, true, false, true, cmds);
+            var option = new AppOptions(                                //TODO:
+                "C:\\123", true, true, false, false, true, false, true, new Dictionary<string,string>(), cmds);
 
             var serializer = new AppOptions.Serializer();
             var elem = serializer.Serialize(option, "options");
