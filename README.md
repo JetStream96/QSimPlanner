@@ -33,7 +33,7 @@ Currently the aircrafts available are
 - 787-8
 
 ### Building
-To build the application, see [readme for installer](/src/Installer/readme.md)
+To build the application, see [readme for installer](/src/Installer/readme.txt)
 
 ### Contributing
 You are welcomed to submit pull requests to this repository. Feel free to leave any questions or suggestions.
