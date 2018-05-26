@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using static QSP.AviationTools.Coordinates.FormatDegreeMinute;
 
 namespace UnitTest.AviationTools.Coordinates
 {

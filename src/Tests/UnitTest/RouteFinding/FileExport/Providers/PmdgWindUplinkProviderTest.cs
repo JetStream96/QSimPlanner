@@ -3,7 +3,6 @@ using QSP.LibraryExtension;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.FileExport.Providers;
 using QSP.WindAloft;
-using System.Collections.Generic;
 
 namespace UnitTest.RouteFinding.FileExport.Providers
 {

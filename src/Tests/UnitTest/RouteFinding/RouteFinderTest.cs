@@ -1,5 +1,4 @@
-﻿using FakeItEasy;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Data.Interfaces;

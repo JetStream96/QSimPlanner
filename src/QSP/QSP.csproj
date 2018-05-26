@@ -171,6 +171,18 @@
     <Compile Include="RouteFinding\FileExport\Providers\XplaneProvider.cs" />
     <Compile Include="RouteFinding\Navaids\Navaid.cs" />
     <Compile Include="RouteFinding\Navaids\NavaidExtension.cs" />
+    <Compile Include="UI\UserControls\ExportMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\ExportMenu.Designer.cs">
+      <DependentUpon>ExportMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControls\ExportMenuRow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\ExportMenuRow.Designer.cs">
+      <DependentUpon>ExportMenuRow.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\UserControls\TracksControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -993,6 +1005,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\qsp_icon.ico" />
+    <EmbeddedResource Include="UI\UserControls\ExportMenu.resx">
+      <DependentUpon>ExportMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserControls\ExportMenuRow.resx">
+      <DependentUpon>ExportMenuRow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\TracksControl.resx">
       <DependentUpon>TracksControl.cs</DependentUpon>
     </EmbeddedResource>

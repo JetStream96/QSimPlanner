@@ -1,6 +1,4 @@
-﻿using QSP.RouteFinding.Routes;
-
-namespace QSP.RouteFinding.FileExport.Providers
+﻿namespace QSP.RouteFinding.FileExport.Providers
 {
     public static class FlightFactorA320Provider
     {
