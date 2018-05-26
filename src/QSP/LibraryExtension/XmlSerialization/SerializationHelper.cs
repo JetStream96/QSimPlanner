@@ -47,7 +47,8 @@ namespace QSP.LibraryExtension.XmlSerialization
         ///         <b>2</b>
         ///     </key>
         /// </summary>
-        public static XElement Serialize(this IDictionary<string, string> dict, string key)
+        public static XElement Serialize(this IReadOnlyDictionary<string, string> dict, 
+            string key)
         {
             return new XElement(key, dict.Select(kv => new XElement(kv.Key, kv.Value)));
         }

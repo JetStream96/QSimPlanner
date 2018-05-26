@@ -79,6 +79,7 @@ namespace QSP.Common.Options
                     a.HideDctInRoute.Serialize("HideDctInRoute"),
                     a.ShowTrackIdOnly.Serialize("ShowTrackIdOnly"),
                     a.AutoUpdate.Serialize("AutoUpdate"),
+                    a.SimulatorPaths.Serialize("SimulatorPaths"),
                     exportOptions
                 });
             }
@@ -98,6 +99,7 @@ namespace QSP.Common.Options
                     () => d.HideDctInRoute = item.GetBool("HideDctInRoute"),
                     () => d.ShowTrackIdOnly = item.GetBool("ShowTrackIdOnly"),
                     () => d.AutoUpdate = item.GetBool("AutoUpdate"),
+                    () => d.SimulatorPaths=item.GetDict("SimulatorPaths"),
                     () => d.ExportCommands =
                         item.Element("ExportOptions")
                             .Elements("KeyValuePair")
