@@ -45,7 +45,11 @@ namespace QSP.RouteFinding.FileExport.Providers
                 if (navaid != null && navaid.IsNDB) return GetLine(id, w, 2);
 
                 var coordinate = id.ParseLatLon();
-                if (coordinate == null || w.IsInWptList(input)) return GetLine(id, w, 11);
+                if (coordinate == null || Format5Letter.Parse(w.ID) != null)
+                {
+                    return GetLine(id, w, 11);
+                }
+
                 return GetLine(coordinate.FormatLatLon(), w, 28);
             });
 

@@ -101,7 +101,7 @@ namespace QSP.RouteFinding.FileExport.Providers
                 new XElement("ATCWaypointType", "Intersection"),
                 new XElement("WorldPosition", LatLonAlt(wpt, 0.0)),
                 new XElement("ICAO",
-                    new XElement("ICAOIdent", wpt.FormatWaypointId(input))));
+                    new XElement("ICAOIdent", wpt.ID.FormatWaypointId())));
 
             node.SetAttributeValue("id", FormatIdAttribute(wpt.ID));
             return node;

@@ -59,7 +59,7 @@ namespace QSP.RouteFinding.FileExport.Providers
                     airway = "DIRECT";
                 }
 
-                result.Append(wpt.FormatWaypointId(input) + "\n5\n" + airway + "\n1 ");
+                result.Append(wpt.ID.FormatWaypointId() + "\n5\n" + airway + "\n1 ");
                 result.AppendLine(PmdgLatLonFormat(wpt.Lat, wpt.Lon) +
                     " 0\n0\n0\n0");
                 result.AppendLine();

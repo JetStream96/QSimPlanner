@@ -44,7 +44,7 @@ namespace QSP.RouteFinding.FileExport.Providers
                 linesPart2.Add(string.Format(
                     "{0},{1},0, {2} {3},0,0, {4},0,0,1,-1,0.000,0,-1000,-1000,-1,-1,-1,0,0,000.00000,0,0,,-1000,-1,-1,-1000,0,-1000,-1,-1,-1000,0,-1000,-1,-1,-1000,0,-1000,-1,-1,-1000,0,-1000,-1000,0",
                     isDirect ? "DIRECT,3" : $"{airway},2",
-                    w.FormatWaypointId(input),
+                    w.ID.FormatWaypointId(),
                     w.Lat.ToString("0.000000"),
                     w.Lon.ToString("0.000000"),
                     heading.ToString("0.00000")));
