@@ -10,8 +10,6 @@ using static System.Math;
 
 namespace QSP.RouteFinding.FileExport.Providers
 {
-    // TODO: why transform 5 letter format to more complicated one?
-
     /// <summary>
     /// Implements the "3 version" format. Supports x-plane 8 to 11.
     /// Specs: https://flightplandatabase.com/dev/specification
