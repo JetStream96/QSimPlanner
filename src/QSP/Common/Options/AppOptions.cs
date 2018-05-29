@@ -63,12 +63,6 @@ namespace QSP.Common.Options
         {
             public XElement Serialize(AppOptions a, string name)
             {
-                var elem = a.ExportCommands.Select(kv =>
-                    new XElement("KeyValuePair",
-                        kv.Key.Serialize("Key"),
-                        kv.Value.Serialize("Value")));
-                var exportOptions = new XElement("ExportOptions", elem);
-
                 return new XElement(name, new XElement[]
                 {
                     a.NavDataLocation.Serialize("DatabasePath"),
@@ -80,7 +74,9 @@ namespace QSP.Common.Options
                     a.ShowTrackIdOnly.Serialize("ShowTrackIdOnly"),
                     a.AutoUpdate.Serialize("AutoUpdate"),
                     a.SimulatorPaths.Serialize("SimulatorPaths"),
-                    exportOptions
+                    a.ExportCommands.ToDictionary(kv => kv.Key,
+                                                  kv => kv.Value.Serialize("command").ToString())
+                                    .Serialize("ExportCommands")
                 });
             }
 
@@ -100,12 +96,9 @@ namespace QSP.Common.Options
                     () => d.ShowTrackIdOnly = item.GetBool("ShowTrackIdOnly"),
                     () => d.AutoUpdate = item.GetBool("AutoUpdate"),
                     () => d.SimulatorPaths=item.GetDict("SimulatorPaths"),
-                    () => d.ExportCommands =
-                        item.Element("ExportOptions")
-                            .Elements("KeyValuePair")
-                            .ToDictionary(
-                                e => e.GetString("Key"),
-                                e => ExportCommand.Deserialize(e.Element("Value")))
+                    () => d.ExportCommands = item.GetDict("ExportCommands")
+                        .ToDictionary(kv => kv.Key,
+                                      kv => ExportCommand.Deserialize(XElement.Parse(kv.Value)))
                 };
 
                 foreach (var a in actions)
