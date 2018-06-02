@@ -1,6 +1,7 @@
 ﻿using QSP.LibraryExtension.XmlSerialization;
 using QSP.Utilities.Units;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 using static QSP.LibraryExtension.XmlSerialization.SerializationHelper;
 using static System.Math;
 
@@ -67,6 +68,47 @@ namespace QSP.AircraftProfiles.Configs
                 Abs(other.FuelBias - FuelBias) <= deltaFuelBias &&
                 other.WtUnit == WtUnit;
         }
+
+        public class Serialization
+        {
+            [XmlElement("AC")]
+            public string AC { get; set; }
+
+            [XmlElement("Registration")]
+            public string Registration { get; set; }
+
+            [XmlElement("FuelProfile")]
+            public string FuelProfile { get; set; }
+
+            [XmlElement("TOProfile")]
+            public string TOProfile { get; set; }
+
+            [XmlElement("LdgProfile")]
+            public string LdgProfile { get; set; }
+
+            [XmlElement("OewKg")]
+            public double OewKg { get; set; }
+
+            [XmlElement("MaxTOWtKg")]
+            public double MaxTOWtKg { get; set; }
+
+            [XmlElement("MaxLdgWtKg")]
+            public double MaxLdgWtKg { get; set; }
+
+            [XmlElement("MaxZfwKg")]
+            public double MaxZfwKg { get; set; }
+
+            [XmlElement("MaxFuelKg")]
+            public double MaxFuelKg { get; set; }
+
+            [XmlElement("FuelBias")]
+            public double FuelBias { get; set; }
+
+            [XmlElement("WtUnit")]
+            public int WtUnit { get; set; }
+        }
+
+        public XElement Serialize()
 
         public class Serializer : IXSerializer<AircraftConfigItem>
         {
