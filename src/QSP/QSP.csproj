@@ -132,6 +132,7 @@
     <Compile Include="AircraftProfiles\Configs\AcConfigManager.cs" />
     <Compile Include="AircraftProfiles\Configs\AircraftConfig.cs" />
     <Compile Include="AircraftProfiles\Configs\AircraftConfigItem.cs" />
+    <Compile Include="AircraftProfiles\Configs\AircraftConfigItemSerialization.cs" />
     <Compile Include="AircraftProfiles\Configs\ConfigComparers.cs" />
     <Compile Include="AircraftProfiles\Configs\ConfigLoader.cs" />
     <Compile Include="AircraftProfiles\Configs\DeletedDefaultAc.cs" />
@@ -163,7 +164,10 @@
     <Compile Include="FuelCalculation\Calculations\ICrzAltProvider.cs" />
     <Compile Include="FuelCalculation\Calculations\IPlanNode.cs" />
     <Compile Include="FuelCalculation\Calculations\NextPlanNodeParameter.cs" />
+    <Compile Include="LibraryExtension\XmlSerialization\KVPair.cs" />
+    <Compile Include="LibraryExtension\XmlSerialization\Util.cs" />
     <Compile Include="NavData\AAX\NavaidsLoader.cs" />
+    <Compile Include="RouteFinding\FileExport\ExportCommandExtension.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\ExportInput.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\FlightFactorA320Provider.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\JarDesignAirbusProvider.cs" />
@@ -271,8 +275,6 @@
     <Compile Include="LibraryExtension\Types.cs" />
     <Compile Include="LibraryExtension\WebRequests.cs" />
     <Compile Include="LibraryExtension\Xmls.cs" />
-    <Compile Include="LibraryExtension\XmlSerialization\Interfaces.cs" />
-    <Compile Include="LibraryExtension\XmlSerialization\SerializationHelper.cs" />
     <Compile Include="MathTools\EarthGeometry.cs" />
     <Compile Include="MathTools\Integration.cs" />
     <Compile Include="MathTools\Tables\Readers\TableReader1D.cs" />

@@ -40,8 +40,12 @@ namespace QSP.UI.Forms.Options
         /// </summary>
         public Dictionary<string, ExportCommand> GetCommands()
         {
-            return exports.ToDictionary(i => i.Key,
-                i => new ExportCommand(i.Type, i.TxtBox.Text, i.CheckBox.Checked));
+            return exports.ToDictionary(i => i.Key, i => new ExportCommand()
+            {
+                ProviderType = i.Type,
+                Directory = i.TxtBox.Text,
+                Enabled = i.CheckBox.Checked
+            });
         }
 
         /// <summary>

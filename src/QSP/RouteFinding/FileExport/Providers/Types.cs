@@ -2,11 +2,15 @@
 using QSP.RouteFinding.Routes;
 using System;
 using System.Collections.Generic;
+using static QSP.LibraryExtension.Types;
 
 namespace QSP.RouteFinding.FileExport.Providers
 {
     public enum ProviderType
     {
+        // Do not change the int associated with each item. 
+        // They are stored in app options in users' files.
+
         Pmdg = 0,
         Fsx = 1,
         Fs9 = 2
