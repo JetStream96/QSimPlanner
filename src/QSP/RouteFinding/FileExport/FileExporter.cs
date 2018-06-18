@@ -85,7 +85,7 @@ namespace QSP.RouteFinding.FileExport
         private static string GenerateFileName(string nameBase, ExportCommand c)
         {
             return FileNameGenerator.Generate(c.Directory.RemoveIllegalPathChars(),
-                nameBase, c.Extension(), n => "_" + n.ToString(), 1);
+                nameBase, c.Extension, n => "_" + n.ToString(), 1);
         }
 
         private static bool FileExist(string nameBase, ExportCommand cmd, int n)
@@ -104,7 +104,7 @@ namespace QSP.RouteFinding.FileExport
 
         private static string GetFileFullPath(string nameBase, ExportCommand cmd, int n)
         {
-            var fileName = nameBase + n.ToString().PadLeft(2, '0') + cmd.Extension();
+            var fileName = nameBase + n.ToString().PadLeft(2, '0') + cmd.Extension;
             return Path.Combine(cmd.Directory.RemoveIllegalPathChars(),
                 fileName.RemoveIllegalFileNameChars());
         }

@@ -10,12 +10,7 @@ namespace UnitTest.RouteFinding.FileExport
         [Test]
         public void SerializeTest()
         {
-            var command = new ExportCommand()
-            {
-                ProviderType = ProviderType.Fsx,
-                Directory = @"C:\123",
-                Enabled = true
-            };
+            var command = new ExportCommand(ProviderType.Fsx, @"C:\123", true);
             var elem = command.Serialize("command1");
             var deserialized = ExportCommand.Deserialize(elem);
 

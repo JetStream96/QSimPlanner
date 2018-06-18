@@ -1,20 +1,26 @@
 ﻿using QSP.RouteFinding.FileExport.Providers;
-using System;
 using System.Xml.Linq;
 using static QSP.LibraryExtension.XmlSerialization.SerializationHelper;
 
 namespace QSP.RouteFinding.FileExport
 {
-    public class ExportCommand : IEquatable<ExportCommand>
+    public class ExportCommand
     {
-        public ProviderType ProviderType { get; set; }
+        public ProviderType ProviderType { get; private set; }
+        public string Directory { get; private set; }
+        public string Extension { get; private set; } 
+        public bool Enabled { get; private set; }
 
-        /// <summary>
-        /// If this is empty, it means the default directory is used.
-        /// </summary>
-        public string Directory { get; set; }
-
-        public bool Enabled { get; set; }
+        public ExportCommand(
+            ProviderType ProviderType, 
+            string Directory,
+            bool Enabled)
+        {
+            this.ProviderType = ProviderType;
+            this.Directory = Directory;
+            this.Extension = Types.GetExtension(ProviderType);
+            this.Enabled = Enabled;
+        }
 
         public XElement Serialize(string name)
         {
@@ -30,18 +36,17 @@ namespace QSP.RouteFinding.FileExport
 
         public static ExportCommand Deserialize(XElement item)
         {
-            return new ExportCommand()
-            {
-                ProviderType = (ProviderType)item.GetInt("Type"),
-                Directory = item.GetString("Path"),
-                Enabled = item.GetBool("Enabled")
-            };
+            return new ExportCommand(
+                (ProviderType)item.GetInt("Type"),
+                item.GetString("Path"),
+                item.GetBool("Enabled"));
         }
 
         public bool Equals(ExportCommand other)
         {
             return ProviderType == other.ProviderType &&
                 Directory == other.Directory &&
+                Extension == other.Extension &&
                 Enabled == other.Enabled;
         }
     }

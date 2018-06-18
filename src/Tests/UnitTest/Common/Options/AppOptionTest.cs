@@ -3,7 +3,6 @@ using QSP.Common.Options;
 using QSP.RouteFinding.FileExport;
 using QSP.RouteFinding.FileExport.Providers;
 using System.Collections.Generic;
-using static QSP.LibraryExtension.Types;
 
 namespace UnitTest.Common.Options
 {
@@ -13,25 +12,17 @@ namespace UnitTest.Common.Options
         [Test]
         public void SerializationTest()
         {
-            var command1 = new ExportCommand()
-            {
-                ProviderType = ProviderType.Pmdg,
-                Directory = @"C:\1",
-                Enabled = true
-            };
+            var command1 = new ExportCommand(ProviderType.Pmdg, @"C:\1", true);
+            var command2 = new ExportCommand(ProviderType.Fsx, @"D:\1", false);
 
-            var command2 = new ExportCommand()
+            var cmds = new Dictionary<string, ExportCommand>()
             {
-                ProviderType = ProviderType.Fsx,
-                Directory = @"D:\1",
-                Enabled = false
+                ["PmdgNgx"] = command1,
+                ["P3D"] = command2
             };
-
-            var paths = Dict(("FSX", @"C:\FSX"), ("P3D", @"C:\P3D"));
-            var cmds = Dict(("PmdgNgx", command1), ("P3D", command2));
 
             var option = new AppOptions(
-                "C:\\123", true, true, false, false, true, false, true, paths, cmds);
+                "C:\\123", true, true, false, false, true, false, true, cmds);
 
             var serializer = new AppOptions.Serializer();
             var elem = serializer.Serialize(option, "options");
@@ -50,8 +41,6 @@ namespace UnitTest.Common.Options
             Assert.AreEqual(o.ShowTrackIdOnly, d.ShowTrackIdOnly);
             Assert.AreEqual(o.AutoUpdate, d.AutoUpdate);
             Assert.AreEqual(cmds.Count, d.ExportCommands.Count);
-            Assert.AreEqual(paths["FSX"], d.SimulatorPaths["FSX"]);
-            Assert.AreEqual(paths["P3D"], d.SimulatorPaths["P3D"]);
             Assert.IsTrue(d.ExportCommands["PmdgNgx"].Equals(command1));
             Assert.IsTrue(d.ExportCommands["P3D"].Equals(command2));
         }

@@ -56,23 +56,5 @@ namespace UnitTest.LibraryExtension
             var arr1 = Arr("p");
             Assert.IsTrue(arr1.SequenceEqual(new[] { "p" }));
         }
-
-        [Test]
-        public void DictTest1Element()
-        {
-            var d = Dict(("key0", 0));
-            Assert.AreEqual(1, d.Count);
-            Assert.AreEqual(0, d["key0"]);
-        }
-
-        [Test]
-        public void DictTest3Elements()
-        {
-            var d = Dict(("key0", 0), ("key1", 1), ("key2", 2));
-            Assert.AreEqual(3, d.Count);
-            Assert.AreEqual(0, d["key0"]);
-            Assert.AreEqual(1, d["key1"]);
-            Assert.AreEqual(2, d["key2"]);
-        }
     }
 }

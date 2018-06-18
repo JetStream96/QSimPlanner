@@ -112,7 +112,6 @@
     <Compile Include="LibraryExtension\Tasks\UtilTest.cs" />
     <Compile Include="LibraryExtension\TypesTest.cs" />
     <Compile Include="LibraryExtension\WebRequestsTest.cs" />
-    <Compile Include="LibraryExtension\XmlSerialization\SerializationHelperTest.cs" />
     <Compile Include="MathTools\AnglesTest.cs" />
     <Compile Include="MathTools\EarthGeometryTest.cs" />
     <Compile Include="MathTools\ModuloTest.cs" />
