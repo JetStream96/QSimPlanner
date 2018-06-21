@@ -58,6 +58,7 @@
             this.PathTextBox.Location = new System.Drawing.Point(370, 4);
             this.PathTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.PathTextBox.Name = "PathTextBox";
+            this.PathTextBox.ReadOnly = true;
             this.PathTextBox.Size = new System.Drawing.Size(346, 30);
             this.PathTextBox.TabIndex = 1;
             // 
