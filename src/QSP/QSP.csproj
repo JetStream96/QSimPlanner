@@ -163,6 +163,8 @@
     <Compile Include="FuelCalculation\Calculations\ICrzAltProvider.cs" />
     <Compile Include="FuelCalculation\Calculations\IPlanNode.cs" />
     <Compile Include="FuelCalculation\Calculations\NextPlanNodeParameter.cs" />
+    <Compile Include="LibraryExtension\XmlSerialization\KVPair.cs" />
+    <Compile Include="LibraryExtension\XmlSerialization\Util.cs" />
     <Compile Include="NavData\AAX\NavaidsLoader.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\ExportInput.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\FlightFactorA320Provider.cs" />

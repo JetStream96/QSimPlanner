@@ -1,5 +1,6 @@
 ﻿using QSP.LibraryExtension.Sets;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace QSP.LibraryExtension
 {
@@ -36,6 +37,20 @@ namespace QSP.LibraryExtension
         public static T[] Arr<T>(T x, params T[] xs)
         {
             return List(x, xs).ToArray();
+        }
+        
+        /// <summary>
+         /// Usage: Dict(("key0", 0), ("key1", 1), ("key2", 2)) => 
+         /// {
+         ///     "key0": 0,
+         ///     "key1": 1,
+         ///     "key2": 2,
+         /// }
+         /// </summary>
+        public static Dictionary<TKey, TValue> Dict<TKey, TValue>((TKey, TValue) x,
+            params (TKey, TValue)[] xs)
+        {
+            return List(x, xs).ToDictionary(y => y.Item1, y => y.Item2);
         }
     }
 }

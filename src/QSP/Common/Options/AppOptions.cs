@@ -20,6 +20,7 @@ namespace QSP.Common.Options
         public bool HideDctInRoute { get; private set; }
         public bool ShowTrackIdOnly { get; private set; }
         public bool AutoUpdate { get; private set; }
+        public IReadOnlyDictionary<string, string> SimulatorPaths { get; private set; }
         public IReadOnlyDictionary<string, ExportCommand> ExportCommands { get; private set; }
 
         public AppOptions(
@@ -31,6 +32,7 @@ namespace QSP.Common.Options
             bool HideDctInRoute,
             bool ShowTrackIdOnly,
             bool AutoUpdate,
+            IReadOnlyDictionary<string, string> SimulatorPaths,
             IReadOnlyDictionary<string, ExportCommand> ExportCommands)
         {
             this.NavDataLocation = NavDataLocation;
@@ -41,6 +43,7 @@ namespace QSP.Common.Options
             this.HideDctInRoute = HideDctInRoute;
             this.ShowTrackIdOnly = ShowTrackIdOnly;
             this.AutoUpdate = AutoUpdate;
+            this.SimulatorPaths = SimulatorPaths;
             this.ExportCommands = ExportCommands;
         }
 
@@ -53,6 +56,7 @@ namespace QSP.Common.Options
             false,
             false,
             true,
+            new Dictionary<string, string>(),
             new Dictionary<string, ExportCommand>());
 
         public class Serializer : IXSerializer<AppOptions>
