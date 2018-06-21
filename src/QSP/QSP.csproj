@@ -153,6 +153,7 @@
     <Compile Include="AviationTools\RwyIdentConversion.cs" />
     <Compile Include="AviationTools\SpeedConversion.cs" />
     <Compile Include="Common\Options\AppOptions.cs" />
+    <Compile Include="Common\Options\SimulatorType.cs" />
     <Compile Include="FuelCalculation\Calculations\CalculationUtil.cs" />
     <Compile Include="FuelCalculation\Calculations\ClimbNodesCreator.cs" />
     <Compile Include="FuelCalculation\Calculations\Corrections\FuelCorrection.cs" />

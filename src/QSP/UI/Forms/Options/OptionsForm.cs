@@ -139,7 +139,7 @@ namespace QSP.UI.Forms.Options
                 new RouteExportMatching("Fs9", ProviderType.Fs9, checkBox3, textBox3, button3),
                 new RouteExportMatching("PmdgCommon", ProviderType.Pmdg, checkBox4, textBox4, button4),
                 new RouteExportMatching("PmdgNGX", ProviderType.Pmdg, checkBox5, textBox5, button5),
-                new RouteExportMatching("Pmdg777", ProviderType.Pmdg, checkBox6, textBox6, button6)
+                new RouteExportMatching("Pmdg777", ProviderType.Pmdg, checkBox6, textBox8, button6)
             };
 
             exportController = new FlightPlanExportController(exports, appSettingsLocator);
@@ -278,7 +278,7 @@ namespace QSP.UI.Forms.Options
                 hideDctCheckBox.Checked,
                 showTrackIdOnlyCheckBox.Checked,
                 updateFreqComboBox.SelectedIndex == 0,
-                new Dictionary<string, string>(), // TODO:
+                new Dictionary<SimulatorType, string>(), // TODO:
                 exportController.GetCommands());
         }
 

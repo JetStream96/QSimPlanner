@@ -16,22 +16,24 @@ namespace UnitTest.Common.Options
             var command1 = new ExportCommand()
             {
                 ProviderType = ProviderType.Pmdg,
-                Directory = @"C:\1",
-                Enabled = true
+                CustomDirectory = @"C:\1",
+                Enabled = true,
+                DefaultSimulator = null
             };
 
             var command2 = new ExportCommand()
             {
                 ProviderType = ProviderType.Fsx,
-                Directory = @"D:\1",
-                Enabled = false
+                CustomDirectory = @"D:\1",
+                Enabled = false,
+                DefaultSimulator = null
             };
 
             var cmds = Dict(("PmdgNgx", command1), ("P3D", command2));
 
             var option = new AppOptions(
                 "C:\\123", true, true, false, false, true, false, true,
-               new Dictionary<string, string>(), // TODO:
+               new Dictionary<SimulatorType, string>(), // TODO:
                 cmds);
 
             var serializer = new AppOptions.Serializer();

@@ -78,13 +78,13 @@ namespace QSP.RouteFinding.FileExport
                 var mayBePermissionIssue = ex is UnauthorizedAccessException ||
                     ex is SecurityException;
 
-                return new Status(c.Directory, false, ex.Message, mayBePermissionIssue);
+                return new Status(c.CustomDirectory, false, ex.Message, mayBePermissionIssue);
             }
         }
 
         private static string GenerateFileName(string nameBase, ExportCommand c)
         {
-            return FileNameGenerator.Generate(c.Directory.RemoveIllegalPathChars(),
+            return FileNameGenerator.Generate(c.CustomDirectory.RemoveIllegalPathChars(),
                 nameBase, c.Extension, n => "_" + n.ToString(), 1);
         }
 
@@ -98,14 +98,14 @@ namespace QSP.RouteFinding.FileExport
         {
             foreach (var i in commands)
             {
-                IgnoreException(() => Directory.CreateDirectory(i.Directory));
+                IgnoreException(() => Directory.CreateDirectory(i.CustomDirectory));
             }
         }
 
         private static string GetFileFullPath(string nameBase, ExportCommand cmd, int n)
         {
             var fileName = nameBase + n.ToString().PadLeft(2, '0') + cmd.Extension;
-            return Path.Combine(cmd.Directory.RemoveIllegalPathChars(),
+            return Path.Combine(cmd.CustomDirectory.RemoveIllegalPathChars(),
                 fileName.RemoveIllegalFileNameChars());
         }
 

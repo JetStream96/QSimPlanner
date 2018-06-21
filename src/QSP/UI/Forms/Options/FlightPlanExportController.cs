@@ -44,8 +44,9 @@ namespace QSP.UI.Forms.Options
                 i => new ExportCommand()
                 {
                     ProviderType = i.Type,
-                    Directory = i.TxtBox.Text,
+                    CustomDirectory = i.TxtBox.Text,
                     Enabled = i.CheckBox.Checked
+                    // TODO:
                 });
         }
 
@@ -58,7 +59,7 @@ namespace QSP.UI.Forms.Options
             {
                 if (AppOptions.ExportCommands.TryGetValue(i.Key, out var cmd))
                 {
-                    i.TxtBox.Text = cmd.Directory;
+                    i.TxtBox.Text = cmd.CustomDirectory;
                     i.CheckBox.Checked = cmd.Enabled;
                 }
             }
