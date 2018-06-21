@@ -34,12 +34,16 @@ namespace QSP
         internal static void Main(string[] args)
         {
 #if !DEBUG
-            // Only allows starting from launcher. Otherwise data loss might occur because of
-            // the updater.
+            // Only allows starting from launcher, because otherwise:
+            //   * if the current one is not the latest version, data loss might occur because of
+            //     the updater.
+            //   * the launcher start this program with admin permission. Without this
+            //     some issues may occur.
+
             try
             {
                 var latest = UsingLatestVersion();
-                if (!latest)
+                if (!latest || !Windows.IsAdministrator())
                 {
                     MsgBoxHelper.ShowError(null, "Please start QSimPlanner via Launcher.exe.");
                     return;
