@@ -6,21 +6,11 @@ namespace QSP.RouteFinding.FileExport
 {
     public class ExportCommand
     {
-        public ProviderType ProviderType { get; private set; }
-        public string Directory { get; private set; }
-        public string Extension { get; private set; } 
-        public bool Enabled { get; private set; }
+        public ProviderType ProviderType { get; set; }
+        public string Directory { get; set; }
+        public bool Enabled { get; set; }
 
-        public ExportCommand(
-            ProviderType ProviderType, 
-            string Directory,
-            bool Enabled)
-        {
-            this.ProviderType = ProviderType;
-            this.Directory = Directory;
-            this.Extension = Types.GetExtension(ProviderType);
-            this.Enabled = Enabled;
-        }
+        public string Extension => Types.GetExtension(ProviderType);
 
         public XElement Serialize(string name)
         {
@@ -36,17 +26,19 @@ namespace QSP.RouteFinding.FileExport
 
         public static ExportCommand Deserialize(XElement item)
         {
-            return new ExportCommand(
-                (ProviderType)item.GetInt("Type"),
-                item.GetString("Path"),
-                item.GetBool("Enabled"));
+            return new ExportCommand()
+            {
+
+                ProviderType = (ProviderType)item.GetInt("Type"),
+                Directory = item.GetString("Path"),
+                Enabled = item.GetBool("Enabled")
+            };
         }
 
         public bool Equals(ExportCommand other)
         {
             return ProviderType == other.ProviderType &&
                 Directory == other.Directory &&
-                Extension == other.Extension &&
                 Enabled == other.Enabled;
         }
     }

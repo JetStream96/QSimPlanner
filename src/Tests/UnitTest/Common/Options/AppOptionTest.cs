@@ -13,8 +13,19 @@ namespace UnitTest.Common.Options
         [Test]
         public void SerializationTest()
         {
-            var command1 = new ExportCommand(ProviderType.Pmdg, @"C:\1", true);
-            var command2 = new ExportCommand(ProviderType.Fsx, @"D:\1", false);
+            var command1 = new ExportCommand()
+            {
+                ProviderType = ProviderType.Pmdg,
+                Directory = @"C:\1",
+                Enabled = true
+            };
+
+            var command2 = new ExportCommand()
+            {
+                ProviderType = ProviderType.Fsx,
+                Directory = @"D:\1",
+                Enabled = false
+            };
 
             var cmds = Dict(("PmdgNgx", command1), ("P3D", command2));
 
