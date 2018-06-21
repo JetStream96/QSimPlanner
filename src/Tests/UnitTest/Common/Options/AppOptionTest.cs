@@ -3,6 +3,7 @@ using QSP.Common.Options;
 using QSP.RouteFinding.FileExport;
 using QSP.RouteFinding.FileExport.Providers;
 using System.Collections.Generic;
+using static QSP.LibraryExtension.Types;
 
 namespace UnitTest.Common.Options
 {
@@ -15,14 +16,12 @@ namespace UnitTest.Common.Options
             var command1 = new ExportCommand(ProviderType.Pmdg, @"C:\1", true);
             var command2 = new ExportCommand(ProviderType.Fsx, @"D:\1", false);
 
-            var cmds = new Dictionary<string, ExportCommand>()
-            {
-                ["PmdgNgx"] = command1,
-                ["P3D"] = command2
-            };
+            var cmds = Dict(("PmdgNgx", command1), ("P3D", command2));
 
             var option = new AppOptions(
-                "C:\\123", true, true, false, false, true, false, true, cmds);
+                "C:\\123", true, true, false, false, true, false, true,
+               new Dictionary<string, string>(), // TODO:
+                cmds);
 
             var serializer = new AppOptions.Serializer();
             var elem = serializer.Serialize(option, "options");
