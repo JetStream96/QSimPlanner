@@ -22,7 +22,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.UI.Util.MsgBoxHelper;
 using static QSP.Utilities.LoggerInstance;
+using static QSP.LibraryExtension.Types;
+using QSP.RouteFinding.FileExport;
 
+// TODO: Add auto sim path loading.
 namespace QSP.UI.Forms.Options
 {
     public partial class OptionsForm : Form
@@ -32,7 +35,6 @@ namespace QSP.UI.Forms.Options
         private Updater updater;
         private TracksControl tracksControl;
         private AirwayNetwork airwayNetwork;
-        private FlightPlanExportController exportController;
         private Panel popUpPanel;
 
         public event EventHandler NavDataLocationChanged;
@@ -57,8 +59,8 @@ namespace QSP.UI.Forms.Options
             this.appSettingsLocator = appSettingsLocator;
             this.updater = updater;
 
-            InitExports();
             SetDefaultState();
+            simulatorPathsMenu.Init();
             SetControlsAsInOptions();
             FormClosing += CurrentFormClosing;
 
@@ -121,29 +123,12 @@ namespace QSP.UI.Forms.Options
             hideDctCheckBox.Checked = AppSettings.HideDctInRoute;
             showTrackIdOnlyCheckBox.Checked = AppSettings.ShowTrackIdOnly;
             updateFreqComboBox.SelectedIndex = AppSettings.AutoUpdate ? 0 : 1;
-            exportController.SetExports();
         }
 
         public void DetectAndSetAiracFolder()
         {
             var findResult = NavDataPath.DetectNavDataPath();
             if (findResult != null) pathTxtBox.Text = findResult.Directory;
-        }
-
-        private void InitExports()
-        {
-            var exports = new[]
-            {
-                new RouteExportMatching("Fsx", ProviderType.Fsx, checkBox1, textBox1, button1),
-                new RouteExportMatching("P3d", ProviderType.Fsx, checkBox2, textBox2, button2),
-                new RouteExportMatching("Fs9", ProviderType.Fs9, checkBox3, textBox3, button3),
-                new RouteExportMatching("PmdgCommon", ProviderType.Pmdg, checkBox4, textBox4, button4),
-                new RouteExportMatching("PmdgNGX", ProviderType.Pmdg, checkBox5, textBox5, button5),
-                new RouteExportMatching("Pmdg777", ProviderType.Pmdg, checkBox6, textBox8, button6)
-            };
-
-            exportController = new FlightPlanExportController(exports, appSettingsLocator);
-            exportController.Init();
         }
 
         private async void SaveBtnClick(object sender, EventArgs e)
@@ -253,20 +238,18 @@ namespace QSP.UI.Forms.Options
         {
             var newSetting = ValidateSetting();
 
-            if (OptionManager.TrySaveFile(newSetting))
-            {
-                var oldSetting = appSettingsLocator.Instance;
-                appSettingsLocator.Instance = newSetting;
-
-                return true;
-            }
-            else
+            if (!OptionManager.TrySaveFile(newSetting))
             {
                 this.ShowError("Failed to save options.");
                 return false;
             }
+
+            var oldSetting = appSettingsLocator.Instance;
+            appSettingsLocator.Instance = newSetting;
+            return true;
         }
 
+        // Returns null if some options are invalid.
         private AppOptions ValidateSetting()
         {
             return new AppOptions(
@@ -278,8 +261,8 @@ namespace QSP.UI.Forms.Options
                 hideDctCheckBox.Checked,
                 showTrackIdOnlyCheckBox.Checked,
                 updateFreqComboBox.SelectedIndex == 0,
-                new Dictionary<SimulatorType, string>(), // TODO:
-                exportController.GetCommands());
+                simulatorPathsMenu.GetSimulatorPaths(),
+                new Dictionary<string, ExportCommand>()); //TODO:
         }
 
         private void CancelBtnClick(object sender, EventArgs e)
@@ -394,11 +377,8 @@ namespace QSP.UI.Forms.Options
         }
 
         private static string LblTxt =>
-            "If you are using Aerosoft's NavDataPro:\n" +
-            "    you can update with Aerosoft's program since QSimPlanner is supported.\n" +
-            "If you are using Navigraph:\n" +
-            "    install the NavData version for Aerosoft Airbus A318/A319/A320/A321\n" +
-            "    and select the folder which contains Airports.txt.";
+            "The NavData can be updated using NavDataPro or Navigraph. \n" +
+            "QSimPlanner is supported by both of them.";
 
         private void UpdateBtnClick(object sender, EventArgs e)
         {
