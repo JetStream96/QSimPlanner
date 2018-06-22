@@ -9,6 +9,6 @@
         P3Dv2 = 4,
         P3Dv3 = 5,
         P3Dv4 = 6,
-        Xplane10 = 7
+        Xplane11 = 7
     }
 }

@@ -1,6 +1,9 @@
-﻿using QSP.Utilities;
+﻿using QSP.RouteFinding.FileExport.Providers;
+using QSP.Utilities;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace QSP.Common.Options
@@ -8,7 +11,7 @@ namespace QSP.Common.Options
     public static class OptionManager
     {
         public const string DefaultPath = @"Preference\options.xml";
-        
+
         /// <summary>
         /// If the file does not exist, create one.
         /// Then read the file into an AppOptions instance.
@@ -58,6 +61,26 @@ namespace QSP.Common.Options
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Replace the invalid simulator paths in currentOption with automatically
+        /// detected path if possible. Then try to save the file. If successful, 
+        /// returns the new AppOption. Otherwise, returns the old one.
+        /// </summary>
+        public static AppOptions TryDetectSimulatorPathsAndSave(AppOptions currentOption)
+        {
+            var sims = currentOption.SimulatorPaths.ToDictionary(x => x.Key, x => x.Value);
+
+            foreach (var sim in sims.Keys)
+            {
+                if (Directory.Exists(sims[sim])) continue;
+                var path = Types.GetSimulatorPath(sim);
+                sims[sim] = path;
+            }
+
+            throw new NotImplementedException();
+            //TODO
         }
     }
 }

@@ -21,7 +21,7 @@ namespace QSP.UI.Forms.Options
                 (SimulatorType.P3Dv2, textBox5, button5),
                 (SimulatorType.P3Dv3, textBox6, button6),
                 (SimulatorType.P3Dv4, textBox7, button7),
-                (SimulatorType.Xplane10, textBox8, button8)
+                (SimulatorType.Xplane11, textBox8, button8)
             );
 
         public SimulatorPathsMenu()

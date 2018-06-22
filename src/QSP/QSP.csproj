@@ -164,6 +164,7 @@
     <Compile Include="FuelCalculation\Calculations\ICrzAltProvider.cs" />
     <Compile Include="FuelCalculation\Calculations\IPlanNode.cs" />
     <Compile Include="FuelCalculation\Calculations\NextPlanNodeParameter.cs" />
+    <Compile Include="LibraryExtension\ControlFlow.cs" />
     <Compile Include="LibraryExtension\Windows.cs" />
     <Compile Include="LibraryExtension\XmlSerialization\KVPair.cs" />
     <Compile Include="LibraryExtension\XmlSerialization\Util.cs" />

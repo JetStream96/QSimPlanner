@@ -197,9 +197,11 @@ namespace QSP.UI.Forms
             try
             {
                 // Load options.
+                var o = OptionManager.ReadOrCreateFile();
+
                 appOptionsLocator = new Locator<AppOptions>()
                 {
-                    Instance = OptionManager.ReadOrCreateFile()
+                    Instance = OptionManager.TryDetectSimulatorPathsAndSave(o)
                 };
             }
             catch (Exception ex)
