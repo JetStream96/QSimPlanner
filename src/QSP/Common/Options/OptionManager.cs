@@ -76,7 +76,7 @@ namespace QSP.Common.Options
             {
                 if (Directory.Exists(sims[sim])) continue;
                 var path = Types.GetSimulatorPath(sim);
-                sims[sim] = path;
+                if (path != null) sims[sim] = path;
             }
 
             throw new NotImplementedException();

@@ -1,11 +1,11 @@
 ﻿using QSP.Common.Options;
+using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Routes;
+using QSP.Utilities;
 using System;
 using System.Collections.Generic;
 using static QSP.LibraryExtension.Types;
-using QSP.LibraryExtension;
-using QSP.Utilities;
 
 namespace QSP.RouteFinding.FileExport.Providers
 {
@@ -102,8 +102,10 @@ namespace QSP.RouteFinding.FileExport.Providers
         /// </summary>
         public static string GetSimulatorPath(SimulatorType t)
         {
-            return t.MatchCase
+            return t.MatchCaseDefault
             (
+                null,
+
                 (SimulatorType.FSX, SimulatorPath.FsxPath()),
                 (SimulatorType.FSX_Steam, SimulatorPath.FsxSteamPath()),
                 // Ignore FS9
