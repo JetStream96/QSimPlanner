@@ -1,11 +1,38 @@
 ﻿using Microsoft.Win32;
 using QSP.LibraryExtension;
+using System;
+using System.IO;
 
 namespace QSP.Utilities
 {
+    /// <summary>
+    /// All methods in this class returns null if the registry cannot be found.
+    /// </summary>
     public static class SimulatorPath
     {
-        // All methods in this class returns null if the registry cannot be found.
+        public static string Xplane11Path()
+        {
+            try
+            {
+                var appData = Environment.GetFolderPath(
+                    Environment.SpecialFolder.LocalApplicationData);
+                var file = Path.Combine(appData, "x-plane_install_11.txt");
+                var lines = File.ReadAllLines(file);
+
+                foreach (var x in lines)
+                {
+                    try
+                    {
+                        var exePath = Path.Combine(x, "X-Plane.exe");
+                        if (File.Exists(exePath)) return exePath;
+                    }
+                    catch { }
+                }
+            }
+            catch { }
+
+            return null;
+        }
 
         public static string FsxPath()
         {
