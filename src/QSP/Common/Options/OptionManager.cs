@@ -8,11 +8,13 @@ namespace QSP.Common.Options
     public static class OptionManager
     {
         public const string DefaultPath = @"Preference\options.xml";
-
-        // @Throws
-        // If the file does not exist, create one.
-        // Then read the file into an AppOptions instance.
-        // Return value is never null.
+        
+        /// <summary>
+        /// If the file does not exist, create one.
+        /// Then read the file into an AppOptions instance.
+        /// Return value is never null.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public static AppOptions ReadOrCreateFile()
         {
             try
@@ -45,8 +47,7 @@ namespace QSP.Common.Options
         /// <summary>
         /// Returns whether file was successfully saved.
         /// </summary>
-        public static bool TrySaveFile(
-            AppOptions settings, string filePath = DefaultPath)
+        public static bool TrySaveFile(AppOptions settings, string filePath = DefaultPath)
         {
             try
             {

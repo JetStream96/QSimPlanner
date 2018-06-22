@@ -2,6 +2,7 @@
 using QSP.Common.Options;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using static QSP.LibraryExtension.Types;
@@ -46,7 +47,8 @@ namespace QSP.UI.Forms.Options
                 {
                     using (var dialog = new FolderSelectDialog())
                     {
-                        dialog.InitialDirectory = textbox.Text; // TODO: Does this work if path is invalid?
+                        var dir = textbox.Text;
+                        if (Directory.Exists(dir)) dialog.InitialDirectory = dir;
 
                         if (dialog.ShowDialog())
                         {
