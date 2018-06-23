@@ -9,6 +9,7 @@ using QSP.RouteFinding.Tracks;
 using QSP.UI.Models.FuelPlan;
 using QSP.UI.Models.FuelPlan.Routes;
 using QSP.UI.Presenters.FuelPlan.Routes;
+using QSP.UI.UserControls;
 using QSP.UI.Views.FuelPlan;
 using QSP.UI.Views.FuelPlan.Routes;
 using QSP.WindAloft;
@@ -52,7 +53,8 @@ namespace QSP.UI.Presenters.FuelPlan
             AirwayNetwork airwayNetwork,
             ISelectedProcedureProvider destController,
             Locator<CountryCodeCollection> checkedCodesLocator,
-            Func<AvgWindCalculator> windCalcGetter)
+            Func<AvgWindCalculator> windCalcGetter,
+            ExportMenu exportMenu)
         {
             this.View = view;
 
@@ -63,7 +65,8 @@ namespace QSP.UI.Presenters.FuelPlan
                 destController,
                 view,
                 checkedCodesLocator,
-                windCalcGetter);
+                windCalcGetter,
+                exportMenu);
 
             this.appOptions = appOptionsLocator;
             this.airwayNetwork = airwayNetwork;

@@ -45,8 +45,8 @@ namespace QSP.UI.Views.FuelPlan
         public event EventHandler DestIcaoChanged;
 
         private FuelPlanningModel model;
-
         private RouteFinderControl advancedRouteTool;
+        private ExportMenu exportMenu;
 
         public IRouteFinderView RouteFinderView => routeFinderControl;
 
@@ -106,12 +106,15 @@ namespace QSP.UI.Views.FuelPlan
                 WindCalc = () => model.GetWindCalculator(this)
             };
 
-            routeFinderControl.Init(routeFinderModel, ParentForm);
+            exportMenu = new ExportMenu();
+            exportMenu.Init(model.AppOption);
+
+            routeFinderControl.Init(routeFinderModel, ParentForm, exportMenu);
 
             AltnPresenter = new AlternatePresenter(
                 alternateControl, model.AppOption, model.AirwayNetwork, model.WindTables,
                 routeFinderControl.DestSidProvider, GetFuelData, GetZfwTon,
-                () => OrigIcao, () => DestIcao);
+                () => OrigIcao, () => DestIcao, exportMenu);
             alternateControl.Init(AltnPresenter);
 
             SetWeightController();
@@ -121,7 +124,7 @@ namespace QSP.UI.Views.FuelPlan
             SubscribeEventHandlers();
 
             advancedRouteTool = new RouteFinderControl();
-            advancedRouteTool.Init(routeFinderModel, ParentForm);
+            advancedRouteTool.Init(routeFinderModel, ParentForm, exportMenu);
 
             if (acListComboBox.Items.Count > 0) acListComboBox.SelectedIndex = 0;
 

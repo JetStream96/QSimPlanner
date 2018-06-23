@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using QSP.UI.Models.FuelPlan;
+using QSP.UI.UserControls;
 
 namespace QSP.UI.Presenters.FuelPlan.Routes
 {
@@ -18,13 +19,16 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
     {
         private IRouteFinderView view;
         private RouteFinderModel model;
+        private ExportMenu exportMenu;
 
         public RouteGroup Route { get; private set; }
 
-        public RouteFinderPresenter(IRouteFinderView view, RouteFinderModel model)
+        public RouteFinderPresenter(IRouteFinderView view, RouteFinderModel model,
+            ExportMenu exportMenu)
         {
             this.view = view;
             this.model = model;
+            this.exportMenu = exportMenu;
         }
 
         /// <summary>
@@ -182,7 +186,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             var o = model.FuelPlanningModel.AppOption.Instance;
             var airportList = model.FuelPlanningModel.AirwayNetwork.AirportList;
             var cmds = o.ExportCommands;
-            ActionContextMenuHelper.ExportRouteFiles(view, Route, cmds, airportList);
+            ActionContextMenuHelper.ExportRouteFiles(view, Route, cmds, airportList, exportMenu);
         }
 
         public void AnalyzeRoute()

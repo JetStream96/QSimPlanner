@@ -165,6 +165,7 @@
     <Compile Include="FuelCalculation\Calculations\IPlanNode.cs" />
     <Compile Include="FuelCalculation\Calculations\NextPlanNodeParameter.cs" />
     <Compile Include="LibraryExtension\ControlFlow.cs" />
+    <Compile Include="LibraryExtension\IDictionary.cs" />
     <Compile Include="LibraryExtension\Windows.cs" />
     <Compile Include="LibraryExtension\XmlSerialization\Util.cs" />
     <Compile Include="NavData\AAX\NavaidsLoader.cs" />

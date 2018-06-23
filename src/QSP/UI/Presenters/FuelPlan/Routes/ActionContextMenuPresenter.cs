@@ -8,6 +8,7 @@ using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.Models.FuelPlan;
 using QSP.UI.Models.FuelPlan.Routes;
+using QSP.UI.UserControls;
 using QSP.UI.Views;
 using QSP.UI.Views.FuelPlan.Routes.Actions;
 using QSP.WindAloft;
@@ -25,6 +26,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
         private ISelectedProcedureProvider destProvider;
         private Locator<CountryCodeCollection> checkedCodesLocator;
         private Func<AvgWindCalculator> windCalcGetter;
+        private ExportMenu exportMenu;
 
         public string DestIcao => destProvider.Icao;
         private AppOptions AppOptions => appOptionsLocator.Instance;
@@ -39,7 +41,8 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             ISelectedProcedureProvider origProvider,
             ISelectedProcedureProvider destProvider,
             Locator<CountryCodeCollection> checkedCodesLocator,
-            Func<AvgWindCalculator> windCalcGetter)
+            Func<AvgWindCalculator> windCalcGetter,
+            ExportMenu exportMenu)
         {
             this.view = view;
             this.appOptionsLocator = appOptionsLocator;
@@ -48,6 +51,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             this.destProvider = destProvider;
             this.checkedCodesLocator = checkedCodesLocator;
             this.windCalcGetter = windCalcGetter;
+            this.exportMenu = exportMenu;
         }
 
         public void FindRoute()
@@ -107,7 +111,8 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
                 view,
                 Route,
                 AppOptions.ExportCommands,
-                AirportList);
+                AirportList,
+                exportMenu);
         }
 
         public void AnalyzeRoute()

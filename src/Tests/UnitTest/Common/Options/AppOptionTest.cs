@@ -1,9 +1,12 @@
 ﻿using NUnit.Framework;
 using QSP.Common.Options;
+using QSP.LibraryExtension;
 using QSP.LibraryExtension.Sets;
 using QSP.RouteFinding.FileExport;
 using QSP.RouteFinding.FileExport.Providers;
+using System.Linq;
 using static QSP.LibraryExtension.Types;
+using static QSP.RouteFinding.FileExport.Providers.Types;
 
 namespace UnitTest.Common.Options
 {
@@ -39,11 +42,12 @@ namespace UnitTest.Common.Options
             Assert.AreEqual(o.HideDctInRoute, d.HideDctInRoute);
             Assert.AreEqual(o.ShowTrackIdOnly, d.ShowTrackIdOnly);
             Assert.AreEqual(o.AutoUpdate, d.AutoUpdate);
-            Assert.AreEqual(cmds.Count, d.ExportCommands.Count);
 
+            Assert.AreEqual(Enums.GetValues<SimulatorType>().Count(), d.SimulatorPaths.Count);
             Assert.AreEqual(@"C:\FSX", d.SimulatorPaths[SimulatorType.FSX_Steam]);
             Assert.AreEqual(@"C:\Xplane11", d.SimulatorPaths[SimulatorType.Xplane11]);
 
+            Assert.AreEqual(DefaultExportCommands().Count, d.ExportCommands.Count);
             Assert.IsTrue(d.ExportCommands.Contains(command1));
             Assert.IsTrue(d.ExportCommands.Contains(command2));
         }

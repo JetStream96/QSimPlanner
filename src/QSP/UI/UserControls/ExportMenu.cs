@@ -1,10 +1,14 @@
-﻿using System;
+﻿using QSP.Common.Options;
+using QSP.LibraryExtension;
+using System;
 using System.Windows.Forms;
 
 namespace QSP.UI.UserControls
 {
     public partial class ExportMenu : UserControl
     {
+        private Locator<AppOptions> appOption;
+
         public ExportMenu()
         {
             InitializeComponent();
@@ -20,9 +24,23 @@ namespace QSP.UI.UserControls
 
         }
 
-        public void Init()
+        public void Init(Locator<AppOptions> appOption)
         {
-            
+            this.appOption = appOption;
+
+            SetLayoutPanel();
+        }
+
+        private void SetLayoutPanel()
+        {
+            var commands = appOption.Instance.ExportCommands;
+            var panel = formatTableLayoutPanel;
+
+            while (panel.RowCount < commands.Count)
+            {
+                panel.RowCount++;
+                panel.Controls.Add(new ExportMenuRow(), 0, panel.RowCount - 1);
+            }
         }
     }
 }

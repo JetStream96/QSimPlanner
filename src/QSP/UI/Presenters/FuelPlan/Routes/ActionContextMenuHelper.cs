@@ -3,12 +3,15 @@ using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.FileExport;
 using QSP.RouteFinding.Routes;
 using QSP.UI.Models.FuelPlan;
+using QSP.UI.UserControls;
 using QSP.UI.Views;
 using QSP.UI.Views.FuelPlan.Routes.Actions;
-using System;
+using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
+using static QSP.UI.Views.Factories.FormFactory;
 
 namespace QSP.UI.Presenters.FuelPlan.Routes
 {
@@ -86,7 +89,8 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             IMessageDisplay view,
             RouteGroup Route,
             IEnumerable<ExportCommand> cmds,
-            AirportManager airportList)
+            AirportManager airportList,
+            ExportMenu menu)
         {
             if (Route == null)
             {
@@ -94,6 +98,17 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
                 return;
             }
 
+            // TODO:
+            using (var frm = GetForm(menu.Size))
+            {
+                menu.Location = new Point(0, 0);
+                frm.Controls.Add(menu);
+                frm.ShowDialog();
+            }
+            
+            
+
+            /*
             var writer = new FileExporter(Route.Expanded, airportList, cmds);
             IEnumerable<FileExporter.Status> reports = null;
 
@@ -108,6 +123,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             }
 
             ShowReports(view, reports.ToList());
+            */
         }
 
         public static void ShowRouteTxt(this ISupportActionContextMenu view,

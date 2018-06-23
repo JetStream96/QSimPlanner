@@ -1,6 +1,7 @@
 ﻿using QSP.RouteFinding.Routes;
 using QSP.UI.Models.FuelPlan.Routes;
 using QSP.UI.Presenters.FuelPlan.Routes;
+using QSP.UI.UserControls;
 using QSP.UI.Util;
 using QSP.UI.Views.FuelPlan.Routes.Actions;
 using System;
@@ -50,11 +51,11 @@ namespace QSP.UI.Views.FuelPlan.Routes
         /// </summary>
         public Form MainForm { get; private set; }
 
-        public void Init(RouteFinderModel model, Form MainForm)
+        public void Init(RouteFinderModel model, Form MainForm, ExportMenu exportMenu)
         {
             this.model = model;
             this.MainForm = MainForm;
-            this.presenter = new RouteFinderPresenter(this, model);
+            this.presenter = new RouteFinderPresenter(this, model, exportMenu);
 
             InitOrigDestControls();
             SetRouteActionMenu();

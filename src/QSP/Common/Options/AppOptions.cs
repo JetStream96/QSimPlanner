@@ -1,3 +1,4 @@
+using QSP.LibraryExtension;
 using QSP.LibraryExtension.Sets;
 using QSP.LibraryExtension.XmlSerialization;
 using QSP.RouteFinding.FileExport;
@@ -7,8 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using static QSP.LibraryExtension.XmlSerialization.SerializationHelper;
+using static QSP.RouteFinding.FileExport.Providers.Types;
 using static QSP.Utilities.ExceptionHelpers;
-using QSP.LibraryExtension;
 
 namespace QSP.Common.Options
 {
@@ -58,8 +59,8 @@ namespace QSP.Common.Options
             false,
             false,
             true,
-            new Dictionary<SimulatorType, string>(),
-            new ReadOnlySet<ExportCommand>());
+            Enums.GetValues<SimulatorType>().ToDictionary(t => t, t => ""),
+            DefaultExportCommands());
 
         public class Serializer : IXSerializer<AppOptions>
         {
@@ -100,15 +101,27 @@ namespace QSP.Common.Options
                     () => d.ShowTrackIdOnly = item.GetBool("ShowTrackIdOnly"),
                     () => d.AutoUpdate = item.GetBool("AutoUpdate"),
 
-                    () => d.SimulatorPaths = item.Element("SimulatorPaths")
-                            .Elements("e")
-                            .ToDictionary(e => (SimulatorType)e.GetInt("type"),
-                                          e => e.GetString("path")),
+                    () =>
+                    {
+                        var dict = item.Element("SimulatorPaths")
+                                       .Elements("e")
+                                       .ToDictionary(e => (SimulatorType)e.GetInt("type"),
+                                                     e => e.GetString("path"));
 
-                    () => d.ExportCommands = item.Element("ExportOptions")
-                            .Elements("e")
-                            .Select(ExportCommand.Deserialize)
-                            .ToReadOnlySet()
+                        d.SimulatorPaths = d.SimulatorPaths.Update(dict);
+                    },
+
+                    () =>
+                    {
+                        var dict = item.Element("ExportOptions")
+                                      .Elements("e")
+                                      .Select(ExportCommand.Deserialize)
+                                      .ToDictionary(x => x.ProviderType, x => x);
+
+                        var old = d.ExportCommands.ToDictionary(x => x.ProviderType, x => x);
+
+                        d.ExportCommands = old.Update(dict).Select(kv => kv.Value).ToReadOnlySet();
+                    }
                 };
 
                 foreach (var a in actions)

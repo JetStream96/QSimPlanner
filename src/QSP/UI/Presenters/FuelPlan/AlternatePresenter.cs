@@ -6,6 +6,7 @@ using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.Models.FuelPlan;
 using QSP.UI.Models.FuelPlan.Routes;
+using QSP.UI.UserControls;
 using QSP.UI.Views.FuelPlan;
 using QSP.WindAloft;
 using System;
@@ -27,6 +28,7 @@ namespace QSP.UI.Presenters.FuelPlan
         private Func<double> zfwTon;
         private Func<string> orig;
         private Func<string> dest;
+        private ExportMenu exportMenu;
 
         private Func<AvgWindCalculator> windCalcGetter;
 
@@ -56,7 +58,8 @@ namespace QSP.UI.Presenters.FuelPlan
             Func<FuelDataItem> fuelData,
             Func<double> zfwTon,
             Func<string> orig,
-            Func<string> dest)
+            Func<string> dest,
+            ExportMenu exportMenu)
         {
             this.view = view;
             this.appOptionsLocator = appOptionsLocator;
@@ -67,6 +70,7 @@ namespace QSP.UI.Presenters.FuelPlan
             this.zfwTon = zfwTon;
             this.orig = orig;
             this.dest = dest;
+            this.exportMenu = exportMenu;
             
             windCalcGetter = () => AvgWindCalculatorExtension.GetWindCalculator(
                 AppOptions, windTableLocator, airwayNetwork.AirportList,
@@ -81,7 +85,8 @@ namespace QSP.UI.Presenters.FuelPlan
                 airwayNetwork,
                 destSidProvider,
                 new CountryCodeCollection().ToLocator(),
-                windCalcGetter);
+                windCalcGetter,
+                exportMenu);
         }
 
         public void SubsribeRowEventHandlers(IAlternateRowView row)

@@ -1,10 +1,12 @@
 ﻿using QSP.Common.Options;
 using QSP.LibraryExtension;
+using QSP.LibraryExtension.Sets;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Routes;
 using QSP.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using static QSP.LibraryExtension.Types;
 
 namespace QSP.RouteFinding.FileExport.Providers
@@ -96,6 +98,16 @@ namespace QSP.RouteFinding.FileExport.Providers
                        Arr(SimulatorType.FSX_Steam)))
         );
 
+        public static IReadOnlySet<ExportCommand> DefaultExportCommands()
+        {
+            return lookup.Select(kv =>
+            {
+                var sim = kv.Value.SupportedSims.ToList();
+                var defaultSim = (sim.Count > 0) ? (SimulatorType?)sim[0] : null;
+                return new ExportCommand(kv.Key, "", false, defaultSim);
+            }).ToReadOnlySet();
+        }
+        
         /// <summary>
         /// Returns the detected the simulator path. If it is not found or an
         /// error occurred, returns null.
