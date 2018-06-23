@@ -181,7 +181,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
 
             var o = model.FuelPlanningModel.AppOption.Instance;
             var airportList = model.FuelPlanningModel.AirwayNetwork.AirportList;
-            var cmds = o.ExportCommands.Values;
+            var cmds = o.ExportCommands;
             ActionContextMenuHelper.ExportRouteFiles(view, Route, cmds, airportList);
         }
 

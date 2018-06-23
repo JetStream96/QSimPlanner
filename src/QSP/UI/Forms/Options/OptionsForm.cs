@@ -24,6 +24,7 @@ using static QSP.UI.Util.MsgBoxHelper;
 using static QSP.Utilities.LoggerInstance;
 using static QSP.LibraryExtension.Types;
 using QSP.RouteFinding.FileExport;
+using QSP.LibraryExtension.Sets;
 
 // TODO: Add auto sim path loading.
 namespace QSP.UI.Forms.Options
@@ -262,7 +263,7 @@ namespace QSP.UI.Forms.Options
                 showTrackIdOnlyCheckBox.Checked,
                 updateFreqComboBox.SelectedIndex == 0,
                 simulatorPathsMenu.GetSimulatorPaths(),
-                new Dictionary<string, ExportCommand>()); //TODO:
+                new ReadOnlySet<ExportCommand>()); //TODO:
         }
 
         private void CancelBtnClick(object sender, EventArgs e)

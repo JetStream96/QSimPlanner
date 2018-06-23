@@ -1,7 +1,6 @@
 ﻿using QSP.RouteFinding.FileExport.Providers;
 using QSP.Utilities;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
@@ -79,8 +78,12 @@ namespace QSP.Common.Options
                 if (path != null) sims[sim] = path;
             }
 
-            throw new NotImplementedException();
-            //TODO
+            var c = currentOption;
+            var newOption = new AppOptions(c.NavDataLocation, c.PromptBeforeExit,
+                c.AutoDLTracks, c.AutoDLWind, c.EnableWindOptimizedRoute, c.HideDctInRoute,
+                c.ShowTrackIdOnly, c.AutoUpdate, sims, c.ExportCommands);
+
+            return TrySaveFile(newOption) ? newOption : currentOption;
         }
     }
 }

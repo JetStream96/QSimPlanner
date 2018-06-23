@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 
 namespace QSP.LibraryExtension.XmlSerialization
 {
@@ -27,46 +25,33 @@ namespace QSP.LibraryExtension.XmlSerialization
             return new XElement(key, value.ToString());
         }
 
-        /// <summary>
-        /// Serialize ['a', 'b', 'c'] to:
-        ///     <key>
-        ///         <e>a</e>
-        ///         <e>b</e>
-        ///         <e>c</e>
-        ///     </key>
-        /// </summary>
-        public static XElement Serialize(this IEnumerable<string> val, string key)
-        {
-            return new XElement(key, val.Select(x => new XElement("e", x)));
-        }
-
-        /// <summary>
-        /// Serialize {'a':'1', 'b':'2'} to:
-        ///     <key>
-        ///         <a>1</a>
-        ///         <b>2</b>
-        ///     </key>
-        /// </summary>
-        public static XElement Serialize(this IDictionary<string, string> dict, string key)
-        {
-            return new XElement(key, dict.Select(kv => new XElement(kv.Key, kv.Value)));
-        }
-
         public static string GetString(this XElement elem, string key)
         {
             return elem.Element(key).Value;
         }
 
+        /// <summary>
+        /// Get the value corresponding to the key, and then parse to a bool.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public static bool GetBool(this XElement elem, string key)
         {
             return bool.Parse(elem.GetString(key));
         }
 
+        /// <summary>
+        /// Get the value corresponding to the key, and then parse to an int.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public static int GetInt(this XElement elem, string key)
         {
             return int.Parse(elem.GetString(key));
         }
 
+        /// <summary>
+        /// Get the value corresponding to the key, and then parse to a double.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public static double GetDouble(this XElement elem, string key)
         {
             return double.Parse(elem.GetString(key));
@@ -77,19 +62,13 @@ namespace QSP.LibraryExtension.XmlSerialization
             return e.Attribute(key).Value;
         }
 
+        /// <summary>
+        /// Get the attribute corresponding to the key, and then parse to a double.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public static double GetAttributeDouble(this XElement e, string key)
         {
             return double.Parse(e.GetAttributeString(key));
-        }
-
-        public static IEnumerable<string> GetArray(this XElement e, string key)
-        {
-            return e.Element(key).Elements("e").Select(x => x.Value);
-        }
-
-        public static Dictionary<string, string> GetDict(this XElement e, string key)
-        {
-            return e.Element(key).Elements().ToDictionary(x => x.Name.LocalName, x => x.Value);
-        }
+        }        
     }
 }

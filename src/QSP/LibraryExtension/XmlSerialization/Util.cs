@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -23,17 +21,6 @@ namespace QSP.LibraryExtension.XmlSerialization
                 var serializer = new XmlSerializer(typeof(T));
                 return (T)serializer.Deserialize(reader);
             }
-        }
-
-        public static KVPair<K, V>[] ToKVPairs<K, V>(this IReadOnlyDictionary<K, V> d)
-        {
-            return d.Select(kv => new KVPair<K, V>() { Key = kv.Key, Value = kv.Value })
-                    .ToArray();
-        }
-
-        public static Dictionary<K, V> ToDictionary<K, V>(this IEnumerable<KVPair<K, V>> x)
-        {
-            return x.ToDictionary(kv => kv.Key, kv => kv.Value);
         }
     }
 }

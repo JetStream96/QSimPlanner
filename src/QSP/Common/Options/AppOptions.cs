@@ -1,5 +1,7 @@
+using QSP.LibraryExtension.Sets;
 using QSP.LibraryExtension.XmlSerialization;
 using QSP.RouteFinding.FileExport;
+using QSP.RouteFinding.FileExport.Providers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,6 +9,7 @@ using System.Linq;
 using System.Xml.Linq;
 using static QSP.LibraryExtension.XmlSerialization.SerializationHelper;
 using static QSP.Utilities.ExceptionHelpers;
+using QSP.LibraryExtension;
 
 namespace QSP.Common.Options
 {
@@ -21,7 +24,7 @@ namespace QSP.Common.Options
         public bool ShowTrackIdOnly { get; private set; }
         public bool AutoUpdate { get; private set; }
         public IReadOnlyDictionary<SimulatorType, string> SimulatorPaths { get; private set; }
-        public IReadOnlyDictionary<string, ExportCommand> ExportCommands { get; private set; }
+        public IReadOnlySet<ExportCommand> ExportCommands { get; private set; }
 
         public AppOptions(
             string NavDataLocation,
@@ -33,7 +36,7 @@ namespace QSP.Common.Options
             bool ShowTrackIdOnly,
             bool AutoUpdate,
             IReadOnlyDictionary<SimulatorType, string> SimulatorPaths,
-            IReadOnlyDictionary<string, ExportCommand> ExportCommands)
+            IReadOnlySet<ExportCommand> ExportCommands)
         {
             this.NavDataLocation = NavDataLocation;
             this.PromptBeforeExit = PromptBeforeExit;
@@ -57,18 +60,12 @@ namespace QSP.Common.Options
             false,
             true,
             new Dictionary<SimulatorType, string>(),
-            new Dictionary<string, ExportCommand>());
+            new ReadOnlySet<ExportCommand>());
 
         public class Serializer : IXSerializer<AppOptions>
         {
             public XElement Serialize(AppOptions a, string name)
             {
-                var elem = a.ExportCommands.Select(kv =>
-                    new XElement("KeyValuePair",
-                        kv.Key.Serialize("Key"),
-                        kv.Value.Serialize("Value")));
-                var exportOptions = new XElement("ExportOptions", elem);
-
                 return new XElement(name, new XElement[]
                 {
                     a.NavDataLocation.Serialize("DatabasePath"),
@@ -79,8 +76,12 @@ namespace QSP.Common.Options
                     a.HideDctInRoute.Serialize("HideDctInRoute"),
                     a.ShowTrackIdOnly.Serialize("ShowTrackIdOnly"),
                     a.AutoUpdate.Serialize("AutoUpdate"),
-                    //TODO:
-                    exportOptions
+
+                    new XElement("SimulatorPaths", a.SimulatorPaths.Select(kv =>
+                        new XElement("e", new XElement("type", (int)kv.Key),
+                                          new XElement("path", kv.Value)))),
+
+                    new XElement("ExportOptions", a.ExportCommands.Select(c => c.Serialize("e"))),
                 });
             }
 
@@ -99,13 +100,16 @@ namespace QSP.Common.Options
                     () => d.HideDctInRoute = item.GetBool("HideDctInRoute"),
                     () => d.ShowTrackIdOnly = item.GetBool("ShowTrackIdOnly"),
                     () => d.AutoUpdate = item.GetBool("AutoUpdate"),
-                    //TODO:
-                    () => d.ExportCommands =
-                        item.Element("ExportOptions")
-                            .Elements("KeyValuePair")
-                            .ToDictionary(
-                                e => e.GetString("Key"),
-                                e => ExportCommand.Deserialize(e.Element("Value")))
+
+                    () => d.SimulatorPaths = item.Element("SimulatorPaths")
+                            .Elements("e")
+                            .ToDictionary(e => (SimulatorType)e.GetInt("type"),
+                                          e => e.GetString("path")),
+
+                    () => d.ExportCommands = item.Element("ExportOptions")
+                            .Elements("e")
+                            .Select(ExportCommand.Deserialize)
+                            .ToReadOnlySet()
                 };
 
                 foreach (var a in actions)

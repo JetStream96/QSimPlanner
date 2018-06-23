@@ -106,7 +106,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             ActionContextMenuHelper.ExportRouteFiles(
                 view,
                 Route,
-                AppOptions.ExportCommands.Values,
+                AppOptions.ExportCommands,
                 AirportList);
         }
 

@@ -7,6 +7,10 @@ namespace QSP.LibraryExtension.Sets
     {
         private readonly HashSet<T> set;
 
+        public ReadOnlySet() : this(new HashSet<T>()) { }
+
+        public ReadOnlySet(params T[] values) : this(new HashSet<T>(values)) { }
+
         public ReadOnlySet(HashSet<T> set)
         {
             this.set = set;

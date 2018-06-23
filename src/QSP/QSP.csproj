@@ -166,7 +166,6 @@
     <Compile Include="FuelCalculation\Calculations\NextPlanNodeParameter.cs" />
     <Compile Include="LibraryExtension\ControlFlow.cs" />
     <Compile Include="LibraryExtension\Windows.cs" />
-    <Compile Include="LibraryExtension\XmlSerialization\KVPair.cs" />
     <Compile Include="LibraryExtension\XmlSerialization\Util.cs" />
     <Compile Include="NavData\AAX\NavaidsLoader.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\ExportInput.cs" />

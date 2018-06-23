@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
 using QSP.Common.Options;
+using QSP.LibraryExtension.Sets;
 using QSP.RouteFinding.FileExport;
 using QSP.RouteFinding.FileExport.Providers;
-using System.Collections.Generic;
 using static QSP.LibraryExtension.Types;
 
 namespace UnitTest.Common.Options
@@ -13,28 +13,16 @@ namespace UnitTest.Common.Options
         [Test]
         public void SerializationTest()
         {
-            var command1 = new ExportCommand()
-            {
-                ProviderType = ProviderType.Pmdg,
-                CustomDirectory = @"C:\1",
-                Enabled = true,
-                DefaultSimulator = null
-            };
+            var command1 = new ExportCommand(ProviderType.Pmdg, @"C:\1", true, null);
+            var command2 = new ExportCommand(ProviderType.Fsx, @"D:\1", false, null);
 
-            var command2 = new ExportCommand()
-            {
-                ProviderType = ProviderType.Fsx,
-                CustomDirectory = @"D:\1",
-                Enabled = false,
-                DefaultSimulator = null
-            };
+            var sims = Dict((SimulatorType.FSX_Steam, @"C:\FSX"),
+                            (SimulatorType.Xplane11, @"C:\Xplane11"));
 
-            var cmds = Dict(("PmdgNgx", command1), ("P3D", command2));
+            var cmds = new ReadOnlySet<ExportCommand>(command1, command2);
 
-            var option = new AppOptions(
-                "C:\\123", true, true, false, false, true, false, true,
-               new Dictionary<SimulatorType, string>(), // TODO:
-                cmds);
+            var option = new AppOptions("C:\\123", true, true, false, false, true,
+                false, true, sims, cmds);
 
             var serializer = new AppOptions.Serializer();
             var elem = serializer.Serialize(option, "options");
@@ -47,14 +35,17 @@ namespace UnitTest.Common.Options
             Assert.AreEqual(o.PromptBeforeExit, d.PromptBeforeExit);
             Assert.AreEqual(o.AutoDLTracks, d.AutoDLTracks);
             Assert.AreEqual(o.AutoDLWind, d.AutoDLWind);
-            Assert.AreEqual(
-                o.EnableWindOptimizedRoute, d.EnableWindOptimizedRoute);
+            Assert.AreEqual(o.EnableWindOptimizedRoute, d.EnableWindOptimizedRoute);
             Assert.AreEqual(o.HideDctInRoute, d.HideDctInRoute);
             Assert.AreEqual(o.ShowTrackIdOnly, d.ShowTrackIdOnly);
             Assert.AreEqual(o.AutoUpdate, d.AutoUpdate);
             Assert.AreEqual(cmds.Count, d.ExportCommands.Count);
-            Assert.IsTrue(d.ExportCommands["PmdgNgx"].Equals(command1));
-            Assert.IsTrue(d.ExportCommands["P3D"].Equals(command2));
+
+            Assert.AreEqual(@"C:\FSX", d.SimulatorPaths[SimulatorType.FSX_Steam]);
+            Assert.AreEqual(@"C:\Xplane11", d.SimulatorPaths[SimulatorType.Xplane11]);
+
+            Assert.IsTrue(d.ExportCommands.Contains(command1));
+            Assert.IsTrue(d.ExportCommands.Contains(command2));
         }
 
         [Test]
