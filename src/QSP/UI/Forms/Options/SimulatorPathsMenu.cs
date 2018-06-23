@@ -1,5 +1,7 @@
 ﻿using FolderSelect;
 using QSP.Common.Options;
+using QSP.LibraryExtension;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -78,6 +80,16 @@ namespace QSP.UI.Forms.Options
                 var (type, textBox, _) = x;
                 return (type, textBox.Text);
             }).ToDictionary(y => y.Item1, y => y.Item2);
+        }
+
+        public void SetControlsAsInOptions(AppOptions o)
+        {
+            var p = o.SimulatorPaths;
+            Matching.ForEach(m =>
+            {
+                var (type, textbox, _) = m;
+                if (p.TryGetValue(type, out var path)) textbox.Text = path;
+            });
         }
     }
 }

@@ -70,8 +70,9 @@ namespace QSP.Common.Options
         public static AppOptions TryDetectSimulatorPathsAndSave(AppOptions currentOption)
         {
             var sims = currentOption.SimulatorPaths.ToDictionary(x => x.Key, x => x.Value);
+            var types = sims.Keys.ToList();
 
-            foreach (var sim in sims.Keys)
+            foreach (var sim in types)
             {
                 if (Directory.Exists(sims[sim])) continue;
                 var path = Types.GetSimulatorPath(sim);

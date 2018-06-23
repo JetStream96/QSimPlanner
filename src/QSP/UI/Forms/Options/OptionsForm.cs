@@ -2,19 +2,19 @@
 using QSP.AviationTools.Airac;
 using QSP.Common.Options;
 using QSP.LibraryExtension;
+using QSP.LibraryExtension.Sets;
 using QSP.NavData;
 using QSP.NavData.AAX;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
-using QSP.RouteFinding.FileExport.Providers;
+using QSP.RouteFinding.FileExport;
 using QSP.RouteFinding.Navaids;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.Models.MsgBox;
 using QSP.UI.UserControls;
 using QSP.Updates;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -22,11 +22,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.UI.Util.MsgBoxHelper;
 using static QSP.Utilities.LoggerInstance;
-using static QSP.LibraryExtension.Types;
-using QSP.RouteFinding.FileExport;
-using QSP.LibraryExtension.Sets;
 
-// TODO: Add auto sim path loading.
 namespace QSP.UI.Forms.Options
 {
     public partial class OptionsForm : Form
@@ -124,6 +120,7 @@ namespace QSP.UI.Forms.Options
             hideDctCheckBox.Checked = AppSettings.HideDctInRoute;
             showTrackIdOnlyCheckBox.Checked = AppSettings.ShowTrackIdOnly;
             updateFreqComboBox.SelectedIndex = AppSettings.AutoUpdate ? 0 : 1;
+            simulatorPathsMenu.SetControlsAsInOptions(AppSettings);
         }
 
         public void DetectAndSetAiracFolder()

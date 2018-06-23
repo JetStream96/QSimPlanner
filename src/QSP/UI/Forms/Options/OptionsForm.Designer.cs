@@ -31,6 +31,7 @@ namespace QSP.UI.Forms.Options
         private void InitializeComponent()
         {
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.simulatorPathsMenu = new QSP.UI.Forms.Options.SimulatorPathsMenu();
             this.PromptBeforeExit = new System.Windows.Forms.CheckBox();
             this.routeTab = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
@@ -67,7 +68,6 @@ namespace QSP.UI.Forms.Options
             this.updateFreqComboBox = new QSP.UI.Views.ComboBoxWithBorder();
             this.label7 = new System.Windows.Forms.Label();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
-            this.simulatorPathsMenu = new QSP.UI.Forms.Options.SimulatorPathsMenu();
             this.tabPage3.SuspendLayout();
             this.routeTab.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
@@ -95,6 +95,16 @@ namespace QSP.UI.Forms.Options
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Simulator paths";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // simulatorPathsMenu
+            // 
+            this.simulatorPathsMenu.AutoSize = true;
+            this.simulatorPathsMenu.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.simulatorPathsMenu.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.simulatorPathsMenu.Location = new System.Drawing.Point(0, 0);
+            this.simulatorPathsMenu.Name = "simulatorPathsMenu";
+            this.simulatorPathsMenu.Size = new System.Drawing.Size(558, 341);
+            this.simulatorPathsMenu.TabIndex = 0;
             // 
             // PromptBeforeExit
             // 
@@ -367,6 +377,7 @@ namespace QSP.UI.Forms.Options
             this.pathTxtBox.Location = new System.Drawing.Point(157, 3);
             this.pathTxtBox.Margin = new System.Windows.Forms.Padding(2);
             this.pathTxtBox.Name = "pathTxtBox";
+            this.pathTxtBox.ReadOnly = true;
             this.pathTxtBox.Size = new System.Drawing.Size(280, 30);
             this.pathTxtBox.TabIndex = 0;
             this.pathTxtBox.TextChanged += new System.EventHandler(this.PathTxtBoxTextChanged);
@@ -618,16 +629,6 @@ namespace QSP.UI.Forms.Options
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel9.Size = new System.Drawing.Size(732, 465);
             this.tableLayoutPanel9.TabIndex = 9;
-            // 
-            // simulatorPathsMenu
-            // 
-            this.simulatorPathsMenu.AutoSize = true;
-            this.simulatorPathsMenu.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.simulatorPathsMenu.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.simulatorPathsMenu.Location = new System.Drawing.Point(0, 0);
-            this.simulatorPathsMenu.Name = "simulatorPathsMenu";
-            this.simulatorPathsMenu.Size = new System.Drawing.Size(558, 341);
-            this.simulatorPathsMenu.TabIndex = 0;
             // 
             // OptionsForm
             // 
