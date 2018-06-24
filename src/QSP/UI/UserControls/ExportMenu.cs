@@ -1,7 +1,10 @@
 ﻿using QSP.Common.Options;
 using QSP.LibraryExtension;
+using QSP.UI.Util;
 using System;
 using System.Windows.Forms;
+using static QSP.RouteFinding.FileExport.Providers.Types;
+using static System.Linq.Enumerable;
 
 namespace QSP.UI.UserControls
 {
@@ -14,12 +17,12 @@ namespace QSP.UI.UserControls
             InitializeComponent();
         }
 
-        private void browseBtn_Click(object sender, EventArgs e)
+        private void ExportFiles(object sender, EventArgs e)
         {
 
         }
 
-        private void changePathBtn_Click(object sender, EventArgs e)
+        private void ChangeSimPaths(object sender, EventArgs e)
         {
 
         }
@@ -27,7 +30,6 @@ namespace QSP.UI.UserControls
         public void Init(Locator<AppOptions> appOption)
         {
             this.appOption = appOption;
-
             SetLayoutPanel();
         }
 
@@ -40,7 +42,24 @@ namespace QSP.UI.UserControls
             {
                 panel.RowCount++;
                 panel.Controls.Add(new ExportMenuRow(), 0, panel.RowCount - 1);
+                panel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             }
+
+            var commandList = commands.ToList();
+            commandList.Sort();
+
+            commandList.ForEach((command, i) =>
+            {
+                var c = (ExportMenuRow)panel.Controls[i];
+                var m = Lookup[command.ProviderType];
+                var sims = m.SupportedSims.Select(s => SimDisplayName[s.Type]).ToArray();
+
+                c.CheckBox.Text = m.DisplayName;
+                c.SimComboBox.Items.Clear();
+                c.SimComboBox.Items.AddRange(sims);
+                c.PathTextBox.Text = m.SupportedSims.Select(x => x.Path.FullPath());
+                FileFolderBrowse.LinkFolderBrowse(c.BrowseBtn, c.PathTextBox);
+            });
         }
     }
 }

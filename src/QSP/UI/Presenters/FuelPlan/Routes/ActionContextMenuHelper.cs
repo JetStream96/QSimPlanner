@@ -99,11 +99,15 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             }
 
             // TODO:
-            using (var frm = GetForm(menu.Size))
+            using (var frm = GetForm(new Size(1, 1)))
             {
                 menu.Location = new Point(0, 0);
+                frm.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                frm.AutoSize = true;
+                frm.FormBorderStyle = FormBorderStyle.FixedToolWindow;
                 frm.Controls.Add(menu);
                 frm.ShowDialog();
+                frm.Controls.Remove(menu);
             }
             
             

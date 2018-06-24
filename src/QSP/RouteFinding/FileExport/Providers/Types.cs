@@ -6,6 +6,7 @@ using QSP.RouteFinding.Routes;
 using QSP.Utilities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using static QSP.LibraryExtension.Types;
 
@@ -24,20 +25,38 @@ namespace QSP.RouteFinding.FileExport.Providers
         JarDesignAirbus = 8,
         PmdgWind = 9,
         Xplane = 10,
-        FsxSteam = 11
+        FsxSteam = 11,
+        P3Dv1 = 12,
+        P3Dv2 = 13,
+        P3Dv3 = 14,
+        P3Dv4 = 15
     }
 
     public static class Types
     {
-        private class Match
+        public class SimTypePath
+        {
+            public SimulatorType Type { get; }
+            public IExportPath Path { get; }
+
+            public SimTypePath(SimulatorType Type, IExportPath Path)
+            {
+                this.Type = Type;
+                this.Path = Path;
+            }
+        }
+
+        public class Match
         {
             public string FileExtension { get; }
             public string DisplayName { get; }
             public Func<ExportInput, string> Export { get; }
-            public IEnumerable<SimulatorType> SupportedSims { get; }
+            public IEnumerable<SimTypePath> SupportedSims { get; }
 
-            public Match(string FileExtension, string DisplayName,
-                Func<ExportInput, string> Export, IEnumerable<SimulatorType> SupportedSims)
+            public Match(string FileExtension,
+                string DisplayName,
+                Func<ExportInput, string> Export,
+                IEnumerable<SimTypePath> SupportedSims)
             {
                 this.FileExtension = FileExtension;
                 this.DisplayName = DisplayName;
@@ -46,7 +65,7 @@ namespace QSP.RouteFinding.FileExport.Providers
             }
         }
 
-        private static readonly IEnumerable<SimulatorType> FSXP3D = Arr
+        private static IEnumerable<SimulatorType> FSXP3D = Arr
         (
             SimulatorType.FSX,
             SimulatorType.FSX_Steam,
@@ -56,58 +75,107 @@ namespace QSP.RouteFinding.FileExport.Providers
             SimulatorType.P3Dv4
         );
 
-        private static readonly IEnumerable<SimulatorType> Xplane = Arr(SimulatorType.Xplane11);
+        private static IEnumerable<SimTypePath> FSXP3DRelative(string relativePath) =>
+            FSXP3D.Select(t => new SimTypePath(t, new RelativePath(relativePath)));
 
-        private static readonly IReadOnlyDictionary<ProviderType, Match> lookup = Dict
+        private static IEnumerable<SimTypePath> Xplane(string relativePath) =>
+            Arr(new SimTypePath(SimulatorType.Xplane11, new RelativePath(relativePath)));
+
+        private static readonly string FSXDocumentFolder = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            "Flight Simulator X Files");
+
+        public static readonly IReadOnlyDictionary<ProviderType, Match> Lookup = Dict
         (
             (ProviderType.Pmdg,
-             new Match(".rte", "PMDG", PmdgProvider.GetExportText, FSXP3D)),
+             new Match(".rte", "PMDG", PmdgProvider.GetExportText,
+                FSXP3DRelative("PMDG/FLIGHTPLANS"))),
 
             (ProviderType.Fsx,
-             new Match(".PLN", "FSX", FsxProvider.GetExportText, Arr(SimulatorType.FSX))),
+             new Match(".PLN", "FSX", FsxProvider.GetExportText,
+                 Arr(new SimTypePath(SimulatorType.FSX, new AbsolutePath(FSXDocumentFolder))))),
 
             (ProviderType.Fs9,
-             new Match(".PLN", "FS9", Fs9Provider.GetExportText, Arr(SimulatorType.FS9))),
+             new Match(".PLN", "FS9", Fs9Provider.GetExportText,
+                 Arr(new SimTypePath(SimulatorType.FS9, new AbsolutePath(Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    "Flight Simulator File")))))),
 
             (ProviderType.AerosoftAirbus,
-             new Match("Aerosoft Airbus", "", AerosoftAirbusProvider.GetExportText, FSXP3D)),
+             new Match("", "Aerosoft Airbus", AerosoftAirbusProvider.GetExportText,
+                 FSXP3D.Select(t => new SimTypePath(t, new AbsolutePath(Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    "Aerosoft/Airbus/Flightplans")))))),
 
             (ProviderType.FlightFactor777,
-             new Match("Flight Factor 777", "", AerosoftAirbusProvider.GetExportText, Xplane)),
+             new Match("", "Flight Factor 777", AerosoftAirbusProvider.GetExportText,
+                 Xplane(""))),
 
             (ProviderType.FlightFactorA320,
-             new Match("Flight Factor A320", "", FlightFactorA320Provider.GetExportText, Xplane)),
+             new Match("", "Flight Factor A320", FlightFactorA320Provider.GetExportText,
+                 Xplane("Aircraft/A320/data"))),
 
             (ProviderType.Ifly737,
-             new Match("Ifly 737", "", Ifly737Provider.GetExportText, FSXP3D)),
+             new Match("", "Ifly 737", Ifly737Provider.GetExportText,
+                 FSXP3DRelative("iFly/737NG/navdata/FLTPLAN"))),
 
             (ProviderType.Ifly747v2,
-             new Match("Ifly 747 v2", "", Ifly747v2Provider.GetExportText, FSXP3D)),
+             new Match("", "Ifly 747 v2", Ifly747v2Provider.GetExportText,
+                 FSXP3DRelative("iFly/744/navdata/FLTPLAN"))),
 
             (ProviderType.JarDesignAirbus,
-             new Match("JarDesign Airbus", "", JarDesignAirbusProvider.GetExportText, Xplane)),
+             new Match("", "JarDesign Airbus", JarDesignAirbusProvider.GetExportText,
+                 Xplane("Aircraft/Heavy Metal/320JARDesign/FlightPlans"))),
 
             (ProviderType.PmdgWind,
-             new Match("Pmdg wind uplink", "", PmdgWindUplinkProvider.GetExportText, FSXP3D)),
+             new Match("", "Pmdg wind uplink", PmdgWindUplinkProvider.GetExportText,
+                 FSXP3DRelative("PMDG/WX"))),
 
             (ProviderType.Xplane,
-             new Match("X-plane", "", XplaneProvider.GetExportText, Xplane)),
+             new Match("", "X-plane", XplaneProvider.GetExportText,
+                 Xplane("X-Plane 11/Output/FMS plans"))),
 
             (ProviderType.FsxSteam,
-             new Match("Fsx: Steam edition", ".PLN", FsxProvider.GetExportText,
-                       Arr(SimulatorType.FSX_Steam)))
+             new Match(".PLN", "Fsx: Steam edition", FsxProvider.GetExportText,
+                Arr(new SimTypePath(SimulatorType.FSX_Steam, new AbsolutePath(Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    "Flight Simulator X - Steam Edition Files﻿")))))),
+
+            (ProviderType.P3Dv1,
+             new Match(".PLN", "P3D v1", FsxProvider.GetExportText,
+                Arr(new SimTypePath(SimulatorType.P3Dv1, new AbsolutePath(Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    "Prepar3D v1 Files")))))),
+
+            (ProviderType.P3Dv2,
+             new Match(".PLN", "P3D v2", FsxProvider.GetExportText,
+                Arr(new SimTypePath(SimulatorType.P3Dv2, new AbsolutePath(Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    "Prepar3D v2 Files")))))),
+
+            (ProviderType.P3Dv3,
+             new Match(".PLN", "P3D v3", FsxProvider.GetExportText,
+                Arr(new SimTypePath(SimulatorType.P3Dv3, new AbsolutePath(Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    "Prepar3D v3 Files")))))),
+
+            (ProviderType.P3Dv4,
+             new Match(".PLN", "P3D v4", FsxProvider.GetExportText,
+                Arr(new SimTypePath(SimulatorType.P3Dv4, new AbsolutePath(Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    "Prepar3D v4 Files"))))))
         );
 
         public static IReadOnlySet<ExportCommand> DefaultExportCommands()
         {
-            return lookup.Select(kv =>
+            return Lookup.Select(kv =>
             {
                 var sim = kv.Value.SupportedSims.ToList();
-                var defaultSim = (sim.Count > 0) ? (SimulatorType?)sim[0] : null;
+                var defaultSim = (sim.Count > 0) ? (SimulatorType?)sim[0].Type : null;
                 return new ExportCommand(kv.Key, "", false, defaultSim);
             }).ToReadOnlySet();
         }
-        
+
         /// <summary>
         /// Returns the detected the simulator path. If it is not found or an
         /// error occurred, returns null.
@@ -129,7 +197,7 @@ namespace QSP.RouteFinding.FileExport.Providers
             );
         }
 
-        public static string GetExtension(ProviderType type) => lookup[type].FileExtension;
+        public static string GetExtension(ProviderType type) => Lookup[type].FileExtension;
 
         public static string GetExportText(ProviderType type, Route route,
             AirportManager airports)
@@ -140,7 +208,19 @@ namespace QSP.RouteFinding.FileExport.Providers
                 Airports = airports
             };
 
-            return lookup[type].Export(input);
+            return Lookup[type].Export(input);
         }
+
+        public static readonly IReadOnlyDictionary<SimulatorType, string> SimDisplayName = Dict
+        (
+            (SimulatorType.FSX, "FSX"),
+            (SimulatorType.FSX_Steam, "FSX: Steam edition"),
+            (SimulatorType.FS9, "FS9"),
+            (SimulatorType.P3Dv1, "P3D v1"),
+            (SimulatorType.P3Dv2, "P3D v2"),
+            (SimulatorType.P3Dv3, "P3D v3"),
+            (SimulatorType.P3Dv4, "P3D v4"),
+            (SimulatorType.Xplane11, "X-plane")
+        );
     }
 }

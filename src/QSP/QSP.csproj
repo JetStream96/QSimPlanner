@@ -169,6 +169,7 @@
     <Compile Include="LibraryExtension\Windows.cs" />
     <Compile Include="LibraryExtension\XmlSerialization\Util.cs" />
     <Compile Include="NavData\AAX\NavaidsLoader.cs" />
+    <Compile Include="RouteFinding\FileExport\IExportPath.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\ExportInput.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\FlightFactorA320Provider.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\JarDesignAirbusProvider.cs" />
@@ -206,6 +207,7 @@
     <Compile Include="UI\UserControls\WindControl.Designer.cs">
       <DependentUpon>WindControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Util\FileFolderBrowse.cs" />
     <Compile Include="WindAloft\WxTable.cs" />
     <Compile Include="WindAloft\TableItem.cs" />
     <Content Include="config.xml">

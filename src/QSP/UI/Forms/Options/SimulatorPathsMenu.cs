@@ -1,9 +1,8 @@
-﻿using FolderSelect;
-using QSP.Common.Options;
+﻿using QSP.Common.Options;
 using QSP.LibraryExtension;
+using QSP.UI.Util;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using static QSP.LibraryExtension.Types;
@@ -44,19 +43,7 @@ namespace QSP.UI.Forms.Options
             foreach (var i in Matching)
             {
                 var (_, textbox, button) = i;
-                button.Click += (sender, e) =>
-                {
-                    using (var dialog = new FolderSelectDialog())
-                    {
-                        var dir = textbox.Text;
-                        if (Directory.Exists(dir)) dialog.InitialDirectory = dir;
-
-                        if (dialog.ShowDialog())
-                        {
-                            textbox.Text = dialog.FileName;
-                        }
-                    }
-                };
+                FileFolderBrowse.LinkFolderBrowse(button, textbox);
             }
         }
 
