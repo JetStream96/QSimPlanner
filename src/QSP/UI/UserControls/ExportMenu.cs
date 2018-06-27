@@ -57,7 +57,7 @@ namespace QSP.UI.UserControls
                 c.CheckBox.Text = m.DisplayName;
                 c.SimComboBox.Items.Clear();
                 c.SimComboBox.Items.AddRange(sims);
-                c.PathTextBox.Text = m.SupportedSims.Select(x => x.Path.FullPath());
+               // c.PathTextBox.Text = m.SupportedSims.Select(x => x.Path.FullPath());
                 FileFolderBrowse.LinkFolderBrowse(c.BrowseBtn, c.PathTextBox);
             });
         }

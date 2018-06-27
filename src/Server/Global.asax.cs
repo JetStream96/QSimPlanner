@@ -1,5 +1,6 @@
 ﻿using QSP.LibraryExtension;
 using QSP.RouteFinding.Tracks.Nats;
+using Server.GoogleMap;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -172,7 +173,7 @@ namespace Server
                 Shared.Logger.Log(e.ToString());
                 Response.StatusCode = 404;
             }
-            
+
             EndReq();
         }
 
@@ -213,27 +214,44 @@ namespace Server
         private void HandleGetRequest(HttpRequest rq)
         {
             // ISS is case-insensitive.
-            var pq = rq.Url.PathAndQuery.ToLower();
+            var path = rq.Url.LocalPath.ToLower();
 
-            if (pq == "/nats/westbound.xml")
+            if (path == "/nats/westbound.xml")
             {
                 Shared.Logger.Log("Westbound download from " + rq.UserHostAddress + ".");
                 Request.ContentType = "text/xml; encoding='utf-8'";
                 RespondWithFile(Shared.WestNatsFile);
             }
-            else if (pq == "/nats/eastbound.xml")
+            else if (path == "/nats/eastbound.xml")
             {
                 Shared.Logger.Log("Eastbound download from " + rq.UserHostAddress + ".");
                 Request.ContentType = "text/xml; encoding='utf-8'";
                 RespondWithFile(Shared.EastNatsFile);
             }
-            else if (pq == "/updates/info.xml")
+            else if (path == "/updates/info.xml")
             {
                 Shared.Logger.Log("Update check from " + rq.UserHostAddress + ".");
                 Request.ContentType = "text/xml; encoding='utf-8'";
                 RespondWithFile(Shared.UpdateInfoFile);
             }
-            else if (pq == "/err")
+            else if (path == "/map/airport")
+            {
+                Shared.Logger.Log("Airport map from " + rq.UserHostAddress + ".");
+                var map = InteractiveMap.Respond(rq.QueryString);
+                if (map == null)
+                {
+                    Response.StatusCode = 400;
+                    EndReq();
+                    return;
+                }
+
+                RespondWithContent(map);
+            }
+            else if (path == "/map/route")
+            {
+                Shared.Logger.Log("Route map from " + rq.UserHostAddress + ".");
+            }
+            else if (path == "/err")
             {
                 //TODO:???
                 RespondWithUnloggedErrors();
@@ -271,6 +289,7 @@ namespace Server
             NoAwait(() => RunPeriodicAsync(saveNatsWithLock,
                 new TimeSpan(0, 0, (int)RefreshIntervalSec), new CancellationToken()));
             Shared.AntiSpam.Execute(a => a.Start());
+            Maps.LoadAll();
         }
 
         protected void Session_Start(object sender, EventArgs e) { }

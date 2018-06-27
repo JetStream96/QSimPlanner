@@ -81,6 +81,8 @@
   <ItemGroup>
     <Content Include="App_Data\config.xml" />
     <Content Include="App_Data\config_debug.xml" />
+    <Content Include="App_Data\gmap_api_key.txt" />
+    <Content Include="GoogleMap\airport-map-template.html" />
     <Content Include="updates\info.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -106,6 +108,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="GoogleMap\InteractiveMap.cs" />
+    <Compile Include="GoogleMap\Maps.cs" />
     <Compile Include="LastUpdateTime.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
