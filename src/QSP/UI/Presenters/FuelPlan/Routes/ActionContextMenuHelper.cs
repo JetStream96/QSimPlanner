@@ -73,18 +73,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
 
             view.ShowMap(route.Expanded);
         }
-
-        public static void ShowMapBrowser(this ISupportActionContextMenu view, RouteGroup route)
-        {
-            if (route == null)
-            {
-                view.ShowMessage("Please find a route first.", MessageLevel.Info);
-                return;
-            }
-
-            view.ShowMapBrowser(route.Expanded);
-        }
-
+        
         public static void ExportRouteFiles(
             IMessageDisplay view,
             RouteGroup Route,

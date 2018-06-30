@@ -156,16 +156,12 @@ namespace QSP.UI.Views.FuelPlan.Routes
             a.FindToolStripMenuItem.Click += (s, e) => presenter.FindRoute();
             a.AnalyzeToolStripMenuItem.Click += (s, e) => presenter.AnalyzeRoute();
             a.MapToolStripMenuItem.Click += (s, e) => presenter.ShowMap();
-            a.MapInBrowserToolStripMenuItem.Click += (s, e) => presenter.ShowMapBrowser();
             a.ExportToolStripMenuItem.Click += (s, e) => presenter.ExportRouteFiles();
         }
 
         public void ShowMap(Route route) =>
            ShowMapHelper.ShowMap(route, MainForm.Size, MainForm);
-
-        public void ShowMapBrowser(Route route) =>
-            ShowMapHelper.ShowMap(route, MainForm.Size, MainForm, true, true);
-
+        
         public void ShowMessage(string s, MessageLevel lvl) => ParentForm.ShowMessage(s, lvl);
 
         public void OnNavDataChange() => presenter.OnNavDataChange();

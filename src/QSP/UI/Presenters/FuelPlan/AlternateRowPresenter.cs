@@ -77,7 +77,6 @@ namespace QSP.UI.Presenters.FuelPlan
         public void ExportRouteFiles() => ContextMenuPresenter.ExportRouteFiles();
         public void AnalyzeRoute() => ContextMenuPresenter.AnalyzeRoute();
         public void ShowMap() => ContextMenuPresenter.ShowMap();
-        public void ShowMapBrowser() => ContextMenuPresenter.ShowMapBrowser();
 
         public void UpdateRunways()
         {

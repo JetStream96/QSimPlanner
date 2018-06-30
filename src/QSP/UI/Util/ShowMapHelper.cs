@@ -12,7 +12,7 @@ namespace QSP.UI.Util
     public static class ShowMapHelper
     {
         public static void ShowMap(Route Route, Size size, Control parentControl,
-            bool canAnalyze = true, bool openInBrowser = false)
+            bool canAnalyze = true)
         {
             if (Route == null)
             {
@@ -25,15 +25,7 @@ namespace QSP.UI.Util
             }
 
             var data = RouteDrawing.GetPostData(Route.AllWaypoints().ToList());
-
-            if (openInBrowser)
-            {
-                System.Diagnostics.Process.Start("");//TODO:
-            }
-            else
-            {
-                ShowInForm(size, "https://qsimplanner.azurewebsites.net/map/route", data);
-            }
+            ShowInForm(size, "https://qsimplanner.azurewebsites.net/map/route", data);
         }
 
         private static void ShowInForm(Size size, string url, string postQuery)

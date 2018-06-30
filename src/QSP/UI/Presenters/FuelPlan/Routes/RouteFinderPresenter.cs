@@ -223,8 +223,6 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
 
         public void ShowMap() => view.ShowMap(Route);
 
-        public void ShowMapBrowser() => view.ShowMapBrowser(Route);
-
         public void OnNavDataChange()
         {
             view.OrigRow.OnNavDataChange();

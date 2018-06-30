@@ -58,12 +58,7 @@ namespace QSP.UI.Views.FuelPlan
         {
             ShowMapHelper.ShowMap(route, ParentForm.Size, ParentForm);
         }
-
-        public void ShowMapBrowser(RouteFinding.Routes.Route route)
-        {
-            ShowMapHelper.ShowMap(route, ParentForm.Size, ParentForm, true, true);
-        }
-
+        
         public AlternateRowControl()
         {
             InitializeComponent();
@@ -77,7 +72,6 @@ namespace QSP.UI.Views.FuelPlan
             a.FindToolStripMenuItem.Click += (s, e) => presenter.FindRoute();
             a.AnalyzeToolStripMenuItem.Click += (s, e) => presenter.AnalyzeRoute();
             a.MapToolStripMenuItem.Click += (s, e) => presenter.ShowMap();
-            a.MapInBrowserToolStripMenuItem.Click += (s, e) => presenter.ShowMapBrowser();
             a.ExportToolStripMenuItem.Click += (s, e) => presenter.ExportRouteFiles();
 
             this.Presenter = presenter;

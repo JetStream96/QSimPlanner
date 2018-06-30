@@ -10,7 +10,6 @@ namespace QSP.UI.Views.FuelPlan.Routes.Actions
         public ClickableToolStripMenuItem FindToolStripMenuItem;
         public ClickableToolStripMenuItem AnalyzeToolStripMenuItem;
         public ClickableToolStripMenuItem MapToolStripMenuItem;
-        public ClickableToolStripMenuItem MapInBrowserToolStripMenuItem;
         public ClickableToolStripMenuItem ExportToolStripMenuItem;
 
         public ActionContextMenu() : base()
@@ -43,13 +42,6 @@ namespace QSP.UI.Views.FuelPlan.Routes.Actions
             MapToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             MapToolStripMenuItem.Text = "Show Map";
             // 
-            // mapInBrowserToolStripMenuItem
-            // 
-            MapInBrowserToolStripMenuItem = new ClickableToolStripMenuItem();
-            MapInBrowserToolStripMenuItem.Name = "mapInBrowserToolStripMenuItem";
-            MapInBrowserToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            MapInBrowserToolStripMenuItem.Text = "Show Map (Open in browser)";
-            // 
             // exportToolStripMenuItem
             // 
             ExportToolStripMenuItem = new ClickableToolStripMenuItem();
@@ -65,7 +57,6 @@ namespace QSP.UI.Views.FuelPlan.Routes.Actions
                 FindToolStripMenuItem,
                 AnalyzeToolStripMenuItem,
                 MapToolStripMenuItem,
-                MapInBrowserToolStripMenuItem,
                 ExportToolStripMenuItem
             });
 
