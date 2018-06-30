@@ -695,7 +695,6 @@
     <Compile Include="UI\Views\MiscInfo\AirportMapControl.Designer.cs">
       <DependentUpon>AirportMapControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="GoogleMap\InteractiveMap.cs" />
     <Compile Include="GoogleMap\StaticMap.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\Common\AirportInfo\SlopeComboBoxController.cs" />
     <Compile Include="UI\Views\ComboBoxWithBorder.cs">
@@ -826,12 +825,6 @@
     <Compile Include="WindAloft\WindUV.cs" />
     <Compile Include="WindAloft\WindFileHandler.cs" />
     <Content Include="ChangeLog.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="GoogleMap\route-map-template.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="GoogleMap\airport-map-template.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="navdata_additional\icao_nationality_code.txt">

@@ -46,7 +46,7 @@ namespace QSP.UI.UserControls
             }
 
             var commandList = commands.ToList();
-            commandList.Sort();
+            //TODO: commandList.Sort(c => c. SimDisplayName[);
 
             commandList.ForEach((command, i) =>
             {

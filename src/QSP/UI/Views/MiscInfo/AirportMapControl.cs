@@ -290,9 +290,7 @@ namespace QSP.UI.Views.MiscInfo
 
         private void ShowMapBrowser(double lat, double lon)
         {
-            var html = InteractiveMap.GetHtml(lat, lon);
-            if (html == null) return;
-            browser.LoadHtml(html, "http://rendering/");
+            browser.Navigate($"https://qsimplanner.azurewebsites.net/map/airport?lat={lat}&lon={lon}");
         }
 
         private void EnableStaticMap()

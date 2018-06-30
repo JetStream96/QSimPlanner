@@ -1,11 +1,9 @@
 ﻿using Gecko;
+using Gecko.IO;
 using QSP.GoogleMap;
 using QSP.RouteFinding.Routes;
 using QSP.UI.Views.Factories;
-using QSP.Utilities;
-using System;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -13,8 +11,6 @@ namespace QSP.UI.Util
 {
     public static class ShowMapHelper
     {
-        private const string tmpFilePath = "./tmp/route-map.html";
-
         public static void ShowMap(Route Route, Size size, Control parentControl,
             bool canAnalyze = true, bool openInBrowser = false)
         {
@@ -28,48 +24,19 @@ namespace QSP.UI.Util
                 return;
             }
 
-            var mapHtml = RouteDrawing.MapDrawString(
-               Route.AllWaypoints().ToList());
-
-            if (!CreateTmpHtml(mapHtml))
-            {
-                MsgBoxHelper.ShowError(parentControl,
-                    "Failed to write to file: " + Path.GetFullPath(tmpFilePath));
-                return;
-            }
+            var data = RouteDrawing.GetPostData(Route.AllWaypoints().ToList());
 
             if (openInBrowser)
             {
-                ShowInBrowser(mapHtml, parentControl);
+                System.Diagnostics.Process.Start("");//TODO:
             }
             else
             {
-                ShowInForm(size, mapHtml);
+                ShowInForm(size, "https://qsimplanner.azurewebsites.net/map/route", data);
             }
         }
 
-        private static void ShowInBrowser(string html, Control parentControl)
-        {
-            OpenFileHelper.TryOpenFile(Path.GetFullPath(tmpFilePath));
-        }
-
-        // Returns whether the creation was successful.
-        private static bool CreateTmpHtml(string html)
-        {
-            try
-            {
-                Directory.CreateDirectory(Path.GetDirectoryName(tmpFilePath));
-                File.WriteAllText(tmpFilePath, html);
-                return true;
-            }
-            catch (Exception e)
-            {
-                LoggerInstance.Log(e);
-                return false;
-            }
-        }
-
-        private static void ShowInForm(Size size, string html)
+        private static void ShowInForm(Size size, string url, string postQuery)
         {
             using (var frm = FormFactory.GetForm(size))
             {
@@ -86,7 +53,12 @@ namespace QSP.UI.Util
                     frm.Controls.Add(wb);
 
                     wb.Dock = DockStyle.Fill;
-                    wb.Navigate(Path.GetFullPath(tmpFilePath));
+                    var postData = MimeInputStream.Create();
+                    postData.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+                    postData.AddContentLength = true;
+                    postData.SetData(postQuery);
+
+                    wb.Navigate(url, GeckoLoadFlags.BypassCache, "", postData);
 
                     frm.FormBorderStyle = FormBorderStyle.Sizable;
                     frm.ShowDialog();

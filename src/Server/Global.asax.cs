@@ -136,15 +136,26 @@ namespace Server
             var withoutquery = rq.Url.GetLeftPart(UriPartial.Path).ToLower();
             var path = new Uri(withoutquery).PathAndQuery;
 
-            switch (path)
+            if (path == "/error-report")
             {
-                case "/error-report":
-                    CollectErrorReport(rq);
-                    break;
-
-                default:
+                CollectErrorReport(rq);
+            }
+            else if (path == "/map/route")
+            {
+                Shared.Logger.Log("Route map from " + rq.UserHostAddress + ".");
+                var map = RouteDrawing.Respond(rq.Form);
+                if (map == null)
+                {
                     Response.StatusCode = 400;
-                    break;
+                    EndReq();
+                    return;
+                }
+
+                RespondWithContent(map);
+            }
+            else
+            {
+                Response.StatusCode = 400;
             }
         }
 
@@ -238,19 +249,6 @@ namespace Server
             {
                 Shared.Logger.Log("Airport map from " + rq.UserHostAddress + ".");
                 var map = InteractiveMap.Respond(rq.QueryString);
-                if (map == null)
-                {
-                    Response.StatusCode = 400;
-                    EndReq();
-                    return;
-                }
-
-                RespondWithContent(map);
-            }
-            else if (path == "/map/route")
-            {
-                Shared.Logger.Log("Route map from " + rq.UserHostAddress + ".");
-                var map = RouteDrawing.Respond(rq.QueryString);
                 if (map == null)
                 {
                     Response.StatusCode = 400;

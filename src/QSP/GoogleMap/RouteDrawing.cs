@@ -2,36 +2,23 @@ using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace QSP.GoogleMap
 {
     public static class RouteDrawing
     {
-        private static readonly string TemplatePath = "./GoogleMap/route-map-template.html";
-
-        public static string MapDrawString(IReadOnlyList<Waypoint> route)
+        public static string GetPostData(IReadOnlyList<Waypoint> route)
         {
-            var template = File.ReadAllText(TemplatePath);
+            var latLonId = string.Join(";", route.Select(w => w.Lat + "," + w.Lon + "," + w.ID));
 
-            var latLons = string.Join(",", route.Select(r => $"[{r.Lat}, {r.Lon}]"));
-            var texts = string.Join(",", 
-                route.Select(r => $"\"<p>Ident: {r.ID}<br>Lat: {r.Lat}<br>Lon: {r.Lon}</p>\""));
-            
             // Center of the map
             var center = GetCenter(route);
-            var replacement = $"var latLons = [{latLons}];\n" +
-                              $"var texts = [{texts}];\n" +
-                              $"var center = [{center.Lat}, {center.Lon}];\n";
+            var centerStr = center.Lat + "," + center.Lon;
+            return $"LatLonId={latLonId}&Center={centerStr}";
 
-            return Regex.Replace(template, 
-                                 @"// DATA START.+?DATA END",
-                                 replacement, 
-                                 RegexOptions.Singleline);
         }
-        
+
         private static ICoordinate GetCenter(IReadOnlyList<Waypoint> route)
         {
             if (route.Count < 2) throw new ArgumentException();
