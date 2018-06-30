@@ -13,6 +13,9 @@ namespace Server.GoogleMap
             template = File.ReadAllText(HostingEnvironment.MapPath(
                 "~/GoogleMap/airport-map-template.html"));
 
+        /// <summary>
+        /// Request format: [url]/map/airport?lat=20&lon=-5
+        /// </summary>
         public static string Respond(NameValueCollection queryStrings)
         {
             try

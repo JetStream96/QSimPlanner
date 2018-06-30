@@ -14,9 +14,20 @@ namespace Server.GoogleMap
         public static void LoadAll()
         {
             InteractiveMap.LoadTemplate();
+            RouteDrawing.LoadTemplate();
+            LoadApiKey();
+        }
 
-            ApiKey = File.ReadAllLines(HostingEnvironment.MapPath(
-                "~/App_Data/gmap_api_key.txt"))[0];
+        private static void LoadApiKey()
+        {
+            var file = HostingEnvironment.MapPath("~/App_Data/gmap_api_key.txt");
+            Func<string> load = () => File.ReadAllLines(file)[0];
+
+#if DEBUG
+            ApiKey = File.Exists(file) ? load() : "";
+#else
+            ApiKey = load();
+#endif
         }
     }
 }

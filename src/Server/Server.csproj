@@ -82,7 +82,12 @@
     <Content Include="App_Data\config.xml" />
     <Content Include="App_Data\config_debug.xml" />
     <Content Include="App_Data\gmap_api_key.txt" />
-    <Content Include="GoogleMap\airport-map-template.html" />
+    <Content Include="GoogleMap\airport-map-template.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GoogleMap\route-map-template.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="updates\info.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -110,6 +115,7 @@
     </Compile>
     <Compile Include="GoogleMap\InteractiveMap.cs" />
     <Compile Include="GoogleMap\Maps.cs" />
+    <Compile Include="GoogleMap\RouteDrawing.cs" />
     <Compile Include="LastUpdateTime.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

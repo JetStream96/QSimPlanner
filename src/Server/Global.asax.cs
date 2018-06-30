@@ -250,6 +250,15 @@ namespace Server
             else if (path == "/map/route")
             {
                 Shared.Logger.Log("Route map from " + rq.UserHostAddress + ".");
+                var map = RouteDrawing.Respond(rq.QueryString);
+                if (map == null)
+                {
+                    Response.StatusCode = 400;
+                    EndReq();
+                    return;
+                }
+
+                RespondWithContent(map);
             }
             else if (path == "/err")
             {
