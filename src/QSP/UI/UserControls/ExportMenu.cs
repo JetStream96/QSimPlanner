@@ -30,10 +30,10 @@ namespace QSP.UI.UserControls
         public void Init(Locator<AppOptions> appOption)
         {
             this.appOption = appOption;
-            SetLayoutPanel();
+            SetLayoutPanel(appOption);
         }
 
-        private void SetLayoutPanel()
+        private void SetLayoutPanel(Locator<AppOptions> appOption)
         {
             var commands = appOption.Instance.ExportCommands;
             var panel = formatTableLayoutPanel;
@@ -45,20 +45,12 @@ namespace QSP.UI.UserControls
                 panel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             }
 
-            var commandList = commands.ToList();
-            //TODO: commandList.Sort(c => c. SimDisplayName[);
+            var commandList = commands.OrderBy(c => Lookup[c.ProviderType].DisplayName);
 
             commandList.ForEach((command, i) =>
             {
                 var c = (ExportMenuRow)panel.Controls[i];
-                var m = Lookup[command.ProviderType];
-                var sims = m.SupportedSims.Select(s => SimDisplayName[s.Type]).ToArray();
-
-                c.CheckBox.Text = m.DisplayName;
-                c.SimComboBox.Items.Clear();
-                c.SimComboBox.Items.AddRange(sims);
-               // c.PathTextBox.Text = m.SupportedSims.Select(x => x.Path.FullPath());
-                FileFolderBrowse.LinkFolderBrowse(c.BrowseBtn, c.PathTextBox);
+                c.Init(command, () => appOption.Instance);
             });
         }
     }

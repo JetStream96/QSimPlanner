@@ -138,40 +138,39 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             {
                 // Case 2 
                 ProcessCase2(rwyIndex, sid, sidWpts.Waypoints, distance);
+                return;
             }
-            else
+
+            // Case 3, 4, 5
+            int lastWptIndex = wptList.FindByWaypoint(lastWpt);
+
+            if (lastWptIndex < 0)
             {
-                // Case 3, 4, 5
-                int lastWptIndex = wptList.FindByWaypoint(lastWpt);
-
-                if (lastWptIndex < 0)
-                {
-                    // Case 5
-                    lastWptIndex = editor.AddWaypoint(lastWpt);
-                }
-
-                if (wptList.EdgesFromCount(lastWptIndex) == 0)
-                {
-                    // Case 3                                  
-                    foreach (var k in AirwayConnections(lastWpt))
-                    {
-                        var n = new Neighbor("DCT", k.Distance);
-                        editor.AddNeighbor(lastWptIndex, k.Index, n);
-                    }
-                }
-
-                // For case 3, 4 and 5
-                var neighbor = new Neighbor(
-                    sid, 
-                    distance,
-                    sidWpts.Waypoints.WithoutFirstAndLast().ToList(),
-                    InnerWaypointsType.Terminal);
-
-                editor.AddNeighbor(
-                    rwyIndex,
-                    lastWptIndex,
-                    neighbor);
+                // Case 5
+                lastWptIndex = editor.AddWaypoint(lastWpt);
             }
+
+            if (wptList.EdgesFromCount(lastWptIndex) == 0)
+            {
+                // Case 3                                  
+                foreach (var k in AirwayConnections(lastWpt))
+                {
+                    var n = new Neighbor("DCT", k.Distance);
+                    editor.AddNeighbor(lastWptIndex, k.Index, n);
+                }
+            }
+
+            // For case 3, 4 and 5
+            var neighbor = new Neighbor(
+                sid,
+                distance,
+                sidWpts.Waypoints.WithoutFirstAndLast().ToList(),
+                InnerWaypointsType.Terminal);
+
+            editor.AddNeighbor(
+                rwyIndex,
+                lastWptIndex,
+                neighbor);
         }
 
         private void ProcessCase2(int rwyIndex, string sid,
@@ -182,8 +181,8 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             foreach (var i in endPoints)
             {
                 var neighbor = new Neighbor(
-                    sid, 
-                    i.Distance + distance, 
+                    sid,
+                    i.Distance + distance,
                     wpts.Skip(1).ToList(),
                     InnerWaypointsType.Terminal);
 

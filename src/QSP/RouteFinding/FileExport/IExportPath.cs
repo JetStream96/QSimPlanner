@@ -1,4 +1,5 @@
 ﻿using QSP.Common.Options;
+using System;
 using System.IO;
 using static QSP.RouteFinding.FileExport.Providers.Types;
 
@@ -6,14 +7,21 @@ namespace QSP.RouteFinding.FileExport
 {
     public interface IExportPath
     {
-        string FullPath(SimulatorType Type);
+        /// <summary>
+        /// The returned path may not exist.
+        /// </summary>
+        string FullPath(SimulatorType Type, AppOptions Option);
     }
 
     public class AbsolutePath : IExportPath
     {
         private readonly string absolutePath;
         public AbsolutePath(string absolutePath) { this.absolutePath = absolutePath; }
-        public string FullPath(SimulatorType Type) => absolutePath;
+
+        /// <summary>
+        /// Option is not needed and can be null.
+        /// </summary>
+        public string FullPath(SimulatorType Type, AppOptions Option = null) => absolutePath;
     }
 
     /// <summary>
@@ -23,7 +31,7 @@ namespace QSP.RouteFinding.FileExport
     {
         private readonly string relativePath;
         public RelativePath(string relativePath) { this.relativePath = relativePath; }
-        public string FullPath(SimulatorType Type) =>
-            Path.Combine(GetSimulatorPath(Type), relativePath);
+        public string FullPath(SimulatorType Type, AppOptions Option) =>
+            Path.Combine(Option.SimulatorPaths[Type], relativePath);
     }
 }

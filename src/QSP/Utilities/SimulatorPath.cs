@@ -24,7 +24,7 @@ namespace QSP.Utilities
                     try
                     {
                         var exePath = Path.Combine(x, "X-Plane.exe");
-                        if (File.Exists(exePath)) return exePath;
+                        if (File.Exists(exePath)) return x;
                     }
                     catch { }
                 }

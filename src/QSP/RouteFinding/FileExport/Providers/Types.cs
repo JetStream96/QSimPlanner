@@ -133,7 +133,7 @@ namespace QSP.RouteFinding.FileExport.Providers
 
             (ProviderType.Xplane,
              new Match("", "X-plane", XplaneProvider.GetExportText,
-                 Xplane("X-Plane 11/Output/FMS plans"))),
+                 Xplane("Output/FMS plans"))),
 
             (ProviderType.FsxSteam,
              new Match(".PLN", "Fsx: Steam edition", FsxProvider.GetExportText,
