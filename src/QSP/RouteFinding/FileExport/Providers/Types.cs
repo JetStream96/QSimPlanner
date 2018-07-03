@@ -102,37 +102,37 @@ namespace QSP.RouteFinding.FileExport.Providers
                     "Flight Simulator File")))))),
 
             (ProviderType.AerosoftAirbus,
-             new Match("", "Aerosoft Airbus", AerosoftAirbusProvider.GetExportText,
+             new Match(".flp", "Aerosoft Airbus", AerosoftAirbusProvider.GetExportText,
                  FSXP3D.Select(t => new SimTypePath(t, new AbsolutePath(Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                     "Aerosoft/Airbus/Flightplans")))))),
 
             (ProviderType.FlightFactor777,
-             new Match("", "Flight Factor 777", AerosoftAirbusProvider.GetExportText,
+             new Match(".flp", "Flight Factor 777", AerosoftAirbusProvider.GetExportText,
                  Xplane(""))),
 
             (ProviderType.FlightFactorA320,
-             new Match("", "Flight Factor A320", FlightFactorA320Provider.GetExportText,
+             new Match(".in", "Flight Factor A320", FlightFactorA320Provider.GetExportText,
                  Xplane("Aircraft/A320/data"))),
 
             (ProviderType.Ifly737,
-             new Match("", "Ifly 737", Ifly737Provider.GetExportText,
+             new Match(".FLTPLAN", "Ifly 737", Ifly737Provider.GetExportText,
                  FSXP3DRelative("iFly/737NG/navdata/FLTPLAN"))),
 
             (ProviderType.Ifly747v2,
-             new Match("", "Ifly 747 v2", Ifly747v2Provider.GetExportText,
+             new Match(".route", "Ifly 747 v2", Ifly747v2Provider.GetExportText,
                  FSXP3DRelative("iFly/744/navdata/FLTPLAN"))),
 
             (ProviderType.JarDesignAirbus,
-             new Match("", "JarDesign Airbus", JarDesignAirbusProvider.GetExportText,
+             new Match(".txt", "JarDesign Airbus", JarDesignAirbusProvider.GetExportText,
                  Xplane("Aircraft/Heavy Metal/320JARDesign/FlightPlans"))),
 
             (ProviderType.PmdgWind,
-             new Match("", "Pmdg wind uplink", PmdgWindUplinkProvider.GetExportText,
+             new Match(".wx", "Pmdg wind uplink", PmdgWindUplinkProvider.GetExportText,
                  FSXP3DRelative("PMDG/WX"))),
 
             (ProviderType.Xplane,
-             new Match("", "X-plane", XplaneProvider.GetExportText,
+             new Match(".fms", "X-plane", XplaneProvider.GetExportText,
                  Xplane("Output/FMS plans"))),
 
             (ProviderType.FsxSteam,
