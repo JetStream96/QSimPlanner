@@ -1,4 +1,9 @@
-﻿version 0.4.4
+﻿version 0.4.5
+* Add several flight plan export formats: Aerosoft Airbus, Flight Factor 777, Flight Factor A320, Ifly 737, Ifly 747 v2, JarDesign Airbus, Pmdg wind uplink, X-plane.
+* Fix Google map API key issue.
+* Minor UI adjustments.
+
+version 0.4.4
 * Fix errors when calculating fuel with certain aircrafts.
 
 version 0.4.3
