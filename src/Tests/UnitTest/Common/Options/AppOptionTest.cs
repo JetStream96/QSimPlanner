@@ -74,7 +74,6 @@ namespace UnitTest.Common.Options
             Assert.AreEqual(o.HideDctInRoute, d.HideDctInRoute);
             Assert.AreEqual(o.ShowTrackIdOnly, d.ShowTrackIdOnly);
             Assert.AreEqual(o.AutoUpdate, d.AutoUpdate);
-            Assert.AreEqual(0, d.ExportCommands.Count);
         }
     }
 }

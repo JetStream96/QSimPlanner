@@ -8,7 +8,6 @@ using QSP.UI.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 using static QSP.RouteFinding.FileExport.Providers.Types;
 using static System.Linq.Enumerable;
