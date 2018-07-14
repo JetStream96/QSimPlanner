@@ -10,7 +10,7 @@ A tool for fuel planning and take-off/landing performance calculations.
 - Possible to find a route which avoids certain country's airspace.
 - Analyze existing routes, and use "AUTO" and "RAND" commands to complete a partial route.
 - Automatically download and parse tracks. Supports North Atlantic Tracks (NATs), Pacific Tracks (PACOTs) and Australian Organised Track Structure (AUSOTS).
-- Export flight plans formats: FS9, FSX, P3D, and PMDG.
+- Export flight plans formats: X-plane, FS9, FSX, FSX: Steam edition, P3D v1 to v4, PMDG, PMDG wind uplink, Aerosoft Airbus, Flight Factor 777, Flight Factor A320, Ifly 737, Ifly 747 v2, JarDesign Airbus.
 - Download real time wind aloft from NOAA.
 - Compute required fuel for flight, using real-world upper wind and several user-specified parameters, such as taxi time, planned holding time and final reserve.
 - NavDataPro/Navigraph data format support.
@@ -21,10 +21,11 @@ A tool for fuel planning and take-off/landing performance calculations.
 - Landing calculation with custom flaps, autobrakes setting, and runway surface conditions.
 
 ### Nav Data
-This program comes with the NavDataPro dataset by Aerosoft. The NavData can be updated with [Aerosoft's NavDataPro](https://www.aerosoft.com/en/fsxp3d/flight-simulator-2004/tools-missions/1750/navdatapro-one-year-subscription-13-datasets) service. If you are using other sources such as Navigraph, use the version for Aerosoft Airbus A318/A319/A320/A321.
+This program comes with the NavDataPro dataset by Aerosoft. The NavData can be updated with [Aerosoft's NavDataPro](https://www.aerosoft.com/en/fsxp3d/flight-simulator-2004/tools-missions/1750/navdatapro-one-year-subscription-13-datasets) service or Navigraph.
 
 ### Project Status
 Currently the aircrafts available are
+- A318/A319/A320/A321
 - 737-600/700/800/900
 - 747-400/400F/8/8F
 - 777-200LR
