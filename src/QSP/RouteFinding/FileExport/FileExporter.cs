@@ -1,4 +1,5 @@
 ﻿using QSP.Common;
+using QSP.Common.Options;
 using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Routes;
@@ -17,15 +18,18 @@ namespace QSP.RouteFinding.FileExport
         private readonly Route route;
         private readonly AirportManager airports;
         private readonly IEnumerable<ExportCommand> commands;
+        private readonly Func<AppOptions> options;
 
         public FileExporter(
             Route route,
             AirportManager airports,
-            IEnumerable<ExportCommand> commands)
+            IEnumerable<ExportCommand> commands,
+            Func<AppOptions> options)
         {
             this.route = route;
             this.airports = airports;
             this.commands = commands;
+            this.options = options;
         }
 
         /// <summary>
@@ -68,7 +72,7 @@ namespace QSP.RouteFinding.FileExport
                     ? GenerateFileName(nameBase + i.ToString().PadLeft(2, '0'), c)
                     : fileName;
 
-                File.WriteAllText(newName, 
+                File.WriteAllText(newName,
                     Providers.Types.GetExportText(c.ProviderType, route, airports));
                 return new Status(newName, true, "", false);
             }
@@ -88,24 +92,27 @@ namespace QSP.RouteFinding.FileExport
                 nameBase, c.Extension, n => "_" + n.ToString(), 1);
         }
 
-        private static bool FileExist(string nameBase, ExportCommand cmd, int n)
+        private bool FileExist(string nameBase, ExportCommand cmd, int n)
         {
             var filePath = GetFileFullPath(nameBase, cmd, n);
             return File.Exists(filePath);
         }
 
+        private string ExportDirectory(ExportCommand c) =>
+            Providers.Types.ExportDirectory(c.DefaultSimulator, c, options());
+
         private void TryCreateDirectories()
         {
             foreach (var i in commands)
             {
-                IgnoreException(() => Directory.CreateDirectory(i.CustomDirectory));
+                IgnoreException(() => Directory.CreateDirectory(ExportDirectory(i)));
             }
         }
 
-        private static string GetFileFullPath(string nameBase, ExportCommand cmd, int n)
+        private string GetFileFullPath(string nameBase, ExportCommand cmd, int n)
         {
             var fileName = nameBase + n.ToString().PadLeft(2, '0') + cmd.Extension;
-            return Path.Combine(cmd.CustomDirectory.RemoveIllegalPathChars(),
+            return Path.Combine(ExportDirectory(cmd).RemoveIllegalPathChars(),
                 fileName.RemoveIllegalFileNameChars());
         }
 

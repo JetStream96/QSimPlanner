@@ -85,8 +85,8 @@ namespace QSP.RouteFinding.FileExport.Providers
             Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
             "Flight Simulator X Files");
 
-			
-		// Some directories may be missing because they cannot be found. 
+
+        // Some directories may be missing because they cannot be found. 
         public static readonly IReadOnlyDictionary<ProviderType, Match> Lookup = Dict
         (
             (ProviderType.Pmdg,
@@ -224,5 +224,21 @@ namespace QSP.RouteFinding.FileExport.Providers
             (SimulatorType.P3Dv4, "P3D v4"),
             (SimulatorType.Xplane11, "X-plane")
         );
+
+        /// <summary>
+        /// Gets the export directory for the specified simulator.
+        /// </summary>
+        /// <param name="sim">null if using the custom export directory</param>
+        /// <exception cref="Exception">The ExportCommand does not support
+        /// the given SimulatorType</exception>
+        public static string ExportDirectory(SimulatorType? sim, ExportCommand c,
+            AppOptions option)
+        {
+            if (sim == null) return c.CustomDirectory;
+            return Lookup[c.ProviderType].SupportedSims
+                .First(x => x.Type == sim.Value)
+                .Path
+                .FullPath(sim.Value, option);
+        }
     }
 }

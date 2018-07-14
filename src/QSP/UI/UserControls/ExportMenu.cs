@@ -27,9 +27,38 @@ namespace QSP.UI.UserControls
             InitializeComponent();
         }
 
+        // Gets the updated AppOption with user-selected commands.
+        private AppOptions UpdatedOption()
+        {
+            var o = appOption.Instance;
+            return new AppOptions(
+                o.NavDataLocation,
+                o.PromptBeforeExit,
+                o.AutoDLTracks,
+                o.AutoDLWind,
+                o.EnableWindOptimizedRoute,
+                o.HideDctInRoute,
+                o.ShowTrackIdOnly,
+                o.AutoUpdate,
+                o.SimulatorPaths,
+                GetSelectedCommands().ToReadOnlySet());
+        }
+
+
+        // Update AppOption instance and try to save the updated option to file.
+        private void UpdateOption(AppOptions newOption)
+        {
+            appOption.Instance = newOption;
+            OptionManager.TrySaveFile(newOption);
+        }
+
         private void ExportFiles(object sender, EventArgs e)
         {
-            var writer = new FileExporter(Route.Expanded, AirportList, commands);
+            var o = UpdatedOption();
+            UpdateOption(o);
+
+            var writer = new FileExporter(Route.Expanded, AirportList, o.ExportCommands,
+                () => appOption.Instance);
             IEnumerable<FileExporter.Status> reports = null;
 
             try
@@ -50,7 +79,7 @@ namespace QSP.UI.UserControls
             if (!reports.Any())
             {
                 view.ShowMessage(
-                    "No route file to export. Please set export settings in options page.",
+                    "Please select the formats you want to export.",
                     MessageLevel.Info);
                 return;
             }
@@ -107,7 +136,8 @@ namespace QSP.UI.UserControls
 
         public IEnumerable<ExportCommand> GetSelectedCommands()
         {
-
+            var panel = formatTableLayoutPanel;
+            return panel.Controls.Cast<ExportMenuRow>().Select(x => x.SelectedCommand);
         }
 
         private void SetLayoutPanel(Locator<AppOptions> appOption)
@@ -131,6 +161,7 @@ namespace QSP.UI.UserControls
             });
         }
 
-        public void ShowMessage(string s, MessageLevel lvl) => ShowMessage(s, lvl);
+        public void ShowMessage(string s, MessageLevel lvl) =>
+            MsgBoxHelper.ShowMessage(this, s, lvl);
     }
 }

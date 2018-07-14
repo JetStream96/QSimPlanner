@@ -63,6 +63,7 @@ namespace QSP.UI.UserControls
                         .Concat(List(Custom)).ToArray();
 
             CheckBox.Text = m.DisplayName;
+            CheckBox.Checked = c.Enabled;
 
             SimComboBox.SelectedIndexChanged += (s, e) =>
             {
@@ -86,6 +87,22 @@ namespace QSP.UI.UserControls
                 BrowseBtn.Enabled = value;
                 BrowseBtn.ForeColor = value ? Color.Black : Color.LightGray;
                 BrowseBtn.BackColor = value ? Color.White : Color.LightGray;
+            }
+        }
+
+        /// <summary>
+        /// Gets the user-selected command.
+        /// </summary>
+        public ExportCommand SelectedCommand
+        {
+            get
+            {
+                var sim = SelectedSimType;
+                return new ExportCommand(
+                    command.ProviderType,
+                    sim == null ? PathTextBox.Text : command.CustomDirectory,
+                    CheckBox.Checked,
+                    sim);
             }
         }
     }
