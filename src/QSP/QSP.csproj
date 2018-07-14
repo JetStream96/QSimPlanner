@@ -436,7 +436,6 @@
     <Compile Include="UI\Forms\Options\OptionsForm.Designer.cs">
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\Options\FlightPlanExportController.cs" />
     <Compile Include="UI\Views\FuelPlan\Routes\Actions\ISupportActionContextMenu.cs" />
     <Compile Include="UI\Views\FuelPlan\Routes\FinderOptionControl.cs">
       <SubType>UserControl</SubType>

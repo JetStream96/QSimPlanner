@@ -24,6 +24,9 @@ namespace QSP.Common.Options
         public bool ShowTrackIdOnly { get; private set; }
         public bool AutoUpdate { get; private set; }
         public IReadOnlyDictionary<SimulatorType, string> SimulatorPaths { get; private set; }
+
+        // This option is only changed when 'export flight plan' button is clicked
+        // in ExportMenu.
         public IReadOnlySet<ExportCommand> ExportCommands { get; private set; }
 
         public AppOptions(

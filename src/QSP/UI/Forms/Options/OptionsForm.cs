@@ -260,7 +260,10 @@ namespace QSP.UI.Forms.Options
                 showTrackIdOnlyCheckBox.Checked,
                 updateFreqComboBox.SelectedIndex == 0,
                 simulatorPathsMenu.GetSimulatorPaths(),
-                new ReadOnlySet<ExportCommand>()); //TODO:
+
+                // Use the current commands as they should be only changed
+                // when 'export flight plan' button is clicked in ExportMenu.
+                appSettingsLocator.Instance.ExportCommands);
         }
 
         private void CancelBtnClick(object sender, EventArgs e)
