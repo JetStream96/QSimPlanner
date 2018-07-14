@@ -85,6 +85,8 @@ namespace QSP.RouteFinding.FileExport.Providers
             Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
             "Flight Simulator X Files");
 
+			
+		// Some directories may be missing because they cannot be found. 
         public static readonly IReadOnlyDictionary<ProviderType, Match> Lookup = Dict
         (
             (ProviderType.Pmdg,
