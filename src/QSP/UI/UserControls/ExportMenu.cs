@@ -44,7 +44,6 @@ namespace QSP.UI.UserControls
                 GetSelectedCommands().ToReadOnlySet());
         }
 
-
         // Update AppOption instance and try to save the updated option to file.
         private void UpdateOption(AppOptions newOption)
         {

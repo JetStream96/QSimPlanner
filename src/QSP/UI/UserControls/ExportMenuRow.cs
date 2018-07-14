@@ -76,6 +76,8 @@ namespace QSP.UI.UserControls
 
             SimComboBox.SetItems(sims);
             if (sims.Length > 0) SimComboBox.SelectedIndex = 0;
+            SimComboBox.Text = c.DefaultSimulator == null ? Custom:
+                SimDisplayName[c.DefaultSimulator.Value];
 
             FileFolderBrowse.LinkFolderBrowse(BrowseBtn, PathTextBox);
         }

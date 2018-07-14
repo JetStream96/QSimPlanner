@@ -41,7 +41,7 @@ namespace QSP.RouteFinding.FileExport
             var cmdToExport = commands.Where(i => i.Enabled).ToList();
             var nameBase = GetFileNameBase().RemoveIllegalFileNameChars();
 
-            TryCreateDirectories();
+            TryCreateDirectories(cmdToExport);
             int num = FileNameNum(cmdToExport, nameBase);
             if (num != -1) return cmdToExport.Select(c => Export(nameBase, c, num));
 
@@ -101,9 +101,9 @@ namespace QSP.RouteFinding.FileExport
         private string ExportDirectory(ExportCommand c) =>
             Providers.Types.ExportDirectory(c.DefaultSimulator, c, options());
 
-        private void TryCreateDirectories()
+        private void TryCreateDirectories(IEnumerable<ExportCommand> enabledCommands)
         {
-            foreach (var i in commands)
+            foreach (var i in enabledCommands)
             {
                 IgnoreException(() => Directory.CreateDirectory(ExportDirectory(i)));
             }

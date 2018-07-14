@@ -1,7 +1,5 @@
 ﻿using QSP.Common.Options;
-using System;
 using System.IO;
-using static QSP.RouteFinding.FileExport.Providers.Types;
 
 namespace QSP.RouteFinding.FileExport
 {
@@ -32,6 +30,6 @@ namespace QSP.RouteFinding.FileExport
         private readonly string relativePath;
         public RelativePath(string relativePath) { this.relativePath = relativePath; }
         public string FullPath(SimulatorType Type, AppOptions Option) =>
-            Path.Combine(Option.SimulatorPaths[Type], relativePath);
+            Path.GetFullPath(Path.Combine(Option.SimulatorPaths[Type], relativePath));
     }
 }

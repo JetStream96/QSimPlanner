@@ -84,8 +84,7 @@ namespace QSP.RouteFinding.FileExport.Providers
         private static readonly string FSXDocumentFolder = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
             "Flight Simulator X Files");
-
-
+        
         // Some directories may be missing because they cannot be found. 
         public static readonly IReadOnlyDictionary<ProviderType, Match> Lookup = Dict
         (
