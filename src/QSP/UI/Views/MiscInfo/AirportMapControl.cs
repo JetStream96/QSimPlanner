@@ -231,8 +231,8 @@ namespace QSP.UI.Views.MiscInfo
 
             wb.Location = Point.Empty;
             wb.Size = MapSize;
-            wb.Navigate("http://rendering/");
-            
+            wb.LoadContent("", "http://localhost", "text/plain");
+
             tableLayoutPanel2.Controls.Add(wb, 0, 1);
             browser = wb;
         }
