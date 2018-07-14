@@ -8,6 +8,7 @@ using QSP.UI.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using static QSP.RouteFinding.FileExport.Providers.Types;
 using static System.Linq.Enumerable;
@@ -17,6 +18,7 @@ namespace QSP.UI.UserControls
     public partial class ExportMenu : UserControl, IMessageDisplay
     {
         private Locator<AppOptions> appOption;
+        private Action showOptions;
 
         // These two properties are required for exporting the route.
         public RouteGroup Route { get; set; }
@@ -121,14 +123,15 @@ namespace QSP.UI.UserControls
 
         private void ChangeSimPaths(object sender, EventArgs e)
         {
-            ParentForm.Hide();
-
-            // TODO: Option page
+            ParentForm.Visible = false;
+            ParentForm.Close();
+            showOptions();
         }
 
-        public void Init(Locator<AppOptions> appOption)
+        public void Init(Locator<AppOptions> appOption, Action showOptions)
         {
             this.appOption = appOption;
+            this.showOptions = showOptions;
 
             SetLayoutPanel(appOption);
         }

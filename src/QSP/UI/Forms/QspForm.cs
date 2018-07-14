@@ -128,7 +128,7 @@ namespace QSP.UI.Forms
         }
 
         private void ShowOptionsForm(
-            FormStartPosition position = FormStartPosition.CenterParent,
+            FormStartPosition position = FormStartPosition.CenterScreen,
             bool showInTaskbar = false,
             bool autoDetectAiracFolder = false)
         {
@@ -136,7 +136,7 @@ namespace QSP.UI.Forms
             optionsForm.StartPosition = position;
             optionsForm.SetControlsAsInOptions();
             if (autoDetectAiracFolder) optionsForm.DetectAndSetAiracFolder();
-            optionsForm.ShowDialog();
+            optionsForm.ShowDialog(this);
         }
 
         private void DoPostUpdateActions()
@@ -275,7 +275,7 @@ namespace QSP.UI.Forms
                 FuelData = profiles.FuelData
             };
 
-            fuelMenu.Init(fuelPlanningModel);
+            fuelMenu.Init(fuelPlanningModel, () => ShowOptionsForm());
 
             toMenu.Init(
                 profiles.AcConfigs,
@@ -316,7 +316,7 @@ namespace QSP.UI.Forms
             InitTrackControl();
 
             aboutMenu.Init("QSimPlanner");
-            navBar.Init(acMenu, fuelMenu, toMenu, ldgMenu, 
+            navBar.Init(acMenu, fuelMenu, toMenu, ldgMenu,
                 miscInfoMenu, tracksContorl, windControl, aboutMenu, panel2);
 
             FormClosing += CloseMain;

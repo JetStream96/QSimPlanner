@@ -93,7 +93,7 @@ namespace QSP.UI.Views.FuelPlan
             InitializeComponent();
         }
 
-        public void Init(FuelPlanningModel model)
+        public void Init(FuelPlanningModel model, Action showOptions)
         {
             this.model = model;
 
@@ -107,7 +107,7 @@ namespace QSP.UI.Views.FuelPlan
             };
 
             exportMenu = new ExportMenu();
-            exportMenu.Init(model.AppOption);
+            exportMenu.Init(model.AppOption, showOptions);
 
             routeFinderControl.Init(routeFinderModel, ParentForm, exportMenu);
 
