@@ -2,40 +2,74 @@
 using QSP.RouteFinding.FileExport;
 using QSP.UI.Util;
 using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using static QSP.LibraryExtension.Types;
 using static QSP.RouteFinding.FileExport.Providers.Types;
 
 namespace QSP.UI.UserControls
 {
     public partial class ExportMenuRow : UserControl
     {
+        private const string Custom = "Custom";
+
+        private ExportCommand command;
+        private Func<AppOptions> option;
+
         public ExportMenuRow()
         {
             InitializeComponent();
         }
 
+        // Null if it's a custom path.
+        private SimulatorType? SelectedSimType
+        {
+            get
+            {
+                var text = SimComboBox.Text;
+                if (text == Custom) return null;
+
+                var m = Lookup[command.ProviderType];
+                var selectedSim = m.SupportedSims.Where(x =>
+                    SimDisplayName[x.Type] == SimComboBox.Text).ToList();
+
+                // Should not happen unless something is missing.
+                if (selectedSim.Count == 0) return null;
+
+                return selectedSim[0].Type;
+            }
+        }
+
+        private string GetDirectoryPath()
+        {
+            var simType = SelectedSimType;
+            if (simType == null) return command.CustomDirectory;
+            var sim = simType.Value;
+            return Lookup[command.ProviderType].SupportedSims
+                .First(x => x.Type == sim)
+                .Path
+                .FullPath(sim, option());
+        }
+
         public void Init(ExportCommand c, Func<AppOptions> option)
         {
+            this.command = c;
+            this.option = option;
+
             var m = Lookup[c.ProviderType];
-            var sims = m.SupportedSims.Select(s => SimDisplayName[s.Type]).ToArray();
+            var sims = m.SupportedSims.Select(s => SimDisplayName[s.Type])
+                        .Concat(List(Custom)).ToArray();
 
             CheckBox.Text = m.DisplayName;
 
             SimComboBox.SelectedIndexChanged += (s, e) =>
             {
-                var selectedSim = m.SupportedSims.Where(x =>
-                    SimDisplayName[x.Type] == SimComboBox.Text).ToList();
+                // Only allow selecting custom path.
+                BrowseBtnEnabled = SimComboBox.SelectedIndex == SimComboBox.Items.Count - 1;
 
-                // Should not happen unless something is missing.
-                if (selectedSim.Count == 0) return;
-
-                var simType = selectedSim[0].Type;
-                var path = m.SupportedSims.First(x => x.Type == simType)
-                                          .Path
-                                          .FullPath(simType, option());
-
+                var path = GetDirectoryPath();
                 PathTextBox.Text = Directory.Exists(path) ? path : "";
             };
 
@@ -43,6 +77,16 @@ namespace QSP.UI.UserControls
             if (sims.Length > 0) SimComboBox.SelectedIndex = 0;
 
             FileFolderBrowse.LinkFolderBrowse(BrowseBtn, PathTextBox);
+        }
+
+        private bool BrowseBtnEnabled
+        {
+            set
+            {
+                BrowseBtn.Enabled = value;
+                BrowseBtn.ForeColor = value ? Color.Black : Color.LightGray;
+                BrowseBtn.BackColor = value ? Color.White : Color.LightGray;
+            }
         }
     }
 }
