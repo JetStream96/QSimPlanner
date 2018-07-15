@@ -18,9 +18,11 @@ This only works on Windows.
 	
 2. Build
 
-Run InstallerBuilder.exe. The installer is src/Installer/Results/QSimPlanner_[version]_setup.exe. 
+Run InstallerBuilder.exe --all. The installer is src/Installer/Results/QSimPlanner_[version]_setup.exe. 
 The portable version is in src/Installer/Output folder. 
 The zipped portable version is src/Installer/Results/QSimPlanner_[version]_portable.zip.
+
+Without the --all argument, only the portable version will be built.
 
 If you come across errors like 'access to xxx folder is denied', or 'xxx file is open in another process', make sure no file inside Output folder is being used by any process (including file explorer).
 
