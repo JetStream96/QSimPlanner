@@ -42,6 +42,7 @@ namespace QSP.UI.UserControls
             }
         }
 
+        // Returned path may be null or not exist.
         private string GetDirectoryPath()
         {
             var simType = SelectedSimType;
@@ -71,12 +72,13 @@ namespace QSP.UI.UserControls
                 BrowseBtnEnabled = SimComboBox.SelectedIndex == SimComboBox.Items.Count - 1;
 
                 var path = GetDirectoryPath();
-                PathTextBox.Text = Directory.Exists(path) ? path : "";
+                var pathValid = path != null;
+                PathTextBox.Text = pathValid ? path : "";
             };
 
             SimComboBox.SetItems(sims);
             if (sims.Length > 0) SimComboBox.SelectedIndex = 0;
-            SimComboBox.Text = c.DefaultSimulator == null ? Custom:
+            SimComboBox.Text = c.DefaultSimulator == null ? Custom :
                 SimDisplayName[c.DefaultSimulator.Value];
 
             FileFolderBrowse.LinkFolderBrowse(BrowseBtn, PathTextBox);

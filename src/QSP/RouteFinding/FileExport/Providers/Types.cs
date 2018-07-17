@@ -212,7 +212,8 @@ namespace QSP.RouteFinding.FileExport.Providers
             return Lookup[type].Export(input);
         }
 
-        public static readonly IReadOnlyDictionary<SimulatorType, string> SimDisplayName = Dict
+        public static readonly IReadOnlyDictionary<SimulatorType, string> SimDisplayName = 
+            Dict
         (
             (SimulatorType.FSX, "FSX"),
             (SimulatorType.FSX_Steam, "FSX: Steam edition"),
@@ -226,6 +227,7 @@ namespace QSP.RouteFinding.FileExport.Providers
 
         /// <summary>
         /// Gets the export directory for the specified simulator.
+        /// Returned path may be null or not exist.
         /// </summary>
         /// <param name="sim">null if using the custom export directory</param>
         /// <exception cref="Exception">The ExportCommand does not support

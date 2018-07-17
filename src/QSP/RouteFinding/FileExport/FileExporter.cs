@@ -51,7 +51,7 @@ namespace QSP.RouteFinding.FileExport
         // Find a file name which allows us to export without name conflicts.
         private int FileNameNum(IReadOnlyList<ExportCommand> cmdToExport, string nameBase)
         {
-            const int maxAttemptCount = 10000;
+            const int maxAttemptCount = 1000;
             for (int i = 1; i <= maxAttemptCount; i++)
             {
                 if (cmdToExport.All(c => !FileExist(nameBase, c, i))) return i;
@@ -62,10 +62,10 @@ namespace QSP.RouteFinding.FileExport
 
         private Status Export(string nameBase, ExportCommand c, int i)
         {
-            var fileName = GetFileFullPath(nameBase, c, i);
-
             try
             {
+                var fileName = GetFileFullPath(nameBase, c, i);
+
                 // Although the file name has been checked to have no conflict, if the user choose
                 // to export multiple files to the same folder, the file names can still collide.
                 var newName = File.Exists(fileName)
@@ -94,10 +94,14 @@ namespace QSP.RouteFinding.FileExport
 
         private bool FileExist(string nameBase, ExportCommand cmd, int n)
         {
-            var filePath = GetFileFullPath(nameBase, cmd, n);
-            return File.Exists(filePath);
+            return DefaultIfThrows(() =>
+            {
+                var filePath = GetFileFullPath(nameBase, cmd, n);
+                return File.Exists(filePath);
+            }, false);
         }
 
+        /// Returned path may be null or not exist.
         private string ExportDirectory(ExportCommand c) =>
             Providers.Types.ExportDirectory(c.DefaultSimulator, c, options());
 
@@ -109,6 +113,7 @@ namespace QSP.RouteFinding.FileExport
             }
         }
 
+        // May throw exception. Returned path may not exist.
         private string GetFileFullPath(string nameBase, ExportCommand cmd, int n)
         {
             var fileName = nameBase + n.ToString().PadLeft(2, '0') + cmd.Extension;

@@ -1,4 +1,5 @@
 ﻿using QSP.Common.Options;
+using QSP.Utilities;
 using System.IO;
 
 namespace QSP.RouteFinding.FileExport
@@ -6,6 +7,8 @@ namespace QSP.RouteFinding.FileExport
     public interface IExportPath
     {
         /// <summary>
+        /// The returned path may be null, if the root directory of
+        /// the given simulator is not set in AppOptions.
         /// The returned path may not exist.
         /// </summary>
         string FullPath(SimulatorType Type, AppOptions Option);
@@ -29,7 +32,16 @@ namespace QSP.RouteFinding.FileExport
     {
         private readonly string relativePath;
         public RelativePath(string relativePath) { this.relativePath = relativePath; }
-        public string FullPath(SimulatorType Type, AppOptions Option) =>
-            Path.GetFullPath(Path.Combine(Option.SimulatorPaths[Type], relativePath));
+
+        /// <summary>
+        /// Return value may be null, or the path may not exist.
+        /// </summary>
+        public string FullPath(SimulatorType Type, AppOptions Option)
+        {
+            var simPath = Option.SimulatorPaths[Type];
+            return ExceptionHelpers.DefaultIfThrows(
+                 () => Path.GetFullPath(Path.Combine(simPath, relativePath)),
+                 null);
+        }
     }
 }
