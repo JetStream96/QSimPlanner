@@ -56,5 +56,13 @@ namespace UnitTest.LibraryExtension
             var arr1 = Arr("p");
             Assert.IsTrue(arr1.SequenceEqual(new[] { "p" }));
         }
+
+        [Test]
+        public void DictTest()
+        {
+            var dict = Dict(("x", 1), ("y", -10));
+            Assert.AreEqual(1, dict["x"]);
+            Assert.AreEqual(-10, dict["y"]);
+        }
     }
 }
