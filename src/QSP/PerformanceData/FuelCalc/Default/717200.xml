@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Data>
+  <!-- 
+       Unless specified otherwise,
+       all weights in kg.
+       all speeds in knots.
+       all altitudes in feet.
+       all fuel flows (FF) in kg/min.
+  -->
+
+  <!-- 26k with winglet -->
+
+  <ProfileName>Boeing 717-200</ProfileName>
+  <HoldingFuelFlow>23.83</HoldingFuelFlow>
+  <HoldingFuelRefWt>30000</HoldingFuelRefWt>
+  <TaxiFuelFlow>12.2</TaxiFuelFlow>'
+  <ApuFuelFlow>0.8333</ApuFuelFlow>
+  <ClimbIAS>280</ClimbIAS>'
+  <DescentIAS>280</DescentIAS>'
+
+  <DataPoint>'
+    <Weight>40000</Weight>
+    <CruiseFF>27.1</CruiseFF>
+    <CruiseIAS>215.9772</CruiseIAS>
+    <ClimbGrad>0.0900</ClimbGrad>
+    <ClimbFF>85.42</ClimbFF>
+    <DescentGrad>0.0668</DescentGrad>
+    <DescentFF>13.08</DescentFF>
+    <OptCruiseAlt>43829</OptCruiseAlt>
+    <EtopsCruiseTAS>0</EtopsCruiseTAS>
+    <!-- Placeholder -->
+    <EtopsCruiseFF>0</EtopsCruiseFF>
+  </DataPoint>
+
+  <DataPoint>'
+    <Weight>85000</Weight>
+    <CruiseFF>53.1</CruiseFF>
+    <CruiseIAS>297</CruiseIAS>
+    <ClimbGrad>0.0430</ClimbGrad>
+    <ClimbFF>94.1</ClimbFF>
+    <DescentGrad>0.0466</DescentGrad>
+    <DescentFF>14.4</DescentFF>
+    <OptCruiseAlt>30072</OptCruiseAlt>
+    <EtopsCruiseTAS>0</EtopsCruiseTAS>
+    <EtopsCruiseFF>0</EtopsCruiseFF>
+  </DataPoint>
+
+  <FuelTable>
+    <Type>0</Type>
+    <Text>
+      30000 35000 40000 45000 50000
+      50 0.5 0.5 0.6 0.6 0.7
+      100 0.7 0.8 0.8 0.9 1
+      150 0.9 1 1.1 1.2 1.3
+      200 1.1 1.2 1.3 1.4 1.5
+      250 1.3 1.4 1.5 1.6 1.8
+      300 1.4 1.6 1.7 1.9 2
+      350 1.6 1.8 1.9 2.1 2.3
+      400 1.8 1.9 2.1 2.3 2.5 
+      600 2.5 2.7 3.0 3.3 3.6 
+      800 3.2 3.5 3.8 4.2 4.7 
+      1000 3.9 4.3 4.7 5.3 5.8 
+      1200 4.6 5.1 5.6 6.3 6.9 
+      1400 5.4 5.9 6.6 7.3 8.1 
+      1600 6.1 6.8 7.5 8.4 9.2 
+      1800 6.9 7.6 8.5 9.4 10.4 
+      2000 7.6 8.5 9.4 10.5 11.7 
+      2200 8.4 9.3 10.4 11.7 12.9 
+      2400 9.2 10.2 11.5 12.8 14.2
+      2600 10.0 11.1 12.5 14.0 15.4 
+    </Text>
+  </FuelTable>
+</Data>
