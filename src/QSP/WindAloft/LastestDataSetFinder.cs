@@ -11,14 +11,14 @@ namespace QSP.WindAloft
         // it's considered a valid page to return.
         // (The source of filter page has about 30000 chars, 
         //  a page with file unavailable has only 700.)
-        private const int sourceCodeLenCriteria = 9000;
+        private const int sourceCodeLenCriteria = 1000;
 
         // @Throws
-        public static FindResult Find()
+        public static FindResult Find(string PageUrl)
         {
             using (var client = WebClientNoCache())
             {
-                var mainPageSource = client.DownloadString(GribDownloader.HomePageUrl);
+                var mainPageSource = client.DownloadString(PageUrl);
                 var urls = GetUrls(mainPageSource);
 
                 foreach (var i in urls)
@@ -27,9 +27,13 @@ namespace QSP.WindAloft
                     {
                         var src = client.DownloadString(i);
 
-                        if (src.Length >= sourceCodeLenCriteria)
+                        if (src.Length >= sourceCodeLenCriteria*10)
                         {
                             return new FindResult() { Url = i, Source = src };
+                        }
+                        if (src.Length >= sourceCodeLenCriteria)
+                        {
+                            return LastestDataSetFinder.Find(i);
                         }
                     }
                     catch { }
