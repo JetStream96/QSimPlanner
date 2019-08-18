@@ -1,4 +1,7 @@
-﻿version 0.4.6
+﻿version 0.4.7
+* Fix weather data downloading bug. (Thank you René.)
+
+version 0.4.6
 * Hot fix for flight plan export path issue that prevents the program from starting.
 
 version 0.4.5
