@@ -26,11 +26,12 @@ namespace QSP.RouteFinding.FileExport.Providers
         JarDesignAirbus = 8,
         PmdgWind = 9,
         Xplane = 10,
-        FsxSteam = 11,
-        P3Dv1 = 12,
-        P3Dv2 = 13,
-        P3Dv3 = 14,
-        P3Dv4 = 15
+        Xplane11 = 11,
+        FsxSteam = 12,
+        P3Dv1 = 13,
+        P3Dv2 = 14,
+        P3Dv3 = 15,
+        P3Dv4 = 16
     }
 
     public static class Types
@@ -135,6 +136,10 @@ namespace QSP.RouteFinding.FileExport.Providers
 
             (ProviderType.Xplane,
              new Match(".fms", "X-plane", XplaneProvider.GetExportText,
+                 Xplane("Output/FMS plans"))),
+
+            (ProviderType.Xplane11,
+             new Match(".fms", "X-plane 11", Xplane11Provider.GetExportText,
                  Xplane("Output/FMS plans"))),
 
             (ProviderType.FsxSteam,
