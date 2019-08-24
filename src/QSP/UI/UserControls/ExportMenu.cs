@@ -2,6 +2,7 @@
 using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.FileExport;
+using QSP.RouteFinding.Navaids;
 using QSP.RouteFinding.Routes;
 using QSP.UI.Util;
 using QSP.UI.Views;
@@ -19,9 +20,10 @@ namespace QSP.UI.UserControls
         private Locator<AppOptions> appOption;
         private Action showOptions;
 
-        // These two properties are required for exporting the route.
+        // These three properties are required for exporting the route.
         public RouteGroup Route { get; set; }
         public AirportManager AirportList { get; set; }
+        public MultiMap<string, Navaid> Navaids { get; set; }
 
         public ExportMenu()
         {
@@ -57,7 +59,7 @@ namespace QSP.UI.UserControls
             var o = UpdatedOption();
             UpdateOption(o);
 
-            var writer = new FileExporter(Route.Expanded, AirportList, o.ExportCommands,
+            var writer = new FileExporter(Route.Expanded, Navaids, AirportList, o.ExportCommands,
                 () => appOption.Instance);
             IEnumerable<FileExporter.Status> reports = null;
 

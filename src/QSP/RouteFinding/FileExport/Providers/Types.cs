@@ -2,6 +2,7 @@
 using QSP.LibraryExtension;
 using QSP.LibraryExtension.Sets;
 using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.Navaids;
 using QSP.RouteFinding.Routes;
 using QSP.Utilities;
 using System;
@@ -201,11 +202,12 @@ namespace QSP.RouteFinding.FileExport.Providers
         public static string GetExtension(ProviderType type) => Lookup[type].FileExtension;
 
         public static string GetExportText(ProviderType type, Route route,
-            AirportManager airports)
+            MultiMap<string, Navaid> navaids, AirportManager airports)
         {
             var input = new ExportInput()
             {
                 Route = route,
+                Navaids = navaids,
                 Airports = airports
             };
 

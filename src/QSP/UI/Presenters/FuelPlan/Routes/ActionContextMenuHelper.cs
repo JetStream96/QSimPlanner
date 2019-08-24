@@ -13,6 +13,8 @@ using System.Text;
 using System.Windows.Forms;
 using static QSP.UI.Views.Factories.FormFactory;
 using System;
+using QSP.LibraryExtension;
+using QSP.RouteFinding.Navaids;
 
 namespace QSP.UI.Presenters.FuelPlan.Routes
 {
@@ -33,6 +35,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             IMessageDisplay view,
             RouteGroup Route,
             IEnumerable<ExportCommand> cmds,
+            MultiMap<string, Navaid> Navaids,
             AirportManager airportList,
             ExportMenu menu)
         {
@@ -46,6 +49,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             {
                 menu.Location = new Point(0, 0);
                 menu.Route = Route;
+                menu.Navaids = Navaids;
                 menu.AirportList = airportList;
 
                 frm.AutoSizeMode = AutoSizeMode.GrowAndShrink;

@@ -111,6 +111,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
                 view,
                 Route,
                 AppOptions.ExportCommands,
+                airwayNetwork.Navaids,
                 AirportList,
                 exportMenu);
         }

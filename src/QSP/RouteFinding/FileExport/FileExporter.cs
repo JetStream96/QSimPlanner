@@ -2,6 +2,7 @@
 using QSP.Common.Options;
 using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.Navaids;
 using QSP.RouteFinding.Routes;
 using QSP.Utilities;
 using System;
@@ -17,16 +18,19 @@ namespace QSP.RouteFinding.FileExport
     {
         private readonly Route route;
         private readonly AirportManager airports;
+        private readonly MultiMap<string, Navaid> navaids;
         private readonly IEnumerable<ExportCommand> commands;
         private readonly Func<AppOptions> options;
 
         public FileExporter(
             Route route,
+            MultiMap<string, Navaid> navaids,
             AirportManager airports,
             IEnumerable<ExportCommand> commands,
             Func<AppOptions> options)
         {
             this.route = route;
+            this.navaids = navaids;
             this.airports = airports;
             this.commands = commands;
             this.options = options;
@@ -73,7 +77,7 @@ namespace QSP.RouteFinding.FileExport
                     : fileName;
 
                 File.WriteAllText(newName,
-                    Providers.Types.GetExportText(c.ProviderType, route, airports));
+                    Providers.Types.GetExportText(c.ProviderType, route, navaids, airports));
                 return new Status(newName, true, "", false);
             }
             catch (Exception ex)
