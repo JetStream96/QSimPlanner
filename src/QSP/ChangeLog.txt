@@ -1,4 +1,7 @@
-﻿version 0.4.7
+﻿version 0.4.8
+* Fix x-plane fms flight exporting bug (Thanks to kbcy for reporting and René for fixing it). 
+
+version 0.4.7
 * Fix weather data downloading bug. (Thank you René.)
 
 version 0.4.6
