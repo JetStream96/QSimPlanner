@@ -2,6 +2,7 @@
 using QSP.LibraryExtension;
 using QSP.LibraryExtension.Sets;
 using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.Navaids;
 using QSP.RouteFinding.Routes;
 using QSP.Utilities;
 using System;
@@ -25,11 +26,12 @@ namespace QSP.RouteFinding.FileExport.Providers
         JarDesignAirbus = 8,
         PmdgWind = 9,
         Xplane = 10,
-        FsxSteam = 11,
-        P3Dv1 = 12,
-        P3Dv2 = 13,
-        P3Dv3 = 14,
-        P3Dv4 = 15
+        Xplane11 = 11,
+        FsxSteam = 12,
+        P3Dv1 = 13,
+        P3Dv2 = 14,
+        P3Dv3 = 15,
+        P3Dv4 = 16
     }
 
     public static class Types
@@ -136,6 +138,10 @@ namespace QSP.RouteFinding.FileExport.Providers
              new Match(".fms", "X-plane", XplaneProvider.GetExportText,
                  Xplane("Output/FMS plans"))),
 
+            (ProviderType.Xplane11,
+             new Match(".fms", "X-plane 11", Xplane11Provider.GetExportText,
+                 Xplane("Output/FMS plans"))),
+
             (ProviderType.FsxSteam,
              new Match(".PLN", "Fsx: Steam edition", FsxProvider.GetExportText,
                 Arr(new SimTypePath(SimulatorType.FSX_Steam, new AbsolutePath(Path.Combine(
@@ -201,11 +207,12 @@ namespace QSP.RouteFinding.FileExport.Providers
         public static string GetExtension(ProviderType type) => Lookup[type].FileExtension;
 
         public static string GetExportText(ProviderType type, Route route,
-            AirportManager airports)
+            MultiMap<string, Navaid> navaids, AirportManager airports)
         {
             var input = new ExportInput()
             {
                 Route = route,
+                Navaids = navaids,
                 Airports = airports
             };
 

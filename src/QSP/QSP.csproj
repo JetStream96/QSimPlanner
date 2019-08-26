@@ -174,6 +174,7 @@
     <Compile Include="RouteFinding\FileExport\Providers\FlightFactorA320Provider.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\JarDesignAirbusProvider.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\Util.cs" />
+    <Compile Include="RouteFinding\FileExport\Providers\Xplane11Provider.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\XplaneProvider.cs" />
     <Compile Include="RouteFinding\Navaids\Navaid.cs" />
     <Compile Include="RouteFinding\Navaids\NavaidExtension.cs" />

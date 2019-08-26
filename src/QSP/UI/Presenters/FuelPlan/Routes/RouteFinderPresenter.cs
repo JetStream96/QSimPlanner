@@ -184,9 +184,10 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             Debug.Assert(view.IsAirportToAirport());
 
             var o = model.FuelPlanningModel.AppOption.Instance;
+            var navaids = model.FuelPlanningModel.AirwayNetwork.Navaids;
             var airportList = model.FuelPlanningModel.AirwayNetwork.AirportList;
             var cmds = o.ExportCommands;
-            ActionContextMenuHelper.ExportRouteFiles(view, Route, cmds, airportList, exportMenu);
+            ActionContextMenuHelper.ExportRouteFiles(view, Route, cmds, navaids, airportList, exportMenu);
         }
 
         public void AnalyzeRoute()
