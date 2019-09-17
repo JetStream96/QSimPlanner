@@ -69,12 +69,18 @@ CYCLE " + cycle.Cycle;
 
             var firstLine = GetLine(from.ID.Substring(0, 4), "ADEP", from, 1);
             var lastLine = GetLine(to.ID.Substring(0, 4), "ADES", to, 1);
+            var airway = "DCT";
             var middleLines = route.WithoutFirstAndLast().Select(n =>
             {
                 var w = n.Waypoint;
-                var a = n.AirwayToNext.Airway;
                 var id = w.ID;
                 var navaid = navaids.Find(id, w);
+
+                // Copy airway to reach this waypoint
+                var a = airway; 
+                // Store airway to next waypoint
+                airway = n.AirwayToNext.Airway;
+                
                 if (navaid != null && navaid.IsVOR) return GetLine(id, a, w, 3);
                 if (navaid != null && navaid.IsNDB) return GetLine(id, a, w, 2);
 
