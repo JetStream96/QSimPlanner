@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -8,6 +9,14 @@ namespace QSP.UI.Views
     {
         private Color _borderColor = Color.DimGray;
         private ButtonBorderStyle _borderStyle = ButtonBorderStyle.Solid;
+        private int myLocalSelectedIndex = -1;
+
+        protected override void OnSelectedIndexChanged(EventArgs e)
+        {
+            if (myLocalSelectedIndex == SelectedIndex) return;
+            myLocalSelectedIndex = SelectedIndex;
+            base.OnSelectedIndexChanged(e);
+        }
 
         protected override void WndProc(ref Message m)
         {
