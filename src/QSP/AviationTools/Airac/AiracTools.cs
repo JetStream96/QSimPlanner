@@ -47,8 +47,8 @@ namespace QSP.AviationTools.Airac
                 int monthEnd = MonthEnglishToNum(a.Substring(7, 3));
                 int dayStart = int.Parse(a.Substring(0, 2));
                 int dayEnd = int.Parse(a.Substring(5, 2));
-                int yearStart = int.Parse(a.Substring(11, 2));
-                int yearEnd = monthEnd < monthStart ? yearStart + 1 : yearStart;
+                int yearEnd = int.Parse(a.Substring(11, 2));
+                int yearStart = monthEnd < monthStart ? yearEnd - 1 : yearEnd;
 
                 var dateStart = new DateTime(2000 + yearStart, monthStart, dayStart);
                 var dateEnd = new DateTime(2000 + yearEnd, monthEnd, dayEnd);
